@@ -1,6 +1,6 @@
 ## Docker Image Usage
-1. [[Starting a container|Starting-a-Container]]
-1. [[Updating the bitwarden image|updating-the-bitwarden-image]]
+1. [[Starting a container|Starting-a-container]]
+1. [[Updating the bitwarden image|Updating-the-bitwarden-image]]
 
 ## Configuration
 1. [[Disable registration of new users|disable-registration-of-new-users]]
