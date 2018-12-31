@@ -1,5 +1,5 @@
 ## Docker Image Usage
-1. [[Starting a container|starting-a-container]]
+1. [[Starting a container|Starting-a-Container]]
 1. [[Updating the bitwarden image|updating-the-bitwarden-image]]
 
 ## Configuration
