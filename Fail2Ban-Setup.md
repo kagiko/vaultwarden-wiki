@@ -1,4 +1,4 @@
-As of release 1.5.0, bitwarden_rs supports logging to file. See [Logging](#logging) above for information on how to set this up.
+As of release 1.5.0, bitwarden_rs supports logging to file. See [[Logging|logging]] for information on how to set this up.
 
 ## Logging Failed Login Attempts
 
