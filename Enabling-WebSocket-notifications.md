@@ -5,7 +5,7 @@ To enable WebSockets notifications, an external reverse proxy is necessary, and 
 - Route everything else, including `/notifications/hub/negotiate`, to the standard Rocket server, by default at port `80`.
 - If using Docker, you may need to map both ports with the `-p` flag
 
-Example configurations are included in the [PROXY.md](https://github.com/dani-garcia/bitwarden_rs/blob/master/PROXY.md) file.
+Example configurations are included in [[Proxy examples|proxy-examples]].
 
 Then you need to enable WebSockets negotiation on the bitwarden_rs side by setting the `WEBSOCKET_ENABLED` variable to `true`:
 
