@@ -24,8 +24,9 @@
 ## Deployment
 1. [[Building your own image|Building-your-own-image]]
 1. [[Building binary|Building-binary]]
-1. [[Available package|Available-packages]]
+1. [[Available packages|Available-packages]]
 1. [[Kubernetes deployment|Kubernetes-deployment]]
+1. [[Proxy examples|Proxy-examples]]
 
 ## Other Information
 1. [[Backing up your vault|Backing-up-your-vault]]
