@@ -2,6 +2,13 @@
 1. [[Starting a container|Starting-a-container]]
 1. [[Updating the bitwarden image|Updating-the-bitwarden-image]]
 
+## Deployment
+1. [[Building your own image|Building-your-own-image]]
+1. [[Building binary|Building-binary]]
+1. [[Available packages|Available-packages]]
+1. [[Kubernetes deployment|Kubernetes-deployment]]
+1. [[Proxy examples|Proxy-examples]]
+
 ## Configuration
 1. [[Disable registration of new users|Disable-registration-of-new-users]]
 1. [[Disable invitations|Disable-invitations]]
@@ -20,13 +27,6 @@
 1. [[Fail2Ban Setup|Fail2Ban-Setup]]
 1. [[Running with systemd-docker|Running-with-systemd-docker]]
 1. [[Other configuration|Other-configuration]]
-
-## Deployment
-1. [[Building your own image|Building-your-own-image]]
-1. [[Building binary|Building-binary]]
-1. [[Available packages|Available-packages]]
-1. [[Kubernetes deployment|Kubernetes-deployment]]
-1. [[Proxy examples|Proxy-examples]]
 
 ## Other Information
 1. [[Backing up your vault|Backing-up-your-vault]]
