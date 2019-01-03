@@ -43,6 +43,12 @@ maxretry = 3
 bantime = 14400
 findtime = 14400
 ```
+Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore use the following action when using Docker:
+
+```
+action = iptables-allports[name=bitwarden, chain=FORWARD]
+```
+
 Feel free to change the options as you see fit.
 
 ## Testing Fail2Ban
