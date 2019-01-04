@@ -1,4 +1,4 @@
-**IMPORTANT**: It's heavily recommended to activate HTTPS before enabling this feature, to avoid posible MITM attacks.
+**IMPORTANT**: It's heavily recommended to activate HTTPS before enabling this feature, to avoid possible MITM attacks.
 
 This page allows a server administrator to view all the registered users and to delete them. It also allows inviting new users, even when registration is disabled.
 
