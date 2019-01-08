@@ -26,6 +26,7 @@ localhost:443 {
     # or 'tls self_signed' to generate a self-signed certificate
 }
 ```
+Caddy can also automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/docs/automatic-https).
 
 ## Nginx (by shauder)
 ```nginx
