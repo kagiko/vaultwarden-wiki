@@ -2,10 +2,6 @@
 
 Email verification has not yet been implemented, so users just need to enter any random token to continue and the change will be applied.
 
-## Creating organization
-
-We use upstream Vault interface directly without any (significant) changes, this is why user is presented with paid options when creating organization. To create an organization, just use the free option, none of the limits apply when using bitwarden_rs as back-end API and after the organization is created it should behave like Enterprise organization.
-
 ## Inviting users into organization
 
 ### With SMTP enabled
