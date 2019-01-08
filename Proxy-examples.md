@@ -23,6 +23,7 @@ localhost:443 {
     }
 
     tls ${SSLCERTIFICATE} ${SSLKEY}
+    # or 'tls self_signed' to generate a self-signed certificate
 }
 ```
 
@@ -81,7 +82,7 @@ server {
 ```
 
 ## Traefik (docker-compose example)
-```traefik
+```yaml
 labels:
     - traefik.docker.network=traefik
     - traefik.enable=true
