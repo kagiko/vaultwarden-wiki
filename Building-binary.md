@@ -49,7 +49,9 @@ npm install
 npm run dist
 ```
 
-Finally copy the contents of the `build` folder into the `bitwarden_rs/target/release/web-vault` folder.
+Finally copy the contents of the `build` folder into the destination folder:
+- If you run with `cargo run --release`, it's `bitwarden_rs/web-vault`.
+- If you run the compiled binary directly, it's next to the binary, in `bitwarden_rs/target/release/web-vault`.
 
 ## Configuration
 The available configuration options are documented in the default `.env` file, and they can be modified by uncommenting the desired options in that file or by setting their respective environment variables. See the Configuration section of this wiki for the main configuration options available.
