@@ -38,7 +38,6 @@ port = 80,443,8081
 filter = bitwarden
 action = iptables-allports[name=bitwarden]
 logpath = /path/to/bitwarden/log
-backend = polling
 maxretry = 3
 bantime = 14400
 findtime = 14400
@@ -56,5 +55,32 @@ Feel free to change the options as you see fit.
 Now just try to login to bitwarden using any email (it doesnt have to be a valid email, just an email format)
 If it works correctly and your IP is banned, you can unban the ip by running:
 ```
-sudo fail2ban-client unban XX.XX.XX.XX bitwarden
+sudo fail2ban-client set bitwarden unbanip XX.XX.XX.XX
+```
+
+## Setting Up Fail2Ban for the Admin Page
+
+If you've enabled the admin console by setting the `ADMIN_TOKEN` environment variable, you can prevent an attacker brute-forcing the admin token using Fail2Ban. Following the same process as for the web vault, create the following filter in `/etc/fail2ban/filter.d/bitwarden-admin.conf`:
+
+```
+[INCLUDES]
+before = common.conf
+
+[Definition]
+failregex = ^.*Unauthorized Error: Invalid admin token\. IP: <HOST>.*$
+ignoreregex =
+```
+
+Then create the following jail configuration in `/etc/fail2ban/jail.d/bitwarden-admin.local` (note that this example uses the `action` directive for the Docker image--modify it if you're using the binary build):
+
+```
+[bitwarden-admin]
+enabled = true
+port = 80,443
+filter = bitwarden-admin
+action = iptables-allports[name=bitwarden, chain=FORWARD]
+logpath = /path/to/bitwarden.log
+maxretry = 5
+bantime = 14400
+findtime = 14400
 ```
