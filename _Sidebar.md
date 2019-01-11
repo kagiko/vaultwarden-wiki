@@ -1,6 +1,7 @@
 ## Docker Image Usage
 1. [[Starting a container|Starting-a-container]]
 1. [[Updating the bitwarden image|Updating-the-bitwarden-image]]
+1. [[Using Docker Compose|Using-Docker-Compose]]
 
 ## Deployment
 1. [[Building your own image|Building-your-own-image]]
