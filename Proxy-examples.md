@@ -37,6 +37,9 @@ server {
   # Specify SSL config if using a shared one.
   #include conf.d/ssl/ssl.conf;
   
+  # Allow large attachments
+  client_max_body_size 128M;
+
   location / {
     proxy_pass http://<SERVER>:80;
     proxy_set_header Host $host;
