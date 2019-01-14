@@ -34,3 +34,4 @@
 1. [[Backing up your vault|Backing-up-your-vault]]
 1. [[Running the server with non-root-user|Running-the-server-with-non-root-user]]
 1. [[Differences from the upstream API implementation|Differences-from-the-upstream-API-implementation]]
+1. [[Supporting upstream development|Supporting-upstream]]
