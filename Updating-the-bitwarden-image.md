@@ -1,4 +1,4 @@
-Updating is straightforward, you just make sure to preserve the mounted volume. If you used the bind-mounted path as in the example above, you just need to `pull` the latest image, `stop` and `rm` the current container and then start a new one the same way as before:
+Updating is straightforward, you just make sure to preserve the mounted volume. If you used the bind-mounted path as in the example [[here|Starting-a-Container]], you just need to `pull` the latest image, `stop` and `rm` the current container and then start a new one the same way as before:
 
 ```sh
 # Pull the latest version
