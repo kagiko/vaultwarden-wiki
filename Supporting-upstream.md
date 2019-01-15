@@ -6,7 +6,7 @@ Many users just buy appropriate licence for their deployment and leave it unused
 
 ## Help translating the apps
 
-There are [projects on Crowdin](https://crowdin.com/profile/kspearrin) for each of the apps. If you're fluent in any language other than english, you can help traslating the apps.
+There are [projects on Crowdin](https://crowdin.com/profile/kspearrin) for each of the apps. If you're fluent in any language other than english, you can help translating the apps.
 
 ## Testing, reporting bugs in clients
 
