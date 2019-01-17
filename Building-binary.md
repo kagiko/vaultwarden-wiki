@@ -46,7 +46,7 @@ git apply vX.Y.Z.patch
 ```sh
 npm run sub:init
 npm install
-npm run dist
+npm run dist:selfhost
 ```
 
 Finally copy the contents of the `build` folder into the destination folder:
