@@ -80,28 +80,29 @@ docker-compose down
 stops and destroys the containers.
 
 If there's no need for websocket notifications, you can run Bitwarden_rs alone. Here's my example. Actually I'm running Bitwarden_rs on my Raspberry Pi and I'm using mprasil/bitwarden:raspberry image. If you want to do the same, remember to change it to the example.
-
-`#docker-compose.yml`
-`version: '3'`
-`services:`
- `bitwarden:`
-  `image: mprasil/bitwarden`
-  `restart: always`
-  `volumes:`
-      `- ./bw-data/:/data/`
-      `- /home/pi/ssl/:/ssl/`
-  `environment:`
-   `ROCKET_TLS: '{certs = "/ssl/fullchain.pem", key = "/ssl/key.pem"}'`
-   `SIGNUPS_ALLOWED: "true"`
-   `SMTP_HOST: "smtp.host.net"`
-   `SMTP_FROM: "no-reply@home.example.com"`
-   `SMTP_PORT: "587"`
-   `SMTP_SSL: "true"`
-   `SMTP_USERNAME: "xxx"`
-   `SMTP_PASSWORD: "yyy"`
-   `LOG_FILE: "/data/bitwarden.log"`
-  `ports:`
-      `- 192.168.1.20:443:80 #Server's home IP`
+```
+#docker-compose.yml
+version: '3'
+services:
+ bitwarden:
+  image: mprasil/bitwarden:raspberry
+  restart: always
+  volumes:
+      - ./bw-data/:/data/
+      - /home/pi/ssl/:/ssl/
+  environment:
+   ROCKET_TLS: '{certs = "/ssl/fullchain.pem", key = "/ssl/key.pem"}'
+   SIGNUPS_ALLOWED: "true"
+   SMTP_HOST: "smtp.host.net"
+   SMTP_FROM: "no-reply@home.example.com"
+   SMTP_PORT: "587"
+   SMTP_SSL: "true"
+   SMTP_USERNAME: "xxx"
+   SMTP_PASSWORD: "yyy"
+   LOG_FILE: "/data/bitwarden.log"
+  ports:
+      - 192.168.1.20:443:80 #Raspberry's home IP
+```
 
 Even the server is running at the home network behind the NAT, I wanted to have Let's Encrypt's certificate. I followed this guide https://github.com/Neilpang/acme.sh/wiki/DNS-alias-mode.
 My domains A record points to the binded IP on the last line and there are no complaints about certificate.
