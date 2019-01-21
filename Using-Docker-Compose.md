@@ -85,7 +85,7 @@ If there's no need for websocket notifications, you can run Bitwarden_rs alone. 
 version: '3'
 services:
  bitwarden:
-  image: mprasil/bitwarden:raspberry
+  image: mprasil/bitwarden
   restart: always
   volumes:
       - ./bw-data/:/data/
@@ -101,7 +101,7 @@ services:
    SMTP_PASSWORD: "yyy"
    LOG_FILE: "/data/bitwarden.log"
   ports:
-      - 192.168.1.20:443:80 #Raspberry's home IP
+      - 192.168.1.20:443:80 #Server's home IP
 ```
 
 Even the server is running at the home network behind the NAT, I wanted to have Let's Encrypt's certificate. I followed this guide https://github.com/Neilpang/acme.sh/wiki/DNS-alias-mode.
