@@ -67,7 +67,7 @@ If you've enabled the admin console by setting the `ADMIN_TOKEN` environment var
 before = common.conf
 
 [Definition]
-failregex = ^.*Unauthorized Error: Invalid admin token\. IP: <HOST>.*$
+failregex = ^.*Invalid admin token\. IP: <HOST>.*$
 ignoreregex =
 ```
 
