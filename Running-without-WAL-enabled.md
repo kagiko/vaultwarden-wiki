@@ -12,7 +12,7 @@ Generally speaking unless you're absolutely sure, that you need to turn WAL off,
 
 ### 0. Make backup
 
-These changes are generally safe and can be done without loosing the data, however [backing up your data](https://github.com/dani-garcia/bitwarden_rs/wiki/Backing-up-your-vault) prior to any changes is strongly advised.
+These changes are generally safe and can be done without data loss, however [backing up your data](https://github.com/dani-garcia/bitwarden_rs/wiki/Backing-up-your-vault) prior to any changes is strongly advised.
 
 ### 1. Disable WAL on old DB
 
