@@ -1,8 +1,12 @@
-bitwarden_rs only provides the API (server) side implementation, so users still rely on clients from upstream. (mobile apps, desktop apps and web Vault) This is a lot of work that is done upstream by 8bit Solutions LLC. At the same time bitwarden_rs supports some paid features and offers that functionality for free. This raises some [questions about sustaining and supporting upstream](https://github.com/dani-garcia/bitwarden_rs/issues/331) development. Many users raised this issue and were asking how they can support upstream while using bitwarden_rs. Unfortunately as of now, there is no donation option, but this wiki is trying to find some ways users can support upstream development.
+bitwarden_rs only provides the API (server) side implementation, so users still rely on clients from upstream. (mobile apps, desktop apps and web Vault) This is a lot of work that is done upstream by 8bit Solutions LLC. At the same time bitwarden_rs supports some paid features and offers that functionality for free. This raises some [questions about sustaining and supporting upstream](https://github.com/dani-garcia/bitwarden_rs/issues/331) development. Many users raised this issue and were asking how they can support upstream while using bitwarden_rs.
+
+## Donating
+
+You can donate directly to the upstream development via [PayPal](https://www.paypal.me/bitwarden).
 
 ## Buying a licence
 
-Many users just buy appropriate licence for their deployment and leave it unused. It's kind of donation because bitwarden_rs can't use the licence in any way.
+Many users just buy appropriate licence for their deployment and leave it unused. It's kind of a donation because bitwarden_rs can't use the licence in any way.
 
 ## Help translating the apps
 
