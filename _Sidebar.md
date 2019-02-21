@@ -14,6 +14,7 @@
 1. [[Disable registration of new users|Disable-registration-of-new-users]]
 1. [[Disable invitations|Disable-invitations]]
 1. [[Enabling admin page|Enabling-admin-page]]
+1. [[Disable the admin token|Disable-admin-token]]
 1. [[Enabling HTTPS|Enabling-HTTPS]]
 1. [[Enabling WebSocket notifications|Enabling-WebSocket-notifications]]
 1. [[Enabling U2F authentication|Enabling-U2F-authentication]]
