@@ -29,6 +29,7 @@
 1. [[Fail2Ban Setup|Fail2Ban-Setup]]
 1. [[Creating a systemd service|Setup-as-a-systemd-service]]
 1. [[Running with systemd-docker|Running-with-systemd-docker]]
+1. [[Running without WAL enabled|Running-without-WAL-enabled]]
 1. [[Other configuration|Other-configuration]]
 
 ## Other Information
