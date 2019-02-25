@@ -20,6 +20,10 @@ Alpine-based amd64 image, same as above but a little bit smaller
 
 Armv7hf image that should run on Raspberry Pi 2 or newer and possibly on any other compatible boards. This image won't run on Raspberry Pi 1 or Raspberry Pi Zero as those use armv6 CPU.
 
+### `mprasil/bitwarden:armv6`
+
+Armv6 image for Raspberry Pi 1 and Raspberry Pi Zero.
+
 ### `mprasil/bitwarden:aarch64`
 
 Aarch64 image, that should run on ARMv8 devices like Raspberry Pi 3 or possibly other ARMv8 based devices.
