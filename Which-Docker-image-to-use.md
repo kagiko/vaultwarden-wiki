@@ -46,5 +46,4 @@ Please add your details here, if you're running the image on a hardware that is 
 |----------------------|--------------|------------------------------|---------------------|--------|-------|
 | Regular 64bit server | Ubuntu 18.04 | x86_64                       | `mprasil/bitwarden` | OK     |       |
 |                      |              |                              |                     |        |       |
-| O-Droid HC2          | Armbian      | arm7l (arm32)                | `registry.lollipopcloud.solutions/arm32v7/bitwarden` | OK | Unofficial image built from upstream sources ; ```
-mprasil/bitwarden:raspberry``` is the official equivalent image |
+| O-Droid HC2          | Armbian      | arm7l (arm32)                | `registry.lollipopcloud.solutions/arm32v7/bitwarden` | OK | Unofficial image built from upstream sources ; ```mprasil/bitwarden:raspberry``` is the official equivalent image |
