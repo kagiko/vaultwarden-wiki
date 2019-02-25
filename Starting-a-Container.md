@@ -7,3 +7,5 @@ docker run -d --name bitwarden -v /bw-data/:/data/ -p 80:80 mprasil/bitwarden:la
 This will preserve any persistent data under `/bw-data/`, you can adapt the path to whatever suits you.
 
 The service will be exposed on port 80.
+
+For non-x86 hardware or to run specific version, you can [[choose some other image|Which-Docker-image-to-use]]. 
