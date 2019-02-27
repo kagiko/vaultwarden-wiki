@@ -57,6 +57,22 @@ server {
   location /notifications/hub/negotiate {
     proxy_pass http://<SERVER>:80;
   }
+
+  # Optionally add extra authentication besides the AUTH_TOKEN
+  # If you don't want this, leave this part out
+  location /admin {
+    # See: https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/
+    auth_basic "Private";
+    auth_basic_user_file /path/to/htpasswd_file;
+
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    proxy_pass http://<SERVER>:80;
+  }
+
 }
 ```
 
