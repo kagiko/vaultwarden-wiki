@@ -1,4 +1,4 @@
-These instructions require you to have compiled the bitwarden_rs binary. If you generated a docker image, you may want to look at [[Running with systemd-docker | Running-with-systemd-docker]]
+These instructions require you to have [[compiled the bitwarden_rs binary|Building-binary]]. If you generated a docker image, you may want to look at [[Running with systemd-docker | Running-with-systemd-docker]]
 ## Setup
 Making bitwarden_rs start on system startup and use the other facilities of systemd (e.g. isolation, logging,...) requires a `.service` file. The following is a usable starting point:
 ```ini
