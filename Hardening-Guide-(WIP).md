@@ -7,6 +7,8 @@ bitwarden_rs also allows registered users to invite other new users to create ac
 
 ## Enable HTTPS
 
+### TLS hardening
+
 ## Disable password hint display
 bitwarden_rs displays password hints on the login page to accommodate small/local deployments that do not have SMTP configured, which could be abused by an attacker to facilitate password-guessing attacks against users on the server. This can be disabled in the admin panel by unchecking the `Show password hints` option or by starting the server with the `SHOW_PASSWORD_HINT=false` environment variable.
 
