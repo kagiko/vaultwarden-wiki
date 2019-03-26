@@ -13,7 +13,7 @@ cargo run --release
 cargo build --release
 ```
 
-When run, the server is accessible in [http://localhost:80](http://localhost:80).
+When run, the server is accessible in [http://localhost:8000](http://localhost:8000).
 
 ### Install the web-vault
 A compiled version of the web vault can be downloaded from [dani-garcia/bw_web_builds](https://github.com/dani-garcia/bw_web_builds/releases).
