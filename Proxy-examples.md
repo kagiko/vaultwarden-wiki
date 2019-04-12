@@ -110,4 +110,5 @@ labels:
     - traefik.web.port=80
     - traefik.hub.frontend.rule=Host:bitwarden.domain.tld;Path:/notifications/hub
     - traefik.hub.port=3012
+    - traefik.hub.protocol=ws
 ```
