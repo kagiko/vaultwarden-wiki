@@ -1,5 +1,3 @@
-# Syncing users from LDAP
-
 LDAP integration is performed using a small service that queries LDAP and invites users to your Bitwarden instance. This service is uncreatively named [bitwarden_rs_ldap](https://github.com/ViViDboarder/bitwarden_rs_ldap).
 
 It is not yet distributed as a binary, but there is an available Docker image [vividboarder/bitwarden_rs_ldap](https://hub.docker.com/r/vividboarder/bitwarden_rs_ldap).
