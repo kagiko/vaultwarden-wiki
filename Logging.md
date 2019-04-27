@@ -13,7 +13,7 @@ Note that if you're using the docker image, you'll most likely want to use a fil
 
 # Change the log level
 
-To reduce the amount of log messages, you can set the log level to 'critical' (default is 'normal') and disable the extended logging (enabled by default). The [Log level](https://api.rocket.rs/v0.3/rocket/config/enum.LoggingLevel.html) can be adjusted with the environment variable `ROCKET_LOG`. Extended logging can be deactivated by setting the environment variable `EXTENDED_LOGGING` to 'false'.
+To reduce the amount of log messages, you can set the log level to 'critical' (default is 'normal') and disable the extended logging (enabled by default). The [Log level](https://api.rocket.rs/v0.3/rocket/config/enum.LoggingLevel.html) can be adjusted with the environment variable `ROCKET_LOG`. Extended logging can be deactivated by setting the environment variable `EXTENDED_LOGGING` to 'false'. Be advised, disabling `EXTENDED_LOGGING` will stop the log file from being written to.
 
 ```sh
 docker run -d --name bitwarden \
