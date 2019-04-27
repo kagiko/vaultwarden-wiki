@@ -57,6 +57,7 @@ If it works correctly and your IP is banned, you can unban the ip by running:
 ```
 sudo fail2ban-client set bitwarden unbanip XX.XX.XX.XX
 ```
+If Fail2Ban does not appear to be functioning, verify that the path to the Bitwarden log file is correct. For Docker: If the specified log file is not being generated and/or updated, make sure the `EXTENDED_LOGGING` env variable is set to true.
 
 ## Setting Up Fail2Ban for the Admin Page
 
@@ -83,4 +84,4 @@ logpath = /path/to/bitwarden.log
 maxretry = 5
 bantime = 14400
 findtime = 14400
-```
+``
