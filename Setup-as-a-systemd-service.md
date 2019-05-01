@@ -49,6 +49,24 @@ To enable autostart, run
 $ sudo systemctl enable bitwarden_rs.service
 ```
 In the same way you can `stop`, `restart` and `disable` the service.
+### Updating bitwarden_rs
+After compiling the new version of bitwarden_rs, you can copy the compiled (new) binary and replace the existing (old) binary and then restart the service:
+```
+$ sudo systemctl restart bitwarden_rs.service
+```
+### Uninstalling bitwarden_rs
+Before doing anything else, you should stop and disable the service:
+```
+$ sudo systemctl disable --now bitwarden_rs.service
+```
+Then you can delete the binary, the `.env` file, the web-vault folder (if installed) and the user data (if necessary). Remember to also remove specially created users,groups and firewall rules (if needed) and the systemd file.
+
+After removing the systemd file you should make systemd aware of it via:
+```
+$ sudo systemctl daemon-reload
+```
+
+### Logging and status view
 If you want to see the logging output, run
 ```
 $ journalctl -u bitwarden_rs.service
@@ -57,5 +75,5 @@ or to see a more concise state of the service, run
 ```
 $ systemctl status bitwarden_rs.service
 ```
-
+### More information
 For more information on .service files, see the manpages of [systemd.service](https://www.freedesktop.org/software/systemd/man/systemd.service.html) and (for the security configuration) [systemd.exec](https://www.freedesktop.org/software/systemd/man/systemd.exec.html)
