@@ -47,6 +47,8 @@ Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefor
 ```
 action = iptables-allports[name=bitwarden, chain=FORWARD]
 ```
+**NOTE**: 
+Do not use this if you use a reverse proxy before docker container. If proxy, like apache2 or nginx is used, use the ports of the proxy and do not use chain=FORWARD, only when using Docker **without** proxy!
 
 Feel free to change the options as you see fit.
 
