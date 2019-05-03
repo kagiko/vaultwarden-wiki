@@ -7,7 +7,10 @@ After specifying the log file location, failed login attempts will appear in the
 ```
 [YYYY-MM-DD hh:mm:ss][bitwarden_rs::api::identity][ERROR] Username or password is incorrect. Try again. IP: XXX.XXX.XXX.XXX. Username: email@domain.com.
 ```
-
+Install Fail2Ban (under Debian/Rasbian)
+```
+sudo apt-get install fail2ban -y
+```
 ## Fail2Ban Filter
 
 Create the filter file
