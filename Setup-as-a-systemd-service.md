@@ -75,5 +75,31 @@ or to see a more concise state of the service, run
 ```
 $ systemctl status bitwarden_rs.service
 ```
-### More information
+
+## Troubleshooting
+### Sandboxing options with older systemd versions
+In RHEL 7 (and debian 8), the used systemd does not support some of the used isolation options. ([#445](https://github.com/dani-garcia/bitwarden_rs/issues/445),[#363](https://github.com/dani-garcia/bitwarden_rs/issues/363))
+This can result in one of the following errors:
+```
+Failed at step NAMESPACE spawning /home/bitwarden_rs/bitwarden_rs: Permission denied
+```
+or 
+```
+Failed to parse protect system value
+```
+To work around this you can comment out some or all of these settings by putting a `#` in front of the lines containing
+`PrivateTmp`, `PrivateDevices`, `ProtectHome`, `ProtectSystem` and `ReadWriteDirectories`. While commenting out all of them will probably work, it's not recommended as these are security measures which are good to have. To see which options your systemd supports, look at the output of
+```
+$ systemctl --version
+```
+to determine your systemd version and compare with [systemd/NEWS.md](https://github.com/systemd/systemd/blob/master/NEWS).
+
+After editing your `.service` file, don't forget to 
+```
+$ sudo systemctl daemon-reload
+```
+before (re-)starting your service.
+
+
+## More information
 For more information on .service files, see the manpages of [systemd.service](https://www.freedesktop.org/software/systemd/man/systemd.service.html) and (for the security configuration) [systemd.exec](https://www.freedesktop.org/software/systemd/man/systemd.exec.html)
