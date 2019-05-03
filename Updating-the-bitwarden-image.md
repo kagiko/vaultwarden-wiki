@@ -36,9 +36,9 @@ docker rm bitwarden_data
 ```
 
 
-Updating when using systemd service (in this case Debian/Rasbian)
+## Updating when using systemd service (in this case Debian/Rasbian)
 
-```
+```sh
 Sudo systemctl restart bitwarden.service
 Sudo docker prune -f
 #WARNING this could delete stopped or unused containers, etc. not associated with bitwarden_rs
@@ -65,12 +65,4 @@ Sudo crontab -e
 
 0 3 * * * sudo /usr/bin/docker system prune -f
 ```
-Use
-```
-docker which
-```
-If 
-```
-/usr/bin/docker
-```
-is not the correct path to docker
+Use `docker which` if `/usr/bin/docker` is not the correct path to docker
