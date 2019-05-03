@@ -34,3 +34,43 @@ docker rm bitwarden_data
 
 # Alternatively you can keep data container around for future updates in which case you can skip last step.
 ```
+
+
+Updating when using systemd service (in this case Debian/Rasbian)
+
+```
+Sudo systemctl restart bitwarden.service
+Sudo docker prune -f
+#WARNING this could delete stopped or unused containers, etc. not associated with bitwarden_rs
+#be carefull and look which containers you need
+docker ps -a
+shows stopped containers
+#WARNING! This will remove:
+#        - all stopped #containers
+#        - all networks not used by at least one container
+#        - all dangling images
+#        - all dangling build cache
+#you can list docker images with
+docker images
+#there you see all unused images
+#
+```
+The restart command will stop the container, pull the newest images, run the container again.
+The prune command will remove the now old container (-f stands for: Do not ask for confirmation).
+
+Put these into cronjob if you want (time can be changed):
+```
+Sudo crontab -e
+0 2 * * * sudo systemctl restart bitwarden.service
+
+0 3 * * * sudo /usr/bin/docker system prune -f
+```
+Use
+```
+docker which
+```
+If 
+```
+/usr/bin/docker
+```
+is not the correct path to docker
