@@ -65,4 +65,8 @@ Sudo crontab -e
 
 0 3 * * * sudo /usr/bin/docker system prune -f
 ```
-Use `docker which` if `/usr/bin/docker` is not the correct path to docker
+Use the command
+
+`docker which` 
+
+if `/usr/bin/docker` is not the correct path to docker
