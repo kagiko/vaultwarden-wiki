@@ -10,7 +10,7 @@ version: "3"
 
 services:
   bitwarden:
-    image: mprasil/bitwarden
+    image: bitwardenrs/server
     restart: always
     volumes:
       - ./bw-data:/data
@@ -79,13 +79,13 @@ docker-compose down
 ```
 stops and destroys the containers.
 
-If there's no need for websocket notifications, you can run Bitwarden_rs alone. Here's my example. Actually I'm running Bitwarden_rs on my Raspberry Pi and I'm using mprasil/bitwarden:raspberry image. If you want to do the same, remember to change it to the example.
+If there's no need for websocket notifications, you can run Bitwarden_rs alone. Here's my example. Actually I'm running Bitwarden_rs on my Raspberry Pi and I'm using bitwardenrs/server:raspberry image. If you want to do the same, remember to change it to the example.
 ```
 #docker-compose.yml
 version: '3'
 services:
  bitwarden:
-  image: mprasil/bitwarden
+  image: bitwardenrs/server
   restart: always
   volumes:
       - ./bw-data/:/data/

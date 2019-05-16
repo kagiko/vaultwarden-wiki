@@ -1,4 +1,4 @@
-By default `mprasil/bitwarden` is using root user to run service inside the container. There are few things you need to set to run the container as non-root user if you wish to do so:
+By default `bitwardenrs/server` is using root user to run service inside the container. There are few things you need to set to run the container as non-root user if you wish to do so:
 
 1. Make sure that the directory, you're mounting inside the container will be writable by the user. For example if you decide to run as `nobody`, the directory needs to be writable by user with id 65534. For other ways to specify user inside the container, see the [docker documentation](https://docs.docker.com/engine/reference/run/#user), in our examples here we will use `nobody`.
 
@@ -23,7 +23,7 @@ docker run -d \
   -e ROCKET_PORT=1024 \
   -v /bw-data/:/data/ \
   -p 80:1024 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```
 
 Notice that the port mapping (`-p 80:1024`) reflects the `ROCKET_PORT` setting. 

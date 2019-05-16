@@ -5,6 +5,6 @@ docker run -d --name bitwarden \
   -e SIGNUPS_ALLOWED=false \
   -v /bw-data/:/data/ \
   -p 80:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```
 Note: While users can't register on their own, they can still be invited by already registered users. See [[Disable invitations|disable-invitations]] if you also want to disable that.

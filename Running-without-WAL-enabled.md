@@ -41,7 +41,7 @@ docker run -d --name bitwarden \
   -e ENABLE_DB_WAL=false \
   -v /bw-data/:/data/ \
   -p 80:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```
 Make sure to always start with this variable present as starting even once without it will enable WAL again. (if that happens start at the [first step](#1-disable-wal-on-old-db) to disable it again)
 

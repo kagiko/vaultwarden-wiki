@@ -5,5 +5,5 @@ docker run -d --name bitwarden \
   -e SHOW_PASSWORD_HINT=false \
   -v /bw-data/:/data/ \
   -p 80:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```

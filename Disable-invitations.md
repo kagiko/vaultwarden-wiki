@@ -6,5 +6,5 @@ docker run -d --name bitwarden \
   -e INVITATIONS_ALLOWED=false \
   -v /bw-data/:/data/ \
   -p 80:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```

@@ -10,7 +10,7 @@ docker run -d --name bitwarden \
   -e SMTP_PASSWORD=<password> \
   -v /bw-data/:/data/ \
   -p 80:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```
 
 When `SMTP_SSL` is set to `true`(this is the default), only TLSv1.1 and TLSv1.2 protocols will be accepted and `SMTP_PORT` will default to `587`. If set to `false`, `SMTP_PORT` will default to `25` and the connection won't be encrypted. This can be very insecure, use this setting only if you know what you're doing.

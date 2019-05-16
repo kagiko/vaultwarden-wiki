@@ -2,14 +2,14 @@ Updating is straightforward, you just make sure to preserve the mounted volume. 
 
 ```sh
 # Pull the latest version
-docker pull mprasil/bitwarden:latest
+docker pull bitwardenrs/server:latest
 
 # Stop and remove the old container
 docker stop bitwarden
 docker rm bitwarden
 
 # Start new container with the data mounted
-docker run -d --name bitwarden -v /bw-data/:/data/ -p 80:80 mprasil/bitwarden:latest
+docker run -d --name bitwarden -v /bw-data/:/data/ -p 80:80 bitwardenrs/server:latest
 ```
 Then visit [http://localhost:80](http://localhost:80)
 
@@ -17,7 +17,7 @@ In case you didn't bind mount the volume for persistent data, you need an interm
 
 ```sh
 # Pull the latest version
-docker pull mprasil/bitwarden:latest
+docker pull bitwardenrs/server:latest
 
 # Create intermediate container to preserve data
 docker run --volumes-from bitwarden --name bitwarden_data busybox true
@@ -27,7 +27,7 @@ docker stop bitwarden
 docker rm bitwarden
 
 # Start new container with the data mounted
-docker run -d --volumes-from bitwarden_data --name bitwarden -p 80:80 mprasil/bitwarden:latest
+docker run -d --volumes-from bitwarden_data --name bitwarden -p 80:80 bitwardenrs/server:latest
 
 # Optionally remove the intermediate container
 docker rm bitwarden_data

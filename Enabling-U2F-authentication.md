@@ -8,7 +8,7 @@ docker run -d --name bitwarden \
   -e DOMAIN=https://bw.domain.tld \
   -v /bw-data/:/data/ \
   -p 80:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```
 
 Note that the value has to include the `https://` and it may include a port at the end (in the format of `https://bw.domain.tld:port`) when not using `443`.

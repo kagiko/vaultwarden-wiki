@@ -15,12 +15,12 @@ Requires=docker.service
 
 [Service]
 TimeoutStartSec=0
-ExecStartPre=/usr/bin/docker pull mprasil/bitwarden:latest
+ExecStartPre=/usr/bin/docker pull bitwardenrs/server:latest
 ExecStart=/usr/bin/systemd-docker --cgroups name=systemd --env run \
   -p 8080:80 \
   -p 8081:3012 \
   -v /opt/bw-data:/data/ \
-  --rm --name %n mprasil/bitwarden:latest
+  --rm --name %n bitwardenrs/server:latest
 Restart=always
 RestartSec=10s
 Type=notify

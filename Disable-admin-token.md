@@ -7,5 +7,5 @@ docker run -d --name bitwarden \
   -e DISABLE_ADMIN_TOKEN=true \
   -v /bw-data/:/data/ \
   -p 80:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```

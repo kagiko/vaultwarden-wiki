@@ -7,5 +7,5 @@ docker run -d --name bitwarden \
   -e ROCKET_WORKERS=20 \
   -v /bw-data/:/data/ \
   -p 80:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```

@@ -14,7 +14,7 @@ docker run -d --name bitwarden \
   -v /ssl/keys/:/ssl/ \
   -v /bw-data/:/data/ \
   -p 443:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```
 Note that you need to mount ssl files and you need to forward appropriate port.
 
@@ -34,5 +34,5 @@ docker run -d --name bitwarden \
   -v /etc/letsencrypt/:/ssl/ \
   -v /bw-data/:/data/ \
   -p 443:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```

@@ -7,5 +7,5 @@ docker run -d --name bitwarden \
   -e ROCKET_LIMITS={json=10485760} \
   -v /bw-data/:/data/ \
   -p 80:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```

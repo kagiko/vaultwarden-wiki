@@ -7,7 +7,7 @@ docker run -d --name bitwarden \
   -e DATA_FOLDER=/persistent \
   -v /bw-data/:/persistent/ \
   -p 80:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```
 
 Notice, that you need to adapt your volume mount accordingly.
@@ -22,7 +22,7 @@ docker run -d --name bitwarden \
   -v /bw-data/:/data/ \
   -v /bw-database/:/database/ \
   -p 80:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```
 
 Note, that you need to remember to mount the volume for both database and other persistent data if they are different.
@@ -37,7 +37,7 @@ docker run -d --name bitwarden \
   -v /bw-data/:/data/ \
   -v /bw-attachments/:/attachments/ \
   -p 80:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```
 
 Note, that you need to remember to mount the volume for both attachments and other persistent data if they are different.
@@ -52,7 +52,7 @@ docker run -d --name bitwarden \
   -v /bw-data/:/data/ \
   -v /icon_cache/ \
   -p 80:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```
 
 Note, that in the above example we don't mount the volume locally, which means it won't be persisted during the upgrade unless you use intermediate data container using `--volumes-from`. This will impact performance as bitwarden will have to re-download the icons on restart, but might save you from having stale icons in cache as they are not automatically cleaned.

@@ -12,5 +12,5 @@ docker run -d --name bitwarden \
   -e YUBICO_SECRET_KEY=ABCDEABCDEABCDEABCDE= \
   -v /bw-data/:/data/ \
   -p 80:80 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```

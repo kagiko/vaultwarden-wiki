@@ -15,7 +15,7 @@ docker run -d --name bitwarden \
   -v /bw-data/:/data/ \
   -p 80:80 \
   -p 3012:3012 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
 ```
 
 Note: The reason for this workaround is the lack of support for WebSockets from Rocket (though [it's a planned feature](https://github.com/SergioBenitez/Rocket/issues/90)), which forces us to launch a secondary server on a separate port.

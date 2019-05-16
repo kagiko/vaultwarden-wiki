@@ -12,4 +12,4 @@ docker run -d --name bitwarden \
   -e ROCKET_PORT=8080 \
   -v /bw-data/:/data/ \
   -p 80:8080 \
-  mprasil/bitwarden:latest
+  bitwardenrs/server:latest
