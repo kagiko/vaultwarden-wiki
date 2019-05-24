@@ -14,4 +14,4 @@ docker run -d --name bitwarden \
   bitwardenrs/server:latest
 ```
 
-After this, the page will be available in the `/admin` subdomain.
+After this, the page will be available in the `/admin` subdirectory.
