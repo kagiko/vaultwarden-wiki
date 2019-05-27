@@ -92,8 +92,7 @@ server {
 
     RewriteEngine On
     RewriteCond %{HTTP:Upgrade} =websocket [NC]
-    RewriteRule /(.*)           ws://<SERVER>:3012/$1 [P,L]
-
+    RewriteRule /notifications/hub(.*) ws://<SERVER>:3012/$1 [P,L]
     ProxyPass / http://<SERVER>:80/
 
     ProxyPreserveHost On
