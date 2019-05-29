@@ -36,6 +36,7 @@
 1. [[Other configuration|Other-configuration]]
 
 ## Other Information
+1. [[Importing data from Keepass or KeepassX|Importing-data-from-Keepass-or-KeepassX]]
 1. [[Backing up your vault|Backing-up-your-vault]]
 1. [[Running the server with non-root-user|Running-the-server-with-non-root-user]]
 1. [[Differences from the upstream API implementation|Differences-from-the-upstream-API-implementation]]
