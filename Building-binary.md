@@ -7,10 +7,10 @@
 
 ## Run/Compile
 ```sh
-# Compile and run
-cargo run --release
-# or just compile (binary located in target/release/bitwarden_rs)
-cargo build --release
+# Compile with sqlite backend and run
+cargo run --features sqlite --release
+# or just compile with sqlite (binary located in target/release/bitwarden_rs)
+cargo build --features sqlite --release
 ```
 
 When run, the server is accessible in [http://localhost:8000](http://localhost:8000).
@@ -58,7 +58,7 @@ The available configuration options are documented in the default `.env` file, a
 
 Note: the environment variables override the values set in the `.env` file.
 
-## How to recreate database schemas (for developers)
+## How to recreate database schemas for the sqlite backend (for developers)
 Install diesel-cli with cargo:
 ```sh
 cargo install diesel_cli --no-default-features --features sqlite-bundled
@@ -78,5 +78,5 @@ Apply the migrations and save the generated schemas as follows:
 diesel migration redo
 
 # This step should be done automatically when using diesel-cli > 1.3.0
-# diesel print-schema > src/db/schema.rs
+# diesel print-schema > src/db/sqlite/schema.rs
 ```
