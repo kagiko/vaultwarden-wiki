@@ -6,11 +6,19 @@
 
 
 ## Run/Compile
+### SQlite backend
 ```sh
 # Compile with sqlite backend and run
 cargo run --features sqlite --release
 # or just compile with sqlite (binary located in target/release/bitwarden_rs)
 cargo build --features sqlite --release
+```
+### MySQL backend
+```sh
+# Compile with mysql backend and run
+cargo run --features mysql --release
+# or just compile with mysql (binary located in target/release/bitwarden_rs)
+cargo build --features mysql --release
 ```
 
 When run, the server is accessible in [http://localhost:8000](http://localhost:8000).
