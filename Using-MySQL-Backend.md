@@ -17,5 +17,5 @@ docker run -d --name bitwarden --net <some-docker-network>\
  -p 443:80 -e ROCKET_TLS='{certs="/ssl/<your ssl cert>",key="/ssl/<your ssl key>"}'\
  -e RUST_BACKTRACE=1 -e DATABASE_URL='mysql://<bitwarden_user>:<bitwarden_pw>@mysql/bitwarden'\
  -e ADMIN_TOKEN=<some_random_token_as_per_above_explanation>\
- -e ENABLE_DB_WAL='false' <you bitwarden image name>
+ -e ENABLE_DB_WAL='false' <you bitwarden_rs image name>
 ```
