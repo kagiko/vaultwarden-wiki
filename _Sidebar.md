@@ -34,7 +34,7 @@
 1. [[Running docker container with non-root user|Running-docker-container-with-non-root-user]]
 1. [[Syncing users from LDAP|Syncing-users-from-LDAP]]
 1. [[Other configuration|Other-configuration]]
-1. [[Using MySQL Backend]]
+1. [[Using the MySQL Backend]]
 
 ## Other Information
 1. [[Importing data from Keepass or KeepassX|Importing-data-from-Keepass-or-KeepassX]]
