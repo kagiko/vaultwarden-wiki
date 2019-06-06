@@ -8,5 +8,5 @@ docker build -t bitwarden_rs .
 To build with MySQL backend run:
 ```sh
 # Build the docker image:
-docker build -t bitwarden_rs --build-arg DB=sqlite .
+docker build -t bitwarden_rs --build-arg DB=mysql .
 ``` 
