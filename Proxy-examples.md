@@ -97,6 +97,7 @@ server {
 
     ProxyPreserveHost On
     ProxyRequests Off
+    RequestHeader set X-Real-IP %{REMOTE_ADDR}s
 </VirtualHost>
 ```
 
