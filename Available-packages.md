@@ -10,4 +10,6 @@ It bundles the server and the web vault.
 
 ## CentOS7 / RHEL7
 
-A RPM Repository is packaged by @MrMEEE here: https://copr.fedorainfracloud.org/coprs/mrmeee/bitwarden_rs/ ... This also includes the webinterface in an additional package.
+A RPM Repository is packaged by @MrMEEE here: https://copr.fedorainfracloud.org/coprs/mrmeee/bitwarden_rs/ ... This also includes the webinterface in an additional package. 
+
+Any issues with the RPMs can be reported here: https://github.com/MrMEEE/bitwarden_rs_rpm/issues
