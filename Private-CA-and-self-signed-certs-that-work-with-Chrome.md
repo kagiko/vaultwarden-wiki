@@ -32,3 +32,7 @@ openssl x509 -req -in bitwarden.csr -CA myCA.pem -CAkey myCA.key -CAcreateserial
 ```
 
 Add the root certificate and the bitwarden certificate to client computers.
+
+
+
+For reference, see here: https://deliciousbrains.com/ssl-certificate-authority-for-local-https-development/
