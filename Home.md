@@ -16,7 +16,6 @@ Basically full implementation of Bitwarden API is provided including:
 ## Missing Features
 * Email confirmation
 * Other two-factor systems:
-  * Duo
   * Email codes
 
 ## Get in touch
