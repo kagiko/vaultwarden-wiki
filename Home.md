@@ -12,6 +12,7 @@ Basically full implementation of Bitwarden API is provided including:
 * Website icons API
 * Authenticator and U2F support
 * YubiKey OTP
+* Duo Security
 
 ## Missing Features
 * Email confirmation
