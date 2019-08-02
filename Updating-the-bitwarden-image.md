@@ -35,12 +35,31 @@ docker rm bitwarden_data
 # Alternatively you can keep data container around for future updates in which case you can skip last step.
 ```
 
+bitwarden_rs can also be run with Podman, which is an open source Docker alternative. 
+
+```sh
+# Pull the latest version
+podman pull bitwardenrs/server:latest
+
+# Stop and remove the old container
+podman stop bitwarden
+podman rm bitwarden
+
+# Start new container with the data mounted
+podman run -d --name bitwarden -v /bw-data/:/data/:Z -p 8080:8080 bitwardenrs/server:latest
+```
+Then visit [http://localhost:8080](http://localhost:8080). It is then recommended to use a reverse proxy to be able to use port `:80`.
+
+If you want to run the container as root, do this instead:
+```sh
+podman run -d --name bitwarden -v /bw-data/:/data/:Z -p 80:8080 bitwardenrs/server:latest
+```
 
 ## Updating when using systemd service (in this case Debian/Rasbian)
 
 ```sh
-Sudo systemctl restart bitwarden.service
-Sudo docker prune -f
+sudo systemctl restart bitwarden.service
+sudo docker prune -f
 #WARNING this could delete stopped or unused containers, etc. not associated with bitwarden_rs
 #be carefull and look which containers you need
 docker ps -a
