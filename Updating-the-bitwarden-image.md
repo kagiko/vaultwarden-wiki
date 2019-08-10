@@ -35,7 +35,7 @@ docker rm bitwarden_data
 # Alternatively you can keep data container around for future updates in which case you can skip last step.
 ```
 
-## Updating when using systemd service (in this case Debian/Rasbian)
+## Updating when using systemd service (in this case Debian/Raspbian)
 
 ```sh
 sudo systemctl restart bitwarden.service
