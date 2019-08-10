@@ -39,7 +39,7 @@ docker rm bitwarden_data
 
 ```sh
 sudo systemctl restart bitwarden.service
-sudo docker prune -f
+sudo docker system prune -f
 #WARNING this could delete stopped or unused containers, etc. not associated with bitwarden_rs
 #be carefull and look which containers you need
 docker ps -a
