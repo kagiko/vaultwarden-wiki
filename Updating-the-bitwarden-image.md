@@ -66,6 +66,6 @@ Sudo crontab -e
 ```
 Use the command
 
-`docker which` 
+`which docker` 
 
 if `/usr/bin/docker` is not the correct path to docker
