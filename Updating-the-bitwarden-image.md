@@ -42,8 +42,10 @@ sudo systemctl restart bitwarden.service
 sudo docker system prune -f
 #WARNING this could delete stopped or unused containers, etc. not associated with bitwarden_rs
 #be carefull and look which containers you need
+
 docker ps -a
-shows stopped containers
+#shows stopped containers
+
 #WARNING! This will remove:
 #        - all stopped #containers
 #        - all networks not used by at least one container
