@@ -51,7 +51,7 @@ It's possible to directly specify environment variables in the unit file in two 
 To verify that your environment variables are set correctly, check the output of `systemctl show bitwarden.service`
 for an `Environment` line.
 
-It's also possible to store environment variables in a separate file using the `EnvironmentFile` directive in the unit file.
+It's also possible to store environment variables in a separate file using the `EnvironmentFile` directive in the unit file. In this case remember to set the `--env` option in the docker commandline as shown above, otherwise the environment file will not be processed.
 
 Systemd can source a file of the form:
 
