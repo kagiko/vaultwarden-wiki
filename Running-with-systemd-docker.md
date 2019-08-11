@@ -58,6 +58,14 @@ Systemd can source a file of the form:
 ```shell
 Key="Value"
 ```
+Example for `EnvironmentFile`:
+```
+DATABASE_URL="/data/bitwarden.sqlite3"
+LOG_FILE="/data/bitwarden.log"
+ROCKET_LOG="critical"
+```
+
+
 
 However, the systemd project does not mandate where this file should be stored. Consult your distribution's documentation for the
 best location for this file. For example, RedHat based distributions typically place these files in `/etc/sysconfig/`
