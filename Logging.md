@@ -13,7 +13,7 @@ Note that if you're using the docker image, you'll most likely want to use a fil
 
 # Change the log level
 
-To reduce the amount of log messages, you can set the log level to 'warn' (default is 'info'). The [Log level](https://docs.rs/log/0.4.7/log/enum.Level.html#variants) can be adjusted with the environment variable `LOG_LEVEL` while also setting `EXTENDED_LOGGING=true`. NOTE: Using the log level "warn" still allows [Fail2Ban](https://github.com/dani-garcia/bitwarden_rs/wiki/Fail2Ban-Setup) to work properly.
+To reduce the amount of log messages, you can set the log level to 'warn' (default is 'info'). The [Log level](https://docs.rs/log/0.4.7/log/enum.Level.html#variants) can be adjusted with the environment variable `LOG_LEVEL` while also setting `EXTENDED_LOGGING=true`. NOTE: Using the log level "warn" or "error" still allows [Fail2Ban](https://github.com/dani-garcia/bitwarden_rs/wiki/Fail2Ban-Setup) to work properly.
 
 `LOG_LEVEL` options are: "trace", "debug", "info", "warn", "error" or "off".
 
