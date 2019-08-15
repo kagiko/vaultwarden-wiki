@@ -22,7 +22,7 @@ docker run -d --name bitwarden \
 
 You need to mount ssl files (-v argument) and you need to forward appropriate port (-p argument), usually 443 for HTTPS connections. If you choose a different port number than 443 like for example 3456, remember to explicitly provide that port number when you connect to the service, example: `https://bitwarden.local:3456`.
 
-For further information on how to set up and use a private CA on your local system refer to [this chapter of the wiki.](https://github.com/dani-garcia/bitwarden_rs/wiki/Private-CA-and-self-signed-certs-that-work-with-Chrome)
+For further information on how to set up and use a private CA on your local system refer to [this chapter of the wiki.](https://github.com/dani-garcia/bitwarden_rs/wiki/Private-CA-and-self-signed-certs-that-work-with-Chrome) After following it your ROCKET_TLS line could look like this: `-e ROCKET_TLS='{certs="/ssl/bitwarden.crt",key="/ssl/bitwarden.key"}' \`
 
 Due to what is likely a certificate validation bug in Android, you need to make sure that your certificate includes the full chain of trust. In the case of certbot, this means using `fullchain.pem` instead of `cert.pem`.
 
