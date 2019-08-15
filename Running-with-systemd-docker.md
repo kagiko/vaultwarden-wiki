@@ -58,13 +58,13 @@ Systemd can source a file of the form:
 ```shell
 Key="Value"
 ```
-Example for `EnvironmentFile`:
+Example for `EnvironmentFile` (note the different types of inverted commas in the last line):
 ```
 DATABASE_URL="/data/bitwarden.sqlite3"
 LOG_FILE="/data/bitwarden.log"
 ROCKET_LOG="critical"
+ROCKET_TLS='{certs="/ssl/bitwarden.crt",key="/ssl/bitwarden.key"}'
 ```
-
 
 
 However, the systemd project does not mandate where this file should be stored. Consult your distribution's documentation for the
