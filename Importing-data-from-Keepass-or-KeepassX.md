@@ -5,8 +5,8 @@ The current importers let you only choose the format, not HOW the data is transl
 
 ## Different import results for Keepass and KeepassX
 Importing from Keepass or KeepassX gives complete different results, although they use the same Keepass 2.x kbdx database:
-* Keepass XML files are imported at the **Organization** level (owner of each entry) and translates the Keepass Groups into Bitwarden **Collections**.
-* KeepassX CSV files are imported at the **User** level (owner of each entry) and translates the Keepass Groups into Bitwarden **Folders** with as main folder the name of the Keepass database.
+* Keepass CSV files are imported at the **Organization** level (owner of each entry) and translates the Keepass Groups into Bitwarden **Collections**.
+* Keepass XML files are imported at the **User** level (owner of each entry) and translates the Keepass Groups into Bitwarden **Folders** with as main folder the name of the Keepass database.
 
 It is a lot of work in Bitwarden itself to change Collections to Folders or to transfer ownership of all the entries.
 So depending on what you want, choose the appropriate method!
