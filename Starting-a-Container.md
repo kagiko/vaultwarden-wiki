@@ -4,9 +4,9 @@ The persistent data is stored under /data inside the container, so the only requ
 # using Docker:
 docker run -d --name bitwarden -v /bw-data/:/data/ -p 80:80 bitwardenrs/server:latest
 # using Podman as non-root:
-podman run -d --name bitwarden -v /bw-data/:/data/:Z -p 8080:8080 bitwardenrs/server:latest
+podman run -d --name bitwarden -v /bw-data/:/data/:Z -e ROCKET_PORT=8080 -p 8080:8080 bitwardenrs/server:latest
 # using Podman as root:
-sudo podman run -d --name bitwarden -v /bw-data/:/data/:Z -p 80:8080 bitwardenrs/server:latest
+sudo podman run -d --name bitwarden -v /bw-data/:/data/:Z -e ROCKET_PORT=8080 -p 80:8080 bitwardenrs/server:latest
 ```
 
 
