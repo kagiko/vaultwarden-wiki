@@ -1,4 +1,4 @@
-If you plan to use docker to run `bitwarden_rs`, you'll notice there are several image versions available. In most common case, you're going to run this service on amd64 (x86) hardware and you want to use the latest code. In this case `bitwardenrs/server` is the image to use.
+If you plan to use Docker or Podman to run `bitwarden_rs`, you'll notice there are several image versions available. In most common case, you're going to run this service on amd64 (x86) hardware and you want to use the latest code. In this case `bitwardenrs/server` is the image to use.
 
 Some users might want to use `bitwarden_rs` on different HW or they rather run a specific version of the service. In this case there are multiple options.
 
@@ -42,10 +42,10 @@ You can run specific version by running image tagged with version number - for e
 
 Please add your details here, if you're running the image on a hardware that is not already in the table.
 
-| Hardware used        | OS           | Docker architecture reported | Image used          | Status | Notes |
-|----------------------|--------------|------------------------------|---------------------|--------|-------|
-| Regular 64bit server | Ubuntu 18.04 | x86_64                       | `bitwardenrs/server` | OK     |       |
-| O-Droid HC2          | Armbian      | arm7l (arm32)                | `registry.lollipopcloud.solutions/arm32v7/bitwarden` (see notes) | OK | Unofficial image built from upstream sources ; `bitwardenrs/server:raspberry` is the official equivalent image |
-| Raspberry Pi Zero W  | Raspbian (4.14.98+) | linux/arm (armv6l)    | `bitwardenrs/server:armv6` | OK |     |
-| Raspberry Pi 3 B     | Raspbian (4.14.98-v7+) | linux/arm (armv7l) | `bitwardenrs/server:raspberry` | OK |     |
+| Hardware used        | OS           | Docker architecture reported    | Image used          | Status | Notes |
+|----------------------|--------------|---------------------------------|---------------------|--------|-------|
+| Regular 64bit server | Ubuntu 18.04 | x86_64                          | `bitwardenrs/server` | OK     |       |
+| O-Droid HC2          | Armbian      | arm7l (arm32)                   | `registry.lollipopcloud.solutions/arm32v7/bitwarden` (see notes) | OK | Unofficial image built from upstream sources ; `bitwardenrs/server:raspberry` is the official equivalent image |
+| Raspberry Pi Zero W  | Raspbian (4.14.98+) | linux/arm (armv6l)       | `bitwardenrs/server:armv6` | OK |     |
+| Raspberry Pi 3 B     | Raspbian (4.14.98-v7+) | linux/arm (armv7l)    | `bitwardenrs/server:raspberry` | OK |     |
 | Synology     | DSM (DSM 6.2.1-23824 Update 6) | Docker-x64-17.05.0-0367 | `bitwardenrs/server:latest` | OK |     |
