@@ -58,14 +58,7 @@ Systemd can source a file of the form:
 ```shell
 Key="Value"
 ```
-Example for `EnvironmentFile` (note the different types of inverted commas in the last line):
-```
-DATABASE_URL="/data/bitwarden.sqlite3"
-LOG_FILE="/data/bitwarden.log"
-ROCKET_LOG="critical"
-ROCKET_TLS='{certs="/ssl/bitwarden.crt",key="/ssl/bitwarden.key"}'
-```
-
+You can find more environment settings and the correct syntax in this [example env template](https://github.com/dani-garcia/bitwarden_rs/blob/21325b7523a68ab3ae8d435ab5b73176db6155ff/.env.template).
 
 However, the systemd project does not mandate where this file should be stored. Consult your distribution's documentation for the
 best location for this file. For example, RedHat based distributions typically place these files in `/etc/sysconfig/`
