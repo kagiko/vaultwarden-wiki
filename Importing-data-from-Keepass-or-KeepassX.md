@@ -20,7 +20,7 @@ So depending on what you want, choose the appropriate method!
   *   Group2Sub2
 * Group2
 
-### Import via Keepass:
+### Import via Keepass (CSV):
 
 **Owner** = Organization
 
@@ -30,7 +30,7 @@ So depending on what you want, choose the appropriate method!
   *   Group2Sub2
 * Group2
 
-### Import via KeepassX:
+### Import via Keepass (XML):
 **Owner** = Logged in User
 
 **Folders:**
