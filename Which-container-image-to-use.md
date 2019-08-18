@@ -4,7 +4,7 @@ Some users might want to use `bitwarden_rs` on different HW or they rather run a
 
 ## Running on different HW architecture
 
-The most common architecture is amd64 - your PC or server probably uses this one, so if you're not sure, this is the most likely case. It gets a bit tricky if you use some single board computers like Raspberry Pi as it might depend on CPU, but also on OS used. Generally speaking you can check your architecture by running `docker version` - see the `OS/Arch` info.
+The most common architecture is amd64 - your PC or server probably uses this one, so if you're not sure, this is the most likely case. It gets a bit tricky if you use some single board computers like Raspberry Pi as it might depend on CPU, but also on OS used. Generally speaking you can check your architecture by running `docker version` - see the `OS/Arch` info. Or try the command `uname -a` that also provides info on the architecture of your system.
 
 Based on your architecture, you can use one of the following images:
 
