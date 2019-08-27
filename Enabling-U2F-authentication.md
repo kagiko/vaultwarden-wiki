@@ -12,5 +12,3 @@ docker run -d --name bitwarden \
 ```
 
 Note that the value has to include the `https://` and it may include a port at the end (in the format of `https://bw.domain.tld:port`) when not using `443`.
-
-One must also modify the url contained in the file /web-vault/app-id.json inside the docker container from the default-value of "https://vault.bitwarden.com" to the self-hosted-url, e.g. using `sed -i -e 's/vault.bitwarden.com/bitwarden.yourhost.com/g' /web-vault/app-id.json`. You can enter the container with `docker exec -it bitwarden.service bash`.
