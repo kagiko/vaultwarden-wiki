@@ -64,6 +64,8 @@ sudo fail2ban-client set bitwarden unbanip XX.XX.XX.XX
 ```
 If Fail2Ban does not appear to be functioning, verify that the path to the Bitwarden log file is correct. For Docker: If the specified log file is not being generated and/or updated, make sure the `EXTENDED_LOGGING` env variable is set to true (which is default) and that the path to the log file is the path inside the docker (when you use /bw-data/:/data/ the log file should be in /data/... to be outside the container).
 
+Also verify that the timezone of the docker container matches the timezone of the host. Check this by comparing the time shown in the logfile with the host OS time. If they differ, there are various ways to fix this.  One option is to start docker with the option ```-e "TZ=<timezone>"```. A list of valid timezones is here under the column heading'timezone database name': [https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (ie -e "TZ=Australia/Melbourne" )
+
 ## Setting Up Fail2Ban for the Admin Page
 
 If you've enabled the admin console by setting the `ADMIN_TOKEN` environment variable, you can prevent an attacker brute-forcing the admin token using Fail2Ban. Following the same process as for the web vault, create the following filter in `/etc/fail2ban/filter.d/bitwarden-admin.conf`:
