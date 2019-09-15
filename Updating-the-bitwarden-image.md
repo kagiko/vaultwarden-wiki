@@ -61,7 +61,7 @@ The prune command will remove the now old container (-f stands for: Do not ask f
 
 Put these into cronjob if you want (time can be changed):
 ```
-Sudo crontab -e
+$ sudo crontab -e
 0 2 * * * sudo systemctl restart bitwarden.service
 
 0 3 * * * sudo /usr/bin/docker system prune -f
