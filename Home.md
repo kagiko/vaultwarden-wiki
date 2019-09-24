@@ -18,6 +18,7 @@ Basically full implementation of Bitwarden API is provided including:
 * Email confirmation
 * Other two-factor systems:
   * Email codes
+* Longer list of requested features can be seen at [#246](https://github.com/dani-garcia/bitwarden_rs/issues/246)
 
 ## Get in touch
 To ask an question, [raising an issue](https://github.com/dani-garcia/bitwarden_rs/issues/new) is fine, also please report any bugs spotted here.
