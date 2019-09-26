@@ -105,5 +105,6 @@ services:
 ```
 
 Even the server is running at the home network behind the NAT, I wanted to have Let's Encrypt's certificate. I followed this guide https://github.com/Neilpang/acme.sh/wiki/DNS-alias-mode. First set domain cname. And with CloudFlare export CF_Key and CF_Email or CF_Token and CF_Account_ID. https://github.com/Neilpang/acme.sh/wiki/dnsapi Then issue a cert. Finally install cert. `acme.sh --install-cert -d home.example.com --key-file /home/pi/ssl/key.pem --fullchain-file /home/pi/ssl/fullchain.pem`
+Or simply use `acme.sh --issue -d  home.example.com --challenge-alias otherdomain.com --dns dns_cf --key-file /home/pi/ssl/key.pem --fullchain-file /home/pi/ssl/fullchain.pem`
 My domain's A record points to the binded IP on the last line of docker-compose.yml and there are no complaints about certificate.
 
