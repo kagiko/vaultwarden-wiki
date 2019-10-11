@@ -1,3 +1,7 @@
+Note that the `docker run` command has a slightly misleading name, as it rather creates a container, rather than just starting it, leading to conflicts when using `docker run` after just stopping the container without removing it. For a plain start, see below.
+
+# Creating the Container
+
 The persistent data is stored under /data inside the container, so the only requirement for persistent deployment using Docker is to mount persistent volume at the path:
 
 ```sh
@@ -21,4 +25,11 @@ If your docker/bitwarden_rs runs on a device with a fixed IP, you can bind the h
 ```
 # using Docker:
 docker run -d --name bitwarden -v /bw-data/:/data/ -p 192.168.0.2:80:80 bitwardenrs/server:latest
+```
+
+# Starting the container
+
+If the container has been stopped by `docker stop bitwarden`, a reboot or any other reason you can just start it up again by using
+```
+docker start bitwarden
 ```
