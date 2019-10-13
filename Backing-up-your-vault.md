@@ -14,7 +14,7 @@ Running the above command requires sqlite3 to be installed on the docker host sy
 docker run --rm --volumes-from=bitwarden bruceforce/bw_backup /backup.sh
 ```
 
-You can also run a container with integrated cron daemon to automatically backup your database. See https://gitlab.com/1O/bitwarden_rs-backup for examples.
+You can also run a container with integrated cron daemon to automatically backup your database. See https://gitlab.com/1O/bitwarden_rs-backup or https://github.com/shivpatel/bitwarden_rs_dropbox_backup for examples.
 
 ## 2. the attachments folder
 
