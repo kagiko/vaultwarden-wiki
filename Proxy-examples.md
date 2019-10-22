@@ -101,14 +101,56 @@ server {
 </VirtualHost>
 ```
 
-## Traefik (docker-compose example)
+## Traefik v1 (docker-compose example)
 ```yaml
 labels:
-    - traefik.docker.network=traefik
     - traefik.enable=true
+    - traefik.docker.network=traefik
     - traefik.web.frontend.rule=Host:bitwarden.domain.tld
     - traefik.web.port=80
     - traefik.hub.frontend.rule=Host:bitwarden.domain.tld;Path:/notifications/hub
     - traefik.hub.port=3012
     - traefik.hub.protocol=ws
+```
+
+## Traefik v2 (docker-compose example by hwwilliams)
+#### Traefik v1 labels migrated to Traefik v2
+```yaml
+labels:
+  - traefik.enable=true
+  - traefik.docker.network=traefik
+  - traefik.http.routers.bitwarden-ui.rule=Host(`bitwarden.domain.tld`)
+  - traefik.http.routers.bitwarden-ui.service=bitwarden-ui
+  - traefik.http.services.bitwarden-ui.loadbalancer.server.port=80
+  - traefik.http.routers.bitwarden-websocket.rule=Host(`bitwarden.domain.tld`) && Path(`/notifications/hub`)
+  - traefik.http.routers.bitwarden-websocket.service=bitwarden-websocket
+  - traefik.http.services.bitwarden-websocket.loadbalancer.server.port=3012
+```
+
+#### Migrated labels plus HTTP to HTTPS redirect
+These labels assume that the entrypoints defined in Traefik for port 80 and 443 are 'web' and 'websecure' respectively.
+
+These labels also assume you already have a default certificates resolver defined in Traefik.
+```yaml
+labels:
+  - traefik.enable=true
+  - traefik.docker.network=traefik
+  - traefik.http.middlewares.redirect-https.redirectScheme.scheme=https
+  - traefik.http.middlewares.redirect-https.redirectScheme.permanent=true
+  - traefik.http.routers.bitwarden-ui-https.rule=Host(`bitwarden.domain.tld`)
+  - traefik.http.routers.bitwarden-ui-https.entrypoints=websecure
+  - traefik.http.routers.bitwarden-ui-https.service=bitwarden-ui
+  - traefik.http.routers.bitwarden-ui-http.rule=Host(`bitwarden.domain.tld`)
+  - traefik.http.routers.bitwarden-ui-http.entrypoints=web
+  - traefik.http.routers.bitwarden-ui-http.middlewares=redirect-https
+  - traefik.http.routers.bitwarden-ui-http.service=bitwarden-ui
+  - traefik.http.services.bitwarden-ui.loadbalancer.server.port=80
+  - traefik.http.routers.bitwarden-websocket-https.rule=Host(`bitwarden.domain.tld`) && Path(`/notifications/hub`)
+  - traefik.http.routers.bitwarden-websocket-https.entrypoints=websecure
+  - traefik.http.routers.bitwarden-websocket-https.service=bitwarden-websocket
+  - traefik.http.routers.bitwarden-websocket-http.rule=Host(`bitwarden.domain.tld`) && Path(`/notifications/hub`)
+  - traefik.http.routers.bitwarden-websocket-http.entrypoints=web
+  - traefik.http.routers.bitwarden-websocket-http.middlewares=redirect-https
+  - traefik.http.routers.bitwarden-websocket-http.service=bitwarden-websocket
+  - traefik.http.services.bitwarden-websocket.loadbalancer.server.port=3012
 ```
