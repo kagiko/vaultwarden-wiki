@@ -11,6 +11,10 @@ Install Fail2Ban (under Debian/Rasbian)
 ```
 sudo apt-get install fail2ban -y
 ```
+Under Fedora/CentOS
+```
+sudo yum install fail2ban -y
+```
 ## Fail2Ban Filter
 
 Create the filter file
@@ -23,7 +27,7 @@ And add the following
 before = common.conf
 
 [Definition]
-failregex = ^.*Username or password is incorrect\. Try again\. IP: <HOST>\. Username:.*$
+failregex = ^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$
 ignoreregex =
 ```
 
@@ -64,7 +68,9 @@ sudo fail2ban-client set bitwarden unbanip XX.XX.XX.XX
 ```
 If Fail2Ban does not appear to be functioning, verify that the path to the Bitwarden log file is correct. For Docker: If the specified log file is not being generated and/or updated, make sure the `EXTENDED_LOGGING` env variable is set to true (which is default) and that the path to the log file is the path inside the docker (when you use /bw-data/:/data/ the log file should be in /data/... to be outside the container).
 
-Also verify that the timezone of the docker container matches the timezone of the host. Check this by comparing the time shown in the logfile with the host OS time. If they differ, there are various ways to fix this.  One option is to start docker with the option ```-e "TZ=<timezone>"```. A list of valid timezones is here under the column heading'timezone database name': [https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (ie -e "TZ=Australia/Melbourne" )
+Also verify that the timezone of the docker container matches the timezone of the host. Check this by comparing the time shown in the logfile with the host OS time. If they differ, there are various ways to fix this.  One option is to start docker with the option ```-e "TZ=<timezone>"```. A list of valid timezones is here under the column heading'timezone database name': [https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (ie -e "TZ=Australia/Melbourne")
+
+If you are using podman instead of docker it seems that setting the timezone via ```-e "TZ=<timezone>"``` does not work. This can be solved (when using the alpine image) by following this guide: [https://wiki.alpinelinux.org/wiki/Setting_the_timezone](https://wiki.alpinelinux.org/wiki/Setting_the_timezone).
 
 ## Setting Up Fail2Ban for the Admin Page
 
@@ -75,7 +81,7 @@ If you've enabled the admin console by setting the `ADMIN_TOKEN` environment var
 before = common.conf
 
 [Definition]
-failregex = ^.*Invalid admin token\. IP: <HOST>.*$
+failregex = ^.*Invalid admin token\. IP: <ADDR>.*$
 ignoreregex =
 ```
 
@@ -88,7 +94,16 @@ port = 80,443
 filter = bitwarden-admin
 action = iptables-allports[name=bitwarden, chain=FORWARD]
 logpath = /path/to/bitwarden.log
-maxretry = 5
+maxretry = 3
 bantime = 14400
 findtime = 14400
-``
+```
+
+## SELinux Problems
+When you are using SELinux it is possible that SELinux hinders fail2ban to read the logs. If so, follow these steps:
+`sudo tail /var/log/audit/audit.log`. There you should see something along the lines of this (of course the actual audit ID will vary in your case): 
+```
+type=AVC msg=audit(1571777936.719:2193): avc:  denied  { search } for  pid=5853 comm="fail2ban-server" name="containers" dev="dm-0" ino=1144588 scontext=system_u:system_r:fail2ban_t:s0 tcontext=unconfined_u:object_r:container_var_lib_t:s0 tclass=dir permissive=0
+```   
+To actually find out the reason you can use `grep 'type=AVC msg=audit(1571777936.719:2193)' /var/log/audit/audit.log | audit2why`. `audit2allow -a` will give you specific instructions on how to create a module and allow fail2ban to access these logs. Follow these steps and you're done! fail2ban should now work correctly.
+
