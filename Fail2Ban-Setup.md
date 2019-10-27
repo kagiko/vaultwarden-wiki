@@ -37,6 +37,12 @@ failregex = ^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. User
 ignoreregex =
 ```
 
+Use ```<HOST>``` instead of ```<ADDR>``` if you get the following error message in fail2ban.log
+(CentOS 7, Fail2Ban v0.9.7):
+```
+fail2ban.filter         [5291]: ERROR   No 'host' group in '^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$'
+```
+
 ## Fail2Ban Jail
 
 Now we need the jail, create the jail file
