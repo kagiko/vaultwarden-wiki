@@ -63,6 +63,9 @@ action = iptables-allports[name=bitwarden, chain=FORWARD]
 **NOTE**: 
 Do not use this if you use a reverse proxy before docker container. If proxy, like apache2 or nginx is used, use the ports of the proxy and do not use chain=FORWARD, only when using Docker **without** proxy!
 
+**NOTE on the NOTE above**:
+Thats at least not true for running on Docker (CentOS 7) with caddy as reverse proxy. chain=FORWARD is absolutely fine and working with caddy as reverse proxy.
+
 Feel free to change the options as you see fit.
 
 ## Testing Fail2Ban
