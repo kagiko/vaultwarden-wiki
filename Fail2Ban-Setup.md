@@ -12,6 +12,12 @@ Install Fail2Ban (under Debian/Rasbian)
 sudo apt-get install fail2ban -y
 ```
 Under Fedora/CentOS
+
+EPEL repsitory necessary (CentOS 7)
+```
+yum install epel-release
+```
+
 ```
 sudo yum install fail2ban -y
 ```
