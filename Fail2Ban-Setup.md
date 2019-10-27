@@ -13,9 +13,9 @@ sudo apt-get install fail2ban -y
 ```
 Under Fedora/CentOS
 
-EPEL repsitory necessary (CentOS 7)
+EPEL repository necessary (CentOS 7)
 ```
-yum install epel-release
+sudo yum install epel-release
 ```
 
 ```
