@@ -42,3 +42,32 @@ docker run -d --name bitwarden \
   -p 443:80 \
   bitwardenrs/server:latest
 ```
+
+### Check if certificate is valid
+When your bitwarden_rs server is available to the outside world you can use https://comodosslstore.com/ssltools/ssl-checker.php to check if your SSL certificate is valid including the chain. Without the chain Android devices will fail to connect.
+
+You can also use https://www.ssllabs.com/ssltest/analyze.html to check, but that one does not support custom ports. Also please remember to check the "Do not show the results on the boards" checkbox, else your system will be visible in the "Recently Seen" list.
+
+If you run a local server which does not have a connection to the public internet you could use the openssl tools to verify your certificate.
+
+Execute the following to verify if the certificate is installed with the chains.
+Chaing vault.domain.com to your own domain name.
+```bash
+openssl s_client -showcerts -connect vault.domain.com:443
+
+# or with a different port
+openssl s_client -showcerts -connect vault.domain.com:7070
+```
+The start of the output should look something like this (Using a Let's Encrypt Certificate):
+```
+CONNECTED(00000003)
+depth=2 O = Digital Signature Trust Co., CN = DST Root CA X3
+verify return:1
+depth=1 C = US, O = Let's Encrypt, CN = Let's Encrypt Authority X3
+verify return:1
+depth=0 CN = vault.domain.com
+verify return:1
+```
+
+Verify that there are 3 different depths (notice it starts at 0).
+A bit further in the output you should see the base64 encoded certificates from Let's Encrypt it self.
