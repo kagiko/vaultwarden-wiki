@@ -16,4 +16,6 @@ docker run -d --name bitwarden \
 
 After this, the page will be available in the `/admin` subdirectory.
 
+The first time you save a setting in the admin page, `config.json` will be generated in your `DATA_FOLDER`. Values in this file will take precedence over environmental values.
+
 **Note:** After changing the `ADMIN_TOKEN`, the currently logged in admins will still be able to use their old login token for [up to 20 minutes](https://github.com/dani-garcia/bitwarden_rs/blob/master/src/api/admin.rs#L87).
