@@ -51,6 +51,12 @@ CREATE USER 'bitwarden_rs'@'localhost' IDENTIFIED BY 'yourpassword';
 GRANT ALL ON `bitwarden_rs`.* TO 'bitwarden_rs'@'localhost';
 FLUSH PRIVILEGES;
 ```
+You might want to try a restricted set of grants:
+```
+CREATE USER 'bitwarden_rs'@'localhost' IDENTIFIED BY 'yourpassword';
+GRANT ALTER, CREATE, DELETE, DROP, INDEX, INSERT, SELECT, UPDATE ON `bitwarden_rs`.* TO 'bitwarden_rs'@'localhost';
+FLUSH PRIVILEGES;
+```
 3. Configure bitwarden_rs and start it, so diesel can run migrations and set up the schema properly. Do not do anything else.
 4. Stop bitwarden_rs.
 5. Dump your existing SQLite database: ```sqlite3 db.sqlite3 .dump > sqlitedump.sql```
