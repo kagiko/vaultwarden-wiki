@@ -23,7 +23,7 @@ cargo build --features mysql --release
 
 When run, the server is accessible in [http://localhost:8000](http://localhost:8000).
 
-NB: There is an known [issue](https://github.com/rust-lang/rust/issues/62896) where an incompatibility between the Rust compiler and LLVM can fail with a segfault. You can tell cargo to use and older version of the compiler, e.g. ```cargo +nightly-2019-08-27 build --features yourbackend --release```
+*Note: There is an known [issue](https://github.com/rust-lang/rust/issues/62896) where an incompatibility between the Rust compiler and LLVM can fail with a segfault. You can tell cargo to use and older version of the compiler, e.g. ```cargo +nightly-2019-08-27 build --features yourbackend --release```*
 
 ### Install the web-vault
 A compiled version of the web vault can be downloaded from [dani-garcia/bw_web_builds](https://github.com/dani-garcia/bw_web_builds/releases).
