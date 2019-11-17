@@ -2,7 +2,8 @@
 - `Rust nightly` (strongly recommended to use [rustup](https://rustup.rs/))
 - `OpenSSL` (should be available in path, install through your system's package manager or use the [prebuilt binaries](https://wiki.openssl.org/index.php/Binaries))  
   For Debian, you'll need to install `pkg-config` and `libssl-dev`
-- `NodeJS` (only when compiling the web-vault, install through your system's package manager or use the [prebuilt binaries](https://nodejs.org/en/download/))
+- `NodeJS` (only when compiling the web-vault, install through your system's package manager, use the [prebuilt binaries](https://nodejs.org/en/download/)) or [nodesource binary distribution](https://github.com/nodesource/distributions)
+*Note: web-vault currently uses a package base (e.g. node-sass <v4.12) which requires NodeJS v11*
 - For MySQL backend on Debian (Buster), you'll need to install `libmariadb-dev-compat` and `libmariadb-dev`
 
 ## Run/Compile
@@ -58,6 +59,7 @@ npm run sub:init
 npm install
 npm run dist
 ```
+*Note: You might be asked to run ```npm audit fix``` to fix vulnerability. This will automatically try to upgrade packages to newer version, which might not be compatible and break web-vault functionality``` Use it at your own risk, if you know what you are doing.*
 
 Finally copy the contents of the `build` folder into the destination folder:
 - If you run with `cargo run --release`, it's `bitwarden_rs/web-vault`.
