@@ -59,9 +59,8 @@ NB: On Debian (Buster), you'll need to install sqlite3 for this
 7. Load your MySQL dump: ```mysql -ubitwarden_rs -pyourpassword < mysqldump.sql```
 8. Start bitwarden_rs.
 
-*Note: Loading your MySQL dump with ```--show-warnings``` will highlight that the datetime fields are getting truncated during the import which **seems** to be okay.
+*Note: Loading your MySQL dump with ```--show-warnings``` will highlight that the datetime fields are getting truncated during the import which **seems** to be okay.*
 ```
 Note (Code 1265): Data truncated for column 'created_at' at row 1
 Note (Code 1265): Data truncated for column 'updated_at' at row 1
 ```
-*
