@@ -6,7 +6,7 @@ Generally speaking unless you're absolutely sure, that you need to turn WAL off,
 
 * Some filesystems don't support WAL - this is especially true for network filesystems. If you're using such filesystem, the service will fail to start with `Failed to turn on WAL` error message.
 * The database requires sqlite version `3.7.0` or newer, so if you for any reason (for example backups) require to access the DB directly with some other tool that cannot be updated, you might need to disable WAL.
-* You are using the MySQL backend.
+* You are [using the MySQL backend](https://github.com/dani-garcia/bitwarden_rs/wiki/Using-the-MySQL-Backend)
 * One of the [disadvantages described here](https://sqlite.org/wal.html#advantages) affects you
 
 ## How to turn WAL off
