@@ -88,3 +88,6 @@ diesel migration redo
 # This step should be done automatically when using diesel-cli > 1.3.0
 # diesel print-schema > src/db/sqlite/schema.rs
 ```
+
+## How to migrate from SQLite backend to MySQL backend (for developers)
+Refer to [using the MySQL backend](https://github.com/dani-garcia/bitwarden_rs/wiki/Using-the-MySQL-Backend) if you want to migrate from SQLite.
