@@ -38,3 +38,23 @@ docker run -d --name bitwarden --net <some-docker-network>\
 Server IP/Port 192.168.1.10:3306 UN: dbuser / PW: P@ssw0rd / DB: Bitwarden
 mysql://dbuser:P@ssw0rd@192.168.1.10:3306/bitwarden
 ```
+
+**Migrating from SQLite to MySQL**
+
+An easy way of migrating from SQLite to MySQL has been described in this [issue comment](https://github.com/dani-garcia/bitwarden_rs/issues/497#issuecomment-511827057). The steps are repeated below. Please, note that you are using this at your won risk and you are strongly advised to backup your installation and data!
+
+1. Create an new (empty) database for bitwarden_rs:
+```CREATE DATABASE bitwarden_rs;```
+2. Create a new database user and grant rights to database:
+```
+CREATE USER 'bitwarden_rs'@'localhost' IDENTIFIED BY 'yourpassword';
+GRANT ALL ON `bitwarden_rs`.* TO 'bitwarden_rs'@'localhost';
+FLUSH PRIVILEGES;
+```
+3. Configure bitwarden_rs and start it, so diesel can run migrations and set up the schema properly. Do not do anything else.
+4. Stop bitwarden_rs.
+5. Dump your existing SQLite database: ```sqlite3 db.sqlite3 .dump > sqlitedump.sql```
+NB: On Debian (Buster), you'll need to install sqlite3 for this
+6. Drop schema creation and diesel metadata from your dump, leaving only your actual data: ```grep "INSERT INTO" sqlitedump.sql | grep -v "__diesel_schema_migrations" > mysqldump.sql```
+7. Load your MySQL dump: ```mysql -ubitwarden_rs -pyourpassword < mysqldump.sql```
+8. Start bitwarden_rs.
