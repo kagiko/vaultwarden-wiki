@@ -57,4 +57,5 @@ FLUSH PRIVILEGES;
 NB: On Debian (Buster), you'll need to install sqlite3 for this
 6. Drop schema creation and diesel metadata from your dump, leaving only your actual data: ```grep "INSERT INTO" sqlitedump.sql | grep -v "__diesel_schema_migrations" > mysqldump.sql```
 7. Load your MySQL dump: ```mysql -ubitwarden_rs -pyourpassword < mysqldump.sql```
+NB: You might want to use ```--show-warnings```
 8. Start bitwarden_rs.
