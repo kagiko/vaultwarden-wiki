@@ -8,13 +8,9 @@ DATABASE_URL=mysql://[[user]:[password]@]host[:port][/database]
 ```
 If your password contains special characters, you will need to use percentage encoding.
 
-{| cellpadding="6px" border=1 style="border:1px solid #C0C0C0; border-collapse:collapse; background-color:white;" class="wikitable"
-|+Reserved characters after percent-encoding
-|-
-| <code>[[exclamation mark|!]]</code> || <code>[[number sign|#]]</code> || <code>[[dollar sign|$]]</code> || <code>[[Percent sign|%]]</code> || <code>[[ampersand|&]]</code> || <code>[[apostrophe (mark)|']]</code> || <code>[[parenthesis|(]]</code> || <code>[[parenthesis|)]]</code> || <code>[[asterisk|<nowiki>*</nowiki>]]</code> || <code>[[plus sign|+]]</code> || <code>[[Comma|,]]</code> || <code>[[slash (punctuation)|/]]</code> || <code>[[colon (punctuation)|:]]</code> || <code>[[semicolon|;]]</code> || <code>[[equal sign|=]]</code> || <code>[[question mark|?]]</code> || <code>[[@]]</code> || <code>[[square_bracket|[]]</code> || <code>[[square_bracket|<nowiki>]</nowiki>]]</code>
-|-
-| <code>%21</code> || <code>%23</code> || <code>%24</code> || <code>%25</code> || <code>%26</code> || <code>%27</code> || <code>%28</code> || <code>%29</code> || <code>%2A</code> || <code>%2B</code> || <code>%2C</code> || <code>%2F</code> || <code>%3A</code> || <code>%3B</code> || <code>%3D</code>|| <code>%3F</code> || <code>%40</code> || <code>%5B</code> || <code>%5D</code>
-|}
+| ! | # | $ | % | & | ' | ( | ) | * | + | , | / | : | ; | = | ? | @ | [ | ] |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| %21 | %23 | %24 | %25 | %26 | %27 | %28 | %29 | %2A | %2B | %2C | %2F | %3A | %3B | %3D | %3F | %40 | %5B | %5D |
 
 A complete list of codes can be found on [Wikipedia page for percent encoding](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters)
 
