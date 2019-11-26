@@ -139,6 +139,7 @@ labels:
   - traefik.http.middlewares.redirect-https.redirectScheme.permanent=true
   - traefik.http.routers.bitwarden-ui-https.rule=Host(`bitwarden.domain.tld`)
   - traefik.http.routers.bitwarden-ui-https.entrypoints=websecure
+  - traefik.http.routers.bitwarden-ui-https.tls=true
   - traefik.http.routers.bitwarden-ui-https.service=bitwarden-ui
   - traefik.http.routers.bitwarden-ui-http.rule=Host(`bitwarden.domain.tld`)
   - traefik.http.routers.bitwarden-ui-http.entrypoints=web
@@ -147,6 +148,7 @@ labels:
   - traefik.http.services.bitwarden-ui.loadbalancer.server.port=80
   - traefik.http.routers.bitwarden-websocket-https.rule=Host(`bitwarden.domain.tld`) && Path(`/notifications/hub`)
   - traefik.http.routers.bitwarden-websocket-https.entrypoints=websecure
+  - traefik.http.routers.bitwarden-websocket-https.tls=true
   - traefik.http.routers.bitwarden-websocket-https.service=bitwarden-websocket
   - traefik.http.routers.bitwarden-websocket-http.rule=Host(`bitwarden.domain.tld`) && Path(`/notifications/hub`)
   - traefik.http.routers.bitwarden-websocket-http.entrypoints=web
