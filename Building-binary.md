@@ -39,7 +39,7 @@ If you prefer to compile it manually, follow these steps:
 git clone https://github.com/bitwarden/web.git web-vault
 cd web-vault
 # switch to the latest tag
-git checkout "$(git tag | tail -n1)"
+git checkout "$(git tag --sort=v:refname | tail -n1)"
 ```
 
 - Download the patch file from [dani-garcia/bw_web_builds](https://github.com/dani-garcia/bw_web_builds/tree/master/patches) and copy it to the `web-vault` folder.
