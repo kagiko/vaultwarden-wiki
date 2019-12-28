@@ -76,6 +76,62 @@ server {
 }
 ```
 
+## Nginx (by ypid)
+
+Ansible inventory example that uses DebOps to configure nginx as a reverse proxy for bitwarden_rs. I choose to go with the PSK in the URL for additional security to not expose the API to everyone on the Internet because the client apps do not support client certificates yet (I tested it).
+
+```YAML
+bitwarden__fqdn: 'vault.example.org'
+
+nginx__upstreams:
+
+  - name: 'bitwarden'
+    type: 'default'
+    enabled: True
+    server: 'localhost:8000'
+
+nginx__servers:
+
+  - name: '{{ bitwarden__fqdn }}'
+    filename: 'debops.bitwarden'
+    by_role: 'debops.bitwarden'
+    favicon: False
+    root: '/usr/share/bitwarden_rs/web-vault'
+
+    location_list:
+
+      - pattern: '/'
+        options: |-
+          deny all;
+
+      - pattern: '= /ekkP9wtJ_psk_changeme_Hr9CCTud'
+        options: |-
+          return 307 $scheme://$host$request_uri/;
+
+      ## All the security HTTP headers would then need to be set by nginx as well.
+      # - pattern: '/ekkP9wtJ_psk_changeme_Hr9CCTud/'
+      #   options: |-
+      #     alias /usr/share/bitwarden_rs/web-vault/;
+
+      - pattern: '/ekkP9wtJ_psk_changeme_Hr9CCTud/'
+        options: |-
+          proxy_set_header Host              $host;
+          # proxy_set_header X-Real-IP         $remote_addr;
+          # proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Port  443;
+
+          proxy_pass http://bitwarden;
+
+      ## Do not use the icons features as long as it reveals all domains from
+      ## our credentials to the server.
+      - pattern: '/ekkP9wtJ_psk_changeme_Hr9CCTud/icons/'
+        options: |-
+          access_log off;
+          log_not_found off;
+          deny all;
+```
+
 ## Apache (by fbartels)
 ```apache
 <VirtualHost *:443>
