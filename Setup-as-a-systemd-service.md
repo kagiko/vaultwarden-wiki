@@ -53,8 +53,13 @@ AmbientCapabilities=CAP_NET_BIND_SERVICE
 WantedBy=multi-user.target
 ```
 Change all paths to match your installation (`WorkingDirectory` and `ReadWriteDirectory` should be the same),
-name this file `bitwarden_rs.service` and put it into `/etc/systemd/system` .
-To make systemd aware of it, run
+name this file `bitwarden_rs.service` and put it into `/etc/systemd/system`. 
+
+If you have to change an existing systemd file (which was provided to you by the package you installed), you can add your changes by using 
+```
+$ sudo systemctl edit bitwarden_rs.service
+```
+To make systemd aware of your new file or any changes you made, run
 ```
 $ sudo systemctl daemon-reload
 ```
