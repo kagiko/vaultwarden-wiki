@@ -5,7 +5,27 @@ Making bitwarden_rs start on system startup and use the other facilities of syst
 [Unit]
 Description=Bitwarden Server (Rust Edition)
 Documentation=https://github.com/dani-garcia/bitwarden_rs
+# If you use a database like mariadb,mysql or postgresql, 
+# you have to add them like the following and uncomment them 
+# by removing the `# ` before it. This makes sure that your 
+# database server is started before bitwarden_rs ("After") and has 
+# started successfully before starting bitwarden_rs ("Requires").
+
+# Only sqlite
 After=network.target
+
+# MariaDB
+# After=network.target mariadb.service
+# Requires=mariadb.service
+
+# Mysql
+# After=network.target mysqld.service
+# Requires=mysqld.service
+
+# PostgreSQL
+# After=network.target postgresql.service
+# Requires=postgresql.service
+
 
 [Service]
 # The user/group bitwarden_rs is run under. the working directory (see below) should allow write and read access to this user/group
