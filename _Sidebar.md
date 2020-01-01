@@ -5,7 +5,7 @@
 1. [[Using Docker Compose|Using-Docker-Compose]]
 
 ## Deployment
-1. [[Building your own image|Building-your-own-image]]
+1. [[Building your docker own image|Building-your-own-docker-image]]
 1. [[Building binary|Building-binary]]
 1. [[Available packages|Available-packages]]
 1. [[Kubernetes deployment|Kubernetes-deployment]]
