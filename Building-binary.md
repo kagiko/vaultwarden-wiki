@@ -1,3 +1,5 @@
+If you don't want to build the binary yourself, you can look if bitwarden_rs was already [packaged for your linux distribution](https://github.com/dani-garcia/bitwarden_rs/wiki/Available-packages).
+
 ## Dependencies
 - `Rust nightly` (strongly recommended to use [rustup](https://rustup.rs/))
 - `OpenSSL` (should be available in path, install through your system's package manager or use the [prebuilt binaries](https://wiki.openssl.org/index.php/Binaries))  
@@ -20,6 +22,13 @@ cargo build --features sqlite --release
 cargo run --features mysql --release
 # or just compile with mysql (binary located in target/release/bitwarden_rs)
 cargo build --features mysql --release
+```
+### PostgreSQL backend
+```sh
+# Compile with postgresql backend and run
+cargo run --features postgresql --release
+# or just compile with postgresql (binary located in target/release/bitwarden_rs)
+cargo build --features postgresql --release
 ```
 
 When run, the server is accessible in [http://localhost:8000](http://localhost:8000).
@@ -69,6 +78,10 @@ Finally copy the contents of the `build` folder into the destination folder:
 The available configuration options are documented in the default `.env` file, and they can be modified by uncommenting the desired options in that file or by setting their respective environment variables. See the Configuration section of this wiki for the main configuration options available.
 
 Note: the environment variables override the values set in the `.env` file.
+
+## More information for deployment
+- [Setting up a reverse proxy](https://github.com/dani-garcia/bitwarden_rs/wiki/Proxy-examples)
+- [Setting up Autostart via systemd](https://github.com/dani-garcia/bitwarden_rs/wiki/Setup-as-a-systemd-service)
 
 ## How to recreate database schemas for the sqlite backend (for developers)
 Install diesel-cli with cargo:
