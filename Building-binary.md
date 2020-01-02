@@ -80,7 +80,7 @@ The available configuration options are documented in the default `.env` file, a
 Note: the environment variables override the values set in the `.env` file.
 
 ## More information for deployment
-- [Setting up a reverse proxy](https://github.com/dani-garcia/bitwarden_rs/wiki/Proxy-examples)
+- [Configuring your reverse proxy](https://github.com/dani-garcia/bitwarden_rs/wiki/Proxy-examples)
 - [Setting up Autostart via systemd](https://github.com/dani-garcia/bitwarden_rs/wiki/Setup-as-a-systemd-service)
 
 ## How to recreate database schemas for the sqlite backend (for developers)
