@@ -4,29 +4,47 @@ The ports proxied by default are `80` for the web server and `3012` for the WebS
 When using a proxy, it's preferrable to configure HTTPS at the proxy level and not at the application level, this way the WebSockets connection is also secured.
 
 ## Caddy
-
+Caddy can also automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/v1/docs/automatic-https).
 ```nginx
-localhost:443 {
-    # The negotiation endpoint is also proxied to Rocket
-    proxy /notifications/hub/negotiate <SERVER>:80 {
-        transparent
-    }
-    
-    # Notifications redirected to the websockets server
-    proxy /notifications/hub <SERVER>:3012 {
-        websocket
-    }
-    
-    # Proxy the Root directory to Rocket
-    proxy / <SERVER>:80 {
-        transparent
-    }
+:443 {
+  tls ${SSLCERTIFICATE} ${SSLKEY}
+  # or 'tls self_signed' to generate a self-signed certificate
+  gzip
 
-    tls ${SSLCERTIFICATE} ${SSLKEY}
-    # or 'tls self_signed' to generate a self-signed certificate
+  # The negotiation endpoint is also proxied to Rocket
+  proxy /notifications/hub/negotiate <SERVER>:80 {
+    transparent
+  }
+
+  # Notifications redirected to the websockets server
+  proxy /notifications/hub <SERVER>:3012 {
+    websocket
+  }
+
+  # Proxy the Root directory to Rocket
+  proxy / <SERVER>:80 {
+    transparent
+  }
 }
 ```
-Caddy can also automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/docs/automatic-https).
+
+## Caddy v2
+Caddy v2 can also automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/docs/automatic-https).
+```nginx
+:443 {
+  tls ${SSLCERTIFICATE} ${SSLKEY}
+  encode gzip
+
+  # The negotiation endpoint is also proxied to Rocket
+  reverse_proxy /notifications/hub/negotiate <SERVER>:80
+
+  # Notifications redirected to the websockets server
+  reverse_proxy /notifications/hub <SERVER>:3012
+
+  # Proxy the Root directory to Rocket
+  reverse_proxy / <SERVER>:80
+}
+```
 
 ## Nginx (by shauder)
 ```nginx
