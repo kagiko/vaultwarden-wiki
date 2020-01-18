@@ -29,6 +29,7 @@ Create a text file `bitwarden.ext` with the following content, change the domain
 authorityKeyIdentifier=keyid,issuer
 basicConstraints=CA:FALSE
 keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
 subjectAltName = @alt_names
 
 [alt_names]
@@ -40,9 +41,10 @@ DNS.2 = www.bitwarden.local
 Create the bitwarden certificate, signed from the root CA:
 
 ```
-openssl x509 -req -in bitwarden.csr -CA self-signed-ca-cert.crt -CAkey private-ca.key -CAcreateserial -out bitwarden.crt -days 3650 -sha256 -extfile bitwarden.ext
+openssl x509 -req -in bitwarden.csr -CA self-signed-ca-cert.crt -CAkey private-ca.key -CAcreateserial -out bitwarden.crt -days 365 -sha256 -extfile bitwarden.ext
 ```
-
+Note: As of April 2019 iOS 13+ and macOS 15+ can not have the server certificate have an expiry > 825 and must include ExtendedKeyUsage extension https://support.apple.com/en-us/HT210176 
+ 
 Add the root certificate and the bitwarden certificate to client computers.
 
 
