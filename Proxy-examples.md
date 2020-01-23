@@ -28,8 +28,8 @@ Caddy can also automatically enable HTTPS in some circumstances, check the [docs
 }
 ```
 
-## Caddy v2
-Caddy v2 can also automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/docs/automatic-https).
+## Caddy 2
+Caddy 2 can also automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/docs/automatic-https).
 ```nginx
 :443 {
   tls ${SSLCERTIFICATE} ${SSLKEY}
@@ -42,7 +42,7 @@ Caddy v2 can also automatically enable HTTPS in some circumstances, check the [d
   reverse_proxy /notifications/hub <SERVER>:3012
 
   # Proxy the Root directory to Rocket
-  reverse_proxy / <SERVER>:80
+  reverse_proxy <SERVER>:80
 }
 ```
 
