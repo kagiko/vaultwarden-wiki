@@ -17,3 +17,5 @@ bitwarden_rs displays password hints on the login page to accommodate small/loca
 ## SMTP hardening
 
 ## Brute-force mitigation
+When two-factor-authentication is not in use, it is (in theory) possible to brute-force user passwords and thus gain access to their account. One, relatively easy, way to mitigate this, is setting up fail2ban which blocks ipadresses after too many  failed login attempts. However: Care should be taken when using this behind multiple reverse-proxies (such as cloudflare).
+See: [[Fail2Ban Setup|Fail2Ban Setup]]
