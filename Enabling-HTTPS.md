@@ -8,8 +8,13 @@ Where:
 * certs: a path to a certificate chain in PEM format
 * key: a path to a private key file in PEM format for the certificate in certs
 
-Note:
-The file name _extensions_ used in the ROCKET_TLS line do not necessarily have to be PEM as in the example. Important is the file _format_ that needs to be PEM, i.e. base64-coded. Since the PEM format is openssl's default you can therefore simply rename .cert, .cer, .crt and .key files to .pem and vice versa or - as an alternative - use .crt or .key as file extentions in the ROCKET_TLS line.
+Notes:
+* The file name _extensions_ used in the `ROCKET_TLS` line do not necessarily have to be PEM as in the example. Important is the file _format_ that needs to be PEM, i.e. base64-coded. Since the PEM format is openssl's default you can therefore simply rename .cert, .cer, .crt and .key files to .pem and vice versa or - as an alternative - use .crt or .key as file extensions in the `ROCKET_TLS` line.
+* Use an RSA cert/key. Rocket appears to be unable to handle an ECC cert/key, and outputs a misleading error message like
+
+  > `[ERROR] environment variable ROCKET_TLS={certs="/ssl/ecdsa.crt",key="/ssl/ecdsa.key"} could not be parsed`
+
+  (There's nothing wrong with the format of the environment variable itself; it's the cert/key contents that Rocket can't parse.)
 
 ```sh
 docker run -d --name bitwarden \
