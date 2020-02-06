@@ -3,7 +3,9 @@ The ports proxied by default are `80` for the web server and `3012` for the WebS
 
 When using a proxy, it's preferrable to configure HTTPS at the proxy level and not at the application level, this way the WebSockets connection is also secured.
 
-## Caddy
+<details>
+<summary>Caddy 1</summary><br/>
+
 Caddy can also automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/v1/docs/automatic-https).
 ```nginx
 :443 {
@@ -27,8 +29,11 @@ Caddy can also automatically enable HTTPS in some circumstances, check the [docs
   }
 }
 ```
+</details>
 
-## Caddy 2
+<details>
+<summary>Caddy 2</summary><br/>
+
 Caddy 2 can also automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/docs/automatic-https).
 ```nginx
 :443 {
@@ -45,8 +50,11 @@ Caddy 2 can also automatically enable HTTPS in some circumstances, check the [do
   reverse_proxy <SERVER>:80
 }
 ```
+</details>
 
-## Nginx (by shauder)
+<details>
+<summary>Nginx (by shauder)</summary><br/>
+
 ```nginx
 server {
   listen 443 ssl http2;
@@ -93,8 +101,10 @@ server {
 
 }
 ```
+</details>
 
-## Nginx (by ypid)
+<details>
+<summary>Nginx (by ypid)</summary><br/>
 
 Ansible inventory example that uses DebOps to configure nginx as a reverse proxy for bitwarden_rs. I choose to go with the PSK in the URL for additional security to not expose the API to everyone on the Internet because the client apps do not support client certificates yet (I tested it). Note: Using subpath/PSK requires to patch the source code and recompile, ref: https://github.com/dani-garcia/bitwarden_rs/issues/241#issuecomment-436376497. /admin is untested. For general discussion about subpath hosting for security refer to: https://github.com/debops/debops/issues/1233
 
@@ -149,8 +159,11 @@ nginx__servers:
           log_not_found off;
           deny all;
 ```
+</details>
 
-## Apache (by fbartels)
+<details>
+<summary>Apache (by fbartels)</summary><br/>
+
 ```apache
 <VirtualHost *:443>
     SSLEngine on
@@ -174,8 +187,11 @@ nginx__servers:
     RequestHeader set X-Real-IP %{REMOTE_ADDR}s
 </VirtualHost>
 ```
+</details>
 
-## Traefik v1 (docker-compose example)
+<details>
+<summary>Traefik v1 (docker-compose example)</summary><br/>
+
 ```yaml
 labels:
     - traefik.enable=true
@@ -186,8 +202,11 @@ labels:
     - traefik.hub.port=3012
     - traefik.hub.protocol=ws
 ```
+</details>
 
-## Traefik v2 (docker-compose example by hwwilliams)
+<details>
+<summary>Traefik v2 (docker-compose example by hwwilliams)</summary><br/>
+
 #### Traefik v1 labels migrated to Traefik v2
 ```yaml
 labels:
@@ -230,3 +249,4 @@ labels:
   - traefik.http.routers.bitwarden-websocket-http.service=bitwarden-websocket
   - traefik.http.services.bitwarden-websocket.loadbalancer.server.port=3012
 ```
+</details>
