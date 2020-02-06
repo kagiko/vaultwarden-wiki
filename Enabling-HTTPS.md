@@ -1,4 +1,4 @@
-To enable HTTPS in `bitwarden_rs` itself, set the `ROCKET_TLS` environment variable as described below. However, since Rocket's TLS support is relatively immature, it would typically be preferable to use a more mature [reverse proxy](https://github.com/dani-garcia/bitwarden_rs/wiki/Proxy-examples) unless you really need to minimize dependencies.
+To enable HTTPS in `bitwarden_rs` itself, set the `ROCKET_TLS` environment variable as described below. However, since Rocket's TLS support is relatively immature, it would typically be preferable to use a more mature [[reverse proxy|proxy-examples]] unless you really need to minimize dependencies.
 
 The values to the option must follow the format:
 ```
