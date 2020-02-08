@@ -3,6 +3,7 @@
 1. [[Starting a container|Starting-a-container]]
 1. [[Updating the bitwarden image|Updating-the-bitwarden-image]]
 1. [[Using Docker Compose|Using-Docker-Compose]]
+1. [[Using Podman|Using-Podman]]
 
 ## Deployment
 1. [[Building your own docker image|Building-your-own-docker-image]]
