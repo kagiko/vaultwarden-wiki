@@ -41,3 +41,11 @@ Modify the upstream code and/or bitwarden_rs patches and rebuild the web vault. 
 
 1. Enter a shell in the bitwarden_rs container: `docker exec -it <container-name> /bin/sh`
 2. Patch the web vault: `sed -i "s|window\.location\.origin|window.location.origin+'/secret-dir'|g" /web-vault/app/main*.js` (of course, replace `/secret-dir` with your actual base dir)
+
+Pros:
+* It works just fine for normal purposes.
+* This approach could be easily automated on container start.
+
+Cons:
+* It's a brittle solution, although it's probably not too likely `window.location.origin` would be used for anything else.
+* It will probably break the [source map](https://www.html5rocks.com/en/tutorials/developertools/sourcemaps/), but this won't matter unless you're doing development or need to troubleshoot with a developer.
