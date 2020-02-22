@@ -88,3 +88,5 @@ Then, start the Bitwarden service using `sudo systemctl start bitwarden`.
 To have the service start with the system, use `sudo systemctl enable bitwarden`.
 
 Verify that the container has started using `systemctl status bitwarden`.
+
+If you are getting the `json: cannot unmarshal object into Go value of type string` error when starting the service, you should compile the systemd-docker binary yourself using a recent version of Go, see [this issue](https://github.com/ibuildthecloud/systemd-docker/issues/50).
