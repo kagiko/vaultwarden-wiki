@@ -163,7 +163,6 @@ nginx__servers:
 
 <details>
 <summary>Apache (by fbartels)</summary><br/>
-
 ```apache
 <VirtualHost *:443>
     SSLEngine on
@@ -185,6 +184,41 @@ nginx__servers:
     ProxyPreserveHost On
     ProxyRequests Off
     RequestHeader set X-Real-IP %{REMOTE_ADDR}s
+</VirtualHost>
+```
+</details>
+
+<details>
+<summary>Apache in a sub-location (by ss89)</summary><br/>
+Ensure you have the websocket proxy module loaded somewhere in your apache config.
+It can look something like: 
+
+```
+LoadModule proxy_wstunnel_module modules/mod_proxy_wstunnel.so`
+```
+
+```apache
+<VirtualHost *:443>
+    SSLEngine on
+    ServerName $hostname.$domainname
+
+    SSLCertificateFile ${SSLCERTIFICATE}
+    SSLCertificateKeyFile ${SSLKEY}
+    SSLCACertificateFile ${SSLCA}
+    ${SSLCHAIN}
+
+    ErrorLog \${APACHE_LOG_DIR}/error.log
+    CustomLog \${APACHE_LOG_DIR}/access.log combined
+
+    <Location /bitwarden> #adjust here if necessary
+        RewriteEngine On
+        RewriteCond %{HTTP:Upgrade} =websocket [NC]
+        RewriteRule /notifications/hub(.*) ws://<SERVER>:3012/$1 [P,L]
+        ProxyPass http://<SERVER>:80/
+
+        ProxyPreserveHost On
+        RequestHeader set X-Real-IP %{REMOTE_ADDR}s
+    </Location>
 </VirtualHost>
 ```
 </details>
