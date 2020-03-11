@@ -163,6 +163,7 @@ nginx__servers:
 
 <details>
 <summary>Apache (by fbartels)</summary><br/>
+
 ```apache
 <VirtualHost *:443>
     SSLEngine on
