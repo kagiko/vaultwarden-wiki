@@ -6,7 +6,7 @@ A common source of confusion is enabling the admin page (which creates the `conf
 
 ## Setting the domain URL
 
-Make sure to set the `DOMAIN` environment variable (or `domain` in the config file) properly. If you don't, it's likely that various functionality will break mysteriously. Some examples:
+Make sure to set the `DOMAIN` environment variable (or `domain` in the config file) to the URL you use to access your bitwarden_rs instance. If you don't, it's likely that various functionality will break mysteriously. Some examples:
 
 * `https://bitwarden.example.com`
 * `https://bitwarden.example.com:8443` (non-default port)
