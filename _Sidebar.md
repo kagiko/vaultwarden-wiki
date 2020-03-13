@@ -13,6 +13,7 @@
 1. [[Proxy examples|Proxy-examples]]
 
 ## Configuration
+1. [[Overview|Configuration-overview]]
 1. [[Disable registration of new users|Disable-registration-of-new-users]]
 1. [[Disable invitations|Disable-invitations]]
 1. [[Enabling admin page|Enabling-admin-page]]
