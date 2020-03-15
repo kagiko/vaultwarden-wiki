@@ -35,8 +35,8 @@ docker run -d --name bitwarden --net <some-docker-network>\
 **Example using Non-Docker MySQL Server:**
 
 ```
-Server IP/Port 192.168.1.10:3306 UN: dbuser / PW: P@ssw0rd / DB: Bitwarden
-mysql://dbuser:P@ssw0rd@192.168.1.10:3306/bitwarden
+Server IP/Port 192.168.1.10:3306 UN: dbuser / PW: yourpassword / DB: bitwarden
+mysql://dbuser:yourpassword@192.168.1.10:3306/bitwarden
 ```
 
 **Migrating from SQLite to MySQL**
