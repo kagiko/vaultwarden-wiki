@@ -21,6 +21,8 @@ Basically full implementation of Bitwarden API is provided including:
 * Longer list of requested features can be seen at [#246](https://github.com/dani-garcia/bitwarden_rs/issues/246)
 
 ## Get in touch
-To ask an question, [raising an issue](https://github.com/dani-garcia/bitwarden_rs/issues/new) is fine, also please report any bugs spotted here.
+To ask a question, offer suggestions, request new features, or get help configuring or installing the software, please [use the forum](https://bitwardenrs.discourse.group/).
+
+If you spot any bugs or crashes with bitwarden_rs itself, please [create an issue](https://github.com/dani-garcia/bitwarden_rs/issues/). Make sure there aren't any similar issues open, though!
 
 If you prefer to chat, we're usually hanging around at [#bitwarden_rs:matrix.org](https://matrix.to/#/#bitwarden_rs:matrix.org) room on Matrix. Feel free to join us!
