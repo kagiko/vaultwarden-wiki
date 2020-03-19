@@ -4,6 +4,14 @@ In bitwarden_rs, you can perform configuration either via environment variables 
 
 A common source of confusion is enabling the admin page (which creates the `config.json` file), changing some settings via the admin page (which sets the corresponding values in `config.json`), then later trying to change those settings via environment variable (which doesn't work because `config.json` overrides env vars). To avoid this confusion, it's highly recommended to stick to one configuration method or the other; that is, configure entirely via environment variables, or entirely via `config.json` (whether using the admin page or editing `config.json` directly).
 
+## Configuration options
+
+You can find the list of environment variables you can set at
+
+https://github.com/dani-garcia/bitwarden_rs/blob/master/.env.template
+
+If you enable the [[admin page|Enabling-admin-page]], that will also show the full list of config options.
+
 ## Setting the domain URL
 
 Make sure to set the `DOMAIN` environment variable (or `domain` in the config file) to the URL you use to access your bitwarden_rs instance. If you don't, it's likely that various functionality will break mysteriously. Some examples:
