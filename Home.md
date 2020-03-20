@@ -13,6 +13,7 @@ Basically full implementation of Bitwarden API is provided including:
 * Authenticator and U2F support
 * YubiKey OTP
 * Duo Security
+* Email TOTP
 
 ## Missing Features
 * List of requested features can be seen at [#246](https://github.com/dani-garcia/bitwarden_rs/issues/246)
