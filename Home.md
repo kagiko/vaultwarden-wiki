@@ -15,10 +15,7 @@ Basically full implementation of Bitwarden API is provided including:
 * Duo Security
 
 ## Missing Features
-* Email confirmation
-* Other two-factor systems:
-  * Email codes
-* Longer list of requested features can be seen at [#246](https://github.com/dani-garcia/bitwarden_rs/issues/246)
+* List of requested features can be seen at [#246](https://github.com/dani-garcia/bitwarden_rs/issues/246)
 
 ## Get in touch
 To ask a question, offer suggestions, request new features, or get help configuring or installing the software, please [use the forum](https://bitwardenrs.discourse.group/).
