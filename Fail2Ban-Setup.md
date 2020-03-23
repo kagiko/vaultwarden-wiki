@@ -122,3 +122,78 @@ type=AVC msg=audit(1571777936.719:2193): avc:  denied  { search } for  pid=5853 
 ```   
 To actually find out the reason you can use `grep 'type=AVC msg=audit(1571777936.719:2193)' /var/log/audit/audit.log | audit2why`. `audit2allow -a` will give you specific instructions on how to create a module and allow fail2ban to access these logs. Follow these steps and you're done! fail2ban should now work correctly.
 
+## Setup on Synology
+Synology, due to DSM system need a bit more work. The main constrains are:
+
+1. The embeded IP ban system does not work on Docker's containers
+2. The iptables embeded do no support the `REJECT` instruction
+3. The Docker GUI does not allow some advanced settings
+
+I choosed to rely on [crazy-max/docker-fail2ban](https://github.com/crazy-max/docker-fail2ban). Please adapt the following to your context
+
+`mkdir /volumeX/docker/fail2ban`  
+`touch /volumeX/docker/fail2ban/action.d/iptables-common.local`  
+Copy and paste the following content - this replace `REJECT` by `DROP`  
+````
+[Init]
+blocktype = DROP
+[Init?family=inet6]
+blocktype = DROP
+````
+`touch /volumeX/docker/fail2ban/filter.d/bitwarden.conf`  
+Copy and paste the following content
+````
+[INCLUDES]
+before = common.conf
+
+[Definition]
+failregex = ^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$
+ignoreregex =
+````
+`touch /volumeX/docker/fail2ban/jail.d/bitwarden.conf`  
+Copy and paste the following content
+````
+[DEFAULT]
+ignoreip = 127.0.0.1/8 192.168.0.0/22
+bantime = 6400
+findtime = 86400
+maxretry = 4
+backend = auto
+action = iptables-allports[name=bitwarden]
+
+[bitwarden]
+enabled = true
+port = 80,81,443,8081
+filter = bitwarden
+logpath = /bitwarden/bitwarden.log
+````
+`touch /volumeX/docker/fail2ban/docker-compose.yml`  
+Copy and paste the following content
+````
+version: '3'
+services:
+  fail2ban:
+    container_name: fail2ban
+    restart: always
+    image: crazymax/fail2ban:latest
+    environment: 
+    - TZ=Europe/Paris
+    - F2B_DB_PURGE_AGE=30d
+    - F2B_LOG_TARGET=/data/fail2ban.log
+    - F2B_LOG_LEVEL=DEBUG
+    - F2B_IPTABLES_CHAIN=INPUT
+
+    volumes:
+    - /volumeX/docker/fail2ban:/data
+    - /volumeX/docker/bw-data:/bitwarden:ro
+
+    network_mode: "host"
+
+    privileged: true
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+````
+Run the container using `docker-compose up -d`  
+You now have to test the jail
+
