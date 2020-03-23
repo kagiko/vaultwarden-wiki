@@ -23,3 +23,7 @@ Simply configure your domain URL to include the base dir. For example, suppose y
 4. Restart bitwarden_rs.
 5. You should now be able to access the web vault at `https://bitwarden.example.com/base-dir/` (note the trailing slash). For reasons not entirely clear, you'll probably run into issues if you use `https://bitwarden.example.com/base-dir` (without the trailing slash).
 6. Configure your apps or browser extensions to use `https://bitwarden.example.com/base-dir`. If you add a trailing slash, the apps and extensions will automatically remove it before saving.
+
+## Reverse proxying
+
+If you are putting bitwarden_rs behind a reverse proxy, make sure your proxy is configured to pass the request path through to bitwarden_rs, since the bitwarden_rs API routes are set up to expect the base dir. So if a request for `https://bitwarden.example.com/base-dir/api/sync` hits your reverse proxy, which then proxies to your bitwarden_rs listening on `localhost:8080`, the request must go to `http://localhost:8080/base-dir/api/sync`, not `http://localhost:8080/api/sync`.
