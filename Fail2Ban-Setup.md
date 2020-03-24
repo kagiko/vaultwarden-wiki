@@ -2,7 +2,7 @@ Setup Fail2ban will prevent attackers to brute force your vault logins. This is 
 
 ## Pre-requisite
 
-- Commands are using `vi`. The basics can be found [there](https://pc.net/resources/commands/vi). However, you can use whatever text editor you want.
+- Commands below are using `vi`. The basics can be found [there](https://pc.net/resources/commands/vi). However, you can use whatever text editor you want.
 - From Release 1.5.0, Bitwarden_rs supports logging to file. Please set this up : [[Logging|logging]]
 - Try to log to web vault with a false account and check the log files for folowing format
 ````
@@ -28,7 +28,7 @@ With Synology, a bit more work is needed for various reasons. The main issues ar
 3. The Docker GUI does not allow some advanced settings
 4. Modifying system configuration is not upgrade-proof
 
-Therefore, we will use Fail2ban in a docker container. [crazy-max/docker-fail2ban](https://github.com/crazy-max/docker-fail2ban) provides a good solution and the Synology's docker GUI will be ignored. From command line through SSH, here the steps. As convention `volumeX` is to be adapted to your Synology's config.  
+Therefore, we will use Fail2ban in a docker container. [Crazy-max/docker-fail2ban](https://github.com/crazy-max/docker-fail2ban) provides a good solution and the Synology's docker GUI will be ignored. From command line through SSH, here the steps. As a convention `volumeX` is to be adapted to your Synology's config.  
 
 0. Get root
 ````
@@ -99,9 +99,9 @@ As a convention, `path_f2b` means the path needed for Fail2ban to work. This dep
 Create and fill the following file
 ````
 	vi path_f2b/filter.d/bitwarden.local
-	
-	Copy and paste the following content
-	
+````
+Copy and paste the following content
+````
 	[INCLUDES]
 	before = common.conf
 
@@ -110,9 +110,7 @@ Create and fill the following file
 	ignoreregex =
 ````
 
-If you get the following error message `in fail2ban.log` (CentOS 7, Fail2Ban v0.9.7)
-
-If you get the following error message in fail2ban.log  
+If you get the following error message `in fail2ban.log` (CentOS 7, Fail2Ban v0.9.7)  
 `fail2ban.filter         [5291]: ERROR   No 'host' group in '^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$'`  
 Please Use `<HOST>` instead of `<ADDR>` in ``bitwarden.local`
 
@@ -120,9 +118,9 @@ Please Use `<HOST>` instead of `<ADDR>` in ``bitwarden.local`
 Create and fill the following file
 ````
 	vi path_f2b/jail.d/bitwarden.local
-	
-	Copy and paste the following content
-	
+````
+Copy and paste the following content
+````
 	[bitwarden]
 	enabled = true
 	port = 80,443,8081
@@ -153,9 +151,9 @@ If you've enabled the admin console by setting the `ADMIN_TOKEN` environment var
 Create and fill the following file
 ````
 	vi path_f2b/filter.d/bitwarden-admin.local
-	
-	Copy and paste the following content
-	
+````
+Copy and paste the following content
+````
 	[INCLUDES]
 	before = common.conf
 
@@ -167,9 +165,9 @@ Create and fill the following file
 Create and fill the following file
 ````
 	vi path_f2b/jail.d/bitwarden-admin.local
-	
-	Copy and paste the following content
-	
+````
+Copy and paste the following content
+````
 	[bitwarden-admin]
 	enabled = true
 	port = 80,443
@@ -189,9 +187,13 @@ action = iptables-allports[name=bitwarden, chain=FORWARD]
 
 Now just try to login to bitwarden using any email (it doesnt have to be a valid email, just an email format)
 If it works correctly and your IP is banned, you can unban the ip by running:
-```
-sudo fail2ban-client set bitwarden unbanip XX.XX.XX.XX
-```
+
+Without docker:  
+`sudo fail2ban-client set bitwarden unbanip XX.XX.XX.XX`
+
+With docker :  
+`sudo docker exec -t fail2ban fail2ban-client set bitwarden unbanip XX.XX.XX.XX`
+
 If Fail2Ban does not appear to be functioning, verify that the path to the Bitwarden log file is correct. For Docker: If the specified log file is not being generated and/or updated, make sure the `EXTENDED_LOGGING` env variable is set to true (which is default) and that the path to the log file is the path inside the docker (when you use /bw-data/:/data/ the log file should be in /data/... to be outside the container).
 
 Also verify that the timezone of the docker container matches the timezone of the host. Check this by comparing the time shown in the logfile with the host OS time. If they differ, there are various ways to fix this.  One option is to start docker with the option ```-e "TZ=<timezone>"```. A list of valid timezones is here under the column heading'timezone database name': [https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (ie -e "TZ=Australia/Melbourne")
