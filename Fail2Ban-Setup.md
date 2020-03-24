@@ -2,8 +2,9 @@ Setup Fail2ban will prevent attackers to brute force your vault logins. This is 
 
 ## Pre-requisite
 
+- Commands are using `vi`. The basics can be found [there](https://pc.net/resources/commands/vi). However, you can use whatever text editor you want.
 - From Release 1.5.0, Bitwarden_rs supports logging to file. Please set this up : [[Logging|logging]]
-- Try to log with a false account and check the log files for folowing format
+- Try to log to web vault with a false account and check the log files for folowing format
 ````
 	[YYYY-MM-DD hh:mm:ss][bitwarden_rs::api::identity][ERROR] Username or password is incorrect. Try again. IP: XXX.XXX.XXX.XXX. Username: email@domain.com.
 ````
@@ -27,7 +28,7 @@ With Synology, a bit more work is needed for various reasons. The main issues ar
 3. The Docker GUI does not allow some advanced settings
 4. Modifying system configuration is not upgrade-proof
 
-Therefore, we will use Fail2ban in a docker container. [crazy-max/docker-fail2ban](https://github.com/crazy-max/docker-fail2ban) provides a good solution and the Synology's docker GUI will be ignored. From command line through SSH, here the steps. As convention `volumeX` is to be adapted to your Synology's config.
+Therefore, we will use Fail2ban in a docker container. [crazy-max/docker-fail2ban](https://github.com/crazy-max/docker-fail2ban) provides a good solution and the Synology's docker GUI will be ignored. From command line through SSH, here the steps. As convention `volumeX` is to be adapted to your Synology's config.  
 
 0. Get root
 ````
@@ -44,7 +45,7 @@ Therefore, we will use Fail2ban in a docker container. [crazy-max/docker-fail2ba
 
 2. Replace `REJECT` by `DROP` blocktype
 ````
-	vim /volumeX/docker/fail2ban/action.d/iptables-common.local
+	vi /volumeX/docker/fail2ban/action.d/iptables-common.local
 	
 	Copy and paste the following content  
 
@@ -55,7 +56,7 @@ Therefore, we will use Fail2ban in a docker container. [crazy-max/docker-fail2ba
 ````
 3. Create docker-compose file
 ````
-	vim /volumeX/docker/fail2ban/docker-compose.yml
+	vi /volumeX/docker/fail2ban/docker-compose.yml
 	
 	Copy and paste the following content
 
@@ -90,58 +91,99 @@ Therefore, we will use Fail2ban in a docker container. [crazy-max/docker-fail2ba
 ````
 You should see the container running in Synolog's Docker GUI. You will have to reload after configuring the filters and jails
 
-## Fail2Ban Filter
+## Setup for web vault
 
-Create the filter file
-```
-sudo nano /etc/fail2ban/filter.d/bitwarden.conf
-```
-And add the following
-```
-[INCLUDES]
-before = common.conf
+As a convention, `path_f2b` means the path needed for Fail2ban to work. This depends on your system. E.g. on Synology, we are atlking about `/volumeX/docker/fail2ban/` where on some other systems we are talking about `/etc/fail2ban/`
 
-[Definition]
-failregex = ^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$
-ignoreregex =
-```
+### Filter
+Create and fill the following file
+````
+	vi path_f2b/filter.d/bitwarden.local
+	
+	Copy and paste the following content
+	
+	[INCLUDES]
+	before = common.conf
 
-Use ```<HOST>``` instead of ```<ADDR>``` if you get the following error message in fail2ban.log
-(CentOS 7, Fail2Ban v0.9.7):
-```
-fail2ban.filter         [5291]: ERROR   No 'host' group in '^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$'
-```
+	[Definition]
+	failregex = ^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$
+	ignoreregex =
+````
 
-## Fail2Ban Jail
+If you get the following error message `in fail2ban.log` (CentOS 7, Fail2Ban v0.9.7)
 
-Now we need the jail, create the jail file
-```
-sudo nano /etc/fail2ban/jail.d/bitwarden.local
-```
-and add:
-```
-[bitwarden]
-enabled = true
-port = 80,443,8081
-filter = bitwarden
-action = iptables-allports[name=bitwarden]
-logpath = /path/to/bitwarden/log
-maxretry = 3
-bantime = 14400
-findtime = 14400
-```
+Use ```<HOST>``` instead of ```<ADDR>``` if you get the following error message in fail2ban.log  
+`fail2ban.filter         [5291]: ERROR   No 'host' group in '^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$'`  
+Please Use `<HOST>` instead of `<ADDR>` in ``bitwarden.local`
+
+### Jail
+Create and fill the following file
+````
+	vi path_f2b/jail.d/bitwarden.local
+	
+	Copy and paste the following content
+	
+	[bitwarden]
+	enabled = true
+	port = 80,443,8081
+	filter = bitwarden
+	action = iptables-allports[name=bitwarden]
+	logpath = /path/to/bitwarden/log
+	maxretry = 3
+	bantime = 14400
+	findtime = 14400
+````
 Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore use the following action when using Docker:
-
 ```
 action = iptables-allports[name=bitwarden, chain=FORWARD]
 ```
-**NOTE**: 
+**NOTE**:  
 Do not use this if you use a reverse proxy before docker container. If proxy, like apache2 or nginx is used, use the ports of the proxy and do not use chain=FORWARD, only when using Docker **without** proxy!
 
-**NOTE on the NOTE above**:
+**NOTE on the NOTE above**:  
 Thats at least not true for running on Docker (CentOS 7) with caddy as reverse proxy. chain=FORWARD is absolutely fine and working with caddy as reverse proxy.
 
 Feel free to change the options as you see fit.
+
+
+## Setup for admin page
+If you've enabled the admin console by setting the `ADMIN_TOKEN` environment variable, you can prevent an attacker brute-forcing the admin token using Fail2Ban. The process is the same as for the web vault.
+
+### Filter
+Create and fill the following file
+````
+	vi path_f2b/filter.d/bitwarden-admin.local
+	
+	Copy and paste the following content
+	
+	[INCLUDES]
+	before = common.conf
+
+	[Definition]
+	failregex = ^.*Invalid admin token\. IP: <ADDR>.*$
+	ignoreregex =
+````
+### Jail
+Create and fill the following file
+````
+	vi path_f2b/jail.d/bitwarden-admin.local
+	
+	Copy and paste the following content
+	
+	[bitwarden-admin]
+	enabled = true
+	port = 80,443
+	filter = bitwarden-admin
+	action = iptables-allports[name=bitwarden]
+	logpath = /path/to/bitwarden.log
+	maxretry = 3
+	bantime = 14400
+	findt
+````
+Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore use the following action when using Docker:
+```
+action = iptables-allports[name=bitwarden, chain=FORWARD]
+```
 
 ## Testing Fail2Ban
 
@@ -156,32 +198,6 @@ Also verify that the timezone of the docker container matches the timezone of th
 
 If you are using podman instead of docker it seems that setting the timezone via ```-e "TZ=<timezone>"``` does not work. This can be solved (when using the alpine image) by following this guide: [https://wiki.alpinelinux.org/wiki/Setting_the_timezone](https://wiki.alpinelinux.org/wiki/Setting_the_timezone).
 
-## Setting Up Fail2Ban for the Admin Page
-
-If you've enabled the admin console by setting the `ADMIN_TOKEN` environment variable, you can prevent an attacker brute-forcing the admin token using Fail2Ban. Following the same process as for the web vault, create the following filter in `/etc/fail2ban/filter.d/bitwarden-admin.conf`:
-
-```
-[INCLUDES]
-before = common.conf
-
-[Definition]
-failregex = ^.*Invalid admin token\. IP: <ADDR>.*$
-ignoreregex =
-```
-
-Then create the following jail configuration in `/etc/fail2ban/jail.d/bitwarden-admin.local` (note that this example uses the `action` directive for the Docker image--modify it if you're using the binary build):
-
-```
-[bitwarden-admin]
-enabled = true
-port = 80,443
-filter = bitwarden-admin
-action = iptables-allports[name=bitwarden, chain=FORWARD]
-logpath = /path/to/bitwarden.log
-maxretry = 3
-bantime = 14400
-findtime = 14400
-```
 
 ## SELinux Problems
 When you are using SELinux it is possible that SELinux hinders fail2ban to read the logs. If so, follow these steps:
