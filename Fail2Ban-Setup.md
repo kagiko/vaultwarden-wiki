@@ -46,9 +46,9 @@ Therefore, we will use Fail2ban in a docker container. [Crazy-max/docker-fail2ba
 2. Replace `REJECT` by `DROP` blocktype
 ````
 	vi /volumeX/docker/fail2ban/action.d/iptables-common.local
-	
-	Copy and paste the following content  
-
+````
+Copy and paste the following content
+````
 	[Init]
 	blocktype = DROP
 	[Init?family=inet6]
@@ -57,9 +57,9 @@ Therefore, we will use Fail2ban in a docker container. [Crazy-max/docker-fail2ba
 3. Create docker-compose file
 ````
 	vi /volumeX/docker/fail2ban/docker-compose.yml
-	
-	Copy and paste the following content
-
+````
+Copy and paste the following content
+````
 	version: '3'
 	services:
 	  fail2ban:
