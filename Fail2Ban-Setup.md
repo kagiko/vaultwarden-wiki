@@ -47,7 +47,7 @@ Therefore, we will use Fail2ban in a docker container. [Crazy-max/docker-fail2ba
 ````
 	vi /volumeX/docker/fail2ban/action.d/iptables-common.local
 ````
-Copy and paste the following content
+	Copy and paste the following content
 ````
 	[Init]
 	blocktype = DROP
@@ -58,7 +58,7 @@ Copy and paste the following content
 ````
 	vi /volumeX/docker/fail2ban/docker-compose.yml
 ````
-Copy and paste the following content
+	Copy and paste the following content
 ````
 	version: '3'
 	services:
@@ -100,7 +100,7 @@ Create and fill the following file
 ````
 	vi path_f2b/filter.d/bitwarden.local
 ````
-Copy and paste the following content
+	Copy and paste the following content
 ````
 	[INCLUDES]
 	before = common.conf
@@ -119,7 +119,7 @@ Create and fill the following file
 ````
 	vi path_f2b/jail.d/bitwarden.local
 ````
-Copy and paste the following content
+	Copy and paste the following content
 ````
 	[bitwarden]
 	enabled = true
@@ -133,7 +133,7 @@ Copy and paste the following content
 ````
 Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore use the following action when using Docker:
 ```
-action = iptables-allports[name=bitwarden, chain=FORWARD]
+	action = iptables-allports[name=bitwarden, chain=FORWARD]
 ```
 **NOTE**:  
 Do not use this if you use a reverse proxy before docker container. If proxy, like apache2 or nginx is used, use the ports of the proxy and do not use chain=FORWARD, only when using Docker **without** proxy!
@@ -152,7 +152,7 @@ Create and fill the following file
 ````
 	vi path_f2b/filter.d/bitwarden-admin.local
 ````
-Copy and paste the following content
+	Copy and paste the following content
 ````
 	[INCLUDES]
 	before = common.conf
@@ -166,7 +166,7 @@ Create and fill the following file
 ````
 	vi path_f2b/jail.d/bitwarden-admin.local
 ````
-Copy and paste the following content
+	Copy and paste the following content
 ````
 	[bitwarden-admin]
 	enabled = true
@@ -176,11 +176,11 @@ Copy and paste the following content
 	logpath = /path/to/bitwarden.log
 	maxretry = 3
 	bantime = 14400
-	findt
+	findtime = 14400
 ````
 Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore use the following action when using Docker:
 ```
-action = iptables-allports[name=bitwarden, chain=FORWARD]
+	action = iptables-allports[name=bitwarden, chain=FORWARD]
 ```
 
 ## Testing Fail2Ban
