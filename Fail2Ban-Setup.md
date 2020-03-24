@@ -1,5 +1,20 @@
 Setup Fail2ban will prevent attackers to brute force your vault logins. This is particularly important if your instance is publicaly available.
 
+## Table of Content
+- [Pre-requisite](#pre-requisite)
+- [Installation](#installation)
+	* [Debian / Ubuntu / Raspian](#debian--ubuntu--raspian)
+	* [Fedora / Centos](#fedora--centos)
+	* [Synology DSM](#synology-dsm)
+- [Setup for web vault](#setup-for-web-vault)
+	* [Filter](#filter)
+	* [Jail](#jail)
+- [Setup for admin page](#setup-for-admin-page)
+	* [Filter](#filter-1)
+	* [Jail](#jail-1)
+- [Testing Fail2Ban](#testing-fail2ban)
+- [SELinux Problems](#selinux-problems)
+
 ## Pre-requisite
 
 - Commands below are using `vi`. The basics can be found [there](https://pc.net/resources/commands/vi). However, you can use whatever text editor you want.
@@ -10,6 +25,7 @@ Setup Fail2ban will prevent attackers to brute force your vault logins. This is 
 ````
 
 ## Installation
+
 ### Debian / Ubuntu / Raspian
 ```
 	sudo apt-get install fail2ban -y
@@ -110,9 +126,9 @@ Create and fill the following file
 	ignoreregex =
 ````
 
-If you get the following error message `in fail2ban.log` (CentOS 7, Fail2Ban v0.9.7)  
+If you get the following error message in `fail2ban.log` (CentOS 7, Fail2Ban v0.9.7)  
 `fail2ban.filter         [5291]: ERROR   No 'host' group in '^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$'`  
-Please Use `<HOST>` instead of `<ADDR>` in ``bitwarden.local`
+Please Use `<HOST>` instead of `<ADDR>` in `bitwarden.local`
 
 ### Jail
 Create and fill the following file
