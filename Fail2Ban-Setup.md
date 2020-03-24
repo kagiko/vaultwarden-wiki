@@ -112,7 +112,7 @@ Create and fill the following file
 
 If you get the following error message `in fail2ban.log` (CentOS 7, Fail2Ban v0.9.7)
 
-Use ```<HOST>``` instead of ```<ADDR>``` if you get the following error message in fail2ban.log  
+If you get the following error message in fail2ban.log  
 `fail2ban.filter         [5291]: ERROR   No 'host' group in '^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$'`  
 Please Use `<HOST>` instead of `<ADDR>` in ``bitwarden.local`
 
