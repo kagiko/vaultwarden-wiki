@@ -55,18 +55,18 @@ Caddy 2 can also automatically enable HTTPS in some circumstances, check the [do
        X-Frame-Options "DENY"
        # Prevent search engines from indexing (optional)
        X-Robots-Tag "none"
-	   # Server name removing
-	   -Server
+       # Server name removing
+       -Server
    }
 
   # The negotiation endpoint is also proxied to Rocket
-  reverse_proxy /notifications/hub/negotiate bitwardenrs:80
+  reverse_proxy /notifications/hub/negotiate <SERVER>:80
 
   # Notifications redirected to the websockets server
-  reverse_proxy /notifications/hub bitwardenrs:3012
+  reverse_proxy /notifications/hub <SERVER>:3012
 
   # Proxy the Root directory to Rocket
-  reverse_proxy bitwardenrs:80
+  reverse_proxy <SERVER>:80
 }
 
 #{env.DOMAIN}:443 {
@@ -99,13 +99,13 @@ Caddy 2 can also automatically enable HTTPS in some circumstances, check the [do
 #       -Server
 #   }
 #  # The negotiation endpoint is also proxied to Rocket
-#  reverse_proxy /notifications/hub/negotiate bitwardenrs:80
+#  reverse_proxy /notifications/hub/negotiate <SERVER>:80
 #
 #  # Notifications redirected to the websockets server
-#  reverse_proxy /notifications/hub bitwardenrs:3012
+#  reverse_proxy /notifications/hub <SERVER>:3012
 #
 #  # Proxy the Root directory to Rocket
-#  reverse_proxy bitwardenrs:80
+#  reverse_proxy <SERVER>:80
 #}
 ```
 </details>
