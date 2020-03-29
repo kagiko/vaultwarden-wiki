@@ -4,7 +4,7 @@ The ports proxied by default are `80` for the web server and `3012` for the WebS
 When using a proxy, it's preferrable to configure HTTPS at the proxy level and not at the application level, this way the WebSockets connection is also secured.
 
 <details>
-<summary>Caddy 1</summary><br/>
+<summary>Caddy 1.x</summary><br/>
 
 Caddy can also automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/v1/docs/automatic-https).
 ```nginx
@@ -32,23 +32,81 @@ Caddy can also automatically enable HTTPS in some circumstances, check the [docs
 </details>
 
 <details>
-<summary>Caddy 2</summary><br/>
+<summary>Caddy 2.x</summary><br/>
 
 Caddy 2 can also automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/docs/automatic-https).
 ```nginx
-:443 {
-  tls ${SSLCERTIFICATE} ${SSLKEY}
+# Caddyfile V2.0 config file
+:80 {
+  #Caddy on port 80 in container to bitwarden_rs private instance
+  #Use it if Caddy behind another reverse proxy such as the one embedded on Synology
+  log {
+	output file {env.LOG_FILE}
+	level INFO
+	#roll_size 5MiB #Not working on Caddy V2.0.0 Beta20 https://caddyserver.com/docs/caddyfile/directives/log#log
+	#roll_keep 2 #Not working on Caddy V2.0.0 Beta20 https://caddyserver.com/docs/caddyfile/directives/log#log
+  }
   encode gzip
 
+  header / {
+       # Enable cross-site filter (XSS) and tell browser to block detected attacks
+       X-XSS-Protection "1; mode=block"
+       # Disallow the site to be rendered within a frame (clickjacking protection)
+       X-Frame-Options "DENY"
+       # Prevent search engines from indexing (optional)
+       X-Robots-Tag "none"
+	   # Server name removing
+	   -Server
+   }
+
   # The negotiation endpoint is also proxied to Rocket
-  reverse_proxy /notifications/hub/negotiate <SERVER>:80
+  reverse_proxy /notifications/hub/negotiate bitwardenrs:80
 
   # Notifications redirected to the websockets server
-  reverse_proxy /notifications/hub <SERVER>:3012
+  reverse_proxy /notifications/hub bitwardenrs:3012
 
   # Proxy the Root directory to Rocket
-  reverse_proxy <SERVER>:80
+  reverse_proxy bitwardenrs:80
 }
+
+#{env.DOMAIN}:443 {
+#  #Caddy on port 443 in container to bitwarden_rs private instance 
+#  #Use it if Caddy exposed to the net 
+#
+#  log {
+#	output file {env.LOG_FILE}
+#	level INFO
+#   #roll_size 5MiB #Not working on Caddy V2.0.0 Beta20 https://caddyserver.com/docs/caddyfile/directives/log#log
+#   #rool_keep 30 #Not working on Caddy V2.0.0 Beta20 https://caddyserver.com/docs/caddyfile/directives/log#log
+#  }
+#
+#  # Uncomment only one of the 2 lines. Depending if you provide your own cert or request one from Let's Encrypt
+#  tls {env.SSLCERTIFICATE} {env.SSLKEY}
+#  tls {env.EMAIL}
+#
+#  encode gzip
+#
+#  header / {
+#       # Enable HTTP Strict Transport Security (HSTS)
+#       Strict-Transport-Security "max-age=31536000;"
+#       # Enable cross-site filter (XSS) and tell browser to block detected attacks
+#       X-XSS-Protection "1; mode=block"
+#       # Disallow the site to be rendered within a frame (clickjacking protection)
+#       X-Frame-Options "DENY"
+#       # Prevent search engines from indexing (optional)
+#       X-Robots-Tag "none"
+#       # Server name removing
+#       -Server
+#   }
+#  # The negotiation endpoint is also proxied to Rocket
+#  reverse_proxy /notifications/hub/negotiate bitwardenrs:80
+#
+#  # Notifications redirected to the websockets server
+#  reverse_proxy /notifications/hub bitwardenrs:3012
+#
+#  # Proxy the Root directory to Rocket
+#  reverse_proxy bitwardenrs:80
+#}
 ```
 </details>
 
