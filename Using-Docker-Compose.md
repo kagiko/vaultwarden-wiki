@@ -1,6 +1,6 @@
 Docker Compose is a tool that allows the definition and configuration of multi-container applications. In our case, we want both the Bitwarden_RS server and a proxy to redirect the WebSocket requests to the correct place.
 
-This guide is based on [#126 (comment)](https://github.com/dani-garcia/bitwarden_rs/issues/126#issuecomment-417872681).
+This guide is based on [#126 (comment)](https://github.com/dani-garcia/bitwarden_rs/issues/126#issuecomment-417872681). Another solution, based on Bitwarden_RS and Caddy 2.0 is [available there](https://github.com/sosandroid/docker-bitwarden_rs-caddy-synology)
 
 Create a `docker-compose.yml` file based on this:
 ```yml
