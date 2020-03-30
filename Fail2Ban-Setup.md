@@ -37,7 +37,7 @@ EPEL repository is necessary (CentOS 7)
 	sudo yum install fail2ban -y
 ```
 ### Synology DSM
-With Synology, a bit more work is needed for various reasons. The main issues are:
+With Synology, a bit more work is needed for various reasons. The full solution is pushed with Docker Compose [there](https://github.com/sosandroid/docker-fail2ban-synology). The main issues are:
 
 1. The embeded IP ban system does not work for Docker's containers
 2. The iptables embeded do no support the `REJECT` blocktype
