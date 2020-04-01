@@ -14,4 +14,4 @@ You can also disable registration except for email addresses from certain domain
 * `SIGNUPS_DOMAINS_WHITELIST=example.com` (single domain)
 * `SIGNUPS_DOMAINS_WHITELIST=example.com,example.net,example.org` (multiple domains)
 
-You still need to set `SIGNUPS_ALLOWED=false`. Also, see [#728](https://github.com/dani-garcia/bitwarden_rs/pull/728) for caveats.
+You still need to set `SIGNUPS_ALLOWED=false`. Also, see [#728](https://github.com/dani-garcia/bitwarden_rs/pull/728) for caveats -- in particular, the emails are currently not checked, meaning that anyone could still register, by providing a fake email address that has the proper domain.
