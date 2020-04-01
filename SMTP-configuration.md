@@ -13,7 +13,7 @@ docker run -d --name bitwarden \
   bitwardenrs/server:latest
 ```
 
-When `SMTP_SSL` is set to `true`(this is the default), only TLSv1.1 and TLSv1.2 protocols will be accepted and `SMTP_PORT` will default to `587`. If set to `false`, `SMTP_PORT` will default to `25` and the opportunistic encryption will be tried (no encryption attempted with code prior to 3/12/2020). This can be very insecure, use this setting only if you know what you're doing. To run SMTP in explicit mode, set `SMTP_EXPLICIT_TLS` to `true`.
+When `SMTP_SSL` is set to `true`(this is the default), only TLSv1.1 and TLSv1.2 protocols will be accepted and `SMTP_PORT` will default to `587`. If set to `false`, `SMTP_PORT` will default to `25` and the opportunistic encryption will be tried (no encryption attempted with code prior to 3/12/2020). This can be very insecure, use this setting only if you know what you're doing. To run SMTP in explicit mode, set `SMTP_EXPLICIT_TLS` to `true`. If you can send emails without logging in, you can simply not set `SMTP_USERNAME` and `SMTP_PASSWORD`.
 
 Note that if SMTP and invitations are enabled, invitations will be sent to new users via email. You must set the `DOMAIN` configuration option with the base URL of your bitwarden_rs instance for the invite link to be generated correctly:
 
