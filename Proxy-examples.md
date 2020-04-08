@@ -11,6 +11,10 @@ Caddy can also automatically enable HTTPS in some circumstances, check the [docs
 :443 {
   tls ${SSLCERTIFICATE} ${SSLKEY}
   # or 'tls self_signed' to generate a self-signed certificate
+
+  # This setting may have compatibility issues with some browsers
+  # (e.g., attachment downloading on Firefox). Try disabling this
+  # if you encounter issues.
   gzip
 
   # The negotiation endpoint is also proxied to Rocket
@@ -46,6 +50,10 @@ Caddy 2 can also automatically enable HTTPS in some circumstances, check the [do
 	#roll_size 5MiB #Not working on Caddy V2.0.0 Beta20 https://caddyserver.com/docs/caddyfile/directives/log#log
 	#roll_keep 2 #Not working on Caddy V2.0.0 Beta20 https://caddyserver.com/docs/caddyfile/directives/log#log
   }
+
+  # This setting may have compatibility issues with some browsers
+  # (e.g., attachment downloading on Firefox). Try disabling this
+  # if you encounter issues.
   encode gzip
 
   header / {
