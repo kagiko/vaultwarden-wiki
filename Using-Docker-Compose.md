@@ -40,7 +40,6 @@ and the corresponding `Caddyfile` (does not need to be modified):
 # Caddyfile
 {$DOMAIN} {
     tls {$EMAIL}
-    gzip
 
     header / {
         # Enable HTTP Strict Transport Security (HSTS)
