@@ -12,6 +12,10 @@ https://github.com/dani-garcia/bitwarden_rs/blob/master/.env.template
 
 If you enable the [[admin page|Enabling-admin-page]], that will also show the full list of config options.
 
+In case there are any errors or omissions, the source of truth is
+
+https://github.com/dani-garcia/bitwarden_rs/blob/master/src/config.rs (search for `make_config!`)
+
 ## Setting the domain URL
 
 Make sure to set the `DOMAIN` environment variable (or `domain` in the config file) to the URL you use to access your bitwarden_rs instance. If you don't, it's likely that various functionality will break mysteriously. Some examples:
