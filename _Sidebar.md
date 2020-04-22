@@ -8,7 +8,7 @@
 ## Deployment
 1. [[Building your own docker image|Building-your-own-docker-image]]
 1. [[Building binary|Building-binary]]
-1. [[Available packages|Available-packages]]
+1. [[Third-party packages|Third-party-packages]]
 1. [[Kubernetes deployment|Kubernetes-deployment]]
 1. [[Proxy examples|Proxy-examples]]
 
