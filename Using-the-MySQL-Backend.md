@@ -70,3 +70,19 @@ NB: On Debian (Buster), you'll need to install sqlite3 for this
 Note (Code 1265): Data truncated for column 'created_at' at row 1
 Note (Code 1265): Data truncated for column 'updated_at' at row 1
 ```
+
+
+*Note1:Then error loading data  mysqldump.sql Load error
+```
+error (1064): Syntax error near '"users" VALUES('9b5c2d13-8c4f-47e9-bd94-f0d7036ff581','2019-05-26 03:55:06.05651' at line 1
+```
+fix
+```
+sed -i s#\"#\#g mysqldump.sql
+```
+```
+mysql -ubitwarden_rs pyourpassword
+use bitwarden_rs
+source /bw-data/mysqldump.sql
+exit
+```
