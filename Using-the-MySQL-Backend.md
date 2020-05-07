@@ -71,7 +71,7 @@ Note (Code 1265): Data truncated for column 'created_at' at row 1
 Note (Code 1265): Data truncated for column 'updated_at' at row 1
 ```
 
-# Note1:Then error loading data  mysqldump.sql Load error
+*Note1:Then error loading data  mysqldump.sql Load error*
 ```
 error (1064): Syntax error near '"users" VALUES('9b5c2d13-8c4f-47e9-bd94-f0d7036ff581'*********)
 ```
