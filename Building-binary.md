@@ -1,4 +1,4 @@
-If you don't want to build the binary yourself, you can look if bitwarden_rs was already [packaged for your linux distribution](https://github.com/dani-garcia/bitwarden_rs/wiki/Available-packages).
+If you don't want to build the binary yourself, you can look if bitwarden_rs was already [packaged for your Linux distribution](https://github.com/dani-garcia/bitwarden_rs/wiki/Third-party-packages).
 
 ## Dependencies
 - `Rust nightly` (strongly recommended to use [rustup](https://rustup.rs/))
