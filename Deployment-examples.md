@@ -21,3 +21,9 @@ This page is an index of standalone deployment examples. If adding a new example
 * https://github.com/martient/bitwardenrs-ansible
 
   Ansible deployment for bitwarden_rs on raspberry pi
+
+## Shared hosting
+
+* https://github.com/jjlin/bitwardenrs-shared-hosting
+
+  Sample config for running `bitwarden_rs` on [DreamHost](https://www.dreamhost.com/), but should be readily adaptable to many other shared hosting services.
