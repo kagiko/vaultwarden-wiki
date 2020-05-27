@@ -56,7 +56,7 @@ Caddy 2 can also automatically enable HTTPS in some circumstances, check the [do
   # if you encounter issues.
   encode gzip
 
-  header /* {
+  header {
        # Enable cross-site filter (XSS) and tell browser to block detected attacks
        X-XSS-Protection "1; mode=block"
        # Disallow the site to be rendered within a frame (clickjacking protection)
