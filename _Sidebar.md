@@ -46,4 +46,4 @@
 1. [[Using a Private CA and making SSL certs work with Chrome|Private-CA-and-self-signed-certs-that-work-with-Chrome]]
 1. [[Differences from the upstream API implementation|Differences-from-the-upstream-API-implementation]]
 1. [[Supporting upstream development|Supporting-upstream]]
-1. [[Hardening Guide (WIP)|Hardening Guide (WIP)]]
+1. [[Hardening Guide|Hardening Guide]]
