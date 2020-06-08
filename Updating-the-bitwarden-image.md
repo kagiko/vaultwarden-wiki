@@ -34,6 +34,13 @@ docker rm bitwarden_data
 
 # Alternatively you can keep data container around for future updates in which case you can skip last step.
 ```
+## Updating when using docker-compose
+
+```sh
+docker-compose stop
+docker-compose pull
+docker-compose start
+```
 
 ## Updating when using systemd service (in this case Debian/Raspbian)
 
