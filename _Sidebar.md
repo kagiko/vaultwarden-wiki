@@ -42,7 +42,6 @@
 ## Other Information
 1. [[Importing data from Keepass or KeepassX|Importing-data-from-Keepass-or-KeepassX]]
 1. [[Backing up your vault|Backing-up-your-vault]]
-1. [[Running the server with non-root-user|Running-the-server-with-non-root-user]]
 1. [[Using a Private CA and making SSL certs work with Chrome|Private-CA-and-self-signed-certs-that-work-with-Chrome]]
 1. [[Differences from the upstream API implementation|Differences-from-the-upstream-API-implementation]]
 1. [[Supporting upstream development|Supporting-upstream]]
