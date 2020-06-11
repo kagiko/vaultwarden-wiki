@@ -29,6 +29,36 @@ For example, Rocket TLS doesn't support [strict SNI](#Strict-SNI) or ECC certs (
 
 See [[Proxy example|Proxy-examples]] for some sample reverse proxy configurations.
 
+# Docker configuration
+
+The subsections below cover hardening related to Docker.
+
+## Run as a non-root user
+
+The bitwarden_rs Docker image is configured to run the container process as the `root` user by default. This allows bitwarden_rs to read/write any data [bind-mounted](https://docs.docker.com/storage/bind-mounts/) into the container without permission issues, even if that data is owned by another user (e.g., your user account on the Docker host). As a general policy, it's better security-wise to run processes with the minimum privileges required, though this is somewhat less of a concern with programs written in a memory-safe language like Rust.
+
+To run the container process (bitwarden_rs) as a non-root user (uid/gid 1000) in Docker:
+
+    docker run -u 1000:1000 -e ROCKET_PORT=8080 -p <host-port>:8080 [...other args...] bitwardenrs/server:latest
+
+The default user in many Linux distros has uid/gid 1000 (run the `id` command to verify), so this is a good value to use if you prefer to be able to easily access your bitwarden_rs data without changing to another user, but you can adjust the uid/gid as needed. `ROCKET_PORT` defaults to 80, and needs to be changed to a value >=1024 when running as a non-root user.
+
+To do the same in `docker-compose`:
+
+    services:
+      bitwarden:
+        image: bitwardenrs/server:latest
+        container_name: bitwarden
+        user: 1000:1000
+        environment:
+          - ROCKET_PORT=8080
+    
+        ... other configuration ...
+
+## Avoid mounting unnecessary data into the container
+
+Generally, only data that bitwarden_rs needs to operate properly should be mounted into the bitwarden_rs container. For example, don't mount your entire home directory, `/var/run/docker.sock`, etc. unless you have a specific reason and know what you're doing.
+
 # Miscellaneous
 
 ## Brute-force mitigation
