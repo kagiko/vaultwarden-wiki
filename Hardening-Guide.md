@@ -41,7 +41,7 @@ To run the container process (bitwarden_rs) as a non-root user (uid/gid 1000) in
 
     docker run -u 1000:1000 -e ROCKET_PORT=8080 -p <host-port>:8080 [...other args...] bitwardenrs/server:latest
 
-The default user in many Linux distros has uid/gid 1000 (run the `id` command to verify), so this is a good value to use if you prefer to be able to easily access your bitwarden_rs data without changing to another user, but you can adjust the uid/gid as needed. `ROCKET_PORT` defaults to 80, and needs to be changed to a value >=1024 when running as a non-root user.
+The default user in many Linux distros has uid/gid 1000 (run the `id` command to verify), so this is a good value to use if you prefer to be able to easily access your bitwarden_rs data without changing to another user, but you can adjust the uid/gid as needed. `ROCKET_PORT` defaults to 80, and needs to be 1024 or higher when running as a non-root user.
 
 To do the same in `docker-compose`:
 
@@ -55,9 +55,11 @@ To do the same in `docker-compose`:
     
         ... other configuration ...
 
-## Avoid mounting unnecessary data into the container
+## Mounting data into the container
 
-Generally, only data that bitwarden_rs needs to operate properly should be mounted into the bitwarden_rs container. For example, don't mount your entire home directory, `/var/run/docker.sock`, etc. unless you have a specific reason and know what you're doing.
+Generally, only data that bitwarden_rs needs to operate properly should be mounted into the bitwarden_rs container (typically, this is just your data directory, and maybe a directory containing SSL/TLS certs and private keys). For example, don't mount your entire home directory, `/var/run/docker.sock`, etc. unless you have a specific reason and know what you're doing.
+
+Also, if you don't expect bitwarden_rs to modify the data you're mounting in (e.g., certs), then [mount it read-only](https://docs.docker.com/storage/bind-mounts/#use-a-read-only-bind-mount) by adding `:ro` to the volume specification (for example, `docker run -v /home/username/bitwarden-ssl:/ssl:ro`).
 
 # Miscellaneous
 
