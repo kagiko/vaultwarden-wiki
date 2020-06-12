@@ -142,7 +142,7 @@ Create and fill the following file
 	port = 80,443,8081
 	filter = bitwarden
 	action = iptables-allports[name=bitwarden]
-	logpath = /path/to/bitwarden/log
+	logpath = /path/to/bitwarden.log
 	maxretry = 3
 	bantime = 14400
 	findtime = 14400
