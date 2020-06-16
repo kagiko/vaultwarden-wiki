@@ -5,8 +5,8 @@ The values to the option must follow the format:
 ROCKET_TLS={certs="/path/to/certs.pem",key="/path/to/key.pem"}
 ```
 Where:
-* certs: a path to a certificate chain in PEM format
-* key: a path to a private key file in PEM format for the certificate in certs
+* `certs`: a path to a certificate chain in PEM format
+* `key`: a path to a private key file in PEM format for the certificate in certs
 
 Notes:
 * The file name _extensions_ used in the `ROCKET_TLS` line do not necessarily have to be PEM as in the example. Important is the file _format_ that needs to be PEM, i.e. base64-coded. Since the PEM format is openssl's default you can therefore simply rename .cert, .cer, .crt and .key files to .pem and vice versa or - as an alternative - use .crt or .key as file extensions in the `ROCKET_TLS` line.
@@ -15,6 +15,7 @@ Notes:
   > `[ERROR] environment variable ROCKET_TLS={certs="/ssl/ecdsa.crt",key="/ssl/ecdsa.key"} could not be parsed`
 
   (There's nothing wrong with the format of the environment variable itself; it's the cert/key contents that Rocket can't parse.)
+* If running under Docker, remember that bitwarden_rs will be parsing the `ROCKET_TLS` value when running inside the container, so make sure the `certs` and `key` paths are how they would appear inside the container (which may be different from the paths on the Docker host system).
 
 ```sh
 docker run -d --name bitwarden \
