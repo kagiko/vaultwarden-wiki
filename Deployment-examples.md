@@ -28,9 +28,53 @@ This page is an index of standalone deployment examples. If adding a new example
 
   Sample config for running `bitwarden_rs` on [DreamHost](https://www.dreamhost.com/), but should be readily adaptable to many other shared hosting services.
 
-## NixOS 
-
-* https://git.litschi.xyz/litschi/nixos/src/commit/9eff8b967d23c2a31bb25682448a2c387df2df92/machines/litschi.xyz/modules/bitwarden.nix
-
+## NixOS (by tklitschi)
   There's a example bitwarden config for NixOS. It's not very complex, you have the backend option, for the type of Database you wanna use, the Backupdir for a dedicated Backup systemdserive, the option to enable it and the config Option. For the Config Option you simply pass the .env Variables [from the .env template](https://github.com/dani-garcia/bitwarden_rs/blob/1.13.1/.env.template) in nix syntax.
 See [Proxy Examples](https://github.com/dani-garcia/bitwarden_rs/wiki/Proxy-examples) for a nixos-nginx example config.
+<details>
+<summary>Example Config</summary><br/>
+
+```nix
+{pkgs,...}:
+{
+  services.bitwarden_rs = {
+  enable = true;
+  backupDir = "/mnt/bitwarden";
+  
+
+  config = {
+      WEB_VAULT_FOLDER = "${pkgs.bitwarden_rs-vault}/share/bitwarden_rs/vault";
+      WEB_VAULT_ENABLED = true;
+      LOG_FILE = "/var/log/bitwarden";
+      WEBSOCKET_ENABLED= true;
+      WEBSOCKET_ADDRESS = "0.0.0.0";
+      WEBSOCKET_PORT = 3012;
+      SIGNUPS_VERIFY = true;
+      ADMIN_TOKEN = (import /etc/nixos/secret/bitwarden.nix).ADMIN_TOKEN;
+      DOMAIN = "https://exmaple.com";
+      YUBICO_CLIENT_ID = (import /etc/nixos/secret/bitwarden.nix).YUBICO_CLIENT_ID;
+      YUBICO_SECRET_KEY = (import /etc/nixos/secret/bitwarden.nix).YUBICO_SECRET_KEY;
+      YUBICO_SERVER = "https://api.yubico.com/wsapi/2.0/verify";
+      SMTP_HOST = "mx.example.com";
+      SMTP_FROM = "bitwarden@example.com";
+      SMTP_FROM_NAME = "Bitwarden_RS";
+      SMTP_PORT = 587;
+      SMTP_SSL = true;
+      SMTP_USERNAME= (import /etc/nixos/secret/bitwarden.nix).SMTP_USERNAME;
+      SMTP_PASSWORD = (import /etc/nixos/secret/bitwarden.nix).SMTP_PASSWORD;
+      SMTP_TIMEOUT = 15;
+      ROCKET_PORT = 8812;
+      SIGNUPS_ALLOWED = false;
+    };
+  };
+
+  environment.systemPackages = with pkgs; [
+    bitwarden_rs-vault
+  ];
+
+}
+```
+
+If you have any Questions about this part, feel Free to contact me. I on @litschi:litschi.xyz on matrix an litschi on IRC (hackint and freenode) or simply ask in the bitwarden_rs matrix.org chanel.
+
+</details>
