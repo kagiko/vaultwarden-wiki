@@ -64,7 +64,6 @@ See [Proxy Examples](https://github.com/dani-garcia/bitwarden_rs/wiki/Proxy-exam
       SMTP_PASSWORD = (import /etc/nixos/secret/bitwarden.nix).SMTP_PASSWORD;
       SMTP_TIMEOUT = 15;
       ROCKET_PORT = 8812;
-      SIGNUPS_ALLOWED = false;
     };
   };
 
