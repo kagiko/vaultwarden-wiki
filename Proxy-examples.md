@@ -228,6 +228,57 @@ nginx__servers:
 </details>
 
 <details>
+<summary>Nginx (NixOS)(by tklitschi)</summary><br/>
+
+Example NixSO nginx config. For more Information about NixOS Deployement see [depluyement Wiki page](https://github.com/dani-garcia/bitwarden_rs/wiki/Deployment-examples).
+
+
+```nix
+{ config, ... }:
+{
+  security.acme.acceptTerms = true;
+  security.acme.email = "me@example.com";
+  security.acme.certs = {
+
+    "bw.example.com" = {
+      group = "bitwarden_rs";
+      keyType = "rsa2048";
+      allowKeysForGroup = true;
+    };
+  };
+
+  services.nginx = {
+    enable = true;
+
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+
+    virtualHosts = {
+      "bw.example.com" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/" = {
+          proxyPass = "http://localhost:8812"; #changed the default rocket port due to some conflict
+          proxyWebsockets = true;
+        };
+        locations."/notifications/hub" = {
+          proxyPass = "http://localhost:3012";
+          proxyWebsockets = true;
+        };
+        locations."/notifications/hub/negotiate" = {
+          proxyPass = "http://localhost:8812";
+          proxyWebsockets = true;
+        };
+      };
+    };
+  };
+}
+
+```
+</details>
+<details>
 <summary>Apache (by fbartels)</summary><br/>
 
 ```apache
