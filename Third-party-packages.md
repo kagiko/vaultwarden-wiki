@@ -16,6 +16,11 @@ Installation instructions: https://github.com/MrMEEE/bitwarden_rs_rpm/blob/maste
 
 Any issues with the RPMs can be reported here: https://github.com/MrMEEE/bitwarden_rs_rpm/issues
 
+## Nix (OS)
+
+Bitwarden_rs is packacked on Nix with 4 packages (one for mysql, sqlite and postgresql and one for the vault). For NixOS there's a Module as well (services.bitwarden_rs) and bitwarden_rs can be configured in that way as well. 
+
+
 ## Cloudron
 
 [Cloudron](https://cloudron.io) is a platform that helps you run web apps on your server. 
