@@ -27,3 +27,10 @@ This page is an index of standalone deployment examples. If adding a new example
 * https://github.com/jjlin/bitwardenrs-shared-hosting
 
   Sample config for running `bitwarden_rs` on [DreamHost](https://www.dreamhost.com/), but should be readily adaptable to many other shared hosting services.
+
+## NixOS 
+
+* https://git.litschi.xyz/litschi/nixos/src/commit/9eff8b967d23c2a31bb25682448a2c387df2df92/machines/litschi.xyz/modules/bitwarden.nix
+
+  There's a example bitwarden config for NixOS. It's not very complex, you have the backend option, for the type of Database you wanna use, the Backupdir for a dedicated Backup systemdserive, the option to enable it and the config Option. For the Config Option you simply pass the .env Variables [from the .env template](https://github.com/dani-garcia/bitwarden_rs/blob/1.13.1/.env.template) in nix syntax.
+See [Proxy Examples](https://github.com/dani-garcia/bitwarden_rs/wiki/Proxy-examples) for a nixos-nginx example config.
