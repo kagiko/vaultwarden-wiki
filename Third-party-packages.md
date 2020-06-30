@@ -18,7 +18,7 @@ Any issues with the RPMs can be reported here: https://github.com/MrMEEE/bitward
 
 ## Nix (OS)
 
-Bitwarden_rs is packacked on Nix with 4 packages (one for mysql, sqlite and postgresql and one for the vault). For NixOS there's a Module as well (services.bitwarden_rs) and bitwarden_rs can be configured in that way as well. 
+Bitwarden_rs is packacked in Nix with 4 packages (one for mysql, sqlite and postgresql and one for the vault). For NixOS there's a Module as well (services.bitwarden_rs) so bitwarden_rs can be configured in NixOS declarative way as well. 
 
 
 ## Cloudron
