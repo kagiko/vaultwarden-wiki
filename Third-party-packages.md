@@ -1,3 +1,5 @@
+This page is an index of third-party bitwarden_rs packages. As these packages are not maintained or controlled by bitwarden_rs, they can lag behind official releases, sometimes significantly. If you rely on these packages, you might want to [enable watching](https://help.github.com/en/github/managing-subscriptions-and-notifications-on-github/viewing-your-subscriptions#configuring-your-watch-settings-for-an-individual-repository) for new bitwarden_rs releases and let the maintainer know if the package isn't being kept up to date.
+
 ## Arch Linux
 
 Bitwarden_rs is already packaged for Archlinux thanks to @mqus. There is an [AUR package](https://aur.archlinux.org/packages/bitwarden_rs) (optionally with the [vault web interface](https://aur.archlinux.org/packages/bitwarden_rs-vault/) ) available.
