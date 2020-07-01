@@ -29,3 +29,6 @@ The app package comes bundled with the upstream web vault and does not need any 
 
 The package code and the issue tracker can be found at https://git.cloudron.io/cloudron/bitwardenrs-app
  
+## Home Assistant
+
+[Home Assistant](https://www.home-assistant.io/) is an open-source home automation platform. A bitwarden_rs community add-on is available at https://github.com/hassio-addons/addon-bitwarden.
