@@ -126,9 +126,15 @@ Create and fill the following file
 	ignoreregex =
 ````
 
-If you get the following error message in `fail2ban.log` (CentOS 7, Fail2Ban v0.9.7)  
+**Tip:** If you get the following error message in `fail2ban.log` (CentOS 7, Fail2Ban v0.9.7)  
 `fail2ban.filter         [5291]: ERROR   No 'host' group in '^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$'`  
 Please Use `<HOST>` instead of `<ADDR>` in `bitwarden.local`
+
+**Tip:** If you see 127.0.0.1 as the IP address of failed logins in bitwarden.log, then you're probably using a reverse proxy and fail2ban won't work correctly:
+````
+[YYYY-MM-DD hh:mm:ss][bitwarden_rs::api::identity][ERROR] Username or password is incorrect. Try again. IP: 127.0.0.1. Username: email@example.com.
+````
+To remedy this, forward the true remote address to bitwarden_rs via the X-Real-IP header. How to do this varies depending on the proxy you use. For example, in Caddy 2.x, when you define the reverse-proxy, define `header_up X-Real-IP {remote_host}`. See [Proxy examples](https://github.com/dani-garcia/bitwarden_rs/wiki/Proxy-examples) for more info.
 
 ### Jail
 Create and fill the following file
