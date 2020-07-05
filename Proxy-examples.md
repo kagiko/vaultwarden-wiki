@@ -113,7 +113,11 @@ Caddy 2 can also automatically enable HTTPS in some circumstances, check the [do
 #  reverse_proxy /notifications/hub <SERVER>:3012
 #
 #  # Proxy the Root directory to Rocket
-#  reverse_proxy <SERVER>:80
+#  reverse_proxy <SERVER>:80 {
+#       # Send the true remote IP to Rocket, so that bitwarden_rs can put this in the
+#       # log, so that fail2ban can ban the correct IP.
+#       header_up X-Real-IP {remote_host}
+#  }
 #}
 ```
 </details>
