@@ -33,3 +33,32 @@ If the container has been stopped by `docker stop bitwarden`, a reboot or any ot
 ```
 docker start bitwarden
 ```
+
+# Customizing container startup
+
+If you have custom startup script(s) you want to run when the container starts, you can mount a single script into the container as `/etc/bitwarden_rs.sh` and/or a directory of scripts as `/etc/bitwarden_rs.d`. In the latter case, only files with an `.sh` extension are run, so files with other extensions (e.g., data/config files) can reside in the same dir. (See [start.sh](https://github.com/dani-garcia/bitwarden_rs/blob/master/docker/start.sh) for details on exactly how it works.)
+
+A custom startup script can be useful for patching web vault files or installing additional packages, CA certificates, etc. without having to build and maintain your own Docker image.
+
+## Example
+
+Suppose your script is named `init.sh` and contains the following:
+```
+echo "starting up"
+```
+
+You can run the script on startup like this:
+```
+docker run -d --name bitwarden -v $(pwd)/init.sh:/etc/bitwarden_rs.sh <other docker args...> bitwardenrs/server:latest
+```
+
+If you run `docker logs bitwarden`, you should now see `starting up` as the first line of the output.
+
+Note that the init scripts are run each time the container starts (not just the first time), so these scripts should generally be idempotent (i.e., you can run the scripts more than once without undesirable/erroneous behavior). If your scripts don't naturally have this property, you can do something like this:
+```
+if [ ! -e /.init ]; then
+  touch /.init
+
+  # run your init steps...
+fi
+```
