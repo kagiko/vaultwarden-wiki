@@ -25,15 +25,15 @@ Simply configure your domain URL to include the base dir. For example, suppose y
 6. Configure your apps or browser extensions to use `https://bitwarden.example.com/base-dir`. If you add a trailing slash, the apps and extensions will automatically remove it before saving.
 7. Note over **5**. The trailing slash `/` issue could be solved by appending `/` after the route location string. For example, in nginx.
 
-```
-  location /my-base-path {
-    # This config would cause `/` issue
-  }
-
-  location /my-base-path-2/ {
-    # This config works perfectly
-  }
-```
+    ```
+    location /my-base-path {
+      # This config would cause `/` issue
+    }
+    
+    location /my-base-path-2/ {
+      # This config works perfectly
+    }
+    ```
 
 ## Reverse proxying
 
