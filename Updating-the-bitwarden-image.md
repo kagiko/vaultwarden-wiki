@@ -34,6 +34,9 @@ docker rm bitwarden_data
 
 # Alternatively you can keep data container around for future updates in which case you can skip last step.
 ```
+
+You can also use a tool like [Watchtower](https://containrrr.dev/watchtower/) to automate the update process. Watchtower can periodically check for an update to the Docker image, pull the updated image, and recreate the container using the updated image.
+
 ## Updating when using docker-compose
 
 ```sh
