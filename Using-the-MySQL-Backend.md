@@ -1,4 +1,4 @@
-To use the MySQL backend, first ensure you build the binary [with MySQL feature enabled](https://github.com/dani-garcia/bitwarden_rs/wiki/Building-binary#mysql-backend).
+To use the MySQL backend, you can either use the [official Docker image](https://hub.docker.com/r/bitwardenrs/server-mysql) or build your own binary [with MySQL enabled](https://github.com/dani-garcia/bitwarden_rs/wiki/Building-binary#mysql-backend). The official Docker image is currently only available for x86_64 due to cross-compilation issues, so if you're using another platform, you'll need to build your own binary or use a third-party binary or Docker image.
 
 To run the binary or container ensure the ```DATABASE_URL``` environment variable is set (i.e. ```DATABASE_URL='mysql://<user>:<password>@mysql/bitwarden'```) and ```ENABLE_DB_WAL``` is set to false ```ENABLE_DB_WAL='false'``` .
 
