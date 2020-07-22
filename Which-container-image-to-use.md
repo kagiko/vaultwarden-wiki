@@ -47,6 +47,7 @@ Please add your details here, if you're running the image on a hardware that is 
 | Regular 64bit server | Ubuntu 18.04 | x86_64                          | `bitwardenrs/server` | OK     |       |
 | O-Droid HC2          | Armbian      | arm7l (arm32)                   | `registry.lollipopcloud.solutions/arm32v7/bitwarden` (see notes) | OK | Unofficial image built from upstream sources ; `bitwardenrs/server:raspberry` is the official equivalent image |
 | Raspberry Pi Zero W  | Raspbian (4.14.98+) | linux/arm (armv6l)       | `bitwardenrs/server:armv6` | OK |     |
+| Raspberry Pi Zero W  | Raspbian (4.19.66+) | linux/arm (armv6l)       | `bitwardenrs/server:latest` (Multiarch) | OK | Only when using the docker experimental featur 'docker pull --platform=linux/arm/v6'. Otherwise the wrong image will be selected (https://github.com/dani-garcia/bitwarden_rs/issues/1064) |
 | Raspberry Pi 1 B     | Raspbian (4.19.97+) | linux/arm (armv6l)       | `bitwardenrs/server:armv6` | OK |     |
 | Raspberry Pi 3 B     | Raspbian (4.14.98-v7+) | linux/arm (armv7l)    | `bitwardenrs/server:raspberry` | OK |     |
 | Raspberry Pi 4    | Raspbian (4.19.118-v7l+) | linux/arm (armv7l)    | `bitwardenrs/server:raspberry` | OK | 4go version, rev 1.1   |
