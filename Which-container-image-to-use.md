@@ -1,42 +1,62 @@
-If you plan to use Docker or Podman to run `bitwarden_rs`, you'll notice there are several image versions available. In most common case, you're going to run this service on amd64 (x86) hardware and you want to use the latest code. In this case `bitwardenrs/server` is the image to use.
+For Docker and Podman users, `bitwarden_rs` provides three images, one for each supported database backend. Each image also has several available tags. The images and tags are described below. 
 
-Some users might want to use `bitwarden_rs` on different HW or they rather run a specific version of the service. In this case there are multiple options.
+## Images
 
-## Running on different HW architecture
+* `bitwardenrs/server` -- Debian-based image with SQLite support. This image is the most widely used/tested, and recommended for most users unless there is a specific need to use a different database backend. This image supports `amd64` (x86-64), `arm32v6`, `arm32v7`, and `arm64v8` architectures.
 
-The most common architecture is amd64 - your PC or server probably uses this one, so if you're not sure, this is the most likely case. It gets a bit tricky if you use some single board computers like Raspberry Pi as it might depend on CPU, but also on OS used. Generally speaking you can check your architecture by running `docker version` - see the `OS/Arch` info. Or try the command `uname -a` that also provides info on the architecture of your system.
+* `bitwardenrs/server-mysql` -- Debian-based image with MySQL support. This image currently supports the `amd64` architecture only, due to cross-compilation issues (see [#530](https://github.com/dani-garcia/bitwarden_rs/issues/530)).
 
-Based on your architecture, you can use one of the following images:
+* `bitwardenrs/server-postgresql` -- Debian-based image with PostgreSQL support. This image currently supports the `amd64` architecture only, due to cross-compilation issues (see [#530](https://github.com/dani-garcia/bitwarden_rs/issues/530)).
 
-### `bitwardenrs/server:latest`
+`bitwardenrs/server` (i.e., the SQLite image) is a [multi-arch](https://www.docker.com/blog/multi-arch-all-the-things/) image, meaning it supports multiple CPU architectures under a single image name. Assuming you're running one of the supported architectures, simply pulling `bitwardenrs/server` should automatically yield the appropriate arch-specific image for your environment, with the exception of Armv6 boards, such as Raspberry Pi 1 and Zero (see [moby/moby#41017](https://github.com/moby/moby/issues/41017)). Armv6 users must specify `arm32v6` in the image tag, e.g. `latest-arm32v6`.
 
-The "default image", runs on amd64. (x86, 64bit)
+Note that the MySQL and PostgreSQL images currently only support `amd64`, so they are not multi-arch. If someone steps up to address the cross-compilation issues, these images can be made multi-arch as well.
 
-### `bitwardenrs/server:alpine`
+## Image tags
 
-Alpine-based amd64 image, same as above but a little bit smaller
+Each Docker image can have various tags, each of which represents some variant or property (e.g., specific version) of the image.
 
-### `bitwardenrs/server:raspberry`
+### Common tags
 
-Armv7hf image that should run on Raspberry Pi 2 or newer and possibly on any other compatible boards. This image won't run on Raspberry Pi 1 or Raspberry Pi Zero as those use armv6 CPU.
+All three (SQLite, MySQL, and PostgreSQL) images have the following tags:
 
-### `bitwardenrs/server:armv6`
+* `latest` -- Tracks the latest released version (i.e., tagged with a version number). This tag is recommended for most users, as it's generally the most stable.
 
-Armv6 image for Raspberry Pi 1 and Raspberry Pi Zero.
+* `testing` -- Tracks the latest commits to the source repository. This tag is recommended for users who want early access to the newest features or enhancements. The testing version is generally pretty stable, but occasional issues are unavoidable.
 
-### `bitwardenrs/server:aarch64`
+* `x.y.z` (e.g., `1.16.0`) -- Represents a specific released version.
 
-Aarch64 image, that should run on ARMv8 devices like Raspberry Pi 3 or possibly other ARMv8 based devices.
+### SQLite-specific tags
 
-**Note** that this will also require aarch64 distribution installed on your device, so for example if you use Raspbian on your Raspberry Pi 3, you still need to use `bitwardenrs/server:raspberry` as Raspbian is armv7hf distribution.
+The SQLite image (`bitwardenrs/server`) has the following additional tags:
 
-## Running a specific version
+* `alpine` -- Functionally the same as `latest`, but Alpine-based rather than Debian-based, resulting in a slimmer image. `latest` vs. `alpine` is mostly a matter of preference, but note that the `alpine` tag currently supports the `amd64` architecture only.
 
-Normally it should be okay to use the latest version of the image as we aim to provide stable images there. However if you prefer to run a specific version of the service and update to the next version on your own pace, we do have versioned releases available.
+* `x.y.z-alpine` (e.g., `1.16.0-alpine`) -- Similar to `alpine`, but represents a specific released version.
 
-You can run specific version by running image tagged with version number - for example `bitwardenrs/server:1.7.0`. If you run your service on different architecture (see above) you can use version provided for your architecture - like `bitwardenrs/server:1.7.0-raspberry`
+* `latest-arm32v6` -- Same as `latest`, but explicitly denotes the `arm32v6` image. This is currently required for users of Armv6 boards, such as Raspberry Pi 1 and Zero. Otherwise, Docker will attempt to pull the `arm32v7` image, which won't work (see [moby/moby#41017](https://github.com/moby/moby/issues/41017)).
 
-**Note** that we have no control over releases of the client applications and they often expect to have the latest API supported, so running older versions of `bitwarden_rs` might lead to client app misbehaving. (e.g. missing or broken functionality) The Vault being an exception as it is bundled with the image and thus the version shipped there is going to be updated together with the service. This is why we usually recommend running the latest image as it should generally be the most compatible version with the updated upstream apps.
+* `x.y.z-arm32v6` (e.g., `1.16.0-arm32v6`) -- Similar to `latest-arm32v6`, but represents a specific released version.
+
+## Image updates
+
+Occasionally, the upstream Bitwarden project (i.e., Bitwarden Inc.) makes backward-incompatible changes to the clients that require matching changes to the server implementation. bitwarden_rs generally pushes out a new release promptly to handle these changes.
+
+However, since upstream controls the release of the clients, and mobile apps and browser extensions typically auto-update on their own, it's important for bitwarden_rs users to keep up-to-date with the latest bitwarden_rs release. Otherwise, incompatible client and server versions can lead to sudden breakage or misbehavior.
+
+The web vault is the only exception; as it's bundled with the bitwarden_rs image, the web vault version is always properly matched to the bitwarden_rs server version. If you only use the web vault as the client (unlikely), then you don't need to worry about these compatibility issues.
+
+## Historical tags
+
+Prior to the addition of multi-arch image support, all arch-specific images had individual arch-specific tags. You can still find these in Docker Hub for older versions of bitwarden_rs, but they shouldn't be used anymore:
+
+* `raspberry` - Armv7hf image that should run on Raspberry Pi 2 or newer and possibly on any other compatible boards. This image won't run on Raspberry Pi 1 or Raspberry Pi Zero as those use armv6 CPU.
+
+* `armv6` - Armv6 image for Raspberry Pi 1 and Raspberry Pi Zero.
+
+* `aarch64` - Aarch64 image, that should run on ARMv8 devices like Raspberry Pi 3 or possibly other ARMv8 based devices.
+
+  **Note** that this will also require aarch64 distribution installed on your device, so for example if you use Raspbian on Raspberry Pi 3, you still need to use the `raspberry` tag as Raspbian is an `armv7hf` distribution.
 
 ## Reported compatibility table
 
