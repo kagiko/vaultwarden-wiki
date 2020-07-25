@@ -36,6 +36,8 @@ The SQLite image (`bitwardenrs/server`) has the following additional tags:
 
 * `latest-arm32v6` -- Same as `latest`, but explicitly denotes the `arm32v6` image. This is currently required for users of Armv6 boards, such as Raspberry Pi 1 and Zero. Otherwise, Docker will attempt to pull the `arm32v7` image, which won't work (see [moby/moby#41017](https://github.com/moby/moby/issues/41017)).
 
+* `testing-arm32v6` -- Same as `testing`, but explicitly denotes the `arm32v6` image.
+
 * `x.y.z-arm32v6` (e.g., `1.16.0-arm32v6`) -- Similar to `latest-arm32v6`, but represents a specific released version.
 
 ## Image updates
