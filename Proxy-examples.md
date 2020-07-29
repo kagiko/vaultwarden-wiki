@@ -285,6 +285,7 @@ Example NixSO nginx config. For more Information about NixOS Deployement see [de
 <details>
 <summary>Apache (by fbartels)</summary><br/>
 
+Remember to enable `mod_proxy_wstunnel`, for example with: `a2enmod proxy_wstunnel`.
 ```apache
 <VirtualHost *:443>
     SSLEngine on
