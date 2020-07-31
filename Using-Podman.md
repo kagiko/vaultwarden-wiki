@@ -35,8 +35,8 @@ If we want to create a new container every time the service starts we can edit t
 [Service]
 Restart=on-failure
 ExecStartPre=/usr/bin/rm -f /%t/%n-pid /%t/%n-cid
-ExecStart=/usr/bin/podman run --conmon-pidfile /%t/%n-pid --env-file=/home/spytec/Bitwarden/bitwarden.conf -d -p 8080:8080 -v /home/spytec/Bitwarden/bw-data:/data/:Z bitwardenrs/server:latest
-ExecStop=/usr/bin/podman rm -f --cid-file /%t/%n-cid
+ExecStart=/usr/bin/podman run --conmon-pidfile /%t/%n-pid --cidfile /%t/%n-pid --env-file=/home/spytec/Bitwarden/bitwarden.conf -d -p 8080:8080 -v /home/spytec/Bitwarden/bw-data:/data/:Z bitwardenrs/server:latest
+ExecStop=/usr/bin/podman rm -f --cidfile /%t/%n-cid
 KillMode=none
 Type=forking
 PIDFile=/%t/%n-pid
@@ -46,7 +46,7 @@ Where `bitwarden.conf` environment file can contain all the container environmen
 ROCKET_PORT=8080
 ```
 
-If you want the container to have a specific name, you might need to add `ExecStartPre=/usr/bin/podman rm -i -f bitwarden` if the process isn't cleaned up correctly.
+If you want the container to have a specific name, you might need to add `ExecStartPre=/usr/bin/podman rm -i -f bitwarden` if the process isn't cleaned up correctly. Note that this method currently doesn't work with the `User=` options users (see https://github.com/containers/podman/issues/5572).
 
 # Troubleshooting
 ## Debugging systemd service file
