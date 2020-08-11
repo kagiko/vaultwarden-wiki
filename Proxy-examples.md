@@ -234,7 +234,7 @@ nginx__servers:
 <details>
 <summary>Nginx (NixOS)(by tklitschi)</summary><br/>
 
-Example NixSO nginx config. For more Information about NixOS Deployement see [depluyement Wiki page](https://github.com/dani-garcia/bitwarden_rs/wiki/Deployment-examples).
+Example NixSO nginx config. For more Information about NixOS Deployment see [Deployment Wiki page](https://github.com/dani-garcia/bitwarden_rs/wiki/Deployment-examples).
 
 
 ```nix
