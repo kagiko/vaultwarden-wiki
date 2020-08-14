@@ -33,7 +33,6 @@
 1. [[Creating a systemd service|Setup-as-a-systemd-service]]
 1. [[Running with systemd-docker|Running-with-systemd-docker]]
 1. [[Running without WAL enabled|Running-without-WAL-enabled]]
-1. [[Running docker container with non-root user|Running-docker-container-with-non-root-user]]
 1. [[Syncing users from LDAP|Syncing-users-from-LDAP]]
 1. [[Other configuration|Other-configuration]]
 1. [[Using the MySQL Backend]]
