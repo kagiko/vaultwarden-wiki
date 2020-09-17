@@ -16,3 +16,13 @@ To build with Postgresql backend run:
 # Build the docker image:
 docker build -t bitwarden_rs --build-arg DB=postgresql .
 ``` 
+in docker-compose.yml it looks like
+```...
+  bitwarden:
+    # image: bitwardenrs/server-postgresql:latest
+    image: bitwarden_rs
+    build: 
+      context: bitwarden_rs
+      args: 
+        DB: postgresql
+```
