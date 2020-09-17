@@ -10,3 +10,9 @@ To build with MySQL backend run:
 # Build the docker image:
 docker build -t bitwarden_rs --build-arg DB=mysql .
 ``` 
+
+To build with Postgresql backend run:
+```sh
+# Build the docker image:
+docker build -t bitwarden_rs --build-arg DB=postgresql .
+``` 
