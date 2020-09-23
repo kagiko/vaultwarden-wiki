@@ -3,7 +3,7 @@ To use the MySQL backend, you can either use the [official Docker image](https:/
 To run the binary or container ensure the ```DATABASE_URL``` environment variable is set (i.e. ```DATABASE_URL='mysql://<user>:<password>@mysql/bitwarden'```) and ```ENABLE_DB_WAL``` is set to false ```ENABLE_DB_WAL='false'``` .
 
 **Connection String Syntax:**
-```
+```ini
 DATABASE_URL=mysql://[[user]:[password]@]host[:port][/database]
 ```
 If your password contains special characters, you will need to use percentage encoding.
@@ -15,7 +15,7 @@ If your password contains special characters, you will need to use percentage en
 A complete list of codes can be found on [Wikipedia page for percent encoding](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters)
 
 **Example using Docker:**
-```
+```bash
 # Start a mysql container
 docker run --name mysql --net <some-docker-network>\
  -e MYSQL_ROOT_PASSWORD=<my-secret-pw>\
@@ -44,26 +44,41 @@ mysql://dbuser:yourpassword@192.168.1.10:3306/bitwarden
 An easy way of migrating from SQLite to MySQL has been described in this [issue comment](https://github.com/dani-garcia/bitwarden_rs/issues/497#issuecomment-511827057). The steps are repeated below. Please, note that you are using this at your won risk and you are strongly advised to backup your installation and data!
 
 1. Create an new (empty) database for bitwarden_rs:
-```CREATE DATABASE bitwarden_rs;```
-2. Create a new database user and grant rights to database:
+```sql
+CREATE DATABASE bitwarden_rs;
 ```
+2. Create a new database user and grant rights to database:
+```sql
 CREATE USER 'bitwarden_rs'@'localhost' IDENTIFIED BY 'yourpassword';
 GRANT ALL ON `bitwarden_rs`.* TO 'bitwarden_rs'@'localhost';
 FLUSH PRIVILEGES;
 ```
 You might want to try a restricted set of grants:
-```
+```sql
 CREATE USER 'bitwarden_rs'@'localhost' IDENTIFIED BY 'yourpassword';
 GRANT ALTER, CREATE, DELETE, DROP, INDEX, INSERT, SELECT, UPDATE ON `bitwarden_rs`.* TO 'bitwarden_rs'@'localhost';
 FLUSH PRIVILEGES;
 ```
 3. Configure bitwarden_rs and start it, so diesel can run migrations and set up the schema properly. Do not do anything else.
 4. Stop bitwarden_rs.
-5. Dump your existing SQLite database: ```sqlite3 db.sqlite3 .dump > sqlitedump.sql```
-NB: On Debian (Buster), you'll need to install sqlite3 for this
-6. Drop schema creation and diesel metadata from your dump, leaving only your actual data: ```grep "INSERT INTO" sqlitedump.sql | grep -v "__diesel_schema_migrations" > mysqldump.sql```
-7. Load your MySQL dump: ```mysql -ubitwarden_rs -pyourpassword < mysqldump.sql```
-8. Start bitwarden_rs.
+5. Dump your existing SQLite database using the following command. Double check the name of your sqlite database, default should be db.sqlite.<br>
+**Note:** You need the sqlite3 command installed on your Linux system.<br>
+We need to remove some queries from the output of the sqlite dump like create table etc.. we will do that here.<br><br>
+You either can use this one-liner:
+```bash
+sqlite3 db.sqlite3 .dump | grep "^INSERT INTO" | grep -v "__diesel_schema_migrations" > sqlitedump.sql ; echo -ne "SET FOREIGN_KEY_CHECKS=0;\n$(cat sqlitedump.sql)" > mysqldump.sql
+```
+Or the following right after each other:
+```bash
+sqlite3 db.sqlite3 .dump | grep "^INSERT INTO" | grep -v "__diesel_schema_migrations" > sqlitedump.sql
+echo "SET FOREIGN_KEY_CHECKS=0;" > mysqldump.sql
+cat sqlitedump.sql >> mysqldump.sql
+```
+6. Load your MySQL dump:
+```bash
+mysql --force --password --user=bitwarden_rs --database=bitwarden_rs < mysqldump.sql
+```
+7. Start bitwarden_rs again.
 
 *Note: Loading your MySQL dump with ```--show-warnings``` will highlight that the datetime fields are getting truncated during the import which **seems** to be okay.*
 ```
@@ -76,11 +91,11 @@ Note (Code 1265): Data truncated for column 'updated_at' at row 1
 error (1064): Syntax error near '"users" VALUES('9b5c2d13-8c4f-47e9-bd94-f0d7036ff581'*********)
 ```
 fix:
-```
+```bash
 sed -i s#\"#\#g mysqldump.sql
 ```
-```
-mysql -ubitwarden_rs pyourpassword
+```bash
+mysql --password --user=bitwarden_rs
 use bitwarden_rs
 source /bw-data/mysqldump.sql
 exit
