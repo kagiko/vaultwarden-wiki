@@ -36,6 +36,7 @@
 1. [[Syncing users from LDAP|Syncing-users-from-LDAP]]
 1. [[Other configuration|Other-configuration]]
 1. [[Using the MySQL Backend]]
+1. [[Using the PostgreSQL Backend]]
 1. [[Using an alternate base dir (subdir/subpath)|Using-an-alternate-base-dir]]
 
 ## Other Information
