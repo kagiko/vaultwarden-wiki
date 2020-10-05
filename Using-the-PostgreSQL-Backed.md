@@ -40,5 +40,5 @@ load database
      ALTER SCHEMA 'bitwarden' RENAME TO 'public'
 ;
 ```
-7. run the command ```pgloader pgloader.load``` and you might see some warnings, but the migration should complete successfully
+7. run the command ```pgloader bitwarden.load``` and you might see some warnings, but the migration should complete successfully
 8. Start bitwarden_rs again.
