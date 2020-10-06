@@ -407,3 +407,14 @@ labels:
   - traefik.http.services.bitwarden-websocket.loadbalancer.server.port=3012
 ```
 </details>
+
+<details>
+<summary>HAproxy (by patbel-pwr)</summary><br/>
+Add these lines in _frontend https_ section in order to forward ips for all your proxied services. 
+
+```
+    option forwardfor header X-Real-IP
+    http-request set-header X-Real-IP %[src]
+
+```
+</details>
