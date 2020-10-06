@@ -410,7 +410,8 @@ labels:
 
 <details>
 <summary>HAproxy (by patbel-pwr)</summary><br/>
-Add these lines in _frontend https_ section in order to forward ips for all your proxied services. 
+
+Add these lines in `frontend https` section in order to forward ips for all your proxied services. 
 
 ```
     option forwardfor header X-Real-IP
