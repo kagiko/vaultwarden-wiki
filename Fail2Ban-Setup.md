@@ -163,6 +163,10 @@ Do not use this if you use a reverse proxy before docker container. If proxy, li
 **NOTE on the NOTE above**:  
 Thats at least not true for running on Docker (CentOS 7) with caddy as reverse proxy. chain=FORWARD is absolutely fine and working with caddy as reverse proxy.
 
+You need to restart fail2ban for changes to take effect:
+
+`sudo systemctl restart fail2ban`
+
 Feel free to change the options as you see fit.
 
 
@@ -204,6 +208,9 @@ Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefor
 ```
 	action = iptables-allports[name=bitwarden, chain=FORWARD]
 ```
+You need to restart fail2ban for changes to take effect:
+
+`sudo systemctl restart fail2ban`
 
 ## Testing Fail2Ban
 
