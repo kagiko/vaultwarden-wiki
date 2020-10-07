@@ -14,9 +14,9 @@ If your password contains special characters, you will need to use percentage en
 
 A complete list of codes can be found on [Wikipedia page for percent encoding](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters)
 
-**Migrating from SQLite to MySQL**
+**Migrating from SQLite to PostgreSQL**
 
-An easy way of migrating from MySQL to PostgreSQL to MySQL exists, but please, note that you **are using this at your own risk and you are strongly advised to backup your installation and data!**. This is **unsupported** and has not been robustly tested.
+An easy way of migrating from SQLite to PostgreSQL or to MySQL exists, but please, note that you **are using this at your own risk and you are strongly advised to backup your installation and data!**. This is **unsupported** and has not been robustly tested.
 
 1. Create an new (empty) database for bitwarden_rs:
 ```sql
@@ -33,7 +33,7 @@ GRANT all privileges ON database bitwarden_rs TO bitwarden_rs;
 6. create the file bitwarden.load with the following content:
 ```
 load database
-     from mysql://yourmysqluser:yourmysqlpassword@yourmysqlserver:yourmysqlport/yourmysqldatabase
+     from sqlite://yoursqliteuser:yoursqlitepassword@yoursqliteserver:yoursqliteport/yoursqlitedatabase
      into postgresql://yourpgsqluser:yourpgsqlpassword:yourpgsqlserver:yourpgsqlport/yourpgsqldatabase
      WITH data only, include no drop, reset sequences
      EXCLUDING TABLE NAMES MATCHING '__diesel_schema_migrations'
