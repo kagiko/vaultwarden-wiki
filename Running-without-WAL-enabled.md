@@ -20,7 +20,7 @@ These changes are generally safe and can be done without data loss, however [bac
 
 ### 1. Disable WAL on old DB
 
-If you have old DB, that was used with WAL enabled, you need to enable it using sqlite:
+If you have old DB, that was used with WAL enabled, you need to disable it using sqlite:
 1. Stop `bitwarden_rs`
 2. Locate your [data folder](https://github.com/dani-garcia/bitwarden_rs/wiki/Changing-persistent-data-location). Normally there will be `db.sqlite3` file there unless you specified some other name to use.
 3. Open the file using sqlite:
