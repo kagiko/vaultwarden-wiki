@@ -34,3 +34,8 @@ The package code and the issue tracker can be found at https://git.cloudron.io/c
 ## Home Assistant
 
 [Home Assistant](https://www.home-assistant.io/) is an open-source home automation platform. A bitwarden_rs community add-on is available at https://github.com/hassio-addons/addon-bitwarden.
+
+## Build script for Ubuntu 20.04
+Dinger1986 has created a script to install bitwarden_rs from source on Ubuntu 20.04, see
+https://github.com/dinger1986/bitwardenrs_install_script
+
