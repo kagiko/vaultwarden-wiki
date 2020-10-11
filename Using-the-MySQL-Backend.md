@@ -41,7 +41,7 @@ mysql://dbuser:yourpassword@192.168.1.10:3306/bitwarden
 
 **Migrating from SQLite to MySQL**
 
-An easy way of migrating from SQLite to MySQL has been described in this [issue comment](https://github.com/dani-garcia/bitwarden_rs/issues/497#issuecomment-511827057). The steps are repeated below. Please, note that you are using this at your won risk and you are strongly advised to backup your installation and data!
+An easy way of migrating from SQLite to MySQL has been described in this [issue comment](https://github.com/dani-garcia/bitwarden_rs/issues/497#issuecomment-511827057). The steps are repeated below. Please, note that you are using this at your own risk and you are strongly advised to backup your installation and data!
 
 1. Create an new (empty) database for bitwarden_rs:
 ```sql
