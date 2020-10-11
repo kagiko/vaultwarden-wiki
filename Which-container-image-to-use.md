@@ -1,36 +1,20 @@
-For Docker and Podman users, `bitwarden_rs` provides three images, one for each supported database backend. Each image also has several available tags. The images and tags are described below. 
+`bitwarden_rs` provides a single Docker image ([`bitwardenrs/server`](https://hub.docker.com/r/bitwardenrs/server)) with unified support for SQLite, MySQL, and PostgreSQL database backends, as of version 1.17.0. Prior to that version, there were separate images for each database backend (see [Historical images](#historical-images)).
 
-## Images
+The `bitwardenrs/server` image is also [multi-arch](https://www.docker.com/blog/multi-arch-all-the-things/), meaning it supports multiple CPU architectures under a single image name. Assuming you're running one of the supported architectures, simply pulling `bitwardenrs/server` should automatically yield the appropriate arch-specific image for your environment, with the exception of Armv6 boards, such as Raspberry Pi 1 and Zero (see [moby/moby#41017](https://github.com/moby/moby/issues/41017)). Armv6 users must specify `arm32v6` in the image tag, e.g. `latest-arm32v6`.
 
-* `bitwardenrs/server` -- Debian-based image with SQLite support. This image is the most widely used/tested, and recommended for most users unless there is a specific need to use a different database backend. This image supports `amd64` (x86-64), `arm32v6`, `arm32v7`, and `arm64v8` architectures.
+The SQLite backend is the most widely used/tested, and recommended for most users unless there is a specific need to use a different database backend.
 
-* `bitwardenrs/server-mysql` -- Debian-based image with MySQL support. This image currently supports the `amd64` architecture only, due to cross-compilation issues (see [#530](https://github.com/dani-garcia/bitwarden_rs/issues/530)).
+### Image tags
 
-* `bitwardenrs/server-postgresql` -- Debian-based image with PostgreSQL support. This image currently supports the `amd64` architecture only, due to cross-compilation issues (see [#530](https://github.com/dani-garcia/bitwarden_rs/issues/530)).
-
-`bitwardenrs/server` (i.e., the SQLite image) is a [multi-arch](https://www.docker.com/blog/multi-arch-all-the-things/) image, meaning it supports multiple CPU architectures under a single image name. Assuming you're running one of the supported architectures, simply pulling `bitwardenrs/server` should automatically yield the appropriate arch-specific image for your environment, with the exception of Armv6 boards, such as Raspberry Pi 1 and Zero (see [moby/moby#41017](https://github.com/moby/moby/issues/41017)). Armv6 users must specify `arm32v6` in the image tag, e.g. `latest-arm32v6`.
-
-Note that the MySQL and PostgreSQL images currently only support `amd64`, so they are not multi-arch. If someone steps up to address the cross-compilation issues, these images can be made multi-arch as well.
-
-## Image tags
-
-Each Docker image can have various tags, each of which represents some variant or property (e.g., specific version) of the image.
-
-### Common tags
-
-All three (SQLite, MySQL, and PostgreSQL) images have the following tags:
+The `bitwardenrs/server` image has several tags, each of which represents some variant or property (e.g., specific version) of the image.
 
 * `latest` -- Tracks the latest released version (i.e., tagged with a version number). This tag is recommended for most users, as it's generally the most stable.
 
-* `testing` -- Tracks the latest commits to the source repository. This tag is recommended for users who want early access to the newest features or enhancements. The testing version is generally pretty stable, but occasional issues are unavoidable.
+* `testing` -- Tracks the latest commits to the source repository. This tag is recommended for users who want early access to the newest features, enhancements, or bug fixes. The testing version is generally pretty stable, but occasional issues are unavoidable.
 
 * `x.y.z` (e.g., `1.16.0`) -- Represents a specific released version.
 
-### SQLite-specific tags
-
-The SQLite image (`bitwardenrs/server`) has the following additional tags:
-
-* `alpine` -- Functionally the same as `latest`, but Alpine-based rather than Debian-based, resulting in a slimmer image. `latest` vs. `alpine` is mostly a matter of preference, but note that the `alpine` tag currently supports the `amd64` architecture only.
+* `alpine` -- Functionally the same as `latest`, but Alpine-based rather than Debian-based, resulting in a slimmer image. `latest` vs. `alpine` is mostly a matter of preference, but note that the `alpine` tag currently supports the `amd64` and `arm32v7` architectures only.
 
 * `x.y.z-alpine` (e.g., `1.16.0-alpine`) -- Similar to `alpine`, but represents a specific released version.
 
@@ -48,9 +32,16 @@ However, since upstream controls the release of the clients, and mobile apps and
 
 The web vault is the only exception; as it's bundled with the bitwarden_rs image, the web vault version is always properly matched to the bitwarden_rs server version. If you only use the web vault as the client (unlikely), then you don't need to worry about these compatibility issues.
 
+## Historical images
+
+Prior to the addition of multidb support in version 1.17.0, MySQL and PostgreSQL support was only included in separate database-specific images. You can still find these in Docker Hub for older versions of bitwarden_rs, but they shouldn't be used anymore:
+
+* [`bitwardenrs/server-mysql`](https://hub.docker.com/r/bitwardenrs/server-mysql) - Debian-based `bitwarden_rs` image that includes support for MySQL only (not SQLite or PostgreSQL).
+* [`bitwardenrs/server-postgresql`](https://hub.docker.com/r/bitwardenrs/server-postgresql) - Debian-based `bitwarden_rs` image that includes support for PostgreSQL only (not SQLite or MySQL).
+
 ## Historical tags
 
-Prior to the addition of multi-arch image support, all arch-specific images had individual arch-specific tags. You can still find these in Docker Hub for older versions of bitwarden_rs, but they shouldn't be used anymore:
+Prior to the addition of multi-arch image support in version 1.16.0, all arch-specific images had individual arch-specific tags. You can still find these in Docker Hub for older versions of bitwarden_rs, but they shouldn't be used anymore:
 
 * `raspberry` - Armv7hf image that should run on Raspberry Pi 2 or newer and possibly on any other compatible boards. This image won't run on Raspberry Pi 1 or Raspberry Pi Zero as those use armv6 CPU.
 
