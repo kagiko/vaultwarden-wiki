@@ -6,6 +6,8 @@ To run the binary or container ensure the ```DATABASE_URL``` environment variabl
 ```ini
 DATABASE_URL=postgresql://[[user]:[password]@]host[:port][/database]
 ```
+An example docker run environment variable would be: ```-e 'DATABASE_URL=postgresql://postgresadmin:strongpassword@postgres:5432/bitwardenrs'```.
+
 If your password contains special characters, you will need to use percentage encoding.
 
 | ! | # | $ | % | & | ' | ( | ) | * | + | , | / | : | ; | = | ? | @ | [ | ] |
