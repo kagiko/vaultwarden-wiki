@@ -1,7 +1,3 @@
-## Changing user email
-
-Email verification has not yet been implemented, so users just need to enter any random token to continue and the change will be applied.
-
 ## Inviting users into organization
 
 ### With SMTP enabled
