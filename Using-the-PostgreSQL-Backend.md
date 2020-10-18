@@ -36,9 +36,9 @@ GRANT all privileges ON database bitwarden_rs TO bitwarden_rs;
 ```
 load database
      from sqlite://yoursqliteuser:yoursqlitepassword@yoursqliteserver:yoursqliteport/yoursqlitedatabase
-     into postgresql://yourpgsqluser:yourpgsqlpassword:yourpgsqlserver:yourpgsqlport/yourpgsqldatabase
+     into postgresql://yourpgsqluser:yourpgsqlpassword@yourpgsqlserver:yourpgsqlport/yourpgsqldatabase
      WITH data only, include no drop, reset sequences
-     EXCLUDING TABLE NAMES MATCHING '__diesel_schema_migrations'
+     EXCLUDING TABLE NAMES LIKE '__diesel_schema_migrations'
      ALTER SCHEMA 'bitwarden' RENAME TO 'public'
 ;
 ```
