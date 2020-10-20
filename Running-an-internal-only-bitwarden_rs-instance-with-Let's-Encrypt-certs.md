@@ -61,7 +61,7 @@ You should now be able to reach your bitwarden_rs instance at https://my-bwrs.du
 
 If you don't already have an account, create one at https://www.cloudflare.com/. Create a subdomain for your bitwarden_rs instance (e.g., `bwrs.example.com`), setting its IP to your bitwarden_rs host's private IP (e.g., `192.168.1.100`). For example:
 
-![A record config](https://imgur.com/BBvy4Yj)
+![A record config](https://i.imgur.com/BBvy4Yj.png)
 
 Create an API token for the DNS challenge (for more background, see https://github.com/libdns/cloudflare/blob/master/README.md):
 
@@ -75,7 +75,7 @@ Create an API token for the DNS challenge (for more background, see https://gith
 
 Your token list should look like:
 
-![API token config](https://imgur.com/FoOv9Ww)
+![API token config](https://i.imgur.com/FoOv9Ww.png)
 
 Create a file named `Caddyfile` with the following content:
 ```
