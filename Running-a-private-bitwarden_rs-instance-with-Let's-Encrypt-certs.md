@@ -59,7 +59,7 @@ You should now be able to reach your bitwarden_rs instance at https://my-bwrs.du
 
 ## Cloudflare setup
 
-If you don't already have an account, create one at https://www.cloudflare.com/. Create a subdomain for your bitwarden_rs instance (e.g., `bwrs.example.com`), setting its IP to your bitwarden_rs host's private IP (e.g., `192.168.1.100`). For example:
+If you don't already have an account, create one at https://www.cloudflare.com/; you'll also have to go to your domain registrar to set your nameservers to the ones assigned to you by Cloudflare. Create a subdomain for your bitwarden_rs instance (e.g., `bwrs.example.com`), setting its IP to your bitwarden_rs host's private IP (e.g., `192.168.1.100`). For example:
 
 ![A record config](https://i.imgur.com/BBvy4Yj.png)
 
