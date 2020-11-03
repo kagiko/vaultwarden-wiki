@@ -2,13 +2,24 @@ If you don't want to build the binary yourself, you can look if bitwarden_rs was
 
 ## Dependencies
 - `Rust nightly` (strongly recommended to use [rustup](https://rustup.rs/))
+- On a Debian based distro some general packages to make sure building should go fine install the following: `build-essential`, `git`
 - `OpenSSL` (should be available in path, install through your system's package manager or use the [prebuilt binaries](https://wiki.openssl.org/index.php/Binaries))  
-  For Debian, you'll need to install `pkg-config` and `libssl-dev`
+  On a Debian based distro, you need to install `pkgconfig` and `libssl-dev`
+- For the SQlite3 backend on a Debian based distro you need to install `libsqlite3-dev`
+- For the MySQL backend on a Debian based distro you need to install `libmariadb-dev-compat` and `libmariadb-dev`
+- For the PostgreSQL on a Debian based distro you need to install `libpq-dev` and `pkgconfig`
 - `NodeJS` (only when compiling the web-vault, install through your system's package manager, use the [prebuilt binaries](https://nodejs.org/en/download/)) or [nodesource binary distribution](https://github.com/nodesource/distributions)
 *Note: web-vault currently uses a package base (e.g. node-sass <v4.12) which requires NodeJS v11*
-- For MySQL backend on Debian (Buster), you'll need to install `libmariadb-dev-compat` and `libmariadb-dev`
 
 ## Run/Compile
+### All backends
+```sh
+# Compile with all backends and run
+cargo run --features sqlite,mysql,postgresql --release
+# or just compile with all backends (binary located in target/release/bitwarden_rs)
+cargo build --features sqlite,mysql,postgresql --release
+```
+
 ### SQlite backend
 ```sh
 # Compile with sqlite backend and run
@@ -108,3 +119,6 @@ diesel migration redo
 
 ## How to migrate from SQLite backend to MySQL backend (for developers)
 Refer to [using the MySQL backend](https://github.com/dani-garcia/bitwarden_rs/wiki/Using-the-MySQL-Backend) if you want to migrate from SQLite.
+
+## How to migrate from SQLite backend to PostgreSQL backend (for developers)
+Refer to [using the PostgreSQL backend](https://github.com/dani-garcia/bitwarden_rs/wiki/Using-the-PostgreSQL-Backend) if you want to migrate from SQLite.
