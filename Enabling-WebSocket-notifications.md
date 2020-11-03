@@ -1,4 +1,6 @@
-*Important: This does not apply to the mobile clients, which use push notifications.*
+WebSocket notifications are used to inform the browser and desktop Bitwarden clients that some event of interest has occurred, such as when an entry in the password database has been modified or deleted. Upon receiving the notification, the client can take an appropriate action, such as refetching the modified entry, or removing the deleted entry from its local copy of the database. In this notification scheme, the Bitwarden client establishes a persistent WebSocket connection with the Bitwarden server (bitwarden_rs in this case). Whenever the server has an event to report, it sends it to the client via this persistent connection.
+
+Note that WebSocket notifications are not applicable to the mobile (Android/iOS) Bitwarden clients. These clients use the native push notification service instead ([FCM](https://firebase.google.com/docs/cloud-messaging) for Android, [APNs](https://developer.apple.com/go/?id=push-notifications) for iOS). bitwarden_rs does not currently support push notifications to mobile clients.
 
 To enable WebSockets notifications, an external reverse proxy is necessary, and it must be configured to do the following:
 - Route the `/notifications/hub` endpoint to the WebSocket server, by default at port `3012`, making sure to pass the `Connection` and `Upgrade` headers. (Note the port can be changed with `WEBSOCKET_PORT` variable)
