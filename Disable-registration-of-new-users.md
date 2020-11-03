@@ -8,6 +8,8 @@ docker run -d --name bitwarden \
   bitwardenrs/server:latest
 ```
 
+Note that when `SIGNUPS_ALLOWED=false`, the `Create Account` button will still be shown in the web vault UI, but actually attempting to create an account will result in an error message. Upstream Bitwarden isn't designed to allow disabling signups, so this can't be worked around easily.
+
 ## Disabling organization invitations
 
 Even when `SIGNUPS_ALLOWED=false`, an existing user who is an organization owner or admin can still invite new users. If you want to disable this as well, see [[Disable invitations|disable-invitations]].
