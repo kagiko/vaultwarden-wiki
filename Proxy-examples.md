@@ -154,7 +154,7 @@ server {
     proxy_pass http://<SERVER>:80;
   }
 
-  # Optionally add extra authentication besides the AUTH_TOKEN
+  # Optionally add extra authentication besides the ADMIN_TOKEN
   # If you don't want this, leave this part out
   location /admin {
     # See: https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/
