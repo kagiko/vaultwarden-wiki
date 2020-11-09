@@ -10,18 +10,20 @@ As root, create `/etc/systemd/system/bitwarden.service` using your preferred edi
 ```ini
 [Unit]
 Description=Bitwarden
-After=docker.service
+After=docker.service network.target
 Requires=docker.service
 
 [Service]
 TimeoutStartSec=0
 ExecStartPre=/usr/bin/docker pull bitwardenrs/server:latest
-ExecStart=/usr/bin/systemd-docker --cgroups name=systemd --env run \
+ExecStart=/usr/bin/docker run -d \
   -p 8080:80 \
   -p 8081:3012 \
+  --env-file /opt/.bitwarden.env \
   -v /opt/bw-data:/data/ \
-  --rm --name %n bitwardenrs/server:latest
-Restart=always
+  --restart=unless-stopped --name bitwarden bitwardenrs/server:latest
+ExecStopPost=/usr/bin/docker rm bitwarden
+Restart=Always
 RestartSec=10s
 Type=notify
 NotifyAccess=all
@@ -32,12 +34,14 @@ WantedBy=multi-user.target
 
 Adjust the above example as necessary. In particular, pay attention to the `-p` and `-v` options,
 as these control the port and volume bindings between the container and the host.
+Also make sure to provide a `--env-file` with your configurations, or type out all your configurations via `-e KEY=VALUE` directly.
 
 Explanation of options which may not be self-explanatory:
 
 - A `TimeoutStartSec` value of 0 stops systemd from considering the service failed
   after waiting for the default startup time. This is required as it may take a while for the `docker pull` in `ExecStartPre` to finish.
 - `ExecStartPre`: Pull the docker tag before running.
+- `ExecStopPost`: Delete the container (to make sure we can start again next time). The reason we do that is because systemd is monitoring the docker service instead of the individual container. As such we tell the docker service to restart the container `unless-stopped. That is basically like `--restart=Always`, but excluding when the docker service stopped (or the container was halted). This allows us to only restart the service `Restart=Always` with systemd when the docker service stopped.
 - A `Type` value of `notify` tells systemd to expect a notification from the service that it is ready.
 - A `NotifyAccess` value of `all` is required by `systemd-docker`.
 
