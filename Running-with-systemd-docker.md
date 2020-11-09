@@ -10,7 +10,7 @@ As root, create `/etc/systemd/system/bitwarden.service` using your preferred edi
 ```ini
 [Unit]
 Description=Bitwarden
-After=docker.service network.target
+After=docker.service
 Requires=docker.service
 
 [Service]
@@ -21,10 +21,12 @@ ExecStart=/usr/bin/docker run -d \
   -p 8081:3012 \
   --env-file /opt/.bitwarden.env \
   -v /opt/bw-data:/data/ \
-  --restart=unless-stopped --name bitwarden bitwardenrs/server:latest
+  --restart=on-failure --name bitwarden bitwardenrs/server:latest
+ExecStop=-/usr/bin/docker container update --restart="no" bitwarden
+ExecStopPost=/usr/bin/docker container stop bitwarden
 ExecStopPost=/usr/bin/docker rm bitwarden
 Restart=Always
-RestartSec=10s
+RestartSec=30s
 Type=notify
 NotifyAccess=all
 
