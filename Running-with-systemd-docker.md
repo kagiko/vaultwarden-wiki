@@ -41,7 +41,7 @@ Explanation of options which may not be self-explanatory:
 - A `TimeoutStartSec` value of 0 stops systemd from considering the service failed
   after waiting for the default startup time. This is required as it may take a while for the `docker pull` in `ExecStartPre` to finish.
 - `ExecStartPre`: Pull the docker tag before running.
-- `ExecStopPost`: Delete the container (to make sure we can start again next time). The reason we do that is because systemd is monitoring the docker service instead of the individual container. As such we tell the docker service to restart the container `unless-stopped. That is basically like `--restart=Always`, but excluding when the docker service stopped (or the container was halted). This allows us to only restart the service `Restart=Always` with systemd when the docker service stopped.
+- `ExecStopPost`: Delete the container (to make sure we can start again next time). The reason we do that is because systemd is monitoring the docker service instead of the individual container. As such we tell the docker service to restart the container `unless-stopped`. That is basically like `--restart=Always`, but excluding when the docker service stopped (or the container was halted). This allows us to only restart the service `Restart=Always` with systemd when the docker service stopped.
 - A `Type` value of `notify` tells systemd to expect a notification from the service that it is ready.
 - A `NotifyAccess` value of `all` is required by `systemd-docker`.
 
