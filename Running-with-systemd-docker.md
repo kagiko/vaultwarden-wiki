@@ -24,7 +24,7 @@ ExecStart=/usr/bin/docker run -d \
   --restart=on-failure --name bitwarden bitwardenrs/server:latest
 ExecStop=-/usr/bin/docker container update --restart="no" bitwarden
 ExecStopPost=/usr/bin/docker container stop bitwarden
-ExecStopPost=/usr/bin/docker rm bitwarden
+ExecStopPost=-/usr/bin/docker rm bitwarden
 Restart=Always
 RestartSec=30s
 Type=notify
