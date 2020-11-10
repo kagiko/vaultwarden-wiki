@@ -15,7 +15,7 @@ Requires=docker.service
 
 [Service]
 TimeoutStartSec=0
-ExecStartPre=/usr/bin/docker pull bitwardenrs/server:latest
+ExecStartPre=-/usr/bin/docker pull bitwardenrs/server:latest
 ExecStart=/usr/bin/docker run -d \
   -p 8080:80 \
   -p 8081:3012 \
