@@ -16,12 +16,14 @@ Requires=docker.service
 [Service]
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker pull bitwardenrs/server:latest
-ExecStart=/usr/bin/docker run -d \
+ExecStartPre=-/usr/bin/docker stop bitwarden
+ExecStartPre=-/usr/bin/docker rm bitwarden
+ExecStart=/usr/bin/docker run \
   -p 8080:80 \
   -p 8081:3012 \
   --env-file /opt/.bitwarden.env \
   -v /opt/bw-data:/data/ \
-  --restart=on-failure --name bitwarden bitwardenrs/server:latest
+  --rm --name bitwarden bitwardenrs/server:latest
 ExecStop=/usr/bin/docker stop bitwarden
 ExecStopPost=-/usr/bin/docker rm bitwarden
 Restart=Always
