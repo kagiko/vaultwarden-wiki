@@ -1,9 +1,9 @@
 Setup Fail2ban will prevent attackers to brute force your vault logins. This is particularly important if your instance is publicaly available.
 
-## Table of Content
+## Table of Contents
 - [Pre-requisite](#pre-requisite)
 - [Installation](#installation)
-	* [Debian / Ubuntu / Raspian](#debian--ubuntu--raspian)
+	* [Debian / Ubuntu / Raspberry Pi OS](#debian--ubuntu--raspberry-pi-os)
 	* [Fedora / Centos](#fedora--centos)
 	* [Synology DSM](#synology-dsm)
 - [Setup for web vault](#setup-for-web-vault)
@@ -16,35 +16,35 @@ Setup Fail2ban will prevent attackers to brute force your vault logins. This is 
 - [SELinux Problems](#selinux-problems)
 
 ## Pre-requisite
-
 - Commands below are using `vi`. The basics can be found [there](https://pc.net/resources/commands/vi). However, you can use whatever text editor you want.
 - From Release 1.5.0, Bitwarden_rs supports logging to file. Please set this up : [[Logging|logging]]
-- Try to log to web vault with a false account and check the log files for folowing format
+- Try to log to web vault with a false account and check the log files for following format
 ````
 	[YYYY-MM-DD hh:mm:ss][bitwarden_rs::api::identity][ERROR] Username or password is incorrect. Try again. IP: XXX.XXX.XXX.XXX. Username: email@domain.com.
 ````
 
 ## Installation
-
-### Debian / Ubuntu / Raspian
+### Debian / Ubuntu / Raspberry Pi OS
 ```
 	sudo apt-get install fail2ban -y
 ```
+
 ### Fedora / Centos
 EPEL repository is necessary (CentOS 7)  
 ```
 	sudo yum install epel-release
 	sudo yum install fail2ban -y
 ```
+
 ### Synology DSM
 With Synology, a bit more work is needed for various reasons. The full solution is pushed with Docker Compose [there](https://github.com/sosandroid/docker-fail2ban-synology). The main issues are:
 
-1. The embeded IP ban system does not work for Docker's containers
-2. The iptables embeded do no support the `REJECT` blocktype
+1. The embedded IP ban system does not work for Docker's containers
+2. The iptables embedded do no support the `REJECT` blocktype
 3. The Docker GUI does not allow some advanced settings
 4. Modifying system configuration is not upgrade-proof
 
-Therefore, we will use Fail2ban in a docker container. [Crazy-max/docker-fail2ban](https://github.com/crazy-max/docker-fail2ban) provides a good solution and the Synology's docker GUI will be ignored. From command line through SSH, here the steps. As a convention `volumeX` is to be adapted to your Synology's config.  
+Therefore, we will use Fail2ban in a Docker container. [Crazy-max/docker-fail2ban](https://github.com/crazy-max/docker-fail2ban) provides a good solution and the Synology's Docker GUI will be ignored. From command line through SSH, here the steps. As a convention `volumeX` is to be adapted to your Synology's config.  
 
 0. Get root
 ````
@@ -108,7 +108,6 @@ Therefore, we will use Fail2ban in a docker container. [Crazy-max/docker-fail2ba
 You should see the container running in Synology's Docker GUI. You will have to reload after configuring the filters and jails
 
 ## Setup for web vault
-
 As a convention, `path_f2b` means the path needed for Fail2ban to work. This depends on your system. E.g. on Synology, we are talking about `/volumeX/docker/fail2ban/` where on some other systems we are talking about `/etc/fail2ban/`
 
 ### Filter
@@ -158,17 +157,16 @@ Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefor
 	action = iptables-allports[name=bitwarden_rs, chain=FORWARD]
 ```
 **NOTE**:  
-Do not use this if you use a reverse proxy before docker container. If proxy, like apache2 or nginx is used, use the ports of the proxy and do not use chain=FORWARD, only when using Docker **without** proxy!
+Do not use this if you use a reverse proxy before Docker container. If proxy, like apache2 or nginx is used, use the ports of the proxy and do not use chain=FORWARD, only when using Docker **without** proxy!
 
 **NOTE on the NOTE above**:  
-Thats at least not true for running on Docker (CentOS 7) with caddy as reverse proxy. chain=FORWARD is absolutely fine and working with caddy as reverse proxy.
+That's at least not true for running on Docker (CentOS 7) with caddy as reverse proxy. chain=FORWARD is absolutely fine and working with caddy as reverse proxy.
 
 Reload fail2ban for changes to take effect:
 
 `sudo systemctl reload fail2ban`
 
 Feel free to change the options as you see fit.
-
 
 ## Setup for admin page
 If you've enabled the admin console by setting the `ADMIN_TOKEN` environment variable, you can prevent an attacker brute-forcing the admin token using Fail2Ban. The process is the same as for the web vault.
@@ -187,6 +185,7 @@ Create and fill the following file
 	failregex = ^.*Invalid admin token\. IP: <ADDR>.*$
 	ignoreregex =
 ````
+
 ### Jail
 Create and fill the following file
 ````
@@ -213,22 +212,20 @@ Reload fail2ban for changes to take effect:
 `sudo systemctl reload fail2ban`
 
 ## Testing Fail2Ban
-
 Now just try to login to bitwarden using any email (it doesn't have to be a valid email, just an email format)
-If it works correctly and your IP is banned, you can unban the ip by running:
+If it works correctly and your IP is banned, you can unban the IP by running:
 
-Without docker:  
+Without Docker:  
 `sudo fail2ban-client set bitwarden_rs unbanip XX.XX.XX.XX`
 
-With docker :  
+With Docker:  
 `sudo docker exec -t fail2ban fail2ban-client set bitwarden_rs unbanip XX.XX.XX.XX`
 
-If Fail2Ban does not appear to be functioning, verify that the path to the Bitwarden log file is correct. For Docker: If the specified log file is not being generated and/or updated, make sure the `EXTENDED_LOGGING` env variable is set to true (which is default) and that the path to the log file is the path inside the docker (when you use /bw-data/:/data/ the log file should be in /data/... to be outside the container).
+If Fail2Ban does not appear to be functioning, verify that the path to the Bitwarden log file is correct. For Docker: If the specified log file is not being generated and/or updated, make sure the `EXTENDED_LOGGING` env variable is set to true (which is default) and that the path to the log file is the path inside the Docker (when you use /bw-data/:/data/ the log file should be in /data/... to be outside the container).
 
-Also verify that the timezone of the docker container matches the timezone of the host. Check this by comparing the time shown in the logfile with the host OS time. If they differ, there are various ways to fix this.  One option is to start docker with the option ```-e "TZ=<timezone>"```. A list of valid timezones is here under the column heading'timezone database name': [https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (ie -e "TZ=Australia/Melbourne")
+Also verify that the timezone of the Docker container matches the timezone of the host. Check this by comparing the time shown in the logfile with the host OS time. If they differ, there are various ways to fix this.  One option is to start Docker with the option `-e "TZ=<timezone>"`. A list of valid timezones is [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (eg. `-e "TZ=Australia/Melbourne"`)
 
-If you are using podman instead of docker it seems that setting the timezone via ```-e "TZ=<timezone>"``` does not work. This can be solved (when using the alpine image) by following this guide: [https://wiki.alpinelinux.org/wiki/Setting_the_timezone](https://wiki.alpinelinux.org/wiki/Setting_the_timezone).
-
+If you are using podman instead of Docker it seems that setting the timezone via `-e "TZ=<timezone>"` does not work. This can be solved (when using the alpine image) by following this guide: [https://wiki.alpinelinux.org/wiki/Setting_the_timezone](https://wiki.alpinelinux.org/wiki/Setting_the_timezone).
 
 ## SELinux Problems
 When you are using SELinux it is possible that SELinux hinders fail2ban to read the logs. If so, follow these steps:
