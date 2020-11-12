@@ -105,11 +105,11 @@ Therefore, we will use Fail2ban in a docker container. [Crazy-max/docker-fail2ba
 	cd /volumeX/docker/fail2ban
 	docker-compose up -d
 ````
-You should see the container running in Synolog's Docker GUI. You will have to reload after configuring the filters and jails
+You should see the container running in Synology's Docker GUI. You will have to reload after configuring the filters and jails
 
 ## Setup for web vault
 
-As a convention, `path_f2b` means the path needed for Fail2ban to work. This depends on your system. E.g. on Synology, we are atlking about `/volumeX/docker/fail2ban/` where on some other systems we are talking about `/etc/fail2ban/`
+As a convention, `path_f2b` means the path needed for Fail2ban to work. This depends on your system. E.g. on Synology, we are talking about `/volumeX/docker/fail2ban/` where on some other systems we are talking about `/etc/fail2ban/`
 
 ### Filter
 Create and fill the following file
@@ -147,13 +147,13 @@ Create and fill the following file
 	enabled = true
 	port = 80,443,8081
 	filter = bitwarden_rs
-	action = iptables-allports[name=bitwarden_rs]
+	banaction = %(banaction_allports)s
 	logpath = /path/to/bitwarden.log
 	maxretry = 3
 	bantime = 14400
 	findtime = 14400
 ````
-Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore use the following action when using Docker:
+Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore replace the `banaction` line the following `action` when using Docker:
 ```
 	action = iptables-allports[name=bitwarden_rs, chain=FORWARD]
 ```
@@ -198,13 +198,13 @@ Create and fill the following file
 	enabled = true
 	port = 80,443
 	filter = bitwarden_rs-admin
-	action = iptables-allports[name=bitwarden_rs]
+	banaction = %(banaction_allports)s
 	logpath = /path/to/bitwarden.log
 	maxretry = 3
 	bantime = 14400
 	findtime = 14400
 ````
-Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore use the following action when using Docker:
+Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore replace the `banaction` line the following `action` when using Docker:
 ```
 	action = iptables-allports[name=bitwarden_rs, chain=FORWARD]
 ```
