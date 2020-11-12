@@ -114,7 +114,7 @@ As a convention, `path_f2b` means the path needed for Fail2ban to work. This dep
 ### Filter
 Create and fill the following file
 ````
-	vi path_f2b/filter.d/bitwarden.local
+	vi path_f2b/filter.d/bitwarden_rs.local
 ````
 	Copy and paste the following content
 ````
@@ -128,7 +128,7 @@ Create and fill the following file
 
 **Tip:** If you get the following error message in `fail2ban.log` (CentOS 7, Fail2Ban v0.9.7)  
 `fail2ban.filter         [5291]: ERROR   No 'host' group in '^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$'`  
-Please Use `<HOST>` instead of `<ADDR>` in `bitwarden.local`
+Please Use `<HOST>` instead of `<ADDR>` in `bitwarden_rs.local`
 
 **Tip:** If you see 127.0.0.1 as the IP address of failed logins in bitwarden.log, then you're probably using a reverse proxy and fail2ban won't work correctly:
 ````
@@ -139,15 +139,15 @@ To remedy this, forward the true remote address to bitwarden_rs via the X-Real-I
 ### Jail
 Create and fill the following file
 ````
-	vi path_f2b/jail.d/bitwarden.local
+	vi path_f2b/jail.d/bitwarden_rs.local
 ````
 	Copy and paste the following content
 ````
-	[bitwarden]
+	[bitwarden_rs]
 	enabled = true
 	port = 80,443,8081
-	filter = bitwarden
-	action = iptables-allports[name=bitwarden]
+	filter = bitwarden_rs
+	action = iptables-allports[name=bitwarden_rs]
 	logpath = /path/to/bitwarden.log
 	maxretry = 3
 	bantime = 14400
@@ -155,7 +155,7 @@ Create and fill the following file
 ````
 Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore use the following action when using Docker:
 ```
-	action = iptables-allports[name=bitwarden, chain=FORWARD]
+	action = iptables-allports[name=bitwarden_rs, chain=FORWARD]
 ```
 **NOTE**:  
 Do not use this if you use a reverse proxy before docker container. If proxy, like apache2 or nginx is used, use the ports of the proxy and do not use chain=FORWARD, only when using Docker **without** proxy!
@@ -163,9 +163,9 @@ Do not use this if you use a reverse proxy before docker container. If proxy, li
 **NOTE on the NOTE above**:  
 Thats at least not true for running on Docker (CentOS 7) with caddy as reverse proxy. chain=FORWARD is absolutely fine and working with caddy as reverse proxy.
 
-You need to restart fail2ban for changes to take effect:
+Reload fail2ban for changes to take effect:
 
-`sudo systemctl restart fail2ban`
+`sudo systemctl reload fail2ban`
 
 Feel free to change the options as you see fit.
 
@@ -190,15 +190,15 @@ Create and fill the following file
 ### Jail
 Create and fill the following file
 ````
-	vi path_f2b/jail.d/bitwarden-admin.local
+	vi path_f2b/jail.d/bitwarden_rs-admin.local
 ````
 	Copy and paste the following content
 ````
-	[bitwarden-admin]
+	[bitwarden_rs-admin]
 	enabled = true
 	port = 80,443
-	filter = bitwarden-admin
-	action = iptables-allports[name=bitwarden]
+	filter = bitwarden_rs-admin
+	action = iptables-allports[name=bitwarden_rs]
 	logpath = /path/to/bitwarden.log
 	maxretry = 3
 	bantime = 14400
@@ -206,22 +206,22 @@ Create and fill the following file
 ````
 Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore use the following action when using Docker:
 ```
-	action = iptables-allports[name=bitwarden, chain=FORWARD]
+	action = iptables-allports[name=bitwarden_rs, chain=FORWARD]
 ```
-You need to restart fail2ban for changes to take effect:
+Reload fail2ban for changes to take effect:
 
-`sudo systemctl restart fail2ban`
+`sudo systemctl reload fail2ban`
 
 ## Testing Fail2Ban
 
-Now just try to login to bitwarden using any email (it doesnt have to be a valid email, just an email format)
+Now just try to login to bitwarden using any email (it doesn't have to be a valid email, just an email format)
 If it works correctly and your IP is banned, you can unban the ip by running:
 
 Without docker:  
-`sudo fail2ban-client set bitwarden unbanip XX.XX.XX.XX`
+`sudo fail2ban-client set bitwarden_rs unbanip XX.XX.XX.XX`
 
 With docker :  
-`sudo docker exec -t fail2ban fail2ban-client set bitwarden unbanip XX.XX.XX.XX`
+`sudo docker exec -t fail2ban fail2ban-client set bitwarden_rs unbanip XX.XX.XX.XX`
 
 If Fail2Ban does not appear to be functioning, verify that the path to the Bitwarden log file is correct. For Docker: If the specified log file is not being generated and/or updated, make sure the `EXTENDED_LOGGING` env variable is set to true (which is default) and that the path to the log file is the path inside the docker (when you use /bw-data/:/data/ the log file should be in /data/... to be outside the container).
 
@@ -237,4 +237,3 @@ When you are using SELinux it is possible that SELinux hinders fail2ban to read 
 type=AVC msg=audit(1571777936.719:2193): avc:  denied  { search } for  pid=5853 comm="fail2ban-server" name="containers" dev="dm-0" ino=1144588 scontext=system_u:system_r:fail2ban_t:s0 tcontext=unconfined_u:object_r:container_var_lib_t:s0 tclass=dir permissive=0
 ```   
 To actually find out the reason you can use `grep 'type=AVC msg=audit(1571777936.719:2193)' /var/log/audit/audit.log | audit2why`. `audit2allow -a` will give you specific instructions on how to create a module and allow fail2ban to access these logs. Follow these steps and you're done! fail2ban should now work correctly.
-
