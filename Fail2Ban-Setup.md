@@ -153,7 +153,7 @@ Create and fill the following file
 	bantime = 14400
 	findtime = 14400
 ````
-Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore replace the `banaction` line the following `action` when using Docker:
+Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore replace the `banaction` line with the following `action` when using Docker:
 ```
 	action = iptables-allports[name=bitwarden_rs, chain=FORWARD]
 ```
@@ -204,7 +204,7 @@ Create and fill the following file
 	bantime = 14400
 	findtime = 14400
 ````
-Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore replace the `banaction` line the following `action` when using Docker:
+Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore replace the `banaction` line with the following `action` when using Docker:
 ```
 	action = iptables-allports[name=bitwarden_rs, chain=FORWARD]
 ```
