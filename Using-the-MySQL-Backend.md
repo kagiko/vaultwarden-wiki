@@ -92,7 +92,7 @@ error (1064): Syntax error near '"users" VALUES('9b5c2d13-8c4f-47e9-bd94-f0d7036
 ```
 fix:
 ```bash
-sed -i s#\"#\#g mysqldump.sql
+sed -i 's#\"#\#g' mysqldump.sql
 ```
 ```bash
 mysql --password --user=bitwarden_rs
