@@ -174,6 +174,91 @@ server {
 </details>
 
 <details>
+<summary>Nginx with sub-path (by BlackDex)</summary><br/>
+
+In this example bitwarden_rs will be available via https://bitwarden.example.tld/vault/<br/>
+If you want to use any other sub-path, like `bitwarden` or `secret-vault` you should change `/vault/` in the example below to match.<br/>
+<br/>
+For this to work you need to configure your `DOMAIN` variable to match so it should look like:
+
+```ini
+; Add the sub-path! Else this will not work!
+DOMAIN=https://bitwarden.example.tld/vault/
+```
+
+```nginx
+# Define the server IP and ports here.
+upstream bitwardenrs-default { server 127.0.0.1:8080; }
+upstream bitwardenrs-ws { server 127.0.0.1:3012; }
+
+# Redirect HTTP to HTTPS
+server {
+    listen 80;
+    listen [::]:80;
+    server_name bitwardenrs.example.tld;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name bitwardenrs.example.tld;
+
+    # Specify SSL Config when needed
+    #ssl_certificate /path/to/certificate/letsencrypt/live/bitwardenrs.example.tld/fullchain.pem;
+    #ssl_certificate_key /path/to/certificate/letsencrypt/live/bitwardenrs.example.tld/privkey.pem;
+    #ssl_trusted_certificate /path/to/certificate/letsencrypt/live/bitwardenrs.example.tld/fullchain.pem;
+
+    client_max_body_size 128M;
+
+    ## Using a Sub Path Config
+    # Path to the root of your installation
+    location /vault/ {
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+
+      proxy_pass http://bitwardenrs-default;
+    }
+
+    location /vault/notifications/hub/negotiate {
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+
+      proxy_pass http://bitwardenrs-default;
+    }
+
+    location /vault/notifications/hub {
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $http_connection;
+      proxy_set_header X-Real-IP $remote_addr;
+
+      proxy_pass http://bitwardenrs-ws;
+    }
+
+    # Optionally add extra authentication besides the ADMIN_TOKEN
+    # If you don't want this, leave this part out
+    location ^~ /vault/admin {
+      # See: https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/
+      auth_basic "Private";
+      auth_basic_user_file /path/to/htpasswd_file;
+
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+
+      proxy_pass http://bitwardenrs-default;
+    }
+
+}
+```
+</details>
+
+<details>
 <summary>Nginx (by ypid)</summary><br/>
 
 Ansible inventory example that uses DebOps to configure nginx as a reverse proxy for bitwarden_rs. I choose to go with the PSK in the URL for additional security to not expose the API to everyone on the Internet because the client apps do not support client certificates yet (I tested it). Note: Using subpath/PSK requires to patch the source code and recompile, ref: https://github.com/dani-garcia/bitwarden_rs/issues/241#issuecomment-436376497. /admin is untested. For general discussion about subpath hosting for security refer to: https://github.com/debops/debops/issues/1233
