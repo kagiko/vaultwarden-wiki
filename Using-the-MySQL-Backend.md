@@ -1,4 +1,4 @@
-To use the MySQL backend, you can either use the [official Docker image](https://hub.docker.com/r/bitwardenrs/server) or build your own binary [with MySQL enabled](https://github.com/dani-garcia/bitwarden_rs/wiki/Building-binary#mysql-backend).
+To use the MySQL backend, you can either use the [official Docker image](https://hub.docker.com/r/bitwardenrs/server-mysql) or build your own binary [with MySQL enabled](https://github.com/dani-garcia/bitwarden_rs/wiki/Building-binary#mysql-backend).
 
 To run the binary or container, ensure the ```DATABASE_URL``` environment variable is set (i.e. ```DATABASE_URL='mysql://<user>:<password>@mysql/bitwarden'```).
 
@@ -37,6 +37,50 @@ docker run -d --name bitwarden --net <some-docker-network>\
 ```
 Server IP/Port 192.168.1.10:3306 UN: dbuser / PW: yourpassword / DB: bitwarden
 mysql://dbuser:yourpassword@192.168.1.10:3306/bitwarden
+```
+
+**Example using docker-compose
+
+```
+version: "3.7"
+services:
+ mariadb:
+  image: "mariadb"
+  container_name: "mariadb"
+  hostname: "mariadb"
+  restart: always
+  env_file:
+   - ".env"
+  volumes:
+   - "mariadb_vol:/var/lib/mysql"
+   - "/etc/localtime:/etc/localtime:ro"
+  environment:
+   - "MYSQL_ROOT_PASSWORD=<my-secret-pw>"
+   - "MYSQL_PASSWORD=<bitwarden_pw>"
+   - "MYSQL_DATABASE=bitwarden_db"
+   - "MYSQL_USER=<bitwarden_user>"
+
+ bitwarden:
+  image: "bitwardenrs/server-mysql:latest"
+  container_name: "bitwarden"
+  hostname: "bitwarden"
+  restart: always
+  env_file:
+   - ".env"
+  volumes:
+   - "bitwarden_vol:/data/"
+  environment:
+## Had issues when using single parentheses around the mysql URL as in the plain docker example 
+   - "DATABASE_URL=mysql://<bitwarden_user>:<bitwarden_pw>@mariadb/bitwarden_db"
+   - "ADMIN_TOKEN=<some_random_token_as_per_above_explanation>"
+   - "ENABLE_DB_WAL='false'"
+   - "RUST_BACKTRACE=1"
+  ports:
+   - "80:80"
+
+volumes:
+ bitwarden_vol:
+ mariadb_vol:
 ```
 
 **Migrating from SQLite to MySQL**
