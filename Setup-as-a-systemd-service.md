@@ -125,6 +125,23 @@ $ sudo systemctl daemon-reload
 ```
 before (re-)starting your service.
 
+### Service fails to start in a container
+
+If any users are running this in a container (LXC, et al), the systemd service will not start. The line `LimitNPROC=64` in the service file prevents the service from starting, as the following error shows:
+
+```
+Feb 18 05:29:10 staging-bitwarden systemd[1]: Started Bitwarden Server (Rust Edition).
+Feb 18 05:29:10 staging-bitwarden systemd[49506]: bitwarden_rs.service: Failed to execute command: Resource temporarily unavailable
+Feb 18 05:29:10 staging-bitwarden systemd[49506]: bitwarden_rs.service: Failed at step EXEC spawning /usr/bin/bitwarden_rs: Resource temporarily unavailable
+Feb 18 05:29:10 staging-bitwarden systemd[1]: bitwarden_rs.service: Main process exited, code=exited, status=203/EXEC
+Feb 18 05:29:10 staging-bitwarden systemd[1]: bitwarden_rs.service: Failed with result 'exit-code'.
+```
+Commenting out that particular line results in the service starting correctly. Note: A systemd override file will not work, the line must be commented out/removed. The easiest way to do this is  via
+```
+# systemctl edit --full bitwarden_rs.service
+```
+then reloading the daemon & restarting.
+
 
 ## More information
 For more information on .service files, see the manpages of [systemd.service](https://www.freedesktop.org/software/systemd/man/systemd.service.html) and (for the security configuration) [systemd.exec](https://www.freedesktop.org/software/systemd/man/systemd.exec.html)
