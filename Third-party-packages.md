@@ -2,7 +2,7 @@ This page is an index of third-party bitwarden_rs packages. As these packages ar
 
 ## Arch Linux
 
-Bitwarden_rs is already packaged for Archlinux thanks to @mqus. There is an [AUR package](https://aur.archlinux.org/packages/bitwarden_rs) (optionally with the [vault web interface](https://aur.archlinux.org/packages/bitwarden_rs-vault/) ) available.
+Available in the [official repositories](https://www.archlinux.org/packages/community/x86_64/bitwarden_rs/), and the vault is available via the [AUR](https://aur.archlinux.org/pacakges/bitwarden_rs-vault).
 
 ## Debian
 
