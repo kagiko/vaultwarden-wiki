@@ -370,7 +370,7 @@ Example NixSO nginx config. For more Information about NixOS Deployment see [Dep
 <details>
 <summary>Apache (by fbartels)</summary><br/>
 
-Remember to enable `mod_proxy_wstunnel`, for example with: `a2enmod proxy_wstunnel`.
+Remember to enable `mod_proxy_wstunnel` and `mod_proxy_http`, for example with: `a2enmod proxy_wstunnel` and `a2enmod proxy_http`.
 ```apache
 <VirtualHost *:443>
     SSLEngine on
@@ -404,6 +404,8 @@ It can look something like:
 ```
 LoadModule proxy_wstunnel_module modules/mod_proxy_wstunnel.so`
 ```
+
+On some OS's you can use a2enmod, for example with: `a2enmod proxy_wstunnel` and `a2enmod proxy_http`.
 
 ```apache
 <VirtualHost *:443>
