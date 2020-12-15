@@ -41,7 +41,7 @@ mysql://dbuser:yourpassword@192.168.1.10:3306/bitwarden
 
 **Example using docker-compose
 
-```
+```yaml
 version: "3.7"
 services:
  mariadb:
@@ -73,7 +73,6 @@ services:
 ## Had issues when using single parentheses around the mysql URL as in the plain docker example 
    - "DATABASE_URL=mysql://<bitwarden_user>:<bitwarden_pw>@mariadb/bitwarden_db"
    - "ADMIN_TOKEN=<some_random_token_as_per_above_explanation>"
-   - "ENABLE_DB_WAL='false'"
    - "RUST_BACKTRACE=1"
   ports:
    - "80:80"
