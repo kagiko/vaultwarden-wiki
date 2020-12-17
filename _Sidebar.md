@@ -11,6 +11,7 @@
 1. [[Third-party packages|Third-party-packages]]
 1. [[Deployment examples|Deployment-examples]]
 1. [[Proxy examples|Proxy-examples]]
+1. [[Logrotate example|Logrotate example]]
 
 ## Configuration
 1. [[Overview|Configuration-overview]]
