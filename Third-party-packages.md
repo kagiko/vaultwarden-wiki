@@ -39,3 +39,6 @@ The package code and the issue tracker can be found at https://git.cloudron.io/c
 Dinger1986 has created a script to install bitwarden_rs from source on Ubuntu 20.04, see
 https://github.com/dinger1986/bitwardenrs_install_script
 
+## FreeBSD
+
+Available in the [FreeBSD ports tree](https://www.freshports.org/security/bitwarden_rs/) and as a binary package in the FreeBSD pkg repository: `pkg install bitwarden_rs`
