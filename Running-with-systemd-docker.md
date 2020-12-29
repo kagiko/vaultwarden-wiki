@@ -24,7 +24,6 @@ ExecStart=/usr/bin/docker run \
   --env-file /opt/.bitwarden.env \
   -v /opt/bw-data:/data/ \
   --rm --name bitwarden bitwardenrs/server:latest
-ExecStop=-/usr/bin/docker stop bitwarden
 ExecStopPost=-/usr/bin/docker rm bitwarden
 Restart=Always
 RestartSec=30s
