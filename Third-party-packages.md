@@ -18,6 +18,13 @@ Installation instructions: https://github.com/MrMEEE/bitwarden_rs_rpm/blob/maste
 
 Any issues with the RPMs can be reported here: https://github.com/MrMEEE/bitwarden_rs_rpm/issues
 
+## CentOS 8 / RHEL 8
+
+A fork of the repo that builds an RPM and pushes it to COPR using Docker.
+
+https://github.com/alexpdp7/bitwarden_rs/tree/rpm/packages/centos8
+https://copr.fedorainfracloud.org/coprs/koalillo/bitwarden_rs/
+
 ## Nix (OS)
 
 Bitwarden_rs is packacked in Nix with 4 packages (one for mysql, sqlite and postgresql and one for the vault). For NixOS there's a Module as well (services.bitwarden_rs) so bitwarden_rs can be configured in NixOS declarative way as well. 
