@@ -1,6 +1,6 @@
 `bitwarden_rs` provides a single Docker image ([`bitwardenrs/server`](https://hub.docker.com/r/bitwardenrs/server)) with unified support for SQLite, MySQL, and PostgreSQL database backends, as of version 1.17.0. Prior to that version, there were separate images for each database backend (see [Historical images](#historical-images)).
 
-The `bitwardenrs/server` image is also [multi-arch](https://www.docker.com/blog/multi-arch-all-the-things/), meaning it supports multiple CPU architectures under a single image name. Assuming you're running one of the supported architectures, simply pulling `bitwardenrs/server` should automatically yield the appropriate arch-specific image for your environment, with the exception of Armv6 boards, such as Raspberry Pi 1 and Zero (see [moby/moby#41017](https://github.com/moby/moby/issues/41017)). Armv6 users must specify `arm32v6` in the image tag, e.g. `latest-arm32v6`.
+The `bitwardenrs/server` image is also [multi-arch](https://www.docker.com/blog/multi-arch-all-the-things/), meaning it supports multiple CPU architectures under a single image name. Assuming you're running one of the supported architectures, simply pulling `bitwardenrs/server` should automatically yield the appropriate arch-specific image for your environment, with the possible exception of ARMv6 boards, such as Raspberry Pi 1 and Zero (see [moby/moby#41017](https://github.com/moby/moby/issues/41017)). ARMv6 users running Docker 20.10.0 and later can simply pull the `bitwardenrs/server` multi-arch image as usual. ARMv6 users running earlier Docker versions must specify `arm32v6` in the image tag, e.g. `latest-arm32v6`.
 
 The SQLite backend is the most widely used/tested, and recommended for most users unless there is a specific need to use a different database backend.
 
@@ -18,7 +18,7 @@ The `bitwardenrs/server` image has several tags, each of which represents some v
 
 * `x.y.z-alpine` (e.g., `1.16.0-alpine`) -- Similar to `alpine`, but represents a specific released version.
 
-* `latest-arm32v6` -- Same as `latest`, but explicitly denotes the `arm32v6` image. This is currently required for users of Armv6 boards, such as Raspberry Pi 1 and Zero. Otherwise, Docker will attempt to pull the `arm32v7` image, which won't work (see [moby/moby#41017](https://github.com/moby/moby/issues/41017)).
+* `latest-arm32v6` -- Same as `latest`, but explicitly denotes the `arm32v6` image. This is required for users of ARMv6 boards (such as Raspberry Pi 1 and Zero) when running a Docker version older than 20.10.0. These older versions have an issue ([moby/moby#41017](https://github.com/moby/moby/issues/41017)) that results in the `arm32v7` image being pulled, which won't work. The issue is fixed in Docker 20.10.0 and later, so users running those versions can just use `latest` as usual.
 
 * `testing-arm32v6` -- Same as `testing`, but explicitly denotes the `arm32v6` image.
 
