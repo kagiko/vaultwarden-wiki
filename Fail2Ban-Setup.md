@@ -176,7 +176,7 @@ If you've enabled the admin console by setting the `ADMIN_TOKEN` environment var
 
 Create and fill the following file
 ```INI
-# path_f2b/filter.d/bitwarden-admin.local
+# path_f2b/filter.d/bitwarden_rs-admin.local
 
 [INCLUDES]
 before = common.conf
