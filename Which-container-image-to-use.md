@@ -34,14 +34,14 @@ The web vault is the only exception; as it's bundled with the bitwarden_rs image
 
 ## Historical images
 
-Prior to the addition of multidb support in version 1.17.0, MySQL and PostgreSQL support was only included in separate database-specific images. You can still find these in Docker Hub for older versions of bitwarden_rs, but they shouldn't be used anymore:
+Prior to the addition of multidb support in version 1.17.0, MySQL and PostgreSQL support was only included in separate database-specific images. You can still find these in Docker Hub, and they are still updated for now. However, the database-specific images will be removed in the future, so you should transition to using the unified `bitwardenrs/server` image.
 
 * [`bitwardenrs/server-mysql`](https://hub.docker.com/r/bitwardenrs/server-mysql) - Debian-based `bitwarden_rs` image that includes support for MySQL only (not SQLite or PostgreSQL).
 * [`bitwardenrs/server-postgresql`](https://hub.docker.com/r/bitwardenrs/server-postgresql) - Debian-based `bitwarden_rs` image that includes support for PostgreSQL only (not SQLite or MySQL).
 
 ## Historical tags
 
-Prior to the addition of multi-arch image support in version 1.16.0, all arch-specific images had individual arch-specific tags. You can still find these in Docker Hub for older versions of bitwarden_rs, but they shouldn't be used anymore:
+Prior to the addition of multi-arch image support in version 1.16.0, all arch-specific images had individual arch-specific tags. As of 2021-01-14, these tags have been removed, since many users still ended up pulling these old tags due to following outdated tutorials or not reading the release notes.
 
 * `raspberry` - Armv7hf image that should run on Raspberry Pi 2 or newer and possibly on any other compatible boards. This image won't run on Raspberry Pi 1 or Raspberry Pi Zero as those use armv6 CPU.
 
