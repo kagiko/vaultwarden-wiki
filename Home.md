@@ -11,7 +11,7 @@ bitwarden_rs implements the Bitwarden APIs required for most functionality, incl
 * Web interface (equivalent to https://vault.bitwarden.com/)
 * Personal vault support
 * [Organization](https://bitwarden.com/help/article/getting-started-organizations/) vault support
-* [Password sharing](https://bitwarden.com/help/article/share-to-a-collection/)
+* [Password sharing](https://bitwarden.com/help/article/share-to-a-collection/) and [access control](https://bitwarden.com/help/article/user-types-access-control/)
 * [Collections](https://bitwarden.com/help/article/about-collections/)
 * [File attachments](https://bitwarden.com/help/article/attachments/)
 * [Folders](https://bitwarden.com/help/article/folders/)
@@ -19,6 +19,7 @@ bitwarden_rs implements the Bitwarden APIs required for most functionality, incl
 * [Website icons](https://bitwarden.com/help/article/website-icons/)
 * [Bitwarden Authenticator (TOTP)](https://bitwarden.com/help/article/authenticator-keys/)
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (WebSocket only) for desktop/browser clients
+* [Trash](https://bitwarden.com/help/article/managing-items/#items-in-the-trash) (soft delete)
 * Two-step login via [email](https://bitwarden.com/help/article/setup-two-step-login-email/), [Duo](https://bitwarden.com/help/article/setup-two-step-login-duo/), [YubiKey](https://bitwarden.com/help/article/setup-two-step-login-yubikey/), and [FIDO U2F](https://bitwarden.com/help/article/setup-two-step-login-u2f/)
 * Certain enterprise policies:
   * [Master Password](https://bitwarden.com/help/article/policies/#master-password)
