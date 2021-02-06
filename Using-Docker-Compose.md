@@ -80,7 +80,7 @@ docker-compose down
 ```
 stops and destroys the containers.
 
-If there's no need for websocket notifications, you can run Bitwarden_rs alone. Here's my example. Actually I'm running Bitwarden_rs on my Raspberry Pi and I'm using bitwardenrs/server:raspberry image. If you want to do the same, remember to change it to the example.
+If there's no need for websocket notifications, you can run Bitwarden_rs alone. Here's my example. Actually I'm running Bitwarden_rs on my Raspberry Pi and I'm using bitwardenrs/server image. If you want to do the same, remember to change it to the example.
 ```yml
 # docker-compose.yml
 version: '3'
