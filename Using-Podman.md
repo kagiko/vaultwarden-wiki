@@ -35,7 +35,7 @@ If we want to create a new container every time the service starts we can edit t
 [Service]
 Restart=on-failure
 ExecStartPre=/usr/bin/rm -f /%t/%n-pid /%t/%n-cid
-ExecStart=/usr/bin/podman run --conmon-pidfile /%t/%n-pid --cidfile /%t/%n-pid --env-file=/home/spytec/Bitwarden/bitwarden.conf -d -p 8080:8080 -v /home/spytec/Bitwarden/bw-data:/data/:Z bitwardenrs/server:latest
+ExecStart=/usr/bin/podman run --conmon-pidfile /%t/%n-pid --cidfile /%t/%n-cid --env-file=/home/spytec/Bitwarden/bitwarden.conf -d -p 8080:8080 -v /home/spytec/Bitwarden/bw-data:/data/:Z bitwardenrs/server:latest
 ExecStop=/usr/bin/podman rm -f --cidfile /%t/%n-cid
 KillMode=none
 Type=forking
