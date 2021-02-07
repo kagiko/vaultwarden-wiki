@@ -5,7 +5,7 @@ This article demonstrates how to create such a setup using the [Caddy](https://c
 Two DNS providers are covered:
 
 * [Duck DNS](https://www.duckdns.org/) -- This gives you a subdomain under `duckdns.org` (e.g., `my-bwrs.duckdns.org`). This option is simplest if you don't already own a domain.
-* [Cloudflare](https://www.cloudflare.com/) -- Note that you can use Cloudflare as just a DNS provider (i.e., without the proxying functionality that Cloudflare is best known for). If you don't currently own a domain, you may be able to get a free one at [Freenom](https://www.freenom.com/).
+* [Cloudflare](https://www.cloudflare.com/) -- This lets you put your bitwarden_rs instance under a domain you own or control. Note that Cloudflare can be used as just a DNS provider (i.e., without the proxying functionality that Cloudflare is best known for). If you don't currently own a domain, you may be able to get a free one at [Freenom](https://www.freenom.com/).
 
 It's certainly possible to create a similar setup using other combinations of web server, [ACME client](https://letsencrypt.org/docs/client-options/), and DNS provider, but you'll have to work out the differences in details.
 
