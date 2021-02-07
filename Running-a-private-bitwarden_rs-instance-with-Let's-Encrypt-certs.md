@@ -1,11 +1,11 @@
-Suppose you want to run an instance of bitwarden_rs that can only be accessed from your local network, but you want your instance to be HTTPS-enabled with certs signed by a widely-accepted CA instead of managing your own [private CA](https://github.com/dani-garcia/bitwarden_rs/wiki/Private-CA-and-self-signed-certs-that-work-with-Chrome).
+Suppose you want to run an instance of bitwarden_rs that can only be accessed from your local network, but you want your instance to be HTTPS-enabled with certs signed by a widely-accepted CA instead of managing your own [private CA](https://github.com/dani-garcia/bitwarden_rs/wiki/Private-CA-and-self-signed-certs-that-work-with-Chrome) (to avoid the hassle of having to load private CA certs into all of your devices).
 
 This article demonstrates how to create such a setup using the [Caddy](https://caddyserver.com/) web server, which has built-in ACME support for various DNS providers. We'll configure Caddy to obtain Let's Encrypt certs via the ACME [DNS challenge](https://letsencrypt.org/docs/challenge-types/#dns-01-challenge) -- using the more common HTTP challenge would be problematic here, since it would rely on Let's Encrypt servers being able to reach your internal web server.
 
 Two DNS providers are covered:
 
 * [Duck DNS](https://www.duckdns.org/) -- This gives you a subdomain under `duckdns.org` (e.g., `my-bwrs.duckdns.org`). This option is simplest if you don't already own a domain.
-* [Cloudflare](https://www.cloudflare.com/) -- You can use Cloudflare as just a DNS provider (i.e., without proxying your traffic).
+* [Cloudflare](https://www.cloudflare.com/) -- Note that you can use Cloudflare as just a DNS provider (i.e., without the proxying functionality that Cloudflare is best known for). If you don't currently own a domain, you may be able to get a free one at [Freenom](https://www.freenom.com/).
 
 It's certainly possible to create a similar setup using other combinations of web server, [ACME client](https://letsencrypt.org/docs/client-options/), and DNS provider, but you'll have to work out the differences in details.
 
