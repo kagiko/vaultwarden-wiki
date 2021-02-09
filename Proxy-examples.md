@@ -498,7 +498,7 @@ labels:
 <details>
 <summary>HAproxy (by BlackDex)</summary><br/>
 
-Add these lines in `frontend https` section in order to forward ips for all your proxied services. 
+Add these lines to your haproxy configuration. 
 
 ```haproxy
 frontend bitwarden_rs
