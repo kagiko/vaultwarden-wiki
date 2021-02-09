@@ -496,13 +496,25 @@ labels:
 </details>
 
 <details>
-<summary>HAproxy (by patbel-pwr)</summary><br/>
+<summary>HAproxy (by BlackDex)</summary><br/>
 
 Add these lines in `frontend https` section in order to forward ips for all your proxied services. 
 
-```
+```haproxy
+frontend bitwarden_rs
+    bind 0.0.0.0:80
     option forwardfor header X-Real-IP
     http-request set-header X-Real-IP %[src]
+    default_backend bitwarden_rs_http
+    use_backend bitwarden_rs_ws if { path_beg /notifications/hub } !{ path_beg /notifications/hub/negotiate }
 
+backend bitwarden_rs_http
+    # Enable compression if you want
+    # compression algo gzip
+    # compression type text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript
+    server bwrshttp 0.0.0.0:8080
+
+backend bitwarden_rs_ws
+    server bwrsws 0.0.0.0:3012
 ```
 </details>
