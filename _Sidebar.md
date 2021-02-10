@@ -48,3 +48,4 @@
 1. [[Differences from the upstream API implementation|Differences-from-the-upstream-API-implementation]]
 1. [[Supporting upstream development|Supporting-upstream]]
 1. [[Hardening Guide|Hardening Guide]]
+1. [[Caddy 2.x with Cloudflare DNS]]
