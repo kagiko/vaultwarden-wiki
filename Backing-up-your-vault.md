@@ -1,6 +1,6 @@
 ## Overview
 
-bitwarden_rs data should be backed up regularly, preferably via an automated process (e.g., cron job). Ideally, at least one copy should be stored remotely (e.g., cloud storage or a different computer). Avoid relying on filesystem or VM snapshots as a backup method, as these are more complex operations where more things can go wrong, and recovery in such cases can be difficult or impossible for the typical user. Adding an extra layer of encryption on your backups would generally be a good idea (especially if your backup also includes config data like your [[admin token|Enabling-admin-page]]), but you might choose to forget this step if you're confident that your master password (and those of your other users, if any) is strong.
+bitwarden_rs data should be backed up regularly, preferably via an automated process (e.g., cron job). Ideally, at least one copy should be stored remotely (e.g., cloud storage or a different computer). Avoid relying on filesystem or VM snapshots as a backup method, as these are more complex operations where more things can go wrong, and recovery in such cases can be difficult or impossible for the typical user. Adding an extra layer of encryption on your backups would generally be a good idea (especially if your backup also includes config data like your [[admin token|Enabling-admin-page]]), but you might choose to forgo this step if you're confident that your master password (and those of your other users, if any) is strong.
 
 ## Backing up data
 
