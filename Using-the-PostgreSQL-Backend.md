@@ -35,7 +35,7 @@ GRANT all privileges ON database bitwarden_rs TO bitwarden_rs;
 6. create the file bitwarden.load with the following content:
 ```
 load database
-     from sqlite://yoursqliteuser:yoursqlitepassword@yoursqliteserver:yoursqliteport/yoursqlitedatabase
+     from sqlite:///where/you/keep/your/bitwarden_rs/db.sqlite3 
      into postgresql://yourpgsqluser:yourpgsqlpassword@yourpgsqlserver:yourpgsqlport/yourpgsqldatabase
      WITH data only, include no drop, reset sequences
      EXCLUDING TABLE NAMES LIKE '__diesel_schema_migrations'
