@@ -36,7 +36,7 @@
 1. [[Running without WAL enabled|Running-without-WAL-enabled]]
 1. [[Syncing users from LDAP|Syncing-users-from-LDAP]]
 1. [[Other configuration|Other-configuration]]
-1. [[Using the MySQL Backend]]
+1. [[Using the MariaDB (MySQL) Backend]]
 1. [[Using the PostgreSQL Backend]]
 1. [[Using an alternate base dir (subdir/subpath)|Using-an-alternate-base-dir]]
 
