@@ -205,7 +205,7 @@ findtime = 14400
 
 Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore replace the `banaction` line with the following `action` when using Docker:
 ```INI
-action = iptables-allports[name=bitwarden_rs, chain=FORWARD]
+action = iptables-allports[name=bitwarden_rs-admin, chain=FORWARD]
 ```
 
 Reload fail2ban for changes to take effect:
