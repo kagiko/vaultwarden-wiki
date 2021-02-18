@@ -1,4 +1,11 @@
-To use the MySQL backend, you can either use the [official Docker image](https://hub.docker.com/r/bitwardenrs/server-mysql) or build your own binary [with MySQL enabled](https://github.com/dani-garcia/bitwarden_rs/wiki/Building-binary#mysql-backend).
+:warning: :poop: :warning:
+
+Our builds are based upon MariaDB client libraries since that is what both Debian and Alpine provide.
+We do not support the latest Oracle MySQLv8 version. If you ensist to use MySQLv8 instead of MariaDB then create a user using an old password hashing method instead of the default one!
+
+:warning: :poop: :warning:
+
+To use the MariaDB (MySQL) backend, you can either use the [official Docker image](https://hub.docker.com/r/bitwardenrs/server-mysql) or build your own binary [with MySQL enabled](https://github.com/dani-garcia/bitwarden_rs/wiki/Building-binary#mysql-backend).
 
 To run the binary or container, ensure the ```DATABASE_URL``` environment variable is set (i.e. ```DATABASE_URL='mysql://<user>:<password>@mysql/bitwarden'```).
 
