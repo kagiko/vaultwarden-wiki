@@ -1,3 +1,7 @@
+:warning: The vast majority of users should not use this method, as it requires loading a cert on each of your devices, which is both error-prone and requires future maintenance. Instead, focus your energy on obtaining real certs via [Let's Encrypt](https://letsencrypt.org/getting-started/). This can even work if your bitwarden_rs instance is not on the public Internet ([[example|Running-a-private-bitwarden_rs-instance-with-Let's-Encrypt-certs]]).
+
+---
+
 To get bitwarden working properly with self-signed certificates, Chrome needs the certificate to include the domain name in the alternative name field of the certificate.
 
 Create a CA key (your own little on-premise Certificate Authority):
