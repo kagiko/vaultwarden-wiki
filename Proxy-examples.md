@@ -518,3 +518,42 @@ backend bitwarden_rs_ws
     server bwrsws 0.0.0.0:3012
 ```
 </details>
+
+
+<details>
+<summary>HAproxy (by <a href="https://github.com/williamdes" target="_blank">@williamdes</a>)</summary><br/>
+
+Add these lines to your HAproxy configuration. 
+
+```haproxy
+backend static-success-default
+  mode http
+  errorfile 503 /usr/local/etc/haproxy/static/index.static.default.html
+  errorfile 200 /usr/local/etc/haproxy/static/index.static.default.html
+
+frontend http-in
+    bind *:80
+    bind *:443 ssl crt /acme.sh/domain.tld/domain.tld.pem
+    option forwardfor header X-Real-IP
+    http-request set-header X-Real-IP %[src]
+    default_backend static-success-default
+
+    # Define hosts
+    acl host_bitwarden_domain_tld hdr_dom(Host) -i bitwarden.domain.tld
+
+    ## figure out which one to use
+    use_backend bitwarden_rs_http if host_bitwarden_domain_tld !{ path_beg /notifications/hub } or { path_beg /notifications/hub/negotiate }
+    use_backend bitwarden_rs_ws if host_bitwarden_domain_tld { path_beg /notifications/hub } !{ path_beg /notifications/hub/negotiate }
+
+backend bitwarden_rs_http
+    # Enable compression if you want
+    # compression algo gzip
+    # compression type text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript
+    # You can use the container hostname if you are using haproxy with docker-compose
+    server bwrs_http 0.0.0.0:8080
+
+backend bitwarden_rs_ws
+    # You can use the container hostname if you are using haproxy with docker-compose
+    server bwrs_ws 0.0.0.0:3012
+```
+</details>
