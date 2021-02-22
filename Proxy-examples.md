@@ -1,7 +1,8 @@
-In this document, `<SERVER>` refers to the IP or domain where bitwarden_rs is accessible from. If both the proxy and bitwarden_rs are running in the same system, simply use `localhost`.
-The ports proxied by default are `80` for the web server and `3012` for the WebSocket server. The proxies are configured to listen in port `443` with HTTPS enabled, which is recommended.
+In this document, `<SERVER>` refers to the IP or domain where you access bitwarden_rs. If both the reverse proxy and bitwarden_rs are running on the same system, simply use `localhost`.
 
-When using a proxy, it's preferrable to configure HTTPS at the proxy level and not at the application level, this way the WebSockets connection is also secured.
+By default, bitwarden_rs listens on port 80 for web (REST API) traffic and on port 3012 for WebSocket traffic (if [[WebSocket notifications|Enabling-WebSocket-notifications]] are enabled). The reverse proxy should be configured to terminate SSL/TLS connections (preferably on port 443, the standard port for HTTPS). The reverse proxy then passes incoming client requests to bitwarden_rs on port 80 or 3012 as appropriate, and upon receiving a response from bitwarden_rs, passes that response back to the client.
+
+Note that when you put bitwarden_rs behind a reverse proxy, the connections between the reverse proxy and bitwarden_rs are typically assumed to be going through a secure private network, and thus do not need to be encrypted. The examples below assume you are running in this configuration, in which case you should not enable the HTTPS functionality built into bitwarden_rs (i.e., you should not set the `ROCKET_TLS` environment variable). If you do, connections will fail since the reverse proxy is using HTTP to connect to bitwarden_rs, but you're configuring bitwarden_rs to expect HTTPS.
 
 <details>
 <summary>Caddy 1.x</summary><br/>
