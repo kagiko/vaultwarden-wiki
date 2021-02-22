@@ -77,11 +77,12 @@ git apply vX.Y.Z.patch
 - Then, build the Vault:
 
 ```sh
-npm run sub:init
 npm install
+# Read the note below (we do use this for our docker builds).
+# npm audit fix
 npm run dist
 ```
-*Note: You might be asked to run ```npm audit fix``` to fix vulnerability. This will automatically try to upgrade packages to newer version, which might not be compatible and break web-vault functionality``` Use it at your own risk, if you know what you are doing.*
+*Note: You might be asked to run ```npm audit fix``` to fix vulnerability. This will automatically try to upgrade packages to newer version, which might not be compatible and break web-vault functionality``` Use it at your own risk, if you know what you are doing. We do use this on our own releases btw!*
 
 Finally copy the contents of the `build` folder into the destination folder:
 - If you run with `cargo run --release`, it's `bitwarden_rs/web-vault`.
