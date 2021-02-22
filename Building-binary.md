@@ -58,7 +58,7 @@ If you prefer to compile it manually, follow these steps:
 - Clone the git repository at [bitwarden/web](https://github.com/bitwarden/web) and checkout the latest release tag (e.g. v2.1.1):
 ```sh
 # clone the repository
-git clone https://github.com/bitwarden/web.git web-vault
+git clone --recurse-submodules https://github.com/bitwarden/web.git web-vault
 cd web-vault
 # switch to the latest tag
 git checkout "$(git tag --sort=v:refname | tail -n1)"
