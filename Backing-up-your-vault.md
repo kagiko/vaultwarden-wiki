@@ -77,6 +77,7 @@ It's a good idea to run through the process of restoring from backup periodicall
 
 This section contains an index of third-party backup examples. You should review an example thoroughly and understand what it's doing before using it.
 
+* https://github.com/ttionya/BitwardenRS-Backup
 * https://github.com/shivpatel/bitwarden_rs-local-backup
 * https://github.com/shivpatel/bitwarden_rs_dropbox_backup
 * https://gitlab.com/1O/bitwarden_rs-backup
