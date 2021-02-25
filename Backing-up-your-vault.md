@@ -11,7 +11,7 @@ When running with the default SQLite backend, the bitwarden_rs `data` directory 
 ```
 data
 ├── attachments          # Each attachment is stored as a separate file under this dir.
-│   └── <uuid>
+│   └── <uuid>           # (The attachments dir won't be present if no attachments have been created.)
 │       └── <random_id>
 ├── config.json          # Stores admin page config; only exists if the admin page has been enabled before.
 ├── db.sqlite3           # Main SQLite database file.
@@ -49,11 +49,11 @@ You can run this command via a cron job periodically (preferably at least once a
 
 If you want to copy your backup data to cloud storage, [Rclone](https://rclone.org/) is a useful tool for interfacing with various cloud storage systems.
 
-### The `attachments` folder
+### The `attachments` dir
 
 _**Backup required.**_
 
-Attachments are the only important data not stored in database tables, mainly because they can be arbitrarily large, and SQL databases generally aren't designed to handle large blobs efficiently.
+Attachments are the only important data not stored in database tables, mainly because they can be arbitrarily large, and SQL databases generally aren't designed to handle large blobs efficiently. This directory won't be present if no [attachments](https://bitwarden.com/help/article/attachments/) have been created.
 
 ### The `rsa_key*` files
 
