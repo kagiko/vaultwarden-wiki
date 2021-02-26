@@ -111,12 +111,12 @@ You should now be able to reach your bitwarden_rs instance at https://bwrs.examp
 
 ## Getting certs using the `lego` CLI
 
-In the DuckDNS example above, Caddy used the [`lego`](https://github.com/go-acme/lego) library to get certs via DNS challenge.
-`lego` also has a CLI that you can use to get certs directly, e.g. if you want to a reverse proxy other than Caddy.
+In the DuckDNS example above, Caddy used the `lego` library to get certs via DNS challenge.
+`lego` also has a CLI that you can use to get certs directly, e.g. if you want to use a reverse proxy other than Caddy.
 
 Here's an example of how to do this:
 
-1. Download a pre-built `lego` binary for your system from https://github.com/go-acme/lego. Extract the contents to some directory, say, `/usr/local/lego`.
+1. Download a pre-built `lego` binary for your system from https://github.com/go-acme/lego/releases. Extract the contents to some directory, say, `/usr/local/lego`.
 2. From that directory, run `DUCKDNS_TOKEN=<token> ./lego -a --dns duckdns -d my-bwrs.duckdns.org -m me@example.com run`,
    substituting appropriate values for the token, domain, and email address. This registers you with Let's Encrypt and
    fetches a certificate for your domain.
