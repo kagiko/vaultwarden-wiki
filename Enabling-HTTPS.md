@@ -53,7 +53,7 @@ docker run -d --name bitwarden \
 
 You need to mount ssl files (-v argument) and you need to forward appropriate port (-p argument), usually port 443 for HTTPS connections. If you choose a different port number than 443 like for example 3456, remember to explicitly provide that port number when you connect to the service, example: `https://bitwarden.local:3456`.
 
-Due to what is likely a certificate validation bug in Android, you need to make sure that your certificate includes the full chain of trust. In the case of certbot, this means using `fullchain.pem` instead of `cert.pem`.
+:warning: Especially if you're having problems with this on Android, make sure that your certificate file includes the full chain of trust. In the case of certbot, this means using `fullchain.pem` instead of `cert.pem`. The full chain should include two certs: the leaf cert (same as what's in `cert.pem`), followed by an R3 or E1 [intermediate cert](https://letsencrypt.org/certificates/#intermediate-certificates). Many Android vendors don't do a great job providing proper OS updates, and may not include up-to-date Let's Encrypt intermediate certs in their system trust store.
 
 Software used for getting certs often use symlinks. If that is the case, both locations need to be accessible to the docker container.
 
@@ -87,12 +87,12 @@ openssl s_client -showcerts -connect vault.domain.com:443
 # or with a different port
 openssl s_client -showcerts -connect vault.domain.com:7070
 ```
-The start of the output should look something like this (Using a Let's Encrypt Certificate):
+The start of the output should look something like this (when using a Let's Encrypt cert):
 ```
 CONNECTED(00000003)
 depth=2 O = Digital Signature Trust Co., CN = DST Root CA X3
 verify return:1
-depth=1 C = US, O = Let's Encrypt, CN = Let's Encrypt Authority X3
+depth=1 C = US, O = Let's Encrypt, CN = R3
 verify return:1
 depth=0 CN = vault.domain.com
 verify return:1
