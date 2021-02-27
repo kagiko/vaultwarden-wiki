@@ -113,6 +113,7 @@ You should now be able to reach your bitwarden_rs instance at https://bwrs.examp
 
 In the DuckDNS example above, Caddy used the `lego` library to get certs via DNS challenge.
 `lego` also has a CLI that you can use to get certs directly, e.g. if you want to use a reverse proxy other than Caddy.
+(Note: This example uses `lego`, but there are other standalone ACME clients that support the DNS challenge method (see the [DNS Challenge](#dns-challenge) section.) 
 
 Here's an example of how to do this:
 
@@ -123,6 +124,8 @@ Here's an example of how to do this:
 3. Set up a weekly cron job to run `DUCKDNS_TOKEN=<token> ./lego --dns duckdns -d my-bwrs.duckdns.org -m me@example.com renew`.
    This renews your certificate as it nears expiration.
 
+(Note: `lego` requests ECC/ECDSA certs by default. If you are using the [[Rocket HTTPS server|Enabling-HTTPS#via-rocket]] built into bitwarden_rs, you will need to request RSA certs instead. In the `lego` commands above, add the option `--key-type rsa2048`.)
+
 In this example, the generated outputs you need to configure your reverse proxy with are:
 
 * `/usr/local/lego/.lego/certificates/my-bwrs.duckdns.org.crt` (certificate)
@@ -132,8 +135,8 @@ In this example, the generated outputs you need to configure your reverse proxy 
 
 ### DNS Challenge
 
-* https://caddy.community/t/how-to-use-dns-provider-modules-in-caddy-2/8148
 * https://community.letsencrypt.org/t/dns-providers-who-easily-integrate-with-lets-encrypt-dns-validation/86438
+* https://caddy.community/t/how-to-use-dns-provider-modules-in-caddy-2/8148
 
 ### Caddy Cloudflare module
 
