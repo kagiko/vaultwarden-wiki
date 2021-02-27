@@ -4,6 +4,12 @@ In bitwarden_rs, you can perform configuration either via environment variables 
 
 A common source of confusion is enabling the admin page (which creates the `config.json` file), changing some settings via the admin page (which sets the corresponding values in `config.json`), then later trying to change those settings via environment variable (which doesn't work because `config.json` overrides env vars). To avoid this confusion, it's highly recommended to stick to one configuration method or the other; that is, configure entirely via environment variables, or entirely via `config.json` (whether using the admin page or editing `config.json` directly).
 
+Note that config settings under the `Read-Only Config` section of the admin page can only be set via environment variables, so you must restart bitwarden_rs to make changes to them. If you keep these environment variables in a file named `.env`, you can load them as follows:
+
+* With standalone bitwarden_rs, by putting `.env` in the current working directory. bitwarden_rs will attempt to load this file on startup.
+* With Docker, by using `docker run --env-file <env-file> ...` (to have Docker load the env file) or `docker run -v /path/to/.env:/.env` (to have bitwarden_rs load the `.env` file from inside the container).
+* With Docker Compose, by using the [`env_file`](https://docs.docker.com/compose/environment-variables/#the-env_file-configuration-option) directive.
+
 ## Configuration options
 
 You can find the list of environment variables you can set at
@@ -14,7 +20,11 @@ If you enable the [[admin page|Enabling-admin-page]], that will also show the fu
 
 In case there are any errors or omissions, the source of truth is
 
-https://github.com/dani-garcia/bitwarden_rs/blob/master/src/config.rs (search for `make_config!`)
+https://github.com/dani-garcia/bitwarden_rs/blob/master/src/config.rs (search for `make_config! {`)
+
+Or you can use this direct link if your (Chromium-based) browser supports text fragments:
+
+https://github.com/dani-garcia/bitwarden_rs/blob/master/src/config.rs#LC290:~:text=make_config!%20%7B,-folders
 
 ## Setting the domain URL
 
