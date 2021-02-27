@@ -16,6 +16,8 @@ docker run -d --name bitwarden \
 
 After this, the page will be available in the `/admin` subdirectory.
 
-The first time you save a setting in the admin page, `config.json` will be generated in your `DATA_FOLDER`. Values in this file will take precedence over environmental values.
+The first time you save a setting in the admin page, `config.json` will be generated in your `DATA_FOLDER`. Values in this file will take precedence over the corresponding environment variable.
+
+Note that config changes in the admin page do not take effect until you click the `Save` button. For example, if you are testing SMTP settings, and you change the `SMTP Auth mechanism` setting and then click `Send test email` to test the change, this won't work as expected -- since you didn't click `Save`, the `SMTP Auth mechanism` change won't have taken effect.
 
 **Note:** After changing the `ADMIN_TOKEN`, the currently logged in admins will still be able to use their old login token for [up to 20 minutes](https://github.com/dani-garcia/bitwarden_rs/blob/master/src/api/admin.rs#L87).
