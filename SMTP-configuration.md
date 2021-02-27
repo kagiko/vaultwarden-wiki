@@ -25,3 +25,12 @@ docker run -d --name bitwarden \
 ```
 
 User invitation links are valid for 5 days, after which a new invitation will need to be sent.
+
+## SMTP servers
+
+Properly configuring an SMTP server/relay isn't trivial. The mailer library that bitwarden_rs uses also isn't the easiest to troubleshoot. So unless you're particularly interested in setting this up yourself, it's probably easier to use an external service.
+
+Here are a few services with a free tier that allows sending 100-200 emails per day (which is plenty for most use cases):
+
+* [SendGrid](https://sendgrid.com/)
+* [MailJet](https://www.mailjet.com/)
