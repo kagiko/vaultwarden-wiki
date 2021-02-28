@@ -47,7 +47,7 @@ Assuming this command is run on January 1, 2021 at 12:34pm (local time), this ba
 
 You can run this command via a cron job periodically (preferably at least once a day).
 
-If you want to copy your backup data to cloud storage, [Rclone](https://rclone.org/) is a useful tool for interfacing with various cloud storage systems.
+If you want to copy your backup data to cloud storage, [rclone](https://rclone.org/) is a useful tool for interfacing with various cloud storage systems. [restic](https://restic.net/) is another good option, especially if you have larger attachments and want to avoid recopying them as part of each backup.
 
 ### The `attachments` dir
 
