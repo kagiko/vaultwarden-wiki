@@ -71,5 +71,10 @@ Also, if you don't expect bitwarden_rs to modify the data you're mounting in (e.
 # Miscellaneous
 
 ## Brute-force mitigation
+
 When two-factor-authentication is not in use, it is (in theory) possible to brute-force user passwords and thus gain access to their account. One, relatively easy, way to mitigate this, is setting up fail2ban which blocks ipadresses after too many  failed login attempts. However: Care should be taken when using this behind multiple reverse-proxies (such as cloudflare).
 See: [[Fail2Ban Setup|Fail2Ban Setup]]
+
+## Hiding under a subdir
+
+Traditionally, a Bitwarden instance resides at the root of a subdomain (i.e., `bitwarden.example.com`, and not `bitwarden.example.com/some/path`). The upstream Bitwarden server currently only supports subdomain roots, while bitwarden_rs adds support for [[alternate base directories|Using-an-alternate-base-dir]]. For some users, this is useful simply because they only have access to one subdomain and want to run multiple services under different directories. In such cases, they typically choose something obvious like `mysubdomain.example.com/bitwarden`. However, you can also use this to provide an extra layer of protection by putting bitwarden_rs under something like `mysubdomain.example.com/bitwarden/<mysecretstring>`, where `<mysecretstring>` effectively acts as a password. Some may argue that this is [security through obscurity](https://en.wikipedia.org/wiki/Security_through_obscurity), but it's actually [defense in depth](https://en.wikipedia.org/wiki/Defense_in_depth_(computing)) -- the secrecy of the subdir is just an extra layer of security, and not intended to be the primary means of security (which is still the strength of a user's master password).
