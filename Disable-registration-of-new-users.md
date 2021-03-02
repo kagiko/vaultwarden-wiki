@@ -21,7 +21,7 @@ You can restrict registration to email addresses from certain domains by setting
 * `SIGNUPS_DOMAINS_WHITELIST=example.com` (single domain)
 * `SIGNUPS_DOMAINS_WHITELIST=example.com,example.net,example.org` (multiple domains)
 
-If `SIGNUPS_DOMAINS_WHITELIST` is set, then the value of `SIGNUPS_ALLOWED` is ignored.
+:warning: If `SIGNUPS_DOMAINS_WHITELIST` is set, then the value of `SIGNUPS_ALLOWED` is ignored.
 
 You may also want to set `SIGNUPS_VERIFY=true`, which would require email verification before a newly-registered user can successfully log in. This would prevent someone from registering with a fake email address that has the proper domain.
 
