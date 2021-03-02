@@ -1,6 +1,8 @@
-# Logging to a file
+bitwarden_rs logs only to [standard output](https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout)) (stdout) by default. You can also configure it to log to a file.
 
-Logging to a file is supported as of 1.5.0. You can specify the path to the log file with the `LOG_FILE` environment variable:
+## Logging to a file
+
+Logging to a file is supported as of version 1.5.0. You can specify the path to the log file with the `LOG_FILE` environment variable:
 
 ```sh
 docker run -d --name bitwarden \
@@ -9,9 +11,9 @@ docker run -d --name bitwarden \
 ...
 ```
 
-Note that if you're using the docker image, you'll most likely want to use a file path that is mounted from the host OS (such as the data folder).
+When this environment variable is set, log messages will be logged to both stdout and the log file. If you're running in Docker, you'll most likely want to use a file path that is mounted from the Docker host (such as the `data` folder); otherwise, your log file will be lost (or at least hard to find) if the container is restarted or removed.
 
-# Change the log level
+## Changing the log level
 
 To reduce the amount of log messages, you can set the log level to 'warn' (default is 'info'). The [Log level](https://docs.rs/log/0.4.7/log/enum.Level.html#variants) can be adjusted with the environment variable `LOG_LEVEL` while also setting `EXTENDED_LOGGING=true`. NOTE: Using the log level "warn" or "error" still allows [Fail2Ban](https://github.com/dani-garcia/bitwarden_rs/wiki/Fail2Ban-Setup) to work properly.
 
@@ -23,3 +25,11 @@ docker run -d --name bitwarden \
   -e LOG_LEVEL=warn -e EXTENDED_LOGGING=true \
 ...
 ```
+
+## Viewing logs
+
+If running in Docker: `docker logs <container-name>`
+
+If running via `systemd`: `journalctl -u bitwarden_rs.service` (or whatever your service is named)
+
+Otherwise, check where standard output is being redirected, or set the `LOG_FILE` environment variable and view that file.
