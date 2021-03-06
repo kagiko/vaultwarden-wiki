@@ -66,19 +66,6 @@ If you prefer, you can also directly specify a value instead of substituting an 
   # if you encounter issues.
   encode gzip
 
-  header / {
-       # Enable HTTP Strict Transport Security (HSTS)
-       Strict-Transport-Security "max-age=31536000;"
-       # Enable cross-site filter (XSS) and tell browser to block detected attacks
-       X-XSS-Protection "1; mode=block"
-       # Disallow the site to be rendered within a frame (clickjacking protection)
-       X-Frame-Options "DENY"
-       # Prevent search engines from indexing (optional)
-       X-Robots-Tag "none"
-       # Server name removing
-       -Server
-   }
-
   # Notifications redirected to the websockets server
   reverse_proxy /notifications/hub <SERVER>:3012
 
