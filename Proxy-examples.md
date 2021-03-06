@@ -39,25 +39,36 @@ Caddy can also automatically enable HTTPS in some circumstances, check the [docs
 <details>
 <summary>Caddy 2.x</summary><br/>
 
-Caddy 2 can also automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/docs/automatic-https).
-```nginx
-# Caddyfile V2.0 config file
-:80 {
-  #Caddy on port 80 in container to bitwarden_rs private instance
-  #Use it if Caddy behind another reverse proxy such as the one embedded on Synology
+Caddy 2 can automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/docs/automatic-https).
+
+In the Caddyfile syntax, `{$VAR}` denotes the value of the environment variable `VAR`.
+If you prefer, you can also directly specify a value instead of substituting an env var value.
+
+```
+{$DOMAIN}:443 {
   log {
-	output file {env.LOG_FILE}
-	level INFO
-	#roll_size 5MiB #Not working on Caddy V2.0.0 Beta20 https://caddyserver.com/docs/caddyfile/directives/log#log
-	#roll_keep 2 #Not working on Caddy V2.0.0 Beta20 https://caddyserver.com/docs/caddyfile/directives/log#log
+    level INFO
+    output file {$LOG_FILE} {
+      roll_size 10MB
+      roll_keep 10
+    }
   }
+
+  # Uncomment this if you want to get a cert via ACME (Let's Encrypt or ZeroSSL).
+  # tls {$EMAIL}
+
+  # Or uncomment this if you're providing your own cert. You would also use this option
+  # if you're running behind Cloudflare.
+  # tls {$SSL_CERT_PATH} {$SSL_KEY_PATH}
 
   # This setting may have compatibility issues with some browsers
   # (e.g., attachment downloading on Firefox). Try disabling this
   # if you encounter issues.
   encode gzip
 
-  header {
+  header / {
+       # Enable HTTP Strict Transport Security (HSTS)
+       Strict-Transport-Security "max-age=31536000;"
        # Enable cross-site filter (XSS) and tell browser to block detected attacks
        X-XSS-Protection "1; mode=block"
        # Disallow the site to be rendered within a frame (clickjacking protection)
@@ -68,58 +79,16 @@ Caddy 2 can also automatically enable HTTPS in some circumstances, check the [do
        -Server
    }
 
-  # The negotiation endpoint is also proxied to Rocket
-  reverse_proxy /notifications/hub/negotiate <SERVER>:80
-
   # Notifications redirected to the websockets server
   reverse_proxy /notifications/hub <SERVER>:3012
 
-  # Proxy the Root directory to Rocket
-  reverse_proxy <SERVER>:80
+  # Proxy everything else to Rocket
+  reverse_proxy <SERVER>:80 {
+       # Send the true remote IP to Rocket, so that bitwarden_rs can put this in the
+       # log, so that fail2ban can ban the correct IP.
+       header_up X-Real-IP {remote_host}
+  }
 }
-
-#{env.DOMAIN}:443 {
-#  #Caddy on port 443 in container to bitwarden_rs private instance 
-#  #Use it if Caddy exposed to the net 
-#
-#  log {
-#	output file {env.LOG_FILE}
-#	level INFO
-#   #roll_size 5MiB #Not working on Caddy V2.0.0 Beta20 https://caddyserver.com/docs/caddyfile/directives/log#log
-#   #rool_keep 30 #Not working on Caddy V2.0.0 Beta20 https://caddyserver.com/docs/caddyfile/directives/log#log
-#  }
-#
-#  # Uncomment only one of the 2 lines. Depending if you provide your own cert or request one from Let's Encrypt
-#  tls {env.SSLCERTIFICATE} {env.SSLKEY}
-#  tls {env.EMAIL}
-#
-#  encode gzip
-#
-#  header / {
-#       # Enable HTTP Strict Transport Security (HSTS)
-#       Strict-Transport-Security "max-age=31536000;"
-#       # Enable cross-site filter (XSS) and tell browser to block detected attacks
-#       X-XSS-Protection "1; mode=block"
-#       # Disallow the site to be rendered within a frame (clickjacking protection)
-#       X-Frame-Options "DENY"
-#       # Prevent search engines from indexing (optional)
-#       X-Robots-Tag "none"
-#       # Server name removing
-#       -Server
-#   }
-#  # The negotiation endpoint is also proxied to Rocket
-#  reverse_proxy /notifications/hub/negotiate <SERVER>:80
-#
-#  # Notifications redirected to the websockets server
-#  reverse_proxy /notifications/hub <SERVER>:3012
-#
-#  # Proxy the Root directory to Rocket
-#  reverse_proxy <SERVER>:80 {
-#       # Send the true remote IP to Rocket, so that bitwarden_rs can put this in the
-#       # log, so that fail2ban can ban the correct IP.
-#       header_up X-Real-IP {remote_host}
-#  }
-#}
 ```
 </details>
 
