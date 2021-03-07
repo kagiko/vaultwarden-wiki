@@ -355,6 +355,12 @@ Remember to enable `mod_proxy_wstunnel` and `mod_proxy_http`, for example with: 
 
 <details>
 <summary>Apache in a sub-location (by ss89)</summary><br/>
+Start container with
+```ini
+; Add the sub-path! Else this will not work!
+DOMAIN=https://$hostname.$domainname/$sublocation/
+```
+
 Ensure you have the websocket proxy module loaded somewhere in your apache config.
 It can look something like: 
 
@@ -377,11 +383,11 @@ On some OS's you can use a2enmod, for example with: `a2enmod proxy_wstunnel` and
     ErrorLog \${APACHE_LOG_DIR}/error.log
     CustomLog \${APACHE_LOG_DIR}/access.log combined
 
-    <Location /bitwarden> #adjust here if necessary
+    <Location /$sublocation/> #adjust here if necessary
         RewriteEngine On
         RewriteCond %{HTTP:Upgrade} =websocket [NC]
         RewriteRule /notifications/hub(.*) ws://<SERVER>:3012/$1 [P,L]
-        ProxyPass http://<SERVER>:80/
+        ProxyPass http://<SERVER>:80/$sublocation/
 
         ProxyPreserveHost On
         RequestHeader set X-Real-IP %{REMOTE_ADDR}s
