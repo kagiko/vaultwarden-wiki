@@ -355,9 +355,10 @@ Remember to enable `mod_proxy_wstunnel` and `mod_proxy_http`, for example with: 
 
 <details>
 <summary>Apache in a sub-location (by ss89)</summary><br/>
-Start container with
-```ini
-; Add the sub-path! Else this will not work!
+Modify your docker start-up to include the sub-location.
+
+```
+; Add the sub-location! Else this will not work!
 DOMAIN=https://$hostname.$domainname/$sublocation/
 ```
 
