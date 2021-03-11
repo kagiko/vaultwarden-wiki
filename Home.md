@@ -38,9 +38,11 @@ Features that may be added as time permits (contributions are always welcome):
 * [Bitwarden Public API](https://bitwarden.com/help/article/public-api/)
 * [Event Logs](https://bitwarden.com/help/article/event-logs/)
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (push notifications) for mobile clients (Android/iOS)
+* [Bitwarden Send](https://bitwarden.com/help/article/about-send/)
 * Certain enterprise policies:
   * [Two-Step Login](https://bitwarden.com/help/article/policies/#two-step-login) ([#981](https://github.com/dani-garcia/bitwarden_rs/issues/981))
   * [Single Organization](https://bitwarden.com/help/article/policies/#single-organization)
+  * [Disable Send](https://bitwarden.com/help/article/policies/#disable-send)
 
 Features that probably won't be added unless contributed:
 
