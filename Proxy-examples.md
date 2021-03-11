@@ -5,7 +5,7 @@ By default, bitwarden_rs listens on port 80 for web (REST API) traffic and on po
 Note that when you put bitwarden_rs behind a reverse proxy, the connections between the reverse proxy and bitwarden_rs are typically assumed to be going through a secure private network, and thus do not need to be encrypted. The examples below assume you are running in this configuration, in which case you should not enable the HTTPS functionality built into bitwarden_rs (i.e., you should not set the `ROCKET_TLS` environment variable). If you do, connections will fail since the reverse proxy is using HTTP to connect to bitwarden_rs, but you're configuring bitwarden_rs to expect HTTPS.
 
 <details>
-<summary>Caddy 1.x</summary><br/>
+<summary>Caddy 1.x (deprecated)</summary><br/>
 
 Caddy can also automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/v1/docs/automatic-https).
 ```nginx
