@@ -1,71 +1,67 @@
-Docker Compose is a tool that allows the definition and configuration of multi-container applications. In our case, we want both the Bitwarden_RS server and a proxy to redirect the WebSocket requests to the correct place.
+[Docker Compose](https://docs.docker.com/compose/) is a tool that allows the definition and configuration of multi-container applications. In our case, we want both the bitwarden_rs server and a proxy to redirect the WebSocket requests to the correct place.
 
-This guide is based on [#126 (comment)](https://github.com/dani-garcia/bitwarden_rs/issues/126#issuecomment-417872681). Another solution, based on Bitwarden_RS and Caddy 2.0 is [available there](https://github.com/sosandroid/docker-bitwarden_rs-caddy-synology)
+This example assumes that you have [installed](https://docs.docker.com/compose/install/) Docker Compose, that you have a domain name (e.g., `bitwarden.example.com`) for your bitwarden_rs instance, and that it will be publicly accessible.
 
-Create a `docker-compose.yml` file based on this:
-```yml
-# docker-compose.yml
+Start by making a new directory and changing into it. Next, create the `docker-compose.yml` below, making sure to substitute appropriate values for the `DOMAIN` and `EMAIL` variables.
+
+```yaml
 version: '3'
 
 services:
   bitwarden:
-    image: bitwardenrs/server
+    image: bitwardenrs/server:latest
+    container_name: bitwarden
     restart: always
+    environment:
+      - WEBSOCKET_ENABLED=true  # Enable WebSocket notifications.
     volumes:
       - ./bw-data:/data
-    environment:
-      WEBSOCKET_ENABLED: 'true' # Required to use websockets
-      SIGNUPS_ALLOWED: 'true'   # set to false to disable signups
 
   caddy:
-    image: abiosoft/caddy
+    image: caddy:2
+    container_name: caddy
     restart: always
-    volumes:
-      - ./Caddyfile:/etc/Caddyfile:ro
-      - caddycerts:/root/.caddy
     ports:
-      - 80:80 # needed for Let's Encrypt
+      - 80:80  # Needed for the ACME HTTP-01 challenge.
       - 443:443
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./caddy-config:/config
+      - ./caddy-data:/data
     environment:
-      ACME_AGREE: 'true'              # agree to Let's Encrypt Subscriber Agreement
-      DOMAIN: 'bitwarden.example.org' # CHANGE THIS! Used for Auto Let's Encrypt SSL
-      EMAIL: 'bitwarden@example.org'  # CHANGE THIS! Optional, provided to Let's Encrypt
-
-volumes:
-  caddycerts:
+      - DOMAIN=bitwarden.example.com  # Your domain.
+      - EMAIL=admin@example.com       # The email address to use for ACME registration.
+      - LOG_FILE=/data/access.log
 ```
 
-and the corresponding `Caddyfile` (does not need to be modified):
-```nginx
-# Caddyfile
-{$DOMAIN} {
-    tls {$EMAIL}
-
-    header / {
-        # Enable HTTP Strict Transport Security (HSTS)
-        Strict-Transport-Security "max-age=31536000;"
-        # Enable cross-site filter (XSS) and tell browser to block detected attacks
-        X-XSS-Protection "1; mode=block"
-        # Disallow the site to be rendered within a frame (clickjacking protection)
-        X-Frame-Options "DENY"
-        # Prevent search engines from indexing (optional)
-        #X-Robots-Tag "none"
+In the same directory, create the `Caddyfile` below. (This file does not need to be modified.)
+```
+{$DOMAIN}:443 {
+  log {
+    level INFO
+    output file {$LOG_FILE} {
+      roll_size 10MB
+      roll_keep 10
     }
+  }
 
-    # The negotiation endpoint is also proxied to Rocket
-    proxy /notifications/hub/negotiate bitwarden:80 {
-        transparent
-    }
+  # Use the ACME HTTP-01 challenge to get a cert for the configured domain.
+  tls {$EMAIL}
 
-    # Notifications redirected to the websockets server
-    proxy /notifications/hub bitwarden:3012 {
-        websocket
-    }
+  # This setting may have compatibility issues with some browsers
+  # (e.g., attachment downloading on Firefox). Try disabling this
+  # if you encounter issues.
+  encode gzip
 
-    # Proxy the Root directory to Rocket
-    proxy / bitwarden:80 {
-        transparent
-    }
+  # Notifications redirected to the WebSocket server
+  reverse_proxy /notifications/hub bitwarden:3012
+
+  # Proxy everything else to Rocket
+  reverse_proxy bitwarden:80 {
+       # Send the true remote IP to Rocket, so that bitwarden_rs can put this in the
+       # log, so that fail2ban can ban the correct IP.
+       header_up X-Real-IP {remote_host}
+  }
 }
 ```
 
@@ -73,12 +69,14 @@ Run
 ```bash
 docker-compose up -d
 ```
-to create & start the containers. It creates a private network between the two containers for the reverse proxy, only caddy is exposed to the outside.
+to create and start the containers. A private network for the services in this `docker-compose.yml` file will be created automatically, with only Caddy being publicly exposed.
 
 ```bash
 docker-compose down
 ```
 stops and destroys the containers.
+
+A similar Caddy-based example for Synology is available [here](https://github.com/sosandroid/docker-bitwarden_rs-caddy-synology).
 
 If there's no need for websocket notifications, you can run Bitwarden_rs alone. Here's my example. Actually I'm running Bitwarden_rs on my Raspberry Pi and I'm using bitwardenrs/server image. If you want to do the same, remember to change it to the example.
 ```yml
@@ -87,7 +85,7 @@ version: '3'
 
 services:
  bitwarden:
-  image: bitwardenrs/server
+  image: bitwardenrs/server:latest
   restart: always
   volumes:
       - ./bw-data:/data
