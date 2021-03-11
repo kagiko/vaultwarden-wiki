@@ -4,6 +4,8 @@ By default, bitwarden_rs listens on port 80 for web (REST API) traffic and on po
 
 Note that when you put bitwarden_rs behind a reverse proxy, the connections between the reverse proxy and bitwarden_rs are typically assumed to be going through a secure private network, and thus do not need to be encrypted. The examples below assume you are running in this configuration, in which case you should not enable the HTTPS functionality built into bitwarden_rs (i.e., you should not set the `ROCKET_TLS` environment variable). If you do, connections will fail since the reverse proxy is using HTTP to connect to bitwarden_rs, but you're configuring bitwarden_rs to expect HTTPS.
 
+It's common to use [Docker Compose](https://docs.docker.com/compose/) to link containerized services together (e.g., bitwarden_rs and a reverse proxy). See [[Using Docker Compose|Using-Docker-Compose]] for an example of this.
+
 <details>
 <summary>Caddy 1.x (deprecated)</summary><br/>
 
