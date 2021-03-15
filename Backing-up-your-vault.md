@@ -24,7 +24,10 @@ data
 │   └── example.org.png
 ├── rsa_key.der          # `rsa_key.*` files are used to sign authentication tokens.
 ├── rsa_key.pem
-└── rsa_key.pub.der
+├── rsa_key.pub.der
+└── sends                # Each Send attachment is stored as a separate file under this dir.
+    └── <uuid>           # (The sends dir won't be present if no Send attachments have been created.)
+        └── <random_id>
 ```
 
 When running with MySQL or PostgreSQL backends, the directory structure is the same, except there are no SQLite files. You'll still want to back up files in the `data` directory, as well as a dump of your MySQL or PostgreSQL tables.
@@ -53,7 +56,17 @@ If you want to copy your backup data to cloud storage, [rclone](https://rclone.o
 
 _**Backup required.**_
 
-Attachments are the only important data not stored in database tables, mainly because they can be arbitrarily large, and SQL databases generally aren't designed to handle large blobs efficiently. This directory won't be present if no [attachments](https://bitwarden.com/help/article/attachments/) have been created.
+[File attachments](https://bitwarden.com/help/article/attachments/) are the only important class of data not stored in database tables, mainly because they can be arbitrarily large, and SQL databases generally aren't designed to handle large blobs efficiently. This directory won't be present if no [file attachments] have ever been created.
+
+### The `sends` dir
+
+_**Backup optional.**_
+
+Like regular file attachments, [Send](https://bitwarden.com/help/article/about-send/) file attachments are not stored in database tables. (Send text notes are stored in the database, however.)
+
+Unlike regular attachments, Send attachments are intended to be ephemeral. Therefore, you might choose not to back up this directory if you want to minimize the size of your backups. On the other hand, if it's more important to maintain proper functionality of existing Sends across a restore, then you should back up this directory.
+
+This directory won't be present if no Send attachments have ever been created.
 
 ### The `rsa_key*` files
 
