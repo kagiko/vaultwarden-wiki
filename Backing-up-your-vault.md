@@ -56,7 +56,7 @@ If you want to copy your backup data to cloud storage, [rclone](https://rclone.o
 
 _**Backup required.**_
 
-[File attachments](https://bitwarden.com/help/article/attachments/) are the only important class of data not stored in database tables, mainly because they can be arbitrarily large, and SQL databases generally aren't designed to handle large blobs efficiently. This directory won't be present if no [file attachments] have ever been created.
+[File attachments](https://bitwarden.com/help/article/attachments/) are the only important class of data not stored in database tables, mainly because they can be arbitrarily large, and SQL databases generally aren't designed to handle large blobs efficiently. This directory won't be present if no file attachments have ever been created.
 
 ### The `sends` dir
 
