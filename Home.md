@@ -18,6 +18,7 @@ bitwarden_rs implements the Bitwarden APIs required for most functionality, incl
 * [Favorites](https://bitwarden.com/help/article/favorites/)
 * [Website icons](https://bitwarden.com/help/article/website-icons/)
 * [Bitwarden Authenticator (TOTP)](https://bitwarden.com/help/article/authenticator-keys/)
+* [Bitwarden Send](https://bitwarden.com/help/article/about-send/)
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (WebSocket only) for desktop/browser clients
 * [Trash](https://bitwarden.com/help/article/managing-items/#items-in-the-trash) (soft delete)
 * Two-step login via [email](https://bitwarden.com/help/article/setup-two-step-login-email/), [Duo](https://bitwarden.com/help/article/setup-two-step-login-duo/), [YubiKey](https://bitwarden.com/help/article/setup-two-step-login-yubikey/), and [FIDO U2F](https://bitwarden.com/help/article/setup-two-step-login-u2f/)
@@ -38,7 +39,6 @@ Features that may be added as time permits (contributions are always welcome):
 * [Bitwarden Public API](https://bitwarden.com/help/article/public-api/)
 * [Event Logs](https://bitwarden.com/help/article/event-logs/)
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (push notifications) for mobile clients (Android/iOS)
-* [Bitwarden Send](https://bitwarden.com/help/article/about-send/)
 * Certain enterprise policies:
   * [Two-Step Login](https://bitwarden.com/help/article/policies/#two-step-login) ([#981](https://github.com/dani-garcia/bitwarden_rs/issues/981))
   * [Single Organization](https://bitwarden.com/help/article/policies/#single-organization)
