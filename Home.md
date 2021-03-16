@@ -26,6 +26,7 @@ bitwarden_rs implements the Bitwarden APIs required for most functionality, incl
   * [Master Password](https://bitwarden.com/help/article/policies/#master-password)
   * [Password Generator](https://bitwarden.com/help/article/policies/#password-generator)
   * [Personal Ownership](https://bitwarden.com/help/article/policies/#personal-ownership)
+  * [Disable Send](https://bitwarden.com/help/article/policies/#disable-send)
 
 ## Missing features
 
@@ -42,7 +43,6 @@ Features that may be added as time permits (contributions are always welcome):
 * Certain enterprise policies:
   * [Two-Step Login](https://bitwarden.com/help/article/policies/#two-step-login) ([#981](https://github.com/dani-garcia/bitwarden_rs/issues/981))
   * [Single Organization](https://bitwarden.com/help/article/policies/#single-organization)
-  * [Disable Send](https://bitwarden.com/help/article/policies/#disable-send)
 
 Features that probably won't be added unless contributed:
 
