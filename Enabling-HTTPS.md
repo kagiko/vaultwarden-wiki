@@ -19,7 +19,7 @@ Refer to the [Getting SSL/TLS certificates](#getting-ssltls-certificates) sectio
 
 ### Via a reverse proxy
 
-There are quite a few reverse proxies in common use; some example configurations can be found at [[Proxy examples|Proxy-examples]]. If you aren't familiar with reverse proxies and have no preference, consider [Caddy](https://caddyserver.com/) first, since it has built-in support for obtaining Let's Encrypt certs.
+There are quite a few reverse proxies in common use; some example configurations can be found at [[Proxy examples|Proxy-examples]]. If you aren't familiar with reverse proxies and have no preference, consider [Caddy](https://caddyserver.com/) first, since it has built-in support for obtaining Let's Encrypt certs. The [[Using Docker Compose|Using-Docker-Compose]] article has a good example using Caddy.
 
 ### Via Rocket
 
