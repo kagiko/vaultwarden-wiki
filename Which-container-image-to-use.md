@@ -14,7 +14,7 @@ The `bitwardenrs/server` image has several tags, each of which represents some v
 
 * `x.y.z` (e.g., `1.16.0`) -- Represents a specific released version.
 
-* `alpine` -- Functionally the same as `latest`, but Alpine-based rather than Debian-based, resulting in a slimmer image. `latest` vs. `alpine` is mostly a matter of preference. However, note that the `alpine` tag currently supports only the `amd64` and `arm32v7` architectures, and only the SQLite and PostgreSQL database backends.
+* `alpine` -- With a few exceptions, this image is functionally the same as `latest`, but Alpine-based rather than Debian-based, resulting in a slimmer image. Therefore, `latest` vs. `alpine` is mostly a matter of preference. However, note that the `alpine` tag currently supports only the `amd64` and `arm32v7` architectures, and only the SQLite and PostgreSQL database backends.
 
 * `x.y.z-alpine` (e.g., `1.16.0-alpine`) -- Similar to `alpine`, but represents a specific released version.
 
