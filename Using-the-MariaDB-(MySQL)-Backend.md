@@ -7,6 +7,8 @@ We do not support the latest Oracle MySQLv8 version. If you insist to use MySQLv
 
 :warning: Alpine is currently **not** support, on amd64 Alpine supports sqlite and postgresql, on armv7 it only supports sqlite.
 
+---
+
 To use the MariaDB (MySQL) backend, you can either use the [official Docker image](https://hub.docker.com/r/bitwardenrs/server) or build your own binary [with MySQL enabled](https://github.com/dani-garcia/bitwarden_rs/wiki/Building-binary#mysql-backend).
 
 To run the binary or container, ensure the ```DATABASE_URL``` environment variable is set (i.e. ```DATABASE_URL='mysql://<user>:<password>@mysql/bitwarden'```).
