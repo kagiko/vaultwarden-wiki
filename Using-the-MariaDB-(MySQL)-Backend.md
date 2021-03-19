@@ -72,7 +72,7 @@ services:
    - "MYSQL_USER=<bitwarden_user>"
 
  bitwarden:
-  image: "bitwardenrs/server-mysql:latest"
+  image: "bitwardenrs/server:latest"
   container_name: "bitwarden"
   hostname: "bitwarden"
   restart: always
