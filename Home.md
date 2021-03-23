@@ -18,7 +18,7 @@ bitwarden_rs implements the Bitwarden APIs required for most functionality, incl
 * [Favorites](https://bitwarden.com/help/article/favorites/)
 * [Website icons](https://bitwarden.com/help/article/website-icons/)
 * [Bitwarden Authenticator (TOTP)](https://bitwarden.com/help/article/authenticator-keys/)
-* [Bitwarden Send](https://bitwarden.com/help/article/about-send/)
+* [Bitwarden Send](https://bitwarden.com/help/article/about-send/) (`testing` tagged image only for now)
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (WebSocket only) for desktop/browser clients
 * [Trash](https://bitwarden.com/help/article/managing-items/#items-in-the-trash) (soft delete)
 * Two-step login via [email](https://bitwarden.com/help/article/setup-two-step-login-email/), [Duo](https://bitwarden.com/help/article/setup-two-step-login-duo/), [YubiKey](https://bitwarden.com/help/article/setup-two-step-login-yubikey/), and [FIDO U2F](https://bitwarden.com/help/article/setup-two-step-login-u2f/)
