@@ -99,7 +99,7 @@ An easy way of migrating from SQLite to MySQL has been described in this [issue 
 
 1. Create an new (empty) database for bitwarden_rs:
 ```sql
-CREATE DATABASE bitwarden_rs;
+CREATE DATABASE bitwarden_rs CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 ```
 2. Create a new database user and grant rights to database:
 ```sql
