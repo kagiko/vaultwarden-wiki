@@ -22,6 +22,7 @@ bitwarden_rs implements the Bitwarden APIs required for most functionality, incl
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (WebSocket only) for desktop/browser clients/extensions
 * [Trash](https://bitwarden.com/help/article/managing-items/#items-in-the-trash) (soft delete)
 * Two-step login via [email](https://bitwarden.com/help/article/setup-two-step-login-email/), [Duo](https://bitwarden.com/help/article/setup-two-step-login-duo/), [YubiKey](https://bitwarden.com/help/article/setup-two-step-login-yubikey/), and [FIDO U2F](https://bitwarden.com/help/article/setup-two-step-login-u2f/)
+* [Directory Connector](https://bitwarden.com/help/article/directory-sync/) support (Basic implementation, no group support)
 * Certain enterprise policies:
   * [Master Password](https://bitwarden.com/help/article/policies/#master-password)
   * [Password Generator](https://bitwarden.com/help/article/policies/#password-generator)
@@ -47,7 +48,6 @@ Features that may be added as time permits (contributions are always welcome):
 Features that probably won't be added unless contributed:
 
 * [Single Sign-On (SSO)](https://bitwarden.com/help/article/about-sso/)
-* [Directory Connector](https://bitwarden.com/help/article/directory-sync/) support
 * [Groups](https://bitwarden.com/help/article/about-groups/)
 * [Custom roles](https://bitwarden.com/help/article/user-types-access-control/#custom-role)
 
