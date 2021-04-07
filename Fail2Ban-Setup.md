@@ -186,6 +186,10 @@ failregex = ^.*Invalid admin token\. IP: <ADDR>.*$
 ignoreregex =
 ```
 
+**Tip:** If you get the following error message in `fail2ban.log`
+`ERROR  NOK: ("No 'host' group in '^.*Invalid admin token\\. IP: <ADDR>.*$'")`  
+Please Use `<HOST>` instead of `<ADDR>` in `bitwarden_rs-admin.local`
+
 ### Jail
 
 Create and fill the following file
