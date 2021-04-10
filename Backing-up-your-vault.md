@@ -68,6 +68,14 @@ Unlike regular attachments, Send attachments are intended to be ephemeral. There
 
 This directory won't be present if no Send attachments have ever been created.
 
+### The `config.json` file
+
+_**Backup recommended.**_
+
+If you use the admin page to configure your bitwarden_rs instance and don't have your configuration backed up some other way, then you probably want to back up this file so you don't have to figure out your preferred configuration all over again.
+
+Keep in mind that this file does contain some data in plaintext that could be considered sensitive (admin token, SMTP credentials, etc.), so make sure to encrypt this data if you're concerned that someone else might be able to access to it (e.g., when uploaded to cloud storage).
+
 ### The `rsa_key*` files
 
 _**Backup recommended.**_
