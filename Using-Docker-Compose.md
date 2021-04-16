@@ -77,27 +77,3 @@ docker-compose down
 stops and destroys the containers.
 
 A similar Caddy-based example for Synology is available [here](https://github.com/sosandroid/docker-bitwarden_rs-caddy-synology).
-
-If there's no need for websocket notifications, you can run Bitwarden_rs alone. Here's my example. Actually I'm running Bitwarden_rs on my Raspberry Pi and I'm using bitwardenrs/server image. If you want to do the same, remember to change it to the example.
-```yml
-# docker-compose.yml
-version: '3'
-
-services:
- bitwarden:
-  image: bitwardenrs/server:latest
-  restart: always
-  volumes:
-      - ./bw-data:/data
-      - ./ssl:/ssl
-  ports:
-    - 443:80
-  environment:
-   ROCKET_TLS: '{certs = "/ssl/fullchain.pem", key = "/ssl/key.pem"}'
-   LOG_FILE: '/data/bitwarden.log'
-   SIGNUPS_ALLOWED: 'true'
-```
-
-Even the server is running at the home network behind the NAT, I wanted to have Let's Encrypt's certificate. I followed this guide https://github.com/Neilpang/acme.sh/wiki/DNS-alias-mode. First set domain cname. And with CloudFlare export CF_Key and CF_Email or CF_Token and CF_Account_ID. https://github.com/Neilpang/acme.sh/wiki/dnsapi Then issue a cert. Finally install cert. `acme.sh --install-cert -d home.example.com --key-file /home/pi/ssl/key.pem --fullchain-file /home/pi/ssl/fullchain.pem`
-Or simply use `acme.sh --issue -d  home.example.com --challenge-alias otherdomain.com --dns dns_cf --key-file /home/pi/ssl/key.pem --fullchain-file /home/pi/ssl/fullchain.pem`
-My domain's A record points to the binded IP on the last line of docker-compose.yml and there are no complaints about certificate.
