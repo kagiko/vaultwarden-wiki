@@ -1,5 +1,7 @@
 [Docker Compose](https://docs.docker.com/compose/) is a tool that allows the definition and configuration of multi-container applications. In our case, we want both the bitwarden_rs server and a proxy to redirect the WebSocket requests to the correct place.
 
+## Caddy with HTTP challenge
+
 This example assumes that you have [installed](https://docs.docker.com/compose/install/) Docker Compose, that you have a domain name (e.g., `bitwarden.example.com`) for your bitwarden_rs instance, and that it will be publicly accessible.
 
 Start by making a new directory and changing into it. Next, create the `docker-compose.yml` below, making sure to substitute appropriate values for the `DOMAIN` and `EMAIL` variables.
@@ -77,3 +79,78 @@ docker-compose down
 stops and destroys the containers.
 
 A similar Caddy-based example for Synology is available [here](https://github.com/sosandroid/docker-bitwarden_rs-caddy-synology).
+
+## Caddy with DNS challenge
+
+This example is the same as the previous one, but for the case where you don't want your instance to be publicly accessible (i.e., you can access it only from your local network). This example uses Duck DNS as the DNS provider. Refer to [[Running a private bitwarden_rs instance with Let's Encrypt certs|Running-a-private-bitwarden_rs-instance-with-Let's-Encrypt-certs]] for more background, and details on how to set up Duck DNS.
+
+Start by making a new directory and changing into it. Next, create the `docker-compose.yml` below, making sure to substitute appropriate values for the `DOMAIN` and `EMAIL` variables.
+
+```yaml
+version: '3'
+
+services:
+  bitwarden:
+    image: bitwardenrs/server:latest
+    container_name: bitwarden
+    restart: always
+    environment:
+      - WEBSOCKET_ENABLED=true  # Enable WebSocket notifications.
+    volumes:
+      - ./bw-data:/data
+
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./caddy:/usr/bin/caddy  # Your custom build of Caddy.
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./caddy-config:/config
+      - ./caddy-data:/data
+    environment:
+      - DOMAIN=bitwarden.example.com  # Your domain.
+      - EMAIL=admin@example.com       # The email address to use for ACME registration.
+      - DUCKDNS_TOKEN=<token>         # Your Duck DNS token.
+      - LOG_FILE=/data/access.log
+```
+
+The stock Caddy builds (including the one in the Docker image) don't include the DNS challenge modules, so next you'll need to [get a custom Caddy build](https://github.com/dani-garcia/bitwarden_rs/wiki/Running-a-private-bitwarden_rs-instance-with-Let%27s-Encrypt-certs#getting-a-custom-caddy-build). Rename the custom build as `caddy` and move it under the same directory as `docker-compose.yml`. Make sure the `caddy` file is executable (e.g., `chmod a+x caddy`). The `docker-compose.yml` file above bind-mounts the custom build into the `caddy:2` container, replacing the stock build.
+
+In the same directory, create the `Caddyfile` below. (This file does not need to be modified.)
+```
+{$DOMAIN}:443 {
+  log {
+    level INFO
+    output file {$LOG_FILE} {
+      roll_size 10MB
+      roll_keep 10
+    }
+  }
+
+  # Use the ACME DNS-01 challenge to get a cert for the configured domain.
+  tls {
+    dns lego_deprecated duckdns
+  }
+
+  # This setting may have compatibility issues with some browsers
+  # (e.g., attachment downloading on Firefox). Try disabling this
+  # if you encounter issues.
+  encode gzip
+
+  # Notifications redirected to the WebSocket server
+  reverse_proxy /notifications/hub bitwarden:3012
+
+  # Proxy everything else to Rocket
+  reverse_proxy bitwarden:80
+}
+```
+
+As with the HTTP challenge example, run
+```bash
+docker-compose up -d
+```
+to create and start the containers.
