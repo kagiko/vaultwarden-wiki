@@ -68,12 +68,12 @@ If you prefer, you can also directly specify a value instead of substituting an 
   # if you encounter issues.
   encode gzip
 
-  # Optionally only allow access to the admin interface from local networks
-  @insecureadmin {
-    not remote_ip 192.168.0.0/16 172.16.0.0/12 10.0.0.0/8
-    path /admin*
-  }
-  redir @insecureadmin /
+  # Uncomment to allow access to the admin interface only from local networks
+  # @insecureadmin {
+  #   not remote_ip 192.168.0.0/16 172.16.0.0/12 10.0.0.0/8
+  #   path /admin*
+  # }
+  # redir @insecureadmin /
 
   # Notifications redirected to the websockets server
   reverse_proxy /notifications/hub <SERVER>:3012
