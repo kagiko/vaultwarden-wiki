@@ -1,7 +1,8 @@
 :warning: :poop: :warning:
 
-Our builds are based upon MariaDB client libraries since that is what Debian provides.
-We do not support the latest Oracle MySQLv8 version. If you insist to use MySQLv8 instead of MariaDB then create a user using an old password hashing method instead of the default one!
+Our builds are based upon MariaDB client libraries since that is what Debian provides.  
+Support for the latest Oracle MySQLv8 version needs some extra attention.  
+If you insist to use MySQLv8 instead of MariaDB then create a user using an old password hashing method instead of the default one!
 
 :warning: :poop: :warning:
 
@@ -25,7 +26,8 @@ If your password contains special characters, you will need to use percentage en
 
 A complete list of codes can be found on [Wikipedia page for percent encoding](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters)
 
-**Example using Docker:**
+##Example using Docker:
+
 ```bash
 # Start a mysql container
 docker run --name mysql --net <some-docker-network>\
@@ -43,14 +45,14 @@ docker run -d --name bitwarden --net <some-docker-network>\
  -e ENABLE_DB_WAL='false' <you bitwarden_rs image name>
 ```
 
-**Example using Non-Docker MySQL Server:**
+### Example using Non-Docker MySQL Server:
 
 ```
 Server IP/Port 192.168.1.10:3306 UN: dbuser / PW: yourpassword / DB: bitwarden
 mysql://dbuser:yourpassword@192.168.1.10:3306/bitwarden
 ```
 
-**Example using docker-compose
+### Example using docker-compose
 
 ```yaml
 version: "3.7"
@@ -93,29 +95,47 @@ volumes:
  mariadb_vol:
 ```
 
-**Migrating from SQLite to MySQL**
+### Create database and user
 
-An easy way of migrating from SQLite to MySQL has been described in this [issue comment](https://github.com/dani-garcia/bitwarden_rs/issues/497#issuecomment-511827057). The steps are repeated below. Please, note that you are using this at your own risk and you are strongly advised to backup your installation and data!
-
-1. Create an new (empty) database for bitwarden_rs:
+1. Create an new (empty) database for bitwarden_rs (Ensure the Charset and Collate are correct!):
 ```sql
 CREATE DATABASE bitwarden_rs CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
-2. Create a new database user and grant rights to database:
+
+2a. Create a new database user and grant rights to database (MariaDB, MySQL versions before v8):
 ```sql
 CREATE USER 'bitwarden_rs'@'localhost' IDENTIFIED BY 'yourpassword';
 GRANT ALL ON `bitwarden_rs`.* TO 'bitwarden_rs'@'localhost';
 FLUSH PRIVILEGES;
 ```
+
+2b If you use MySQL v8.x you need to create the user like this:
+```sql
+-- Use this on MySQLv8 installations
+CREATE USER 'bitwarden_rs'@'localhost' IDENTIFIED WITH mysql_native_password BY 'yourpassword';
+GRANT ALL ON `bitwarden_rs`.* TO 'bitwarden_rs'@'localhost';
+FLUSH PRIVILEGES;
+```
+If you created the user already and want to change the password type:
+```sql
+-- Change password type from caching_sha2_password to native
+ALTER USER 'bitwarden_rs'@'localhost' IDENTIFIED WITH mysql_native_password BY 'yourpassword';
+```
+
 You might want to try a restricted set of grants:
 ```sql
-CREATE USER 'bitwarden_rs'@'localhost' IDENTIFIED BY 'yourpassword';
 GRANT ALTER, CREATE, DELETE, DROP, INDEX, INSERT, SELECT, UPDATE ON `bitwarden_rs`.* TO 'bitwarden_rs'@'localhost';
 FLUSH PRIVILEGES;
 ```
-3. Configure bitwarden_rs and start it, so diesel can run migrations and set up the schema properly. Do not do anything else.
-4. Stop bitwarden_rs.
-5. Dump your existing SQLite database using the following command. Double check the name of your sqlite database, default should be db.sqlite.<br>
+
+### Migrating from SQLite to MySQL
+
+An easy way of migrating from SQLite to MySQL has been described in this [issue comment](https://github.com/dani-garcia/bitwarden_rs/issues/497#issuecomment-511827057). The steps are repeated below. Please, note that you are using this at your own risk and you are strongly advised to backup your installation and data!
+
+1. First follow the steps 1 and 2 above
+2. Configure bitwarden_rs and start it, so diesel can run migrations and set up the schema properly. Do not do anything else.
+3. Stop bitwarden_rs.
+4. Dump your existing SQLite database using the following command. Double check the name of your sqlite database, default should be db.sqlite.<br>
 **Note:** You need the sqlite3 command installed on your Linux system.<br>
 We need to remove some queries from the output of the sqlite dump like create table etc.. we will do that here.<br><br>
 You either can use this one-liner:
@@ -128,11 +148,11 @@ sqlite3 db.sqlite3 .dump | grep "^INSERT INTO" | grep -v "__diesel_schema_migrat
 echo "SET FOREIGN_KEY_CHECKS=0;" > mysqldump.sql
 cat sqlitedump.sql >> mysqldump.sql
 ```
-6. Load your MySQL dump:
+5. Load your MySQL dump:
 ```bash
 mysql --force --password --user=bitwarden_rs --database=bitwarden_rs < mysqldump.sql
 ```
-7. Start bitwarden_rs again.
+6. Start bitwarden_rs again.
 
 *Note: Loading your MySQL dump with ```--show-warnings``` will highlight that the datetime fields are getting truncated during the import which **seems** to be okay.*
 ```
