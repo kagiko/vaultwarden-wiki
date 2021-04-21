@@ -1,3 +1,6 @@
+## FAQs
+1. [[FAQs]]
+
 ## Container Image Usage
 1. [[Which container image to use|Which-Container-image-to-use]]
 1. [[Starting a container|Starting-a-container]]
