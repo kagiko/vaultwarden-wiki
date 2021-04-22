@@ -31,7 +31,7 @@ Also see: [Using MariaDB - Create Database and User](https://github.com/dani-gar
 <br>
 
 ## My client (Desktop, Mobile, Web) does not work, I can not login or it complains about invalid certificates.
-The Bitwarden clients need a secure connection to fully work without any issues. Though some clients can work without without a secure connection we do not recommend this.  
+The Bitwarden clients need a secure connection to fully work without any issues. Though some clients can work without a secure connection we do not recommend this.  
 Most of the time when people are using certificates and still have issues, they are using so called Self-Signed certificates. While those could provide a secure connection, some platforms do not allow or support this.  
 We recommend to use a service like Lets Encrypt to provide a valid and by most devices by default accepted certificate.  
 See the following page:
