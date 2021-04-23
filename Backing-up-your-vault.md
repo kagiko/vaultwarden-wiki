@@ -46,6 +46,10 @@ A basic backup command looks like this, assuming your data folder is `data` (the
 ```
 sqlite3 data/db.sqlite3 ".backup '/path/to/backups/db-$(date '+%Y%m%d-%H%M').sqlite3'"
 ```
+Or, you can use the `VACUUM INTO` option, which will also clean the database of delete records:
+```
+sqlite3 data/db.sqlite3 "VACUUM INTO '/path/to/backups/db-$(date '+%Y%m%d-%H%M').sqlite3'"
+```
 Assuming this command is run on January 1, 2021 at 12:34pm (local time), this backs up your SQLite database file to `/path/to/backups/db-20210101-1234.sqlite3`.
 
 You can run this command via a cron job periodically (preferably at least once a day).
