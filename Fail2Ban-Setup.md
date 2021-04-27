@@ -17,10 +17,10 @@ Setup Fail2ban will prevent attackers to brute force your vault logins. This is 
 
 ## Pre-requisite
 - Filenames are at the top of each code block.
-- From Release 1.5.0, Bitwarden_rs supports logging to file. Please set this up : [[Logging|logging]]
+- From Release 1.5.0, Vaultwarden supports logging to file. Please set this up : [[Logging|logging]]
 - Try to log to web vault with a false account and check the log files for following format
 ```
-[YYYY-MM-DD hh:mm:ss][bitwarden_rs::api::identity][ERROR] Username or password is incorrect. Try again. IP: XXX.XXX.XXX.XXX. Username: email@domain.com.
+[YYYY-MM-DD hh:mm:ss][vaultwarden::api::identity][ERROR] Username or password is incorrect. Try again. IP: XXX.XXX.XXX.XXX. Username: email@domain.com.
 ```
 
 ## Installation
@@ -113,7 +113,7 @@ As a convention, `path_f2b` means the path needed for Fail2ban to work. This dep
 Create and fill the following file
 
 ```INI
-# path_f2b/filter.d/bitwarden_rs.local
+# path_f2b/filter.d/vaultwarden.local
 
 [INCLUDES]
 before = common.conf
@@ -125,24 +125,24 @@ ignoreregex =
 
 **Tip:** If you get the following error message in `fail2ban.log` (CentOS 7, Fail2Ban v0.9.7)  
 `fail2ban.filter         [5291]: ERROR   No 'host' group in '^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$'`  
-Please Use `<HOST>` instead of `<ADDR>` in `bitwarden_rs.local`
+Please Use `<HOST>` instead of `<ADDR>` in `vaultwarden.local`
 
 **Tip:** If you see 127.0.0.1 as the IP address of failed logins in bitwarden.log, then you're probably using a reverse proxy and fail2ban won't work correctly:
 ```
-[YYYY-MM-DD hh:mm:ss][bitwarden_rs::api::identity][ERROR] Username or password is incorrect. Try again. IP: 127.0.0.1. Username: email@example.com.
+[YYYY-MM-DD hh:mm:ss][vaultwarden::api::identity][ERROR] Username or password is incorrect. Try again. IP: 127.0.0.1. Username: email@example.com.
 ```
-To remedy this, forward the true remote address to bitwarden_rs via the X-Real-IP header. How to do this varies depending on the proxy you use. For example, in Caddy 2.x, when you define the reverse-proxy, define `header_up X-Real-IP {remote_host}`. See [Proxy examples](https://github.com/dani-garcia/bitwarden_rs/wiki/Proxy-examples) for more info.
+To remedy this, forward the true remote address to vaultwarden via the X-Real-IP header. How to do this varies depending on the proxy you use. For example, in Caddy 2.x, when you define the reverse-proxy, define `header_up X-Real-IP {remote_host}`. See [Proxy examples](https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examples) for more info.
 
 ### Jail
 
 Create and fill the following file
 ```INI
-# path_f2b/jail.d/bitwarden_rs.local
+# path_f2b/jail.d/vaultwarden.local
 
-[bitwarden_rs]
+[vaultwarden]
 enabled = true
 port = 80,443,8081
-filter = bitwarden_rs
+filter = vaultwarden
 banaction = %(banaction_allports)s
 logpath = /path/to/bitwarden.log
 maxretry = 3
@@ -152,7 +152,7 @@ findtime = 14400
 
 Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore replace the `banaction` line with the following `action` when using Docker:
 ```INI
-action = iptables-allports[name=bitwarden_rs, chain=FORWARD]
+action = iptables-allports[name=vaultwarden, chain=FORWARD]
 ```
 
 **NOTE**:  
@@ -176,7 +176,7 @@ If you've enabled the admin console by setting the `ADMIN_TOKEN` environment var
 
 Create and fill the following file
 ```INI
-# path_f2b/filter.d/bitwarden_rs-admin.local
+# path_f2b/filter.d/vaultwarden-admin.local
 
 [INCLUDES]
 before = common.conf
@@ -188,18 +188,18 @@ ignoreregex =
 
 **Tip:** If you get the following error message in `fail2ban.log`
 `ERROR  NOK: ("No 'host' group in '^.*Invalid admin token\\. IP: <ADDR>.*$'")`  
-Please Use `<HOST>` instead of `<ADDR>` in `bitwarden_rs-admin.local`
+Please Use `<HOST>` instead of `<ADDR>` in `vaultwarden-admin.local`
 
 ### Jail
 
 Create and fill the following file
 ```INI
-# path_f2b/jail.d/bitwarden_rs-admin.local
+# path_f2b/jail.d/vaultwarden-admin.local
 
-[bitwarden_rs-admin]
+[vaultwarden-admin]
 enabled = true
 port = 80,443
-filter = bitwarden_rs-admin
+filter = vaultwarden-admin
 banaction = %(banaction_allports)s
 logpath = /path/to/bitwarden.log
 maxretry = 3
@@ -209,7 +209,7 @@ findtime = 14400
 
 Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore replace the `banaction` line with the following `action` when using Docker:
 ```INI
-action = iptables-allports[name=bitwarden_rs-admin, chain=FORWARD]
+action = iptables-allports[name=vaultwarden-admin, chain=FORWARD]
 ```
 
 Reload fail2ban for changes to take effect:
@@ -225,9 +225,9 @@ If it works correctly and your IP is banned, you can unban the IP by running:
 Without Docker:  
 ```bash
 # With Docker
-sudo docker exec -t fail2ban fail2ban-client set bitwarden_rs unbanip XX.XX.XX.XX
+sudo docker exec -t fail2ban fail2ban-client set vaultwarden unbanip XX.XX.XX.XX
 # Without Docker
-sudo fail2ban-client set bitwarden_rs unbanip XX.XX.XX.XX
+sudo fail2ban-client set vaultwarden unbanip XX.XX.XX.XX
 ```
 
 If Fail2Ban does not appear to be functioning, verify that the path to the Bitwarden log file is correct. For Docker: If the specified log file is not being generated and/or updated, make sure the `EXTENDED_LOGGING` env variable is set to true (which is default) and that the path to the log file is the path inside the Docker (when you use `/bw-data/:/data/` the log file should be in `/data/...` to be outside the container).

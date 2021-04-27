@@ -1,13 +1,13 @@
-Suppose you want to run an instance of bitwarden_rs that can only be accessed from your local network, but you want your instance to be HTTPS-enabled with certs signed by a widely-accepted CA instead of managing your own [private CA](https://github.com/dani-garcia/bitwarden_rs/wiki/Private-CA-and-self-signed-certs-that-work-with-Chrome) (to avoid the hassle of having to load private CA certs into all of your devices).
+Suppose you want to run an instance of vaultwarden that can only be accessed from your local network, but you want your instance to be HTTPS-enabled with certs signed by a widely-accepted CA instead of managing your own [private CA](https://github.com/dani-garcia/vaultwarden/wiki/Private-CA-and-self-signed-certs-that-work-with-Chrome) (to avoid the hassle of having to load private CA certs into all of your devices).
 
 This article demonstrates how to create such a setup using the [Caddy](https://caddyserver.com/) web server, which has built-in ACME support for various DNS providers. We'll configure Caddy to obtain Let's Encrypt certs via the ACME [DNS challenge](https://letsencrypt.org/docs/challenge-types/#dns-01-challenge) -- using the more common HTTP challenge would be problematic here, since it would rely on Let's Encrypt servers being able to reach your internal web server.
 
-(Note that this article covers the DNS challenge setup in more generic terms, but many users will probably find it easiest to use Docker Compose to integrate Caddy and bitwarden_rs. See [Using Docker Compose](https://github.com/dani-garcia/bitwarden_rs/wiki/Using-Docker-Compose#caddy-with-dns-challenge) for an example specific to that.)
+(Note that this article covers the DNS challenge setup in more generic terms, but many users will probably find it easiest to use Docker Compose to integrate Caddy and vaultwarden. See [Using Docker Compose](https://github.com/dani-garcia/vaultwarden/wiki/Using-Docker-Compose#caddy-with-dns-challenge) for an example specific to that.)
 
 Two DNS providers are covered:
 
 * [Duck DNS](https://www.duckdns.org/) -- This gives you a subdomain under `duckdns.org` (e.g., `my-bwrs.duckdns.org`). This option is simplest if you don't already own a domain.
-* [Cloudflare](https://www.cloudflare.com/) -- This lets you put your bitwarden_rs instance under a domain you own or control. Note that Cloudflare can be used as just a DNS provider (i.e., without the proxying functionality that Cloudflare is best known for). If you don't currently own a domain, you may be able to get a free one at [Freenom](https://www.freenom.com/).
+* [Cloudflare](https://www.cloudflare.com/) -- This lets you put your vaultwarden instance under a domain you own or control. Note that Cloudflare can be used as just a DNS provider (i.e., without the proxying functionality that Cloudflare is best known for). If you don't currently own a domain, you may be able to get a free one at [Freenom](https://www.freenom.com/).
 
 It's certainly possible to create a similar setup using other combinations of web server, [ACME client](https://letsencrypt.org/docs/client-options/), and DNS provider, but you'll have to work out the differences in details.
 
@@ -25,7 +25,7 @@ Move the `caddy` binary to `/usr/local/bin/caddy` or some other appropriate dire
 
 ## Duck DNS setup
 
-If you don't already have an account, create one at https://www.duckdns.org/. Create a subdomain for your bitwarden_rs instance (e.g., `my-bwrs.duckdns.org`), setting its IP to your bitwarden_rs host's private IP (e.g., `192.168.1.100`). Make note of your account's token (a string in [UUID](https://en.wikipedia.org/wiki/UUID) format). Caddy will need this token to solve the DNS challenge.
+If you don't already have an account, create one at https://www.duckdns.org/. Create a subdomain for your vaultwarden instance (e.g., `my-bwrs.duckdns.org`), setting its IP to your vaultwarden host's private IP (e.g., `192.168.1.100`). Make note of your account's token (a string in [UUID](https://en.wikipedia.org/wiki/UUID) format). Caddy will need this token to solve the DNS challenge.
 
 Create a file named `Caddyfile` with the following content:
 ```
@@ -49,19 +49,19 @@ Start `caddy` by running
 caddy run -envfile caddy.env
 ```
 
-Start `bitwarden_rs` by running
+Start `vaultwarden` by running
 ```
 export ROCKET_PORT=8080
 export WEBSOCKET_ENABLED=true
 
-./bitwarden_rs
+./vaultwarden
 ```
 
-You should now be able to reach your bitwarden_rs instance at https://my-bwrs.duckdns.org.
+You should now be able to reach your vaultwarden instance at https://my-bwrs.duckdns.org.
 
 ## Cloudflare setup
 
-If you don't already have an account, create one at https://www.cloudflare.com/; you'll also have to go to your domain registrar to set your nameservers to the ones assigned to you by Cloudflare. Create a subdomain for your bitwarden_rs instance (e.g., `bwrs.example.com`), setting its IP to your bitwarden_rs host's private IP (e.g., `192.168.1.100`). For example:
+If you don't already have an account, create one at https://www.cloudflare.com/; you'll also have to go to your domain registrar to set your nameservers to the ones assigned to you by Cloudflare. Create a subdomain for your vaultwarden instance (e.g., `bwrs.example.com`), setting its IP to your vaultwarden host's private IP (e.g., `192.168.1.100`). For example:
 
 ![A record config](https://i.imgur.com/BBvy4Yj.png)
 
@@ -101,15 +101,15 @@ Start `caddy` by running
 caddy run -envfile caddy.env
 ```
 
-Start `bitwarden_rs` by running
+Start `vaultwarden` by running
 ```
 export ROCKET_PORT=8080
 export WEBSOCKET_ENABLED=true
 
-./bitwarden_rs
+./vaultwarden
 ```
 
-You should now be able to reach your bitwarden_rs instance at https://bwrs.example.com.
+You should now be able to reach your vaultwarden instance at https://bwrs.example.com.
 
 ## Getting certs using the `lego` CLI
 
@@ -126,7 +126,7 @@ Here's an example of how to do this:
 3. Set up a weekly cron job to run `DUCKDNS_TOKEN=<token> ./lego --dns duckdns -d my-bwrs.duckdns.org -m me@example.com renew`.
    This renews your certificate as it nears expiration.
 
-(Note: `lego` requests ECC/ECDSA certs by default. If you are using the [[Rocket HTTPS server|Enabling-HTTPS#via-rocket]] built into bitwarden_rs, you will need to request RSA certs instead. In the `lego` commands above, add the option `--key-type rsa2048`.)
+(Note: `lego` requests ECC/ECDSA certs by default. If you are using the [[Rocket HTTPS server|Enabling-HTTPS#via-rocket]] built into vaultwarden, you will need to request RSA certs instead. In the `lego` commands above, add the option `--key-type rsa2048`.)
 
 In this example, the generated outputs you need to configure your reverse proxy with are:
 

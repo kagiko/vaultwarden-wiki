@@ -1,12 +1,12 @@
-# bitwarden_rs
+# vaultwarden
 
-bitwarden_rs is an unofficial Bitwarden server implementation written in Rust. It is compatible with the [official Bitwarden clients](https://bitwarden.com/download/), and is ideal for self-hosted deployments where running the official resource-heavy service is undesirable.
+vaultwarden is an unofficial Bitwarden server implementation written in Rust. It is compatible with the [official Bitwarden clients](https://bitwarden.com/download/), and is ideal for self-hosted deployments where running the official resource-heavy service is undesirable.
 
-bitwarden_rs is targeted towards individuals, families, and smaller organizations. Development of features that are mainly useful to larger organizations (e.g., single sign-on, directory syncing, etc.) is not a priority, though high-quality PRs that implement such features would be welcome.
+vaultwarden is targeted towards individuals, families, and smaller organizations. Development of features that are mainly useful to larger organizations (e.g., single sign-on, directory syncing, etc.) is not a priority, though high-quality PRs that implement such features would be welcome.
 
 ## Supported features
 
-bitwarden_rs implements the Bitwarden APIs required for most functionality, including:
+vaultwarden implements the Bitwarden APIs required for most functionality, including:
 
 * Web interface (equivalent to https://vault.bitwarden.com/)
 * Personal vault support
@@ -31,9 +31,9 @@ bitwarden_rs implements the Bitwarden APIs required for most functionality, incl
 
 ## Missing features
 
-Issue [#246](https://github.com/dani-garcia/bitwarden_rs/issues/246) contains the comprehensive list of feature requests, both features of the official server that are missing in bitwarden_rs, as well as enhancements specific to bitwarden_rs.
+Issue [#246](https://github.com/dani-garcia/vaultwarden/issues/246) contains the comprehensive list of feature requests, both features of the official server that are missing in vaultwarden, as well as enhancements specific to vaultwarden.
 
-To simplify comparison with the official server, this section summarizes the features implemented in the official server that are not currently available in bitwarden_rs.
+To simplify comparison with the official server, this section summarizes the features implemented in the official server that are not currently available in vaultwarden.
 
 Features that may be added as time permits (contributions are always welcome):
 
@@ -42,7 +42,7 @@ Features that may be added as time permits (contributions are always welcome):
 * [Event Logs](https://bitwarden.com/help/article/event-logs/)
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (push notifications) for mobile clients (Android/iOS)
 * Certain enterprise policies:
-  * [Two-Step Login](https://bitwarden.com/help/article/policies/#two-step-login) ([#981](https://github.com/dani-garcia/bitwarden_rs/issues/981))
+  * [Two-Step Login](https://bitwarden.com/help/article/policies/#two-step-login) ([#981](https://github.com/dani-garcia/vaultwarden/issues/981))
   * [Single Organization](https://bitwarden.com/help/article/policies/#single-organization)
 
 Features that probably won't be added unless contributed:
@@ -55,6 +55,6 @@ Features that probably won't be added unless contributed:
 
 To ask a question, offer suggestions, request new features, or get help configuring or installing the software, please [use the forum](https://bitwardenrs.discourse.group/).
 
-If you spot any bugs or crashes with bitwarden_rs itself, please [create an issue](https://github.com/dani-garcia/bitwarden_rs/issues/). Make sure there aren't any similar issues open, though!
+If you spot any bugs or crashes with vaultwarden itself, please [create an issue](https://github.com/dani-garcia/vaultwarden/issues/). Make sure there aren't any similar issues open, though!
 
-If you prefer to chat, we're usually hanging around at [#bitwarden_rs:matrix.org](https://matrix.to/#/#bitwarden_rs:matrix.org) room on Matrix. Feel free to join us!
+If you prefer to chat, we're usually hanging around at [#vaultwarden:matrix.org](https://matrix.to/#/#vaultwarden:matrix.org) room on Matrix. Feel free to join us!

@@ -6,5 +6,5 @@ docker run -d --name bitwarden \
   -e INVITATIONS_ALLOWED=false \
   -v /bw-data/:/data/ \
   -p 80:80 \
-  bitwardenrs/server:latest
+  vaultwarden/server:latest
 ```

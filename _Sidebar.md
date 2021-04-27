@@ -4,7 +4,7 @@
 ## Container Image Usage
 1. [[Which container image to use|Which-Container-image-to-use]]
 1. [[Starting a container|Starting-a-container]]
-1. [[Updating the bitwarden image|Updating-the-bitwarden-image]]
+1. [[Updating the vaultwarden image|Updating-the-vaultwarden-image]]
 1. [[Using Docker Compose|Using-Docker-Compose]]
 1. [[Using Podman|Using-Podman]]
 
@@ -19,7 +19,7 @@
 
 ### HTTPS
 1. [[Enabling HTTPS|Enabling-HTTPS]]
-1. [[Running a private bitwarden_rs instance with Let's Encrypt certs]]
+1. [[Running a private vaultwarden instance with Let's Encrypt certs]]
 
 ## Configuration
 1. [[Overview|Configuration-overview]]

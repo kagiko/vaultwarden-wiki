@@ -1,10 +1,10 @@
-In this document, `<SERVER>` refers to the IP or domain where you access bitwarden_rs. If both the reverse proxy and bitwarden_rs are running on the same system, simply use `localhost`.
+In this document, `<SERVER>` refers to the IP or domain where you access vaultwarden. If both the reverse proxy and vaultwarden are running on the same system, simply use `localhost`.
 
-By default, bitwarden_rs listens on port 80 for web (REST API) traffic and on port 3012 for WebSocket traffic (if [[WebSocket notifications|Enabling-WebSocket-notifications]] are enabled). The reverse proxy should be configured to terminate SSL/TLS connections (preferably on port 443, the standard port for HTTPS). The reverse proxy then passes incoming client requests to bitwarden_rs on port 80 or 3012 as appropriate, and upon receiving a response from bitwarden_rs, passes that response back to the client.
+By default, vaultwarden listens on port 80 for web (REST API) traffic and on port 3012 for WebSocket traffic (if [[WebSocket notifications|Enabling-WebSocket-notifications]] are enabled). The reverse proxy should be configured to terminate SSL/TLS connections (preferably on port 443, the standard port for HTTPS). The reverse proxy then passes incoming client requests to vaultwarden on port 80 or 3012 as appropriate, and upon receiving a response from vaultwarden, passes that response back to the client.
 
-Note that when you put bitwarden_rs behind a reverse proxy, the connections between the reverse proxy and bitwarden_rs are typically assumed to be going through a secure private network, and thus do not need to be encrypted. The examples below assume you are running in this configuration, in which case you should not enable the HTTPS functionality built into bitwarden_rs (i.e., you should not set the `ROCKET_TLS` environment variable). If you do, connections will fail since the reverse proxy is using HTTP to connect to bitwarden_rs, but you're configuring bitwarden_rs to expect HTTPS.
+Note that when you put vaultwarden behind a reverse proxy, the connections between the reverse proxy and vaultwarden are typically assumed to be going through a secure private network, and thus do not need to be encrypted. The examples below assume you are running in this configuration, in which case you should not enable the HTTPS functionality built into vaultwarden (i.e., you should not set the `ROCKET_TLS` environment variable). If you do, connections will fail since the reverse proxy is using HTTP to connect to vaultwarden, but you're configuring vaultwarden to expect HTTPS.
 
-It's common to use [Docker Compose](https://docs.docker.com/compose/) to link containerized services together (e.g., bitwarden_rs and a reverse proxy). See [[Using Docker Compose|Using-Docker-Compose]] for an example of this.
+It's common to use [Docker Compose](https://docs.docker.com/compose/) to link containerized services together (e.g., vaultwarden and a reverse proxy). See [[Using Docker Compose|Using-Docker-Compose]] for an example of this.
 
 <details>
 <summary>Caddy 1.x (deprecated)</summary><br/>
@@ -80,7 +80,7 @@ If you prefer, you can also directly specify a value instead of substituting an 
 
   # Proxy everything else to Rocket
   reverse_proxy <SERVER>:80 {
-       # Send the true remote IP to Rocket, so that bitwarden_rs can put this in the
+       # Send the true remote IP to Rocket, so that vaultwarden can put this in the
        # log, so that fail2ban can ban the correct IP.
        header_up X-Real-IP {remote_host}
   }
@@ -142,7 +142,7 @@ server {
 <details>
 <summary>Nginx with sub-path (by BlackDex)</summary><br/>
 
-In this example bitwarden_rs will be available via https://bitwarden.example.tld/vault/<br/>
+In this example vaultwarden will be available via https://bitwarden.example.tld/vault/<br/>
 If you want to use any other sub-path, like `bitwarden` or `secret-vault` you should change `/vault/` in the example below to match.<br/>
 <br/>
 For this to work you need to configure your `DOMAIN` variable to match so it should look like:
@@ -154,26 +154,26 @@ DOMAIN=https://bitwarden.example.tld/vault/
 
 ```nginx
 # Define the server IP and ports here.
-upstream bitwardenrs-default { server 127.0.0.1:8080; }
-upstream bitwardenrs-ws { server 127.0.0.1:3012; }
+upstream vaultwarden-default { server 127.0.0.1:8080; }
+upstream vaultwarden-ws { server 127.0.0.1:3012; }
 
 # Redirect HTTP to HTTPS
 server {
     listen 80;
     listen [::]:80;
-    server_name bitwardenrs.example.tld;
+    server_name vaultwarden.example.tld;
     return 301 https://$host$request_uri;
 }
 
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    server_name bitwardenrs.example.tld;
+    server_name vaultwarden.example.tld;
 
     # Specify SSL Config when needed
-    #ssl_certificate /path/to/certificate/letsencrypt/live/bitwardenrs.example.tld/fullchain.pem;
-    #ssl_certificate_key /path/to/certificate/letsencrypt/live/bitwardenrs.example.tld/privkey.pem;
-    #ssl_trusted_certificate /path/to/certificate/letsencrypt/live/bitwardenrs.example.tld/fullchain.pem;
+    #ssl_certificate /path/to/certificate/letsencrypt/live/vaultwarden.example.tld/fullchain.pem;
+    #ssl_certificate_key /path/to/certificate/letsencrypt/live/vaultwarden.example.tld/privkey.pem;
+    #ssl_trusted_certificate /path/to/certificate/letsencrypt/live/vaultwarden.example.tld/fullchain.pem;
 
     client_max_body_size 128M;
 
@@ -185,7 +185,7 @@ server {
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header X-Forwarded-Proto $scheme;
 
-      proxy_pass http://bitwardenrs-default;
+      proxy_pass http://vaultwarden-default;
     }
 
     location /vault/notifications/hub/negotiate {
@@ -194,7 +194,7 @@ server {
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header X-Forwarded-Proto $scheme;
 
-      proxy_pass http://bitwardenrs-default;
+      proxy_pass http://vaultwarden-default;
     }
 
     location /vault/notifications/hub {
@@ -202,7 +202,7 @@ server {
       proxy_set_header Connection $http_connection;
       proxy_set_header X-Real-IP $remote_addr;
 
-      proxy_pass http://bitwardenrs-ws;
+      proxy_pass http://vaultwarden-ws;
     }
 
     # Optionally add extra authentication besides the ADMIN_TOKEN
@@ -217,7 +217,7 @@ server {
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header X-Forwarded-Proto $scheme;
 
-      proxy_pass http://bitwardenrs-default;
+      proxy_pass http://vaultwarden-default;
     }
 
 }
@@ -227,7 +227,7 @@ server {
 <details>
 <summary>Nginx (by ypid)</summary><br/>
 
-Ansible inventory example that uses DebOps to configure nginx as a reverse proxy for bitwarden_rs. I choose to go with the PSK in the URL for additional security to not expose the API to everyone on the Internet because the client apps do not support client certificates yet (I tested it). Note: Using subpath/PSK requires to patch the source code and recompile, ref: https://github.com/dani-garcia/bitwarden_rs/issues/241#issuecomment-436376497. /admin is untested. For general discussion about subpath hosting for security refer to: https://github.com/debops/debops/issues/1233
+Ansible inventory example that uses DebOps to configure nginx as a reverse proxy for vaultwarden. I choose to go with the PSK in the URL for additional security to not expose the API to everyone on the Internet because the client apps do not support client certificates yet (I tested it). Note: Using subpath/PSK requires to patch the source code and recompile, ref: https://github.com/dani-garcia/vaultwarden/issues/241#issuecomment-436376497. /admin is untested. For general discussion about subpath hosting for security refer to: https://github.com/debops/debops/issues/1233
 
 ```YAML
 bitwarden__fqdn: 'vault.example.org'
@@ -245,7 +245,7 @@ nginx__servers:
     filename: 'debops.bitwarden'
     by_role: 'debops.bitwarden'
     favicon: False
-    root: '/usr/share/bitwarden_rs/web-vault'
+    root: '/usr/share/vaultwarden/web-vault'
 
     location_list:
 
@@ -260,7 +260,7 @@ nginx__servers:
       ## All the security HTTP headers would then need to be set by nginx as well.
       # - pattern: '/ekkP9wtJ_psk_changeme_Hr9CCTud/'
       #   options: |-
-      #     alias /usr/share/bitwarden_rs/web-vault/;
+      #     alias /usr/share/vaultwarden/web-vault/;
 
       - pattern: '/ekkP9wtJ_psk_changeme_Hr9CCTud/'
         options: |-
@@ -285,7 +285,7 @@ nginx__servers:
 <details>
 <summary>Nginx (NixOS)(by tklitschi)</summary><br/>
 
-Example NixOS nginx config. For more Information about NixOS Deployment see [Deployment Wiki page](https://github.com/dani-garcia/bitwarden_rs/wiki/Deployment-examples).
+Example NixOS nginx config. For more Information about NixOS Deployment see [Deployment Wiki page](https://github.com/dani-garcia/vaultwarden/wiki/Deployment-examples).
 
 
 ```nix
@@ -296,7 +296,7 @@ Example NixOS nginx config. For more Information about NixOS Deployment see [Dep
   security.acme.certs = {
 
     "bw.example.com" = {
-      group = "bitwarden_rs";
+      group = "vaultwarden";
       keyType = "rsa2048";
       allowKeysForGroup = true;
     };
@@ -474,20 +474,20 @@ labels:
 Add these lines to your haproxy configuration. 
 
 ```haproxy
-frontend bitwarden_rs
+frontend vaultwarden
     bind 0.0.0.0:80
     option forwardfor header X-Real-IP
     http-request set-header X-Real-IP %[src]
-    default_backend bitwarden_rs_http
-    use_backend bitwarden_rs_ws if { path_beg /notifications/hub } !{ path_beg /notifications/hub/negotiate }
+    default_backend vaultwarden_http
+    use_backend vaultwarden_ws if { path_beg /notifications/hub } !{ path_beg /notifications/hub/negotiate }
 
-backend bitwarden_rs_http
+backend vaultwarden_http
     # Enable compression if you want
     # compression algo gzip
     # compression type text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript
     server bwrshttp 0.0.0.0:8080
 
-backend bitwarden_rs_ws
+backend vaultwarden_ws
     server bwrsws 0.0.0.0:3012
 ```
 </details>
@@ -515,17 +515,17 @@ frontend http-in
     acl host_bitwarden_domain_tld hdr_dom(Host) -i bitwarden.domain.tld
 
     ## figure out which one to use
-    use_backend bitwarden_rs_http if host_bitwarden_domain_tld !{ path_beg /notifications/hub } or { path_beg /notifications/hub/negotiate }
-    use_backend bitwarden_rs_ws if host_bitwarden_domain_tld { path_beg /notifications/hub } !{ path_beg /notifications/hub/negotiate }
+    use_backend vaultwarden_http if host_bitwarden_domain_tld !{ path_beg /notifications/hub } or { path_beg /notifications/hub/negotiate }
+    use_backend vaultwarden_ws if host_bitwarden_domain_tld { path_beg /notifications/hub } !{ path_beg /notifications/hub/negotiate }
 
-backend bitwarden_rs_http
+backend vaultwarden_http
     # Enable compression if you want
     # compression algo gzip
     # compression type text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript
     # You can use the container hostname if you are using haproxy with docker-compose
     server bwrs_http 0.0.0.0:8080
 
-backend bitwarden_rs_ws
+backend vaultwarden_ws
     # You can use the container hostname if you are using haproxy with docker-compose
     server bwrs_ws 0.0.0.0:3012
 ```

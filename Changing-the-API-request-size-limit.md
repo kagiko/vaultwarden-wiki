@@ -7,5 +7,5 @@ docker run -d --name bitwarden \
   -e ROCKET_LIMITS={json=10485760} \
   -v /bw-data/:/data/ \
   -p 80:80 \
-  bitwardenrs/server:latest
+  vaultwarden/server:latest
 ```

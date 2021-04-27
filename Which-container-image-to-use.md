@@ -1,12 +1,12 @@
-`bitwarden_rs` provides a single Docker image ([`bitwardenrs/server`](https://hub.docker.com/r/bitwardenrs/server)) with unified support for SQLite, MySQL, and PostgreSQL database backends, as of version 1.17.0. Prior to that version, there were separate images for each database backend (see [Historical images](#historical-images)).
+`vaultwarden` provides a single Docker image ([`vaultwarden/server`](https://hub.docker.com/r/vaultwarden/server)) with unified support for SQLite, MySQL, and PostgreSQL database backends, as of version 1.17.0. Prior to that version, there were separate images for each database backend (see [Historical images](#historical-images)).
 
-The `bitwardenrs/server` image is also multi-arch, meaning it supports multiple CPU architectures under a single image name. Assuming you're running one of the supported architectures, simply pulling `bitwardenrs/server` should automatically yield the appropriate arch-specific image for your environment, with the possible exception of ARMv6 boards, such as Raspberry Pi 1 and Zero (see [moby/moby#41017](https://github.com/moby/moby/issues/41017)). ARMv6 users running Docker 20.10.0 and later can simply pull the `bitwardenrs/server` multi-arch image as usual. ARMv6 users running earlier Docker versions must specify `arm32v6` in the image tag, e.g. `latest-arm32v6`.
+The `vaultwarden/server` image is also multi-arch, meaning it supports multiple CPU architectures under a single image name. Assuming you're running one of the supported architectures, simply pulling `vaultwarden/server` should automatically yield the appropriate arch-specific image for your environment, with the possible exception of ARMv6 boards, such as Raspberry Pi 1 and Zero (see [moby/moby#41017](https://github.com/moby/moby/issues/41017)). ARMv6 users running Docker 20.10.0 and later can simply pull the `vaultwarden/server` multi-arch image as usual. ARMv6 users running earlier Docker versions must specify `arm32v6` in the image tag, e.g. `latest-arm32v6`.
 
 The SQLite backend is the most widely used/tested, and recommended for most users unless there is a specific need to use a different database backend.
 
 ### Image tags
 
-The `bitwardenrs/server` image has several tags, each of which represents some variant or property (e.g., specific version) of the image.
+The `vaultwarden/server` image has several tags, each of which represents some variant or property (e.g., specific version) of the image.
 
 * `latest` -- Tracks the latest released version (i.e., tagged with a version number). This tag is recommended for most users, as it's generally the most stable.
 
@@ -26,18 +26,18 @@ The `bitwardenrs/server` image has several tags, each of which represents some v
 
 ## Image updates
 
-Occasionally, the upstream Bitwarden project (i.e., Bitwarden Inc.) makes backward-incompatible changes to the clients that require matching changes to the server implementation. bitwarden_rs generally pushes out a new release promptly to handle these changes.
+Occasionally, the upstream Bitwarden project (i.e., Bitwarden Inc.) makes backward-incompatible changes to the clients that require matching changes to the server implementation. vaultwarden generally pushes out a new release promptly to handle these changes.
 
-However, since upstream controls the release of the clients, and mobile apps and browser extensions typically auto-update on their own, it's important for bitwarden_rs users to keep up-to-date with the latest bitwarden_rs release. Otherwise, incompatible client and server versions can lead to sudden breakage or misbehavior.
+However, since upstream controls the release of the clients, and mobile apps and browser extensions typically auto-update on their own, it's important for vaultwarden users to keep up-to-date with the latest vaultwarden release. Otherwise, incompatible client and server versions can lead to sudden breakage or misbehavior.
 
-The web vault is the only exception; as it's bundled with the bitwarden_rs image, the web vault version is always properly matched to the bitwarden_rs server version. If you only use the web vault as the client (unlikely), then you don't need to worry about these compatibility issues.
+The web vault is the only exception; as it's bundled with the vaultwarden image, the web vault version is always properly matched to the vaultwarden server version. If you only use the web vault as the client (unlikely), then you don't need to worry about these compatibility issues.
 
 ## Historical images
 
-Prior to the addition of multidb support in version 1.17.0, MySQL and PostgreSQL support was only included in separate database-specific images. You can still find these in Docker Hub, and they are still updated for now. However, the database-specific images will be removed in the future, so you should transition to using the unified `bitwardenrs/server` image.
+Prior to the addition of multidb support in version 1.17.0, MySQL and PostgreSQL support was only included in separate database-specific images. You can still find these in Docker Hub, and they are still updated for now. However, the database-specific images will be removed in the future, so you should transition to using the unified `vaultwarden/server` image.
 
-* [`bitwardenrs/server-mysql`](https://hub.docker.com/r/bitwardenrs/server-mysql) - Debian-based `bitwarden_rs` image that includes support for MySQL only (not SQLite or PostgreSQL).
-* [`bitwardenrs/server-postgresql`](https://hub.docker.com/r/bitwardenrs/server-postgresql) - Debian-based `bitwarden_rs` image that includes support for PostgreSQL only (not SQLite or MySQL).
+* [`bitwardenrs/server-mysql`](https://hub.docker.com/r/bitwardenrs/server-mysql) - Debian-based `vaultwarden` image that includes support for MySQL only (not SQLite or PostgreSQL).
+* [`bitwardenrs/server-postgresql`](https://hub.docker.com/r/bitwardenrs/server-postgresql) - Debian-based `vaultwarden` image that includes support for PostgreSQL only (not SQLite or MySQL).
 
 ## Historical tags
 
@@ -57,13 +57,13 @@ Please add your details here, if you're running the image on a hardware that is 
 
 | Hardware used        | OS           | Docker architecture reported    | Image used          | Status | Notes |
 |----------------------|--------------|---------------------------------|---------------------|--------|-------|
-| Regular 64bit server | Ubuntu 18.04 | x86_64                          | `bitwardenrs/server` | OK     |       |
-| O-Droid HC2          | Armbian      | arm7l (arm32)                   | `registry.lollipopcloud.solutions/arm32v7/bitwarden` (see notes) | OK | Unofficial image built from upstream sources ; `bitwardenrs/server:raspberry` is the official equivalent image |
-| Raspberry Pi Zero W  | Raspbian (4.14.98+) | linux/arm (armv6l)       | `bitwardenrs/server:armv6` | OK |     |
-| Raspberry Pi Zero W  | Raspbian (4.19.66+) | linux/arm (armv6l)       | `bitwardenrs/server:latest` (Multiarch) | OK | Only when using the docker experimental feature 'docker pull --platform=linux/arm/v6'. Otherwise the wrong image will be selected (https://github.com/dani-garcia/bitwarden_rs/issues/1064) |
-| Raspberry Pi 1 B     | Raspbian (4.19.97+) | linux/arm (armv6l)       | `bitwardenrs/server:armv6` | OK |     |
-| Raspberry Pi 3 B     | Raspbian (4.14.98-v7+) | linux/arm (armv7l)    | `bitwardenrs/server:raspberry` | OK |     |
-| Raspberry Pi 4    | Raspbian (4.19.118-v7l+) | linux/arm (armv7l)    | `bitwardenrs/server:raspberry` | OK | 4go version, rev 1.1   |
-| Synology             | DSM (DSM 6.2.1-23824 Update 6) | Docker-x64-17.05.0-0367 | `bitwardenrs/server:latest` | OK |
-| Synology             | DSM (DSM 6.2.2-24922 Update 4) | Docker-x64-18.09.0-0506 | `bitwardenrs/server:1.13.0-alpine` | OK |
-| Regular 64bit server | Unraid 6.8.0 | 19.03.5                         | `bitwardenrs/server:latest` | OK |     |
+| Regular 64bit server | Ubuntu 18.04 | x86_64                          | `vaultwarden/server` | OK     |       |
+| O-Droid HC2          | Armbian      | arm7l (arm32)                   | `registry.lollipopcloud.solutions/arm32v7/bitwarden` (see notes) | OK | Unofficial image built from upstream sources ; `vaultwarden/server:raspberry` is the official equivalent image |
+| Raspberry Pi Zero W  | Raspbian (4.14.98+) | linux/arm (armv6l)       | `vaultwarden/server:armv6` | OK |     |
+| Raspberry Pi Zero W  | Raspbian (4.19.66+) | linux/arm (armv6l)       | `vaultwarden/server:latest` (Multiarch) | OK | Only when using the docker experimental feature 'docker pull --platform=linux/arm/v6'. Otherwise the wrong image will be selected (https://github.com/dani-garcia/vaultwarden/issues/1064) |
+| Raspberry Pi 1 B     | Raspbian (4.19.97+) | linux/arm (armv6l)       | `vaultwarden/server:armv6` | OK |     |
+| Raspberry Pi 3 B     | Raspbian (4.14.98-v7+) | linux/arm (armv7l)    | `vaultwarden/server:raspberry` | OK |     |
+| Raspberry Pi 4    | Raspbian (4.19.118-v7l+) | linux/arm (armv7l)    | `vaultwarden/server:raspberry` | OK | 4go version, rev 1.1   |
+| Synology             | DSM (DSM 6.2.1-23824 Update 6) | Docker-x64-17.05.0-0367 | `vaultwarden/server:latest` | OK |
+| Synology             | DSM (DSM 6.2.2-24922 Update 4) | Docker-x64-18.09.0-0506 | `vaultwarden/server:1.13.0-alpine` | OK |
+| Regular 64bit server | Unraid 6.8.0 | 19.03.5                         | `vaultwarden/server:latest` | OK |     |

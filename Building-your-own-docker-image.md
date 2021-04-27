@@ -2,27 +2,27 @@ Clone the repository, then from the root of the repository run to build with def
 
 ```sh
 # Build the docker image:
-docker build -t bitwarden_rs .
+docker build -t vaultwarden .
 ```
 
 To build with MySQL backend run:
 ```sh
 # Build the docker image:
-docker build -t bitwarden_rs --build-arg DB=mysql .
+docker build -t vaultwarden --build-arg DB=mysql .
 ``` 
 
 To build with Postgresql backend run:
 ```sh
 # Build the docker image:
-docker build -t bitwarden_rs --build-arg DB=postgresql .
+docker build -t vaultwarden --build-arg DB=postgresql .
 ``` 
 in docker-compose.yml it looks like
 ```...
   bitwarden:
-    # image: bitwardenrs/server-postgresql:latest
-    image: bitwarden_rs
+    # image: vaultwarden/server-postgresql:latest
+    image: vaultwarden
     build: 
-      context: bitwarden_rs
+      context: vaultwarden
       args: 
         DB: postgresql
 ```

@@ -44,7 +44,7 @@ https://[YOUR-DOMAIN]:443 {
 
   # Proxy the Root directory to Rocket
   reverse_proxy bitwarden:80 {
-       # Send the true remote IP to Rocket, so that bitwarden_rs can put this in the
+       # Send the true remote IP to Rocket, so that vaultwarden can put this in the
        # log, so that fail2ban can ban the correct IP.
        header_up X-Real-IP {remote_host}
   }
@@ -58,7 +58,7 @@ version: '3'
 
 services:
   bitwarden:
-    image: bitwardenrs/server
+    image: vaultwarden/server
     restart: always
     volumes:
       - $PWD/bw-data:/data

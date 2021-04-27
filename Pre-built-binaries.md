@@ -1,19 +1,19 @@
-bitwarden_rs doesn't currently provide standalone binaries as a separate download, but for platforms that have an Alpine-based Docker image available (currently x86-64 and ARMv7), you can extract standalone, statically-linked binaries from the official Docker images. Each Docker image also includes a matching web vault build (which is platform-independent).
+vaultwarden doesn't currently provide standalone binaries as a separate download, but for platforms that have an Alpine-based Docker image available (currently x86-64 and ARMv7), you can extract standalone, statically-linked binaries from the official Docker images. Each Docker image also includes a matching web vault build (which is platform-independent).
 
 ## Extracting binaries with Docker installed
 
 Assuming you want to extract binaries for the platform you're running on:
 ```
-docker pull bitwardenrs/server:alpine
-docker create --name bwrs bitwardenrs/server:alpine
-docker cp bwrs:/bitwarden_rs .
+docker pull vaultwarden/server:alpine
+docker create --name bwrs vaultwarden/server:alpine
+docker cp bwrs:/vaultwarden .
 docker cp bwrs:/web-vault .
 docker rm bwrs
 ```
 
-If you want binaries for a different platform (for example, you only have Docker installed on your x86-64 machine, but you want to run bitwarden_rs on a Raspberry Pi), add the `--platform` option to the `docker pull` command:
+If you want binaries for a different platform (for example, you only have Docker installed on your x86-64 machine, but you want to run vaultwarden on a Raspberry Pi), add the `--platform` option to the `docker pull` command:
 ```
-docker pull --platform linux/arm/v7 bitwardenrs/server:alpine
+docker pull --platform linux/arm/v7 vaultwarden/server:alpine
 # Run remaining commands as above.
 # Note that the `docker create` command may print a message like:
 #   WARNING: The requested image's platform (linux/arm/v7) does not match the detected host platform (linux/amd64)
@@ -29,9 +29,9 @@ $ mkdir bwrs-image
 $ cd bwrs-image
 $ wget https://raw.githubusercontent.com/jjlin/docker-image-extract/main/docker-image-extract
 $ chmod +x docker-image-extract
-$ ./docker-image-extract bitwardenrs/server:alpine
+$ ./docker-image-extract vaultwarden/server:alpine
 Getting API token...
-Getting image manifest for bitwardenrs/server:alpine...
+Getting image manifest for vaultwarden/server:alpine...
 Downloading layer 801bfaa63ef2094d770c809815b9e2b9c1194728e5e754ef7bc764030e140cea...
 Extracting layer...
 Downloading layer c6d331ed95271d8005dea195449ab4ef943017dc97ab134a4426faf441ae4fa6...
@@ -49,14 +49,14 @@ Extracting layer...
 Downloading layer 8516f4cd818630cd60fa18254b072f8d9c3748bdb56f6e2527dc1c204e8e017c...
 Extracting layer...
 Image contents extracted into ./output.
-$ ls -ld output/{bitwarden_rs,web-vault}
--rwx------ 1 user user 22054608 Feb  6 21:46 output/bitwarden_rs
+$ ls -ld output/{vaultwarden,web-vault}
+-rwx------ 1 user user 22054608 Feb  6 21:46 output/vaultwarden
 drwx------ 8 user user     4096 Feb  6 21:46 output/web-vault/
 ```
 
 If you want the ARMv7 image, you currently have to download it by digest.
 
-Go to https://hub.docker.com/r/bitwardenrs/server/tags?name=alpine and find the entry for the `alpine` tag.
+Go to https://hub.docker.com/r/vaultwarden/server/tags?name=alpine and find the entry for the `alpine` tag.
 Click the partial digest for the `linux/arm/v7` image:
 
 ![](https://i.imgur.com/T5WdwtS.png)
@@ -65,10 +65,10 @@ This should bring you to a page that shows the full digest:
 
 ![](https://i.imgur.com/Hsz8vJ4.png)
 
-Copy the full digest, and replace the `docker-image-extract bitwardenrs/server:alpine` command above with
-`docker-image-extract bitwardenrs/server:<full_digest>`.
+Copy the full digest, and replace the `docker-image-extract vaultwarden/server:alpine` command above with
+`docker-image-extract vaultwarden/server:<full_digest>`.
 
 For example:
 ```
-$ ./docker-image-extract bitwardenrs/server:sha256:ef129de113bec3409b6370c37a6e5573a1dacc051a3aae2a8a3339323ae63623
+$ ./docker-image-extract vaultwarden/server:sha256:ef129de113bec3409b6370c37a6e5573a1dacc051a3aae2a8a3339323ae63623
 ```

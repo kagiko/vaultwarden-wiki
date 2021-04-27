@@ -15,7 +15,7 @@ Requires=docker.service
 
 [Service]
 TimeoutStartSec=0
-ExecStartPre=-/usr/bin/docker pull bitwardenrs/server:latest
+ExecStartPre=-/usr/bin/docker pull vaultwarden/server:latest
 ExecStartPre=-/usr/bin/docker stop bitwarden
 ExecStartPre=-/usr/bin/docker rm bitwarden
 ExecStart=/usr/bin/docker run \
@@ -23,7 +23,7 @@ ExecStart=/usr/bin/docker run \
   -p 8081:3012 \
   --env-file /opt/.bitwarden.env \
   -v /opt/bw-data:/data/ \
-  --rm --name bitwarden bitwardenrs/server:latest
+  --rm --name bitwarden vaultwarden/server:latest
 ExecStopPost=-/usr/bin/docker rm bitwarden
 Restart=Always
 RestartSec=30s
@@ -64,7 +64,7 @@ Systemd can source a file of the form:
 ```shell
 Key="Value"
 ```
-You can find more environment settings and the correct syntax in this [example env template](https://github.com/dani-garcia/bitwarden_rs/blob/21325b7523a68ab3ae8d435ab5b73176db6155ff/.env.template).
+You can find more environment settings and the correct syntax in this [example env template](https://github.com/dani-garcia/vaultwarden/blob/21325b7523a68ab3ae8d435ab5b73176db6155ff/.env.template).
 
 However, the systemd project does not mandate where this file should be stored. Consult your distribution's documentation for the
 best location for this file. For example, RedHat based distributions typically place these files in `/etc/sysconfig/`

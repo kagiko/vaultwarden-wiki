@@ -10,7 +10,7 @@ If you insist to use MySQLv8 instead of MariaDB then create a user using an old 
 
 ---
 
-To use the MariaDB (MySQL) backend, you can either use the [official Docker image](https://hub.docker.com/r/bitwardenrs/server) or build your own binary [with MySQL enabled](https://github.com/dani-garcia/bitwarden_rs/wiki/Building-binary#mysql-backend).
+To use the MariaDB (MySQL) backend, you can either use the [official Docker image](https://hub.docker.com/r/vaultwarden/server) or build your own binary [with MySQL enabled](https://github.com/dani-garcia/vaultwarden/wiki/Building-binary#mysql-backend).
 
 To run the binary or container, ensure the ```DATABASE_URL``` environment variable is set (i.e. ```DATABASE_URL='mysql://<user>:<password>@mysql/bitwarden'```).
 
@@ -36,13 +36,13 @@ docker run --name mysql --net <some-docker-network>\
  -e MYSQL_USER=<bitwarden_user>\
  -e MYSQL_PASSWORD=<bitwarden_pw> -d mysql:5.7
 
-# Start bitwarden_rs with MySQL Env Vars set.
+# Start vaultwarden with MySQL Env Vars set.
 docker run -d --name bitwarden --net <some-docker-network>\
  -v $(pwd)/bw-data/:/data/ -v <Path to ssl certs>:/ssl/\
  -p 443:80 -e ROCKET_TLS='{certs="/ssl/<your ssl cert>",key="/ssl/<your ssl key>"}'\
  -e RUST_BACKTRACE=1 -e DATABASE_URL='mysql://<bitwarden_user>:<bitwarden_pw>@mysql/bitwarden'\
  -e ADMIN_TOKEN=<some_random_token_as_per_above_explanation>\
- -e ENABLE_DB_WAL='false' <you bitwarden_rs image name>
+ -e ENABLE_DB_WAL='false' <you vaultwarden image name>
 ```
 
 ### Example using Non-Docker MySQL Server:
@@ -74,7 +74,7 @@ services:
    - "MYSQL_USER=<bitwarden_user>"
 
  bitwarden:
-  image: "bitwardenrs/server:latest"
+  image: "vaultwarden/server:latest"
   container_name: "bitwarden"
   hostname: "bitwarden"
   restart: always
@@ -97,44 +97,44 @@ volumes:
 
 ### Create database and user
 
-1. Create an new (empty) database for bitwarden_rs (Ensure the Charset and Collate are correct!):
+1. Create an new (empty) database for vaultwarden (Ensure the Charset and Collate are correct!):
 ```sql
-CREATE DATABASE bitwarden_rs CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE vaultwarden CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
 2a. Create a new database user and grant rights to database (MariaDB, MySQL versions before v8):
 ```sql
-CREATE USER 'bitwarden_rs'@'localhost' IDENTIFIED BY 'yourpassword';
-GRANT ALL ON `bitwarden_rs`.* TO 'bitwarden_rs'@'localhost';
+CREATE USER 'vaultwarden'@'localhost' IDENTIFIED BY 'yourpassword';
+GRANT ALL ON `vaultwarden`.* TO 'vaultwarden'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
 2b If you use MySQL v8.x you need to create the user like this:
 ```sql
 -- Use this on MySQLv8 installations
-CREATE USER 'bitwarden_rs'@'localhost' IDENTIFIED WITH mysql_native_password BY 'yourpassword';
-GRANT ALL ON `bitwarden_rs`.* TO 'bitwarden_rs'@'localhost';
+CREATE USER 'vaultwarden'@'localhost' IDENTIFIED WITH mysql_native_password BY 'yourpassword';
+GRANT ALL ON `vaultwarden`.* TO 'vaultwarden'@'localhost';
 FLUSH PRIVILEGES;
 ```
 If you created the user already and want to change the password type:
 ```sql
 -- Change password type from caching_sha2_password to native
-ALTER USER 'bitwarden_rs'@'localhost' IDENTIFIED WITH mysql_native_password BY 'yourpassword';
+ALTER USER 'vaultwarden'@'localhost' IDENTIFIED WITH mysql_native_password BY 'yourpassword';
 ```
 
 You might want to try a restricted set of grants:
 ```sql
-GRANT ALTER, CREATE, DELETE, DROP, INDEX, INSERT, SELECT, UPDATE ON `bitwarden_rs`.* TO 'bitwarden_rs'@'localhost';
+GRANT ALTER, CREATE, DELETE, DROP, INDEX, INSERT, SELECT, UPDATE ON `vaultwarden`.* TO 'vaultwarden'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
 ### Migrating from SQLite to MySQL
 
-An easy way of migrating from SQLite to MySQL has been described in this [issue comment](https://github.com/dani-garcia/bitwarden_rs/issues/497#issuecomment-511827057). The steps are repeated below. Please, note that you are using this at your own risk and you are strongly advised to backup your installation and data!
+An easy way of migrating from SQLite to MySQL has been described in this [issue comment](https://github.com/dani-garcia/vaultwarden/issues/497#issuecomment-511827057). The steps are repeated below. Please, note that you are using this at your own risk and you are strongly advised to backup your installation and data!
 
 1. First follow the steps 1 and 2 above
-2. Configure bitwarden_rs and start it, so diesel can run migrations and set up the schema properly. Do not do anything else.
-3. Stop bitwarden_rs.
+2. Configure vaultwarden and start it, so diesel can run migrations and set up the schema properly. Do not do anything else.
+3. Stop vaultwarden.
 4. Dump your existing SQLite database using the following command. Double check the name of your sqlite database, default should be db.sqlite.<br>
 **Note:** You need the sqlite3 command installed on your Linux system.<br>
 We need to remove some queries from the output of the sqlite dump like create table etc.. we will do that here.<br><br>
@@ -150,9 +150,9 @@ cat sqlitedump.sql >> mysqldump.sql
 ```
 5. Load your MySQL dump:
 ```bash
-mysql --force --password --user=bitwarden_rs --database=bitwarden_rs < mysqldump.sql
+mysql --force --password --user=vaultwarden --database=vaultwarden < mysqldump.sql
 ```
-6. Start bitwarden_rs again.
+6. Start vaultwarden again.
 
 *Note: Loading your MySQL dump with ```--show-warnings``` will highlight that the datetime fields are getting truncated during the import which **seems** to be okay.*
 ```
@@ -169,8 +169,8 @@ fix:
 sed -i 's#\"#\#g' mysqldump.sql
 ```
 ```bash
-mysql --password --user=bitwarden_rs
-use bitwarden_rs
+mysql --password --user=vaultwarden
+use vaultwarden
 source /bw-data/mysqldump.sql
 exit
 ```

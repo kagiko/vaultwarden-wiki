@@ -1,4 +1,4 @@
-Over time, the Bitwarden_RS log file can grow to a significant size. Using logrotate, we can periodically rotate logs.
+Over time, the Vaultwarden log file can grow to a significant size. Using logrotate, we can periodically rotate logs.
 
 ```sh
 sudo nano /etc/logrotate.d/bitwarden

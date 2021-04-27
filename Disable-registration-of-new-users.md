@@ -5,7 +5,7 @@ docker run -d --name bitwarden \
   -e SIGNUPS_ALLOWED=false \
   -v /bw-data/:/data/ \
   -p 80:80 \
-  bitwardenrs/server:latest
+  vaultwarden/server:latest
 ```
 
 Note that when `SIGNUPS_ALLOWED=false`, the `Create Account` button will still be shown in the web vault UI, but actually attempting to create an account will result in an error message. Upstream Bitwarden isn't designed to allow disabling signups, so this can't be worked around easily.
@@ -27,4 +27,4 @@ You may also want to set `SIGNUPS_VERIFY=true`, which would require email verifi
 
 ## Invitations via the admin page
 
-The bitwarden_rs admin can invite anyone via the [[admin page|Enabling-admin-page]], regardless of any of the restrictions above.
+The vaultwarden admin can invite anyone via the [[admin page|Enabling-admin-page]], regardless of any of the restrictions above.

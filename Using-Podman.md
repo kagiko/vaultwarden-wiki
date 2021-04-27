@@ -3,7 +3,7 @@
 # Creating a systemd service file
 Podman is easier to run in systemd than Docker due to its daemonless architechture. It comes with a handy [generate systemd command](http://docs.podman.io/en/latest/markdown/podman-generate-systemd.1.html) which can generate systemd files.  Here is a [good article that goes into more detail](https://www.redhat.com/sysadmin/podman-shareable-systemd-services) as well as [this article detailing some more recent updates](https://www.redhat.com/sysadmin/improved-systemd-podman).
 ```sh
-$ podman run -d --name bitwarden -v /bw-data/:/data/:Z -e ROCKET_PORT=8080 -p 8080:8080 bitwardenrs/server:latest
+$ podman run -d --name bitwarden -v /bw-data/:/data/:Z -e ROCKET_PORT=8080 -p 8080:8080 vaultwarden/server:latest
 54502f309f3092d32b4c496ef3d099b270b2af7b5464e7cb4887bc16a4d38597
 $ podman generate systemd --name bitwarden
 # container-foo.service
@@ -41,7 +41,7 @@ Description=Podman container-bitwarden.service
 [Service]
 Restart=on-failure
 ExecStartPre=/usr/bin/rm -f /%t/%n-pid /%t/%n-cid
-ExecStart=/usr/bin/podman run --conmon-pidfile /%t/%n-pid --cidfile /%t/%n-cid --env-file=/home/spytec/Bitwarden/bitwarden.conf -d -p 8080:8080 -v /home/spytec/Bitwarden/bw-data:/data/:Z bitwardenrs/server:latest
+ExecStart=/usr/bin/podman run --conmon-pidfile /%t/%n-pid --cidfile /%t/%n-cid --env-file=/home/spytec/Bitwarden/bitwarden.conf -d -p 8080:8080 -v /home/spytec/Bitwarden/bw-data:/data/:Z vaultwarden/server:latest
 ExecStop=/usr/bin/podman stop -t "15" --cidfile /%t/%n-cid
 ExecStop=/usr/bin/podman rm -f --cidfile /%t/%n-cid
 KillMode=none

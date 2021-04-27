@@ -1,12 +1,12 @@
 ## Overview
 
-bitwarden_rs data should be backed up regularly, preferably via an automated process (e.g., cron job). Ideally, at least one copy should be stored remotely (e.g., cloud storage or a different computer). Avoid relying on filesystem or VM snapshots as a backup method, as these are more complex operations where more things can go wrong, and recovery in such cases can be difficult or impossible for the typical user. Adding an extra layer of encryption on your backups would generally be a good idea (especially if your backup also includes config data like your [[admin token|Enabling-admin-page]]), but you might choose to skip this step if you're confident that your master password (and those of your other users, if any) is strong.
+vaultwarden data should be backed up regularly, preferably via an automated process (e.g., cron job). Ideally, at least one copy should be stored remotely (e.g., cloud storage or a different computer). Avoid relying on filesystem or VM snapshots as a backup method, as these are more complex operations where more things can go wrong, and recovery in such cases can be difficult or impossible for the typical user. Adding an extra layer of encryption on your backups would generally be a good idea (especially if your backup also includes config data like your [[admin token|Enabling-admin-page]]), but you might choose to skip this step if you're confident that your master password (and those of your other users, if any) is strong.
 
 ## Backing up data
 
-By default, bitwarden_rs stores all of its data under a directory called `data` (in the same directory as the `bitwarden_rs` executable). This location can be changed by setting the [[DATA_FOLDER|Changing-persistent-data-location]] environment variable. If you run bitwarden_rs with SQLite (this is the most common setup), then the SQL database is just a file in the data folder. If you run with MySQL or PostgreSQL, you will have to dump that data separately -- this is beyond the scope of this article, but a web search will turn up many other tutorials that cover this topic.
+By default, vaultwarden stores all of its data under a directory called `data` (in the same directory as the `vaultwarden` executable). This location can be changed by setting the [[DATA_FOLDER|Changing-persistent-data-location]] environment variable. If you run vaultwarden with SQLite (this is the most common setup), then the SQL database is just a file in the data folder. If you run with MySQL or PostgreSQL, you will have to dump that data separately -- this is beyond the scope of this article, but a web search will turn up many other tutorials that cover this topic.
 
-When running with the default SQLite backend, the bitwarden_rs `data` directory has this structure:
+When running with the default SQLite backend, the vaultwarden `data` directory has this structure:
 
 ```
 data
@@ -38,7 +38,7 @@ Each set of files is discussed in more detail next.
 
 _**Backup required.**_
 
-The SQLite database file (`db.sqlite3`) stores almost all important bitwarden_rs data/state (database entries, user/org/device metadata, etc.), with the main exception being attachments, which are stored as separate files on the filesystem.
+The SQLite database file (`db.sqlite3`) stores almost all important vaultwarden data/state (database entries, user/org/device metadata, etc.), with the main exception being attachments, which are stored as separate files on the filesystem.
 
 You should generally use the `.backup` command in the SQLite CLI (`sqlite3`) to back up the database file. This command uses the [Online Backup API](https://www.sqlite.org/backup.html), which SQLite documents as the [best way](https://www.sqlite.org/howtocorrupt.html#_backup_or_restore_while_a_transaction_is_active) to back up a database file that may be in active use. If you can ensure the database will not be in use when a backup runs, you can also use other methods such as the `.dump` command, or simply copying all the SQLite database files (including the `-shm` and `-wal` files, if present).
 
@@ -76,7 +76,7 @@ This directory won't be present if no Send attachments have ever been created.
 
 _**Backup recommended.**_
 
-If you use the admin page to configure your bitwarden_rs instance and don't have your configuration backed up some other way, then you probably want to back up this file so you don't have to figure out your preferred configuration all over again.
+If you use the admin page to configure your vaultwarden instance and don't have your configuration backed up some other way, then you probably want to back up this file so you don't have to figure out your preferred configuration all over again.
 
 Keep in mind that this file does contain some data in plaintext that could be considered sensitive (admin token, SMTP credentials, etc.), so make sure to encrypt this data if you're concerned that someone else might be able to access to it (e.g., when uploaded to cloud storage).
 
@@ -94,7 +94,7 @@ The icon cache stores [website icons](https://bitwarden.com/help/article/website
 
 ## Restoring backup data
 
-Make sure bitwarden_rs is stopped, and then simply replace each file or directory in the `data` dir with its backed up version.
+Make sure vaultwarden is stopped, and then simply replace each file or directory in the `data` dir with its backed up version.
 
 It's a good idea to run through the process of restoring from backup periodically, just to verify that your backups are working properly. When doing this, make sure to move or keep a copy of your original data in case your backups do not in fact work properly. 
 

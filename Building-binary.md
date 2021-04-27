@@ -1,4 +1,4 @@
-This page is primarily for those interested in bitwarden_rs development, or who have a specific reason for wanting to build their own binary.
+This page is primarily for those interested in vaultwarden development, or who have a specific reason for wanting to build their own binary.
 
 Typical users should either [[deploy via Docker|Which-container-image-to-use]], [[extract the pre-built binaries|Pre-built binaries]] from the Alpine-based Docker images, or look for a [[third-party package|Third-party-packages]].
 
@@ -18,7 +18,7 @@ Typical users should either [[deploy via Docker|Which-container-image-to-use]], 
 ```sh
 # Compile with all backends and run
 cargo run --features sqlite,mysql,postgresql --release
-# or just compile with all backends (binary located in target/release/bitwarden_rs)
+# or just compile with all backends (binary located in target/release/vaultwarden)
 cargo build --features sqlite,mysql,postgresql --release
 ```
 
@@ -26,21 +26,21 @@ cargo build --features sqlite,mysql,postgresql --release
 ```sh
 # Compile with sqlite backend and run
 cargo run --features sqlite --release
-# or just compile with sqlite (binary located in target/release/bitwarden_rs)
+# or just compile with sqlite (binary located in target/release/vaultwarden)
 cargo build --features sqlite --release
 ```
 ### MySQL backend
 ```sh
 # Compile with mysql backend and run
 cargo run --features mysql --release
-# or just compile with mysql (binary located in target/release/bitwarden_rs)
+# or just compile with mysql (binary located in target/release/vaultwarden)
 cargo build --features mysql --release
 ```
 ### PostgreSQL backend
 ```sh
 # Compile with postgresql backend and run
 cargo run --features postgresql --release
-# or just compile with postgresql (binary located in target/release/bitwarden_rs)
+# or just compile with postgresql (binary located in target/release/vaultwarden)
 cargo build --features postgresql --release
 ```
 
@@ -53,7 +53,7 @@ A compiled version of the web vault can be downloaded from [dani-garcia/bw_web_b
 
 If you prefer to compile it manually, follow these steps:
 
-*Note: building the Vault needs ~1.5GB of RAM. On systems like a RaspberryPI with 1GB or less, please [enable swapping](https://www.tecmint.com/create-a-linux-swap-file/) or build it on a more powerful machine and copy the directory from there. This much memory is only needed for building it, running bitwarden_rs with vault needs only about 10MB of RAM.*
+*Note: building the Vault needs ~1.5GB of RAM. On systems like a RaspberryPI with 1GB or less, please [enable swapping](https://www.tecmint.com/create-a-linux-swap-file/) or build it on a more powerful machine and copy the directory from there. This much memory is only needed for building it, running vaultwarden with vault needs only about 10MB of RAM.*
 
 - Clone the git repository at [bitwarden/web](https://github.com/bitwarden/web) and checkout the latest release tag (e.g. v2.1.1):
 ```sh
@@ -85,8 +85,8 @@ npm run dist
 *Note: You might be asked to run ```npm audit fix``` to fix vulnerability. This will automatically try to upgrade packages to newer version, which might not be compatible and break web-vault functionality``` Use it at your own risk, if you know what you are doing. We do use this on our own releases btw!*
 
 Finally copy the contents of the `build` folder into the destination folder:
-- If you run with `cargo run --release`, it's `bitwarden_rs/web-vault`.
-- If you run the compiled binary directly, it's next to the binary, in `bitwarden_rs/target/release/web-vault`.
+- If you run with `cargo run --release`, it's `vaultwarden/web-vault`.
+- If you run the compiled binary directly, it's next to the binary, in `vaultwarden/target/release/web-vault`.
 
 ## Configuration
 The available configuration options are documented in the default `.env` file, and they can be modified by uncommenting the desired options in that file or by setting their respective environment variables. See the Configuration section of this wiki for the main configuration options available.
@@ -94,8 +94,8 @@ The available configuration options are documented in the default `.env` file, a
 Note: the environment variables override the values set in the `.env` file.
 
 ## More information for deployment
-- [Configuring your reverse proxy](https://github.com/dani-garcia/bitwarden_rs/wiki/Proxy-examples)
-- [Setting up Autostart via systemd](https://github.com/dani-garcia/bitwarden_rs/wiki/Setup-as-a-systemd-service)
+- [Configuring your reverse proxy](https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examples)
+- [Setting up Autostart via systemd](https://github.com/dani-garcia/vaultwarden/wiki/Setup-as-a-systemd-service)
 
 ## How to recreate database schemas for the sqlite backend (for developers)
 Install diesel-cli with cargo:
@@ -121,7 +121,7 @@ diesel migration redo
 ```
 
 ## How to migrate from SQLite backend to MySQL backend (for developers)
-Refer to [using the MySQL backend](https://github.com/dani-garcia/bitwarden_rs/wiki/Using-the-MySQL-Backend) if you want to migrate from SQLite.
+Refer to [using the MySQL backend](https://github.com/dani-garcia/vaultwarden/wiki/Using-the-MySQL-Backend) if you want to migrate from SQLite.
 
 ## How to migrate from SQLite backend to PostgreSQL backend (for developers)
-Refer to [using the PostgreSQL backend](https://github.com/dani-garcia/bitwarden_rs/wiki/Using-the-PostgreSQL-Backend) if you want to migrate from SQLite.
+Refer to [using the PostgreSQL backend](https://github.com/dani-garcia/vaultwarden/wiki/Using-the-PostgreSQL-Backend) if you want to migrate from SQLite.

@@ -1,9 +1,9 @@
-For proper operation of bitwarden_rs, enabling [HTTPS](https://en.wikipedia.org/wiki/HTTPS) is pretty much required nowadays, since the Bitwarden web vault uses [web crypto APIs](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) that most browsers only make available in HTTPS contexts.
+For proper operation of vaultwarden, enabling [HTTPS](https://en.wikipedia.org/wiki/HTTPS) is pretty much required nowadays, since the Bitwarden web vault uses [web crypto APIs](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) that most browsers only make available in HTTPS contexts.
 
 There are a few ways you can enable HTTPS:
 
-* (Recommended) Put bitwarden_rs behind a [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy) that handles HTTPS connections on behalf of bitwarden_rs.
-* (Not recommended) Enable the HTTPS functionality built into bitwarden_rs (via the [Rocket](https://rocket.rs/) web framework). Rocket's HTTPS implementation is relatively immature and limited. This method also does not support [[WebSocket notifications|Enabling-WebSocket-notifications]].
+* (Recommended) Put vaultwarden behind a [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy) that handles HTTPS connections on behalf of vaultwarden.
+* (Not recommended) Enable the HTTPS functionality built into vaultwarden (via the [Rocket](https://rocket.rs/) web framework). Rocket's HTTPS implementation is relatively immature and limited. This method also does not support [[WebSocket notifications|Enabling-WebSocket-notifications]].
 
 Refer to the [Enabling HTTPS](#enabling-https) section for more details on these options.
 
@@ -25,7 +25,7 @@ There are quite a few reverse proxies in common use; some example configurations
 
 :warning: This method is not recommended.
 
-To enable HTTPS in `bitwarden_rs` itself, set the `ROCKET_TLS` environment variable, which has the following format:
+To enable HTTPS in `vaultwarden` itself, set the `ROCKET_TLS` environment variable, which has the following format:
 ```
 ROCKET_TLS={certs="/path/to/certs.pem",key="/path/to/key.pem"}
 ```
@@ -40,7 +40,7 @@ Notes:
   > `[ERROR] environment variable ROCKET_TLS={certs="/ssl/ecdsa.crt",key="/ssl/ecdsa.key"} could not be parsed`
 
   (There's nothing wrong with the format of the environment variable itself; it's the cert/key contents that Rocket can't parse.)
-* If running under Docker, remember that bitwarden_rs will be parsing the `ROCKET_TLS` value when running inside the container, so make sure the `certs` and `key` paths are how they would appear inside the container (which may be different from the paths on the Docker host system).
+* If running under Docker, remember that vaultwarden will be parsing the `ROCKET_TLS` value when running inside the container, so make sure the `certs` and `key` paths are how they would appear inside the container (which may be different from the paths on the Docker host system).
 
 ```sh
 docker run -d --name bitwarden \
@@ -48,7 +48,7 @@ docker run -d --name bitwarden \
   -v /ssl/keys/:/ssl/ \
   -v /bw-data/:/data/ \
   -p 443:80 \
-  bitwardenrs/server:latest
+  vaultwarden/server:latest
 ```
 
 You need to mount ssl files (-v argument) and you need to forward appropriate port (-p argument), usually port 443 for HTTPS connections. If you choose a different port number than 443 like for example 3456, remember to explicitly provide that port number when you connect to the service, example: `https://bitwarden.local:3456`.
@@ -69,11 +69,11 @@ docker run -d --name bitwarden \
   -v /etc/letsencrypt/:/ssl/ \
   -v /bw-data/:/data/ \
   -p 443:80 \
-  bitwardenrs/server:latest
+  vaultwarden/server:latest
 ```
 
 #### Check if certificate is valid
-When your bitwarden_rs server is available to the outside world you can use https://comodosslstore.com/ssltools/ssl-checker.php to check if your SSL certificate is valid including the chain. Without the chain Android devices will fail to connect.
+When your vaultwarden server is available to the outside world you can use https://comodosslstore.com/ssltools/ssl-checker.php to check if your SSL certificate is valid including the chain. Without the chain Android devices will fail to connect.
 
 You can also use https://www.ssllabs.com/ssltest/analyze.html to check, but that one does not support custom ports. Also please remember to check the "Do not show the results on the boards" checkbox, else your system will be visible in the "Recently Seen" list.
 
@@ -107,9 +107,9 @@ A bit further in the output you should see the base64-encoded certificates from 
 
 [Let's Encrypt](https://letsencrypt.org/) issues SSL/TLS certificates for free.
 
-For this to work, your bitwarden_rs instance must have a DNS name (i.e., you can't simply use an IP address). Let's Encrypt is easier to set up if your bitwarden_rs is reachable on the public Internet, but even if your instance is private (i.e., only reachable on your LAN), it's still possible to get Let's Encrypt certs via [DNS challenge](Running-a-private-bitwarden_rs-instance-with-Let's-Encrypt-certs).
+For this to work, your vaultwarden instance must have a DNS name (i.e., you can't simply use an IP address). Let's Encrypt is easier to set up if your vaultwarden is reachable on the public Internet, but even if your instance is private (i.e., only reachable on your LAN), it's still possible to get Let's Encrypt certs via [DNS challenge](Running-a-private-vaultwarden-instance-with-Let's-Encrypt-certs).
 
-If you already own or control a domain, then just add a DNS name for the IP address of your bitwarden_rs instance. If you don't, you can either buy a domain name, try getting one for free at [Freenom](https://www.freenom.com/), or use a service like [Duck DNS](https://www.duckdns.org/) to get a name under an existing domain (e.g., `my-bitwarden.duckdns.org`).
+If you already own or control a domain, then just add a DNS name for the IP address of your vaultwarden instance. If you don't, you can either buy a domain name, try getting one for free at [Freenom](https://www.freenom.com/), or use a service like [Duck DNS](https://www.duckdns.org/) to get a name under an existing domain (e.g., `my-bitwarden.duckdns.org`).
 
 Once you have a DNS name for your instance, use an [ACME client](https://letsencrypt.org/docs/client-options/) to get certs for your DNS name. [Certbot](https://certbot.eff.org/) and [acme.sh](https://github.com/acmesh-official/acme.sh) are two of the most popular standalone clients. Some reverse proxies like [Caddy](https://caddyserver.com/) also have built-in ACME clients.
 
@@ -117,8 +117,8 @@ Once you have a DNS name for your instance, use an [ACME client](https://letsenc
 
 [Cloudflare](https://www.cloudflare.com/) provides free service for individuals. If you trust them to proxy your traffic and serve as your DNS provider, you can let them handle issuance of your SSL/TLS certs as well.
 
-Once you've enrolled your domain and added a DNS record for your bitwarden_rs instance, log into the Cloudflare dashboard and select `SSL/TLS`, then `Origin Server`. Generate an origin certificate (you can select a validity period up to 15 years) and configure bitwarden_rs to use it. If you've selected the 15-year validity period, you won't have to renew this origin certificate for the foreseeable future.
+Once you've enrolled your domain and added a DNS record for your vaultwarden instance, log into the Cloudflare dashboard and select `SSL/TLS`, then `Origin Server`. Generate an origin certificate (you can select a validity period up to 15 years) and configure vaultwarden to use it. If you've selected the 15-year validity period, you won't have to renew this origin certificate for the foreseeable future.
 
-Note that the origin certificate is used only to secure communications between Cloudflare and bitwarden_rs. Cloudflare will automatically handle issuance and renewal of the certificate used for communicating between clients and Cloudflare.
+Note that the origin certificate is used only to secure communications between Cloudflare and vaultwarden. Cloudflare will automatically handle issuance and renewal of the certificate used for communicating between clients and Cloudflare.
 
-Also, if you're using the Rocket HTTPS server built into bitwarden_rs, make sure to select `RSA` as the private key type for the origin certificate, as Rocket doesn't currently support ECC/ECDSA certs.
+Also, if you're using the Rocket HTTPS server built into vaultwarden, make sure to select `RSA` as the private key type for the origin certificate, as Rocket doesn't currently support ECC/ECDSA certs.
