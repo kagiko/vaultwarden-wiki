@@ -106,4 +106,4 @@ This section contains an index of third-party backup examples. You should review
 * https://github.com/shivpatel/bitwarden_rs-local-backup
 * https://github.com/shivpatel/bitwarden_rs_dropbox_backup
 * https://gitlab.com/1O/bitwarden_rs-backup
-* https://github.com/jjlin/bitwardenrs-backup
+* https://github.com/jjlin/vaultwarden-backup
