@@ -24,7 +24,7 @@ This page is an index of standalone deployment examples. If adding a new example
 
 ## Shared hosting
 
-* https://github.com/jjlin/bitwardenrs-shared-hosting
+* https://github.com/jjlin/vaultwarden-shared-hosting
 
   Sample config for running `vaultwarden` on [DreamHost](https://www.dreamhost.com/), but should be readily adaptable to many other shared hosting services.
 
