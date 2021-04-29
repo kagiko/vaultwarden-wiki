@@ -18,7 +18,7 @@ docker build -t vaultwarden --build-arg DB=postgresql .
 ``` 
 in docker-compose.yml it looks like
 ```...
-  bitwarden:
+  vaultwarden:
     # image: vaultwarden/server-postgresql:latest
     image: vaultwarden
     build: 
