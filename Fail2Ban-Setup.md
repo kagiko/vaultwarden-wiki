@@ -87,7 +87,7 @@ services:
 
     volumes:
       - /volumeX/docker/fail2ban:/data
-      - /volumeX/docker/bw-data:/bitwarden:ro
+      - /volumeX/docker/vw-data:/bitwarden:ro
 
     network_mode: "host"
 
