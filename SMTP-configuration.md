@@ -1,14 +1,14 @@
 You can configure vaultwarden to send emails via a SMTP agent:
 
 ```sh
-docker run -d --name bitwarden \
+docker run -d --name vaultwarden \
   -e SMTP_HOST=<smtp.domain.tld> \
-  -e SMTP_FROM=<bitwarden@domain.tld> \
+  -e SMTP_FROM=<vaultwarden@domain.tld> \
   -e SMTP_PORT=587 \
   -e SMTP_SSL=true \
   -e SMTP_USERNAME=<username> \
   -e SMTP_PASSWORD=<password> \
-  -v /bw-data/:/data/ \
+  -v /vw-data/:/data/ \
   -p 80:80 \
   vaultwarden/server:latest
 ```
@@ -18,7 +18,7 @@ When `SMTP_SSL` is set to `true`(this is the default), only TLSv1.1 and TLSv1.2 
 Note that if SMTP and invitations are enabled, invitations will be sent to new users via email. You must set the `DOMAIN` configuration option with the base URL of your vaultwarden instance for the invite link to be generated correctly:
 
 ```sh
-docker run -d --name bitwarden \
+docker run -d --name vaultwarden \
 ...
 -e DOMAIN=https://vault.example.com \
 ...
