@@ -5,7 +5,7 @@ To set the limit, you can use the `ROCKET_LIMITS` variable. Example here shows 1
 ```sh
 docker run -d --name bitwarden \
   -e ROCKET_LIMITS={json=10485760} \
-  -v /bw-data/:/data/ \
+  -v /vw-data/:/data/ \
   -p 80:80 \
   vaultwarden/server:latest
 ```
