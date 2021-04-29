@@ -6,7 +6,7 @@ After that, you need to set the `DOMAIN` environment variable to the same addres
 ```sh
 docker run -d --name bitwarden \
   -e DOMAIN=https://bw.domain.tld \
-  -v /bw-data/:/data/ \
+  -v /vw-data/:/data/ \
   -p 80:80 \
   vaultwarden/server:latest
 ```
