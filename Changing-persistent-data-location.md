@@ -5,7 +5,7 @@ By default all persistent data is saved under `/data`, you can override this pat
 ```sh
 docker run -d --name bitwarden \
   -e DATA_FOLDER=/persistent \
-  -v /bw-data/:/persistent/ \
+  -v /vw-data/:/persistent/ \
   -p 80:80 \
   vaultwarden/server:latest
 ```
