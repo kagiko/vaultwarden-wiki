@@ -10,7 +10,7 @@ Notes:
 docker run -d --name bitwarden \
   -e YUBICO_CLIENT_ID=12345 \
   -e YUBICO_SECRET_KEY=ABCDEABCDEABCDEABCDE= \
-  -v /bw-data/:/data/ \
+  -v /vw-data/:/data/ \
   -p 80:80 \
   vaultwarden/server:latest
 ```
