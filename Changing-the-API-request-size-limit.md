@@ -3,7 +3,7 @@ By default the API calls are limited to 10MB. This should be sufficient for most
 To set the limit, you can use the `ROCKET_LIMITS` variable. Example here shows 10MB limit for posted json in the body (this is the default):
 
 ```sh
-docker run -d --name bitwarden \
+docker run -d --name vaultwarden \
   -e ROCKET_LIMITS={json=10485760} \
   -v /vw-data/:/data/ \
   -p 80:80 \
