@@ -295,7 +295,7 @@ Example NixOS nginx config. For more Information about NixOS Deployment see [Dep
   security.acme.email = "me@example.com";
   security.acme.certs = {
 
-    "bw.example.com" = {
+    "vw.example.com" = {
       group = "vaultwarden";
       keyType = "rsa2048";
       allowKeysForGroup = true;
@@ -311,7 +311,7 @@ Example NixOS nginx config. For more Information about NixOS Deployment see [Dep
     recommendedTlsSettings = true;
 
     virtualHosts = {
-      "bw.example.com" = {
+      "vw.example.com" = {
         forceSSL = true;
         enableACME = true;
         locations."/" = {
@@ -485,10 +485,10 @@ backend vaultwarden_http
     # Enable compression if you want
     # compression algo gzip
     # compression type text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript
-    server bwrshttp 0.0.0.0:8080
+    server vwhttp 0.0.0.0:8080
 
 backend vaultwarden_ws
-    server bwrsws 0.0.0.0:3012
+    server vwws 0.0.0.0:3012
 ```
 </details>
 
@@ -523,10 +523,10 @@ backend vaultwarden_http
     # compression algo gzip
     # compression type text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript
     # You can use the container hostname if you are using haproxy with docker-compose
-    server bwrs_http 0.0.0.0:8080
+    server vw_http 0.0.0.0:8080
 
 backend vaultwarden_ws
     # You can use the container hostname if you are using haproxy with docker-compose
-    server bwrs_ws 0.0.0.0:3012
+    server vw_ws 0.0.0.0:3012
 ```
 </details>
