@@ -3,7 +3,7 @@ As a convenience vaultwarden image will also host static files for Vault web int
 ```sh
 docker run -d --name bitwarden \
   -e WEB_VAULT_ENABLED=false \
-  -v /bw-data/:/data/ \
+  -v /vw-data/:/data/ \
   -p 80:80 \
   vaultwarden/server:latest
 ```
@@ -12,7 +12,7 @@ Alternatively you can override the Vault files and provide your own static files
 ```sh
 docker run -d --name bitwarden \
   -v /path/to/static/files_directory:/web-vault \
-  -v /bw-data/:/data/ \
+  -v /vw-data/:/data/ \
   -p 80:80 \
   vaultwarden/server:latest
 ```
