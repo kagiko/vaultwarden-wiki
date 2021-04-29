@@ -46,7 +46,7 @@ Notes:
 docker run -d --name bitwarden \
   -e ROCKET_TLS='{certs="/ssl/certs.pem",key="/ssl/key.pem"}' \
   -v /ssl/keys/:/ssl/ \
-  -v /bw-data/:/data/ \
+  -v /vw-data/:/data/ \
   -p 443:80 \
   vaultwarden/server:latest
 ```
