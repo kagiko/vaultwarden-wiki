@@ -5,7 +5,7 @@ If you have another method you would like to use for authentication to the `/adm
 ```sh
 docker run -d --name bitwarden \
   -e DISABLE_ADMIN_TOKEN=true \
-  -v /bw-data/:/data/ \
+  -v /vw-data/:/data/ \
   -p 80:80 \
   vaultwarden/server:latest
 ```
