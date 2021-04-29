@@ -4,24 +4,24 @@ By default `vaultwarden/server` is using root user to run service inside the con
 
 ```bash
 # Make the directory on the host, change this to you preferred path
-sudo mkdir /bw-data
+sudo mkdir /vw-data
 
 # Set the owner using user id. 
 # Note that the ownership must match user in /etc/passwd *inside* the container, not on your host
-sudo chown 65534 /bw-data
+sudo chown 65534 /vw-data
 
 # Give the owner full rights to the folder
-sudo chmod u+rwx /bw-data
+sudo chmod u+rwx /vw-data
 ```
 
 2. Start the container with proper parameters. Define the user and make sure to start with port set to `1024` or higher.
 
 ```bash
 docker run -d \
-  --name bitwarden \
+  --name vaultwarden \
   --user nobody \
   -e ROCKET_PORT=1024 \
-  -v /bw-data/:/data/ \
+  -v /vw-data/:/data/ \
   -p 80:1024 \
   vaultwarden/server:latest
 ```
