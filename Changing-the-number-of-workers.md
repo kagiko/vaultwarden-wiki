@@ -5,7 +5,7 @@ In the example below, we're starting with 20 workers:
 ```sh
 docker run -d --name bitwarden \
   -e ROCKET_WORKERS=20 \
-  -v /bw-data/:/data/ \
+  -v /vw-data/:/data/ \
   -p 80:80 \
   vaultwarden/server:latest
 ```
