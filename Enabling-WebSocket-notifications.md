@@ -14,7 +14,7 @@ Then you need to enable WebSockets negotiation on the vaultwarden side by settin
 ```sh
 docker run -d --name bitwarden \
   -e WEBSOCKET_ENABLED=true \
-  -v /bw-data/:/data/ \
+  -v /vw-data/:/data/ \
   -p 80:80 \
   -p 3012:3012 \
   vaultwarden/server:latest
