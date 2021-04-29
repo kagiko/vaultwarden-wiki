@@ -41,9 +41,9 @@ delete
 To turn WAL off, you need to start `vaultwarden` with `ENABLE_DB_WAL` variable set to `false`:
 
 ```bash
-docker run -d --name bitwarden \
+docker run -d --name vaultwarden \
   -e ENABLE_DB_WAL=false \
-  -v /bw-data/:/data/ \
+  -v /vw-data/:/data/ \
   -p 80:80 \
   vaultwarden/server:latest
 ```
@@ -51,7 +51,7 @@ Make sure to always start with this variable present as starting even once witho
 
 ## How to turn WAL on
 
-Generally speaking you just start `bitarden_rs` without `ENABLE_DB_WAL` set to false and server will automatically enable WAL for you. You can verify this by running:
+Generally speaking you just start `vaultwarden` without `ENABLE_DB_WAL` set to false and server will automatically enable WAL for you. You can verify this by running:
 
 ```bash
 sqlite3 db.sqlite3 'PRAGMA journal_mode'
