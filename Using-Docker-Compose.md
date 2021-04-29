@@ -2,7 +2,7 @@
 
 ## Caddy with HTTP challenge
 
-This example assumes that you have [installed](https://docs.docker.com/compose/install/) Docker Compose, that you have a domain name (e.g., `bitwarden.example.com`) for your vaultwarden instance, and that it will be publicly accessible.
+This example assumes that you have [installed](https://docs.docker.com/compose/install/) Docker Compose, that you have a domain name (e.g., `vaultwarden.example.com`) for your vaultwarden instance, and that it will be publicly accessible.
 
 Start by making a new directory and changing into it. Next, create the `docker-compose.yml` below, making sure to substitute appropriate values for the `DOMAIN` and `EMAIL` variables.
 
@@ -12,12 +12,12 @@ version: '3'
 services:
   bitwarden:
     image: vaultwarden/server:latest
-    container_name: bitwarden
+    container_name: vaultwarden
     restart: always
     environment:
       - WEBSOCKET_ENABLED=true  # Enable WebSocket notifications.
     volumes:
-      - ./bw-data:/data
+      - ./vw-data:/data
 
   caddy:
     image: caddy:2
@@ -31,7 +31,7 @@ services:
       - ./caddy-config:/config
       - ./caddy-data:/data
     environment:
-      - DOMAIN=bitwarden.example.com  # Your domain.
+      - DOMAIN=vaultwarden.example.com  # Your domain.
       - EMAIL=admin@example.com       # The email address to use for ACME registration.
       - LOG_FILE=/data/access.log
 ```
@@ -56,10 +56,10 @@ In the same directory, create the `Caddyfile` below. (This file does not need to
   encode gzip
 
   # Notifications redirected to the WebSocket server
-  reverse_proxy /notifications/hub bitwarden:3012
+  reverse_proxy /notifications/hub vaultwarden:3012
 
   # Proxy everything else to Rocket
-  reverse_proxy bitwarden:80 {
+  reverse_proxy vaultwarden:80 {
        # Send the true remote IP to Rocket, so that vaultwarden can put this in the
        # log, so that fail2ban can ban the correct IP.
        header_up X-Real-IP {remote_host}
@@ -92,12 +92,12 @@ version: '3'
 services:
   bitwarden:
     image: vaultwarden/server:latest
-    container_name: bitwarden
+    container_name: vaultwarden
     restart: always
     environment:
       - WEBSOCKET_ENABLED=true  # Enable WebSocket notifications.
     volumes:
-      - ./bw-data:/data
+      - ./vw-data:/data
 
   caddy:
     image: caddy:2
@@ -112,7 +112,7 @@ services:
       - ./caddy-config:/config
       - ./caddy-data:/data
     environment:
-      - DOMAIN=bitwarden.example.com  # Your domain.
+      - DOMAIN=vaultwarden.example.com  # Your domain.
       - EMAIL=admin@example.com       # The email address to use for ACME registration.
       - DUCKDNS_TOKEN=<token>         # Your Duck DNS token.
       - LOG_FILE=/data/access.log
@@ -142,10 +142,10 @@ In the same directory, create the `Caddyfile` below. (This file does not need to
   encode gzip
 
   # Notifications redirected to the WebSocket server
-  reverse_proxy /notifications/hub bitwarden:3012
+  reverse_proxy /notifications/hub vaultwarden:3012
 
   # Proxy everything else to Rocket
-  reverse_proxy bitwarden:80
+  reverse_proxy vaultwarden:80
 }
 ```
 
