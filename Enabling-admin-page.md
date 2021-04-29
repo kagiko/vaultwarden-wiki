@@ -9,7 +9,7 @@ To set the token, use the `ADMIN_TOKEN` variable:
 ```sh
 docker run -d --name bitwarden \
   -e ADMIN_TOKEN=some_random_token_as_per_above_explanation \
-  -v /bw-data/:/data/ \
+  -v /vw-data/:/data/ \
   -p 80:80 \
   vaultwarden/server:latest
 ```
