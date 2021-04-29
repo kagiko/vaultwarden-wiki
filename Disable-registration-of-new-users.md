@@ -3,7 +3,7 @@ By default, anyone who can access your instance can register for a new account. 
 ```sh
 docker run -d --name bitwarden \
   -e SIGNUPS_ALLOWED=false \
-  -v /bw-data/:/data/ \
+  -v /vw-data/:/data/ \
   -p 80:80 \
   vaultwarden/server:latest
 ```
