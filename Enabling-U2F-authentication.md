@@ -11,4 +11,4 @@ docker run -d --name vaultwarden \
   vaultwarden/server:latest
 ```
 
-Note that the value has to include the `https://` and it may include a port at the end (in the format of `https://bw.domain.tld:port`) when not using `443`.
+Note that the value has to include the `https://` and it may include a port at the end (in the format of `https://vw.domain.tld:port`) when not using `443`.
