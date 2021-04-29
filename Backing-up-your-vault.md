@@ -40,13 +40,13 @@ _**Backup required.**_
 
 The SQLite database file (`db.sqlite3`) stores almost all important vaultwarden data/state (database entries, user/org/device metadata, etc.), with the main exception being attachments, which are stored as separate files on the filesystem.
 
-You should generally use the `.backup` command in the SQLite CLI (`sqlite3`) to back up the database file. This command uses the [Online Backup API](https://www.sqlite.org/backup.html), which SQLite documents as the [best way](https://www.sqlite.org/howtocorrupt.html#_backup_or_restore_while_a_transaction_is_active) to back up a database file that may be in active use. If you can ensure the database will not be in use when a backup runs, you can also use other methods such as the `.dump` command, or simply copying all the SQLite database files (including the `-shm` and `-wal` files, if present).
+You should generally use the `.backup` command in the SQLite CLI (`sqlite3`) to back up the database file. This command uses the [Online Backup API](https://www.sqlite.org/backup.html), which SQLite documents as the [best way](https://www.sqlite.org/howtocorrupt.html#_backup_or_restore_while_a_transaction_is_active) to back up a database file that may be in active use. If you can ensure the database will not be in use when a backup runs, you can also use other methods such as the `.dump` command, or simply copying all the SQLite database files (including the `-wal` file, if present).
 
 A basic backup command looks like this, assuming your data folder is `data` (the default):
 ```
 sqlite3 data/db.sqlite3 ".backup '/path/to/backups/db-$(date '+%Y%m%d-%H%M').sqlite3'"
 ```
-Or, you can use the `VACUUM INTO` option, which will also clean the database of delete records:
+You can also use `VACUUM INTO`, which will compact empty space, but takes somewhat more processing time:
 ```
 sqlite3 data/db.sqlite3 "VACUUM INTO '/path/to/backups/db-$(date '+%Y%m%d-%H%M').sqlite3'"
 ```
@@ -95,6 +95,8 @@ The icon cache stores [website icons](https://bitwarden.com/help/article/website
 ## Restoring backup data
 
 Make sure vaultwarden is stopped, and then simply replace each file or directory in the `data` dir with its backed up version.
+
+When restoring a backup created using `.backup` or `VACUUM INTO`, make sure to first delete any existing `db.sqlite3-wal` file, as this could potentially result in database corruption when SQLite tries to recover `db.sqlite3` using a stale/mismatched WAL file. However, if you backed up the database using a straight copy of `db.sqlite3` and its matching `db.sqlite3-wal` file, then you must restore both files as a pair. You don't need to back up or restore the `db.sqlite3-shm` file.
 
 It's a good idea to run through the process of restoring from backup periodically, just to verify that your backups are working properly. When doing this, make sure to move or keep a copy of your original data in case your backups do not in fact work properly. 
 
