@@ -10,7 +10,7 @@ Start by making a new directory and changing into it. Next, create the `docker-c
 version: '3'
 
 services:
-  bitwarden:
+  vaultwarden:
     image: vaultwarden/server:latest
     container_name: vaultwarden
     restart: always
@@ -90,7 +90,7 @@ Start by making a new directory and changing into it. Next, create the `docker-c
 version: '3'
 
 services:
-  bitwarden:
+  vaultwarden:
     image: vaultwarden/server:latest
     container_name: vaultwarden
     restart: always
