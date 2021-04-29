@@ -61,7 +61,7 @@ services:
     image: vaultwarden/server
     restart: always
     volumes:
-      - $PWD/bw-data:/data
+      - $PWD/vw-data:/data
     environment:
       WEBSOCKET_ENABLED: 'true' # Required to use websockets
       SIGNUPS_ALLOWED: 'false'   # set to false to disable signups
