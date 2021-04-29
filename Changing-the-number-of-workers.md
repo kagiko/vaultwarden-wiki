@@ -3,7 +3,7 @@ When you run vaultwarden, it spawns `2 * <number of cpu cores>` workers to handl
 In the example below, we're starting with 20 workers:
 
 ```sh
-docker run -d --name bitwarden \
+docker run -d --name vaultwarden \
   -e ROCKET_WORKERS=20 \
   -v /vw-data/:/data/ \
   -p 80:80 \
