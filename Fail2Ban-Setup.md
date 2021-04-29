@@ -87,7 +87,7 @@ services:
 
     volumes:
       - /volumeX/docker/fail2ban:/data
-      - /volumeX/docker/vw-data:/bitwarden:ro
+      - /volumeX/docker/vw-data:/vaultwarden:ro
 
     network_mode: "host"
 
@@ -127,7 +127,7 @@ ignoreregex =
 `fail2ban.filter         [5291]: ERROR   No 'host' group in '^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$'`  
 Please Use `<HOST>` instead of `<ADDR>` in `vaultwarden.local`
 
-**Tip:** If you see 127.0.0.1 as the IP address of failed logins in bitwarden.log, then you're probably using a reverse proxy and fail2ban won't work correctly:
+**Tip:** If you see 127.0.0.1 as the IP address of failed logins in vaultwarden.log, then you're probably using a reverse proxy and fail2ban won't work correctly:
 ```
 [YYYY-MM-DD hh:mm:ss][vaultwarden::api::identity][ERROR] Username or password is incorrect. Try again. IP: 127.0.0.1. Username: email@example.com.
 ```
@@ -144,7 +144,7 @@ enabled = true
 port = 80,443,8081
 filter = vaultwarden
 banaction = %(banaction_allports)s
-logpath = /path/to/bitwarden.log
+logpath = /path/to/vaultwarden.log
 maxretry = 3
 bantime = 14400
 findtime = 14400
@@ -201,7 +201,7 @@ enabled = true
 port = 80,443
 filter = vaultwarden-admin
 banaction = %(banaction_allports)s
-logpath = /path/to/bitwarden.log
+logpath = /path/to/vaultwarden.log
 maxretry = 3
 bantime = 14400
 findtime = 14400
@@ -219,7 +219,7 @@ sudo systemctl reload fail2ban
 ```
 
 ## Testing Fail2Ban
-Now just try to login to bitwarden using any email (it doesn't have to be a valid email, just an email format)
+Now just try to login to vaultwarden using any email (it doesn't have to be a valid email, just an email format)
 If it works correctly and your IP is banned, you can unban the IP by running:
 
 Without Docker:  
@@ -230,7 +230,7 @@ sudo docker exec -t fail2ban fail2ban-client set vaultwarden unbanip XX.XX.XX.XX
 sudo fail2ban-client set vaultwarden unbanip XX.XX.XX.XX
 ```
 
-If Fail2Ban does not appear to be functioning, verify that the path to the Bitwarden log file is correct. For Docker: If the specified log file is not being generated and/or updated, make sure the `EXTENDED_LOGGING` env variable is set to true (which is default) and that the path to the log file is the path inside the Docker (when you use `/bw-data/:/data/` the log file should be in `/data/...` to be outside the container).
+If Fail2Ban does not appear to be functioning, verify that the path to the Vaultwarden log file is correct. For Docker: If the specified log file is not being generated and/or updated, make sure the `EXTENDED_LOGGING` env variable is set to true (which is default) and that the path to the log file is the path inside the Docker (when you use `/bw-data/:/data/` the log file should be in `/data/...` to be outside the container).
 
 Also verify that the timezone of the Docker container matches the timezone of the host. Check this by comparing the time shown in the logfile with the host OS time. If they differ, there are various ways to fix this.  One option is to start Docker with the option `-e "TZ=<timezone>"`. A list of valid timezones is [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (eg. `-e "TZ=Australia/Melbourne"`)
 
