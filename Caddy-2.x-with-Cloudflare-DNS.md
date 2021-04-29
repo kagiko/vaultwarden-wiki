@@ -37,13 +37,13 @@ https://[YOUR-DOMAIN]:443 {
        -Server
    }
   # The negotiation endpoint is also proxied to Rocket
-  reverse_proxy /notifications/hub/negotiate bitwarden:80
+  reverse_proxy /notifications/hub/negotiate vaultwarden:80
 
   # Notifications redirected to the websockets server
-  reverse_proxy /notifications/hub bitwarden:3012
+  reverse_proxy /notifications/hub vaultwarden:3012
 
   # Proxy the Root directory to Rocket
-  reverse_proxy bitwarden:80 {
+  reverse_proxy vaultwarden:80 {
        # Send the true remote IP to Rocket, so that vaultwarden can put this in the
        # log, so that fail2ban can ban the correct IP.
        header_up X-Real-IP {remote_host}
@@ -57,7 +57,7 @@ docker-compose.yml
 version: '3'
 
 services:
-  bitwarden:
+  vaultwarden:
     image: vaultwarden/server
     restart: always
     volumes:
