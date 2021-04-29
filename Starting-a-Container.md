@@ -6,15 +6,15 @@ The persistent data is stored under /data inside the container, so the only requ
 
 ```sh
 # using Docker:
-docker run -d --name bitwarden -v /bw-data/:/data/ -p 80:80 vaultwarden/server:latest
+docker run -d --name bitwarden -v /vw-data/:/data/ -p 80:80 vaultwarden/server:latest
 # using Podman as non-root:
-podman run -d --name bitwarden -v /bw-data/:/data/:Z -e ROCKET_PORT=8080 -p 8080:8080 vaultwarden/server:latest
+podman run -d --name bitwarden -v /vw-data/:/data/:Z -e ROCKET_PORT=8080 -p 8080:8080 vaultwarden/server:latest
 # using Podman as root:
-sudo podman run -d --name bitwarden -v bw-data:/data/:Z -p 80:80 vaultwarden/server:latest
+sudo podman run -d --name bitwarden -v vw-data:/data/:Z -p 80:80 vaultwarden/server:latest
 ```
 
 
-This will preserve any persistent data under `/bw-data/`, you can adapt the path to whatever suits you.
+This will preserve any persistent data under `/vw-data/`, you can adapt the path to whatever suits you.
 
 The service will be exposed on host-port 80 or 8080.
 
@@ -24,7 +24,7 @@ If your docker/vaultwarden runs on a device with a fixed IP, you can bind the ho
 
 ```
 # using Docker:
-docker run -d --name bitwarden -v /bw-data/:/data/ -p 192.168.0.2:80:80 vaultwarden/server:latest
+docker run -d --name bitwarden -v /vw-data/:/data/ -p 192.168.0.2:80:80 vaultwarden/server:latest
 ```
 
 # Starting the container
