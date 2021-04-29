@@ -5,26 +5,26 @@ This is a wrapper which improves docker integration with systemd.
 
 For full instructions and configuration options, see the [GitHub repository](https://github.com/ibuildthecloud/systemd-docker).
 
-As root, create `/etc/systemd/system/bitwarden.service` using your preferred editor with the following contents:
+As root, create `/etc/systemd/system/vaultwarden.service` using your preferred editor with the following contents:
 
 ```ini
 [Unit]
-Description=Bitwarden
+Description=Vaultwarden
 After=docker.service
 Requires=docker.service
 
 [Service]
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker pull vaultwarden/server:latest
-ExecStartPre=-/usr/bin/docker stop bitwarden
-ExecStartPre=-/usr/bin/docker rm bitwarden
+ExecStartPre=-/usr/bin/docker stop vaultwarden
+ExecStartPre=-/usr/bin/docker rm vaultwarden
 ExecStart=/usr/bin/docker run \
   -p 8080:80 \
   -p 8081:3012 \
-  --env-file /opt/.bitwarden.env \
-  -v /opt/bw-data:/data/ \
-  --rm --name bitwarden vaultwarden/server:latest
-ExecStopPost=-/usr/bin/docker rm bitwarden
+  --env-file /opt/.vaultwarden.env \
+  -v /opt/vw-data:/data/ \
+  --rm --name vaultwarden vaultwarden/server:latest
+ExecStopPost=-/usr/bin/docker rm vaultwarden
 Restart=Always
 RestartSec=30s
 Type=notify
@@ -54,7 +54,7 @@ It's possible to directly specify environment variables in the unit file in two 
 - Using an `Environment` directive in the `[Service]` block.
 - Using the `-e` option of `docker`. In this case, you can omit the `--env` option shown in the example above.
 
-To verify that your environment variables are set correctly, check the output of `systemctl show bitwarden.service`
+To verify that your environment variables are set correctly, check the output of `systemctl show vaultwarden.service`
 for an `Environment` line.
 
 It's also possible to store environment variables in a separate file using the `EnvironmentFile` directive in the unit file. In this case remember to set the `--env` option in the docker commandline as shown above, otherwise the environment file will not be processed.
@@ -69,19 +69,19 @@ You can find more environment settings and the correct syntax in this [example e
 However, the systemd project does not mandate where this file should be stored. Consult your distribution's documentation for the
 best location for this file. For example, RedHat based distributions typically place these files in `/etc/sysconfig/`
 
-If you're unsure, just create a file as root in `/etc/` e.g. `/etc/bitwarden.service.conf`.
+If you're unsure, just create a file as root in `/etc/` e.g. `/etc/vaultwarden.service.conf`.
 
 In your unit file, add an `EnvironmentFile` directive in the `[Service]` block, the value being the full path to the
 file created above. Example:
 
 ```ini
 [Unit]
-Description=Bitwarden
+Description=Vaultwarden
 After=docker.service
 Requires=docker.service
 
 [Service]
-EnvironmentFile=/etc/bitwarden.service.conf
+EnvironmentFile=/etc/vaultwarden.service.conf
 TimeoutStartSec=0
 -snip-
 ```
@@ -89,10 +89,10 @@ TimeoutStartSec=0
 ## Running the service
 
 After the above installation and configuration is complete, reload systemd using `sudo systemctl daemon-reload`.
-Then, start the Bitwarden service using `sudo systemctl start bitwarden`.
+Then, start the Vaultwarden service using `sudo systemctl start vaultwarden`.
 
-To have the service start with the system, use `sudo systemctl enable bitwarden`.
+To have the service start with the system, use `sudo systemctl enable vaultwarden`.
 
-Verify that the container has started using `systemctl status bitwarden`.
+Verify that the container has started using `systemctl status vaultwarden`.
 
 If you are getting the `json: cannot unmarshal object into Go value of type string` error when starting the service, you should compile the systemd-docker binary yourself using a recent version of Go, see [this issue](https://github.com/ibuildthecloud/systemd-docker/issues/50).
