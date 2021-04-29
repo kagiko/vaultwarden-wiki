@@ -12,7 +12,7 @@ If you insist to use MySQLv8 instead of MariaDB then create a user using an old 
 
 To use the MariaDB (MySQL) backend, you can either use the [official Docker image](https://hub.docker.com/r/vaultwarden/server) or build your own binary [with MySQL enabled](https://github.com/dani-garcia/vaultwarden/wiki/Building-binary#mysql-backend).
 
-To run the binary or container, ensure the ```DATABASE_URL``` environment variable is set (i.e. ```DATABASE_URL='mysql://<user>:<password>@mysql/bitwarden'```).
+To run the binary or container, ensure the ```DATABASE_URL``` environment variable is set (i.e. ```DATABASE_URL='mysql://<user>:<password>@mysql/vaultwarden'```).
 
 **Connection String Syntax:**
 ```ini
@@ -32,15 +32,15 @@ A complete list of codes can be found on [Wikipedia page for percent encoding](h
 # Start a mysql container
 docker run --name mysql --net <some-docker-network>\
  -e MYSQL_ROOT_PASSWORD=<my-secret-pw>\
- -e MYSQL_DATABASE=bitwarden\
- -e MYSQL_USER=<bitwarden_user>\
- -e MYSQL_PASSWORD=<bitwarden_pw> -d mysql:5.7
+ -e MYSQL_DATABASE=vaultwarden\
+ -e MYSQL_USER=<vaultwarden_user>\
+ -e MYSQL_PASSWORD=<vaultwarden_pw> -d mysql:5.7
 
 # Start vaultwarden with MySQL Env Vars set.
-docker run -d --name bitwarden --net <some-docker-network>\
- -v $(pwd)/bw-data/:/data/ -v <Path to ssl certs>:/ssl/\
+docker run -d --name vaultwarden --net <some-docker-network>\
+ -v $(pwd)/vw-data/:/data/ -v <Path to ssl certs>:/ssl/\
  -p 443:80 -e ROCKET_TLS='{certs="/ssl/<your ssl cert>",key="/ssl/<your ssl key>"}'\
- -e RUST_BACKTRACE=1 -e DATABASE_URL='mysql://<bitwarden_user>:<bitwarden_pw>@mysql/bitwarden'\
+ -e RUST_BACKTRACE=1 -e DATABASE_URL='mysql://<vaultwarden_user>:<vaultwarden_pw>@mysql/vaultwarden'\
  -e ADMIN_TOKEN=<some_random_token_as_per_above_explanation>\
  -e ENABLE_DB_WAL='false' <you vaultwarden image name>
 ```
@@ -48,8 +48,8 @@ docker run -d --name bitwarden --net <some-docker-network>\
 ### Example using Non-Docker MySQL Server:
 
 ```
-Server IP/Port 192.168.1.10:3306 UN: dbuser / PW: yourpassword / DB: bitwarden
-mysql://dbuser:yourpassword@192.168.1.10:3306/bitwarden
+Server IP/Port 192.168.1.10:3306 UN: dbuser / PW: yourpassword / DB: vaultwarden
+mysql://dbuser:yourpassword@192.168.1.10:3306/vaultwarden
 ```
 
 ### Example using docker-compose
@@ -69,29 +69,29 @@ services:
    - "/etc/localtime:/etc/localtime:ro"
   environment:
    - "MYSQL_ROOT_PASSWORD=<my-secret-pw>"
-   - "MYSQL_PASSWORD=<bitwarden_pw>"
-   - "MYSQL_DATABASE=bitwarden_db"
-   - "MYSQL_USER=<bitwarden_user>"
+   - "MYSQL_PASSWORD=<vaultwarden_pw>"
+   - "MYSQL_DATABASE=vaultwarden_db"
+   - "MYSQL_USER=<vaultwarden_user>"
 
- bitwarden:
+ vaultwarden:
   image: "vaultwarden/server:latest"
-  container_name: "bitwarden"
-  hostname: "bitwarden"
+  container_name: "vaultwarden"
+  hostname: "vaultwarden"
   restart: always
   env_file:
    - ".env"
   volumes:
-   - "bitwarden_vol:/data/"
+   - "vaultwarden_vol:/data/"
   environment:
 ## Had issues when using single parentheses around the mysql URL as in the plain docker example 
-   - "DATABASE_URL=mysql://<bitwarden_user>:<bitwarden_pw>@mariadb/bitwarden_db"
+   - "DATABASE_URL=mysql://<vaultwarden_user>:<vaultwarden_pw>@mariadb/vaultwarden_db"
    - "ADMIN_TOKEN=<some_random_token_as_per_above_explanation>"
    - "RUST_BACKTRACE=1"
   ports:
    - "80:80"
 
 volumes:
- bitwarden_vol:
+ vaultwarden_vol:
  mariadb_vol:
 ```
 
@@ -171,6 +171,6 @@ sed -i 's#\"#\#g' mysqldump.sql
 ```bash
 mysql --password --user=vaultwarden
 use vaultwarden
-source /bw-data/mysqldump.sql
+source /vw-data/mysqldump.sql
 exit
 ```
