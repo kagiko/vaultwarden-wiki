@@ -6,7 +6,7 @@ This article demonstrates how to create such a setup using the [Caddy](https://c
 
 Two DNS providers are covered:
 
-* [Duck DNS](https://www.duckdns.org/) -- This gives you a subdomain under `duckdns.org` (e.g., `my-bwrs.duckdns.org`). This option is simplest if you don't already own a domain.
+* [Duck DNS](https://www.duckdns.org/) -- This gives you a subdomain under `duckdns.org` (e.g., `my-vw.duckdns.org`). This option is simplest if you don't already own a domain.
 * [Cloudflare](https://www.cloudflare.com/) -- This lets you put your vaultwarden instance under a domain you own or control. Note that Cloudflare can be used as just a DNS provider (i.e., without the proxying functionality that Cloudflare is best known for). If you don't currently own a domain, you may be able to get a free one at [Freenom](https://www.freenom.com/).
 
 It's certainly possible to create a similar setup using other combinations of web server, [ACME client](https://letsencrypt.org/docs/client-options/), and DNS provider, but you'll have to work out the differences in details.
@@ -25,7 +25,7 @@ Move the `caddy` binary to `/usr/local/bin/caddy` or some other appropriate dire
 
 ## Duck DNS setup
 
-If you don't already have an account, create one at https://www.duckdns.org/. Create a subdomain for your vaultwarden instance (e.g., `my-bwrs.duckdns.org`), setting its IP to your vaultwarden host's private IP (e.g., `192.168.1.100`). Make note of your account's token (a string in [UUID](https://en.wikipedia.org/wiki/UUID) format). Caddy will need this token to solve the DNS challenge.
+If you don't already have an account, create one at https://www.duckdns.org/. Create a subdomain for your vaultwarden instance (e.g., `my-vw.duckdns.org`), setting its IP to your vaultwarden host's private IP (e.g., `192.168.1.100`). Make note of your account's token (a string in [UUID](https://en.wikipedia.org/wiki/UUID) format). Caddy will need this token to solve the DNS challenge.
 
 Create a file named `Caddyfile` with the following content:
 ```
@@ -40,7 +40,7 @@ Create a file named `Caddyfile` with the following content:
 
 Create a file named `caddy.env` with the following content (replacing each value as appropriate):
 ```
-DOMAIN=my-bwrs.duckdns.org
+DOMAIN=my-vw.duckdns.org
 DUCKDNS_TOKEN=00112233-4455-6677-8899-aabbccddeeff
 ```
 
@@ -57,11 +57,11 @@ export WEBSOCKET_ENABLED=true
 ./vaultwarden
 ```
 
-You should now be able to reach your vaultwarden instance at https://my-bwrs.duckdns.org.
+You should now be able to reach your vaultwarden instance at https://my-vw.duckdns.org.
 
 ## Cloudflare setup
 
-If you don't already have an account, create one at https://www.cloudflare.com/; you'll also have to go to your domain registrar to set your nameservers to the ones assigned to you by Cloudflare. Create a subdomain for your vaultwarden instance (e.g., `bwrs.example.com`), setting its IP to your vaultwarden host's private IP (e.g., `192.168.1.100`). For example:
+If you don't already have an account, create one at https://www.cloudflare.com/; you'll also have to go to your domain registrar to set your nameservers to the ones assigned to you by Cloudflare. Create a subdomain for your vaultwarden instance (e.g., `vw.example.com`), setting its IP to your vaultwarden host's private IP (e.g., `192.168.1.100`). For example:
 
 ![A record config](https://i.imgur.com/BBvy4Yj.png)
 
@@ -92,7 +92,7 @@ Create a file named `Caddyfile` with the following content:
 
 Create a file named `caddy.env` with the following content (replacing each value as appropriate):
 ```
-DOMAIN=bwrs.example.com
+DOMAIN=vw.example.com
 CLOUDFLARE_API_TOKEN=<your-api-token>
 ```
 
@@ -109,7 +109,7 @@ export WEBSOCKET_ENABLED=true
 ./vaultwarden
 ```
 
-You should now be able to reach your vaultwarden instance at https://bwrs.example.com.
+You should now be able to reach your vaultwarden instance at https://vw.example.com.
 
 ## Getting certs using the `lego` CLI
 
@@ -120,18 +120,18 @@ In the DuckDNS example above, Caddy used the `lego` library to get certs via DNS
 Here's an example of how to do this:
 
 1. Download a pre-built `lego` binary for your system from https://github.com/go-acme/lego/releases. Extract the contents to some directory, say, `/usr/local/lego`.
-2. From that directory, run `DUCKDNS_TOKEN=<token> ./lego -a --dns duckdns -d my-bwrs.duckdns.org -m me@example.com run`,
+2. From that directory, run `DUCKDNS_TOKEN=<token> ./lego -a --dns duckdns -d my-vw.duckdns.org -m me@example.com run`,
    substituting appropriate values for the token, domain, and email address. This registers you with Let's Encrypt and
    fetches a certificate for your domain.
-3. Set up a weekly cron job to run `DUCKDNS_TOKEN=<token> ./lego --dns duckdns -d my-bwrs.duckdns.org -m me@example.com renew`.
+3. Set up a weekly cron job to run `DUCKDNS_TOKEN=<token> ./lego --dns duckdns -d my-vw.duckdns.org -m me@example.com renew`.
    This renews your certificate as it nears expiration.
 
 (Note: `lego` requests ECC/ECDSA certs by default. If you are using the [[Rocket HTTPS server|Enabling-HTTPS#via-rocket]] built into vaultwarden, you will need to request RSA certs instead. In the `lego` commands above, add the option `--key-type rsa2048`.)
 
 In this example, the generated outputs you need to configure your reverse proxy with are:
 
-* `/usr/local/lego/.lego/certificates/my-bwrs.duckdns.org.crt` (certificate)
-* `/usr/local/lego/.lego/certificates/my-bwrs.duckdns.org.key` (private key)
+* `/usr/local/lego/.lego/certificates/my-vw.duckdns.org.crt` (certificate)
+* `/usr/local/lego/.lego/certificates/my-vw.duckdns.org.key` (private key)
 
 ## References
 
