@@ -51,7 +51,7 @@ The default user in many Linux distros has uid/gid 1000 (run the `id` command to
 To do the same in `docker-compose`:
 
     services:
-      bitwarden:
+      vaultwarden:
         image: vaultwarden/server:latest
         container_name: bitwarden
         user: 1000:1000
