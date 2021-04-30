@@ -68,6 +68,20 @@ If you prefer, you can also directly specify a value instead of substituting an 
   # if you encounter issues.
   encode gzip
 
+  # Uncomment to improve security (WARNING: only use if you understand the implications!)
+  # header {
+  #      # Enable HTTP Strict Transport Security (HSTS)
+  #      Strict-Transport-Security "max-age=31536000;"
+  #      # Enable cross-site filter (XSS) and tell browser to block detected attacks
+  #      X-XSS-Protection "1; mode=block"
+  #      # Disallow the site to be rendered within a frame (clickjacking protection)
+  #      X-Frame-Options "DENY"
+  #      # Prevent search engines from indexing (optional)
+  #      X-Robots-Tag "none"
+  #      # Server name removing
+  #      -Server
+  # }
+
   # Uncomment to allow access to the admin interface only from local networks
   # @insecureadmin {
   #   not remote_ip 192.168.0.0/16 172.16.0.0/12 10.0.0.0/8
