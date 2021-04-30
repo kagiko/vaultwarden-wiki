@@ -53,7 +53,7 @@ Features that probably won't be added unless contributed:
 
 ## Get in touch
 
-To ask a question, offer suggestions, request new features, or get help configuring or installing the software, please [use the forum](https://bitwardenrs.discourse.group/).
+To ask a question, offer suggestions, request new features, or get help configuring or installing the software, please [use the forum](https://vaultwarden.discourse.group/).
 
 If you spot any bugs or crashes with vaultwarden itself, please [create an issue](https://github.com/dani-garcia/vaultwarden/issues/). Make sure there aren't any similar issues open, though!
 

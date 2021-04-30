@@ -60,7 +60,7 @@ There are two ways to solve this.
 
 ## I did not find my answer here in the FAQ, what to do next?
 Well, please try to search and click through our wonderful [Wiki](https://github.com/dani-garcia/vaultwarden/wiki).  
-If that does not help you, try to look at either [Github Discussions](https://github.com/dani-garcia/vaultwarden/discussions) or [Vaultwarden Forums](https://bitwardenrs.discourse.group/).  
+If that does not help you, try to look at either [Github Discussions](https://github.com/dani-garcia/vaultwarden/discussions) or [Vaultwarden Forums](https://vaultwarden.discourse.group/).  
 If that also results in no solution, you could try to search the open and closed [Issues](https://github.com/dani-garcia/vaultwarden/issues).
 
-If you still have not found an answer, you can start a topic on either [Github Discussions](https://github.com/dani-garcia/vaultwarden/discussions) or [Vaultwarden Forums](https://bitwardenrs.discourse.group/), or joins us in our [chatroom](https://matrix.to/#/#vaultwarden:matrix.org).
+If you still have not found an answer, you can start a topic on either [Github Discussions](https://github.com/dani-garcia/vaultwarden/discussions) or [Vaultwarden Forums](https://vaultwarden.discourse.group/), or joins us in our [chatroom](https://matrix.to/#/#vaultwarden:matrix.org).
