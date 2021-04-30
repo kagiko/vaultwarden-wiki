@@ -1,7 +1,7 @@
 As a convenience vaultwarden image will also host static files for Vault web interface. You can disable this static file hosting completely by setting the WEB_VAULT_ENABLED variable.
 
 ```sh
-docker run -d --name bitwarden \
+docker run -d --name vaultwarden \
   -e WEB_VAULT_ENABLED=false \
   -v /vw-data/:/data/ \
   -p 80:80 \
@@ -10,7 +10,7 @@ docker run -d --name bitwarden \
 Alternatively you can override the Vault files and provide your own static files to host. You can do that by mounting a path with your files over the `/web-vault` directory in the container. Just make sure the directory contains at least `index.html` file.
 
 ```sh
-docker run -d --name bitwarden \
+docker run -d --name vaultwarden \
   -v /path/to/static/files_directory:/web-vault \
   -v /vw-data/:/data/ \
   -p 80:80 \
