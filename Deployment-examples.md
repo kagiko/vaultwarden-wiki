@@ -82,3 +82,10 @@ See [Proxy Examples](https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examp
 If you have any Questions about this part, feel Free to contact me. I on @litschi:litschi.xyz on matrix an litschi on IRC (hackint and freenode) or simply ask in the vaultwarden matrix.org chanel.
 
 </details>
+
+## QNAP NAS (ARM and x86)
+
+* https://github.com/umireon/vaultwarden-qnap
+
+You can install Vaultwarden into your secure network-attached storage (NAS) with Let's Encrypt.
+Due to the QNAP's built-in HTTP(S) server, you cannot publish Vaultwarden on the standard HTTP(S) port (80 / 443).
