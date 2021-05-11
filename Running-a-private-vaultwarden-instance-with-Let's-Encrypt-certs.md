@@ -15,11 +15,11 @@ It's certainly possible to create a similar setup using other combinations of we
 
 DNS challenge support is not built into Caddy by default, as most people don't use this challenge method, and it requires a custom implementation for each DNS provider.
 
-The easiest way to get a version of Caddy with the necessary DNS challenge modules is via https://caddyserver.com/download. Select your platform, check the box for `github.com/caddy-dns/cloudflare` (for Cloudflare support) and/or `github.com/caddy-dns/lego-deprecated` (for Duck DNS support), and then click `Download`.
+The easiest way to get a version of Caddy with the necessary DNS challenge modules is via https://caddyserver.com/download. Select your platform, check the box for `github.com/caddy-dns/cloudflare` (for Cloudflare support) and/or `github.com/caddy-dns/duckdns` (for Duck DNS support), and then click `Download`.
 
 If you prefer to build from source, you can use [`xcaddy`](https://caddyserver.com/docs/build#xcaddy). For example, to create a build that includes both Cloudflare and Duck DNS support:
 
-    xcaddy build --with github.com/caddy-dns/cloudflare --with github.com/caddy-dns/lego-deprecated
+    xcaddy build --with github.com/caddy-dns/cloudflare --with github.com/caddy-dns/duckdns
 
 Move the `caddy` binary to `/usr/local/bin/caddy` or some other appropriate directory in your path. Optionally, run `sudo setcap cap_net_bind_service=+ep /usr/local/bin/caddy` to allow `caddy` to listen on privileged ports (< 1024) without running as root.
 
@@ -31,7 +31,7 @@ Create a file named `Caddyfile` with the following content:
 ```
 {$DOMAIN}:443 {
     tls {
-        dns lego_deprecated duckdns
+        dns duckdns {$DUCKDNS_TOKEN}
     }
     reverse_proxy localhost:8080
     reverse_proxy /notifications/hub localhost:3012
@@ -83,7 +83,7 @@ Create a file named `Caddyfile` with the following content:
 ```
 {$DOMAIN}:443 {
     tls {
-        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+        dns cloudflare {$CLOUDFLARE_API_TOKEN}
     }
     reverse_proxy localhost:8080
     reverse_proxy /notifications/hub localhost:3012
@@ -143,8 +143,9 @@ In this example, the generated outputs you need to configure your reverse proxy 
 ### Caddy Cloudflare module
 
 * https://github.com/caddy-dns/cloudflare
+* https://go-acme.github.io/lego/dns/cloudflare/
 
 ### Caddy Duck DNS module
 
-* https://github.com/caddy-dns/lego-deprecated
+* https://github.com/caddy-dns/duckdns
 * https://go-acme.github.io/lego/dns/duckdns/
