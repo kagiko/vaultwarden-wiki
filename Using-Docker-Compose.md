@@ -133,7 +133,7 @@ In the same directory, create the `Caddyfile` below. (This file does not need to
 
   # Use the ACME DNS-01 challenge to get a cert for the configured domain.
   tls {
-    dns lego_deprecated duckdns
+    dns duckdns {$DUCKDNS_TOKEN}
   }
 
   # This setting may have compatibility issues with some browsers
