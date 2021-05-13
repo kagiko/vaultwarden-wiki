@@ -28,6 +28,7 @@ vaultwarden implements the Bitwarden APIs required for most functionality, inclu
   * [Password Generator](https://bitwarden.com/help/article/policies/#password-generator)
   * [Personal Ownership](https://bitwarden.com/help/article/policies/#personal-ownership)
   * [Disable Send](https://bitwarden.com/help/article/policies/#disable-send)
+  * [Send Options](https://bitwarden.com/help/article/policies/#send-options)
 
 ## Missing features
 
