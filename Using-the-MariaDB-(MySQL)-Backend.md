@@ -6,7 +6,7 @@ If you insist to use MySQLv8 instead of MariaDB then create a user using an old 
 
 :warning: :poop: :warning:
 
-:warning: Alpine is currently **not** support, on amd64 Alpine supports sqlite and postgresql, on armv7 it only supports sqlite.
+:warning: Alpine is currently **not** supported, on amd64 Alpine supports sqlite and postgresql, on armv7 it only supports sqlite.
 
 ---
 
@@ -26,7 +26,7 @@ If your password contains special characters, you will need to use percentage en
 
 A complete list of codes can be found on [Wikipedia page for percent encoding](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters)
 
-##Example using Docker:
+## Example using Docker
 
 ```bash
 # Start a mysql container
@@ -45,7 +45,7 @@ docker run -d --name vaultwarden --net <some-docker-network>\
  -e ENABLE_DB_WAL='false' <you vaultwarden image name>
 ```
 
-### Example using Non-Docker MySQL Server:
+### Example using Non-Docker MySQL Server
 
 ```
 Server IP/Port 192.168.1.10:3306 UN: dbuser / PW: yourpassword / DB: vaultwarden
