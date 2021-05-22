@@ -6,6 +6,8 @@ Note that when you put vaultwarden behind a reverse proxy, the connections betwe
 
 It's common to use [Docker Compose](https://docs.docker.com/compose/) to link containerized services together (e.g., vaultwarden and a reverse proxy). See [[Using Docker Compose|Using-Docker-Compose]] for an example of this.
 
+Secure TLS protocol and cipher configurations for webservers can be generated using Mozilla's [SSL Configuration Generator](https://ssl-config.mozilla.org/). All supported browsers and the Mobile apps are known to work with the "Modern" configuration.
+
 <details>
 <summary>Caddy 1.x (deprecated)</summary><br/>
 
@@ -547,3 +549,16 @@ backend vaultwarden_ws
     server vw_ws 0.0.0.0:3012
 ```
 </details>
+
+## Validate your SSL/TLS configuration
+
+1. Check that your Bitwarden page does not throw any security issue in a browser.
+2. Validate your configuration with e.g. [Qualys' SSL Labs](https://www.ssllabs.com/ssltest/)
+3. Validate your OCSP stapling with e.g. [Digicert SSL Certficate Checker](https://www.digicert.com/help/). The revocation check section must contain 'OCSP Staple: 	Good'.
+
+## Known SSL issues
+
+### Mobile app: `Chain validation failed`
+
+Validate that your SSL/TLS configuration is proper.
+If your OCSP stapling is not working, the mobile app will throw this error even if in a browser the site is listed as "Connection Secure" and SSLLabs doesn't show any problems.
