@@ -13,7 +13,7 @@ For an HTTPS server to work, it also needs an SSL/TLS certificate, so you'll nee
 * (Recommended) If you trust [Cloudflare](https://www.cloudflare.com/) to proxy your traffic, you can let them handle issuance of your SSL/TLS certs. Note that the upstream Bitwarden web vault (https://vault.bitwarden.com/) runs behind Cloudflare.
 * (Not recommended) [[Set up a private CA|Private-CA-and-self-signed-certs-that-work-with-Chrome]] and issue your own (self-signed) certificates. There are various pitfalls and inconveniences associated with this, so consider yourself warned.
 
-Refer to the [Getting SSL/TLS certificates](#getting-ssltls-certificates) section for more details on these options.
+Refer to the [Getting SSL/TLS certificates](#getting-ssltls-certificates) section for more details on these options. For the mobile app to work, you must have properly configured [OCSP stapling](https://en.wikipedia.org/wiki/OCSP_stapling) set up.
 
 ## Enabling HTTPS
 
