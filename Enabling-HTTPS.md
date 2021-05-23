@@ -72,20 +72,21 @@ docker run -d --name bitwarden \
   vaultwarden/server:latest
 ```
 
-#### Check if certificate is valid
-When your vaultwarden server is available to the outside world you can use https://comodosslstore.com/ssltools/ssl-checker.php to check if your SSL certificate is valid including the chain. Without the chain Android devices will fail to connect.
+### Check if certificate is valid
 
-You can also use https://www.ssllabs.com/ssltest/analyze.html to check, but that one does not support custom ports. Also please remember to check the "Do not show the results on the boards" checkbox, else your system will be visible in the "Recently Seen" list.
+When your vaultwarden server is available to the outside world you can use [Comodo SSL Checker](https://comodosslstore.com/ssltools/ssl-checker.php), [Qualys' SSL Labs](https://www.ssllabs.com/ssltest/) or [Digicert SSL Certficate Checker](https://www.digicert.com/help/) to check if your SSL certificate is valid including the chain. Without the chain Android devices will fail to connect.
 
-If you run a local server which does not have a connection to the public internet you could use the openssl tools to verify your certificate.
+You can also use [Qualys' SSL Labs](https://www.ssllabs.com/ssltest/analyze.html) to check, but that one does not support custom ports. Also please remember to check the "Do not show the results on the boards" checkbox, else your system will be visible in the "Recently Seen" list.
+
+If you run a local server which does not have a connection to the public internet you could use the `openssl` command, [testssl.sh](https://testssl.sh/), or [SSLScan](https://github.com/rbsec/sslscan/) to verify your certificate's validity.
 
 Execute the following to verify if the certificate is installed with the chains.
-Chaing vault.domain.com to your own domain name.
+Change vault.domain.com to your own domain name.
 ```bash
-openssl s_client -showcerts -connect vault.domain.com:443
+openssl s_client -showcerts -connect vault.domain.com:443 -servername vault.domain.com
 
 # or with a different port
-openssl s_client -showcerts -connect vault.domain.com:7070
+openssl s_client -showcerts -connect vault.domain.com:7070 -servername vault.domain.com
 ```
 The start of the output should look something like this (when using a Let's Encrypt cert):
 ```
@@ -100,6 +101,11 @@ verify return:1
 
 Verify that there are 3 different depths (notice it starts at 0).
 A bit further in the output you should see the base64-encoded certificates from Let's Encrypt itself.
+
+#### Check OSCP validity
+
+Connecting a mobile app will fail with message `Chain validation failed` if OCSP Stapling isn't working properly.
+[Digicert SSL Certficate Checker](https://www.digicert.com/help/)'s revocation check section contains 'OCSP Staple: 	Good' once OCSP stapling is setup properly. Your webserver must be able to connect to the 'Authority Information Access' URLs that are part of your certificate's X509v3 extensions for OCSP stapling to work.
 
 ## Getting SSL/TLS certificates
 
