@@ -9,7 +9,6 @@ It's common to use [Docker Compose](https://docs.docker.com/compose/) to link co
 Secure TLS protocol and cipher configurations for webservers can be generated using Mozilla's [SSL Configuration Generator](https://ssl-config.mozilla.org/). All supported browsers and the Mobile apps are known to work with the "Modern" configuration.
 
 <details>
-<details>
 <summary>Caddy 2.x</summary><br/>
 
 Caddy 2 can automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/docs/automatic-https).
