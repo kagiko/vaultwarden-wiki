@@ -91,9 +91,6 @@ If you prefer, you can also directly specify a value instead of substituting an 
   # }
   # redir @insecureadmin /
 
-  # The negotiation endpoint is also proxied to Rocket
-  reverse_proxy /notifications/hub/negotiate <SERVER>:8081
-
   # Notifications redirected to the websockets server
   reverse_proxy /notifications/hub <SERVER>:3012
 
