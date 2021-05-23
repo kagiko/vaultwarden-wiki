@@ -9,37 +9,6 @@ It's common to use [Docker Compose](https://docs.docker.com/compose/) to link co
 Secure TLS protocol and cipher configurations for webservers can be generated using Mozilla's [SSL Configuration Generator](https://ssl-config.mozilla.org/). All supported browsers and the Mobile apps are known to work with the "Modern" configuration.
 
 <details>
-<summary>Caddy 1.x (deprecated)</summary><br/>
-
-Caddy can also automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/v1/docs/automatic-https).
-```nginx
-:443 {
-  tls ${SSLCERTIFICATE} ${SSLKEY}
-  # or 'tls self_signed' to generate a self-signed certificate
-
-  # This setting may have compatibility issues with some browsers
-  # (e.g., attachment downloading on Firefox). Try disabling this
-  # if you encounter issues.
-  gzip
-
-  # The negotiation endpoint is also proxied to Rocket
-  proxy /notifications/hub/negotiate <SERVER>:80 {
-    transparent
-  }
-
-  # Notifications redirected to the websockets server
-  proxy /notifications/hub <SERVER>:3012 {
-    websocket
-  }
-
-  # Proxy the Root directory to Rocket
-  proxy / <SERVER>:80 {
-    transparent
-  }
-}
-```
-</details>
-
 <details>
 <summary>Caddy 2.x</summary><br/>
 
