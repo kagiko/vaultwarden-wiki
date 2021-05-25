@@ -52,6 +52,16 @@ Features that probably won't be added unless contributed:
 * [Groups](https://bitwarden.com/help/article/about-groups/)
 * [Custom roles](https://bitwarden.com/help/article/user-types-access-control/#custom-role)
 
+## Backup
+Backing up the database is not supported inside vaultwarden but can be done manually. The `/data` folder contains all the necessary files to restore data. The list below is a breakdown of all the files and folders and if they are mandatory or optional for restoration:
+* `/attachments` (optional/required, depending if you want to keep your attachments)
+* `/sends` (optional/required, depending if you want to keep your sends)
+* `/icon_cache` (optional)
+* `db.sqlite3` (required)
+* `rsa_key*` (optional)
+
+There are repositories such as [dani-garcia/vaultwarden](https://github.com/dani-garcia/vaultwarden) and [bruceforce/bitwarden_rs-backup](https://github.com/Bruceforce/bitwarden_rs-backup) that automatically do this.
+
 ## Get in touch
 
 To ask a question, offer suggestions, request new features, or get help configuring or installing the software, please [use the forum](https://vaultwarden.discourse.group/).
