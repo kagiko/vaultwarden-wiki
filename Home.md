@@ -52,8 +52,6 @@ Features that probably won't be added unless contributed:
 * [Groups](https://bitwarden.com/help/article/about-groups/)
 * [Custom roles](https://bitwarden.com/help/article/user-types-access-control/#custom-role)
 
-There are repositories such as [ttionya/vaultwarden-backup](https://github.com/ttionya/vaultwarden-backup) and [bruceforce/bitwarden_rs-backup](https://github.com/Bruceforce/bitwarden_rs-backup) that automatically do this.
-
 ## Get in touch
 
 To ask a question, offer suggestions, request new features, or get help configuring or installing the software, please [use the forum](https://vaultwarden.discourse.group/).
