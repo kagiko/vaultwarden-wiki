@@ -60,7 +60,7 @@ Backing up the database is not supported inside vaultwarden but can be done manu
 * `db.sqlite3` (required)
 * `rsa_key*` (optional)
 
-There are repositories such as [dani-garcia/vaultwarden](https://github.com/dani-garcia/vaultwarden) and [bruceforce/bitwarden_rs-backup](https://github.com/Bruceforce/bitwarden_rs-backup) that automatically do this.
+There are repositories such as [ttionya/vaultwarden-backup](https://github.com/ttionya/vaultwarden-backup) and [bruceforce/bitwarden_rs-backup](https://github.com/Bruceforce/bitwarden_rs-backup) that automatically do this.
 
 ## Get in touch
 
