@@ -52,7 +52,7 @@ sqlite3 data/db.sqlite3 "VACUUM INTO '/path/to/backups/db-$(date '+%Y%m%d-%H%M')
 ```
 Assuming this command is run on January 1, 2021 at 12:34pm (local time), this backs up your SQLite database file to `/path/to/backups/db-20210101-1234.sqlite3`.
 
-You can run this command via a cron job periodically (preferably at least once a day).
+You can run this command via a cron job periodically (preferably at least once a day). If you are running via Docker, note that the Docker images do not include an `sqlite3` binary or `cron` daemon, so you would generally install these on the Docker host itself and run the cron job outside of the container. If you really want to run backups from within the container for some reason, you can install any necessary packages during [container startup](https://github.com/dani-garcia/vaultwarden/wiki/Starting-a-Container#customizing-container-startup), or create your own custom Docker image with your preferred `vaultwarden/server:<tag>` image as the parent.
 
 If you want to copy your backup data to cloud storage, [rclone](https://rclone.org/) is a useful tool for interfacing with various cloud storage systems. [restic](https://restic.net/) is another good option, especially if you have larger attachments and want to avoid recopying them as part of each backup.
 
