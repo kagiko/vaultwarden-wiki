@@ -133,6 +133,17 @@ In this example, the generated outputs you need to configure your reverse proxy 
 * `/usr/local/lego/.lego/certificates/my-vw.duckdns.org.crt` (certificate)
 * `/usr/local/lego/.lego/certificates/my-vw.duckdns.org.key` (private key)
 
+## Troubleshooting
+
+### DNS issues
+
+If you get a DNS resolution error for your subdomain (e.g., `DNS_PROBE_FINISHED_NXDOMAIN` or `ERR_NAME_NOT_RESOLVED`), your DNS resolver is probably blocking resolution because:
+
+1. It blocks dynamic DNS services for security reasons.
+2. It blocks domains that resolve to private (RFC 1918) IP addresses to prevent [DNS rebinding](https://en.wikipedia.org/wiki/DNS_rebinding) attacks, or for some other reason.
+
+In either case, you might try using another DNS resolver, such as Google's `8.8.8.8` or Cloudflare's `1.1.1.1`. In the second case, if you're running behind a local DNS server like dnsmasq or Unbound, you may be able to configure it to either disable DNS rebind protection entirely, or allow certain domains to return private addresses.
+
 ## References
 
 ### DNS Challenge
