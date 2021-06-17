@@ -5,10 +5,10 @@ vaultwarden doesn't currently provide standalone binaries as a separate download
 Assuming you want to extract binaries for the platform you're running on:
 ```
 docker pull vaultwarden/server:alpine
-docker create --name vwrs vaultwarden/server:alpine
-docker cp vwrs:/vaultwarden .
-docker cp vwrs:/web-vault .
-docker rm vwrs
+docker create --name vw vaultwarden/server:alpine
+docker cp vw:/vaultwarden .
+docker cp vw:/web-vault .
+docker rm vw
 ```
 
 If you want binaries for a different platform (for example, you only have Docker installed on your x86-64 machine, but you want to run vaultwarden on a Raspberry Pi), add the `--platform` option to the `docker pull` command:
@@ -25,8 +25,8 @@ docker pull --platform linux/arm/v7 vaultwarden/server:alpine
 
 If you can't or don't want to install Docker, you can use the [docker-image-extract](https://github.com/jjlin/docker-image-extract) script to pull and extract a Docker image. For example, to pull and extract the x86-64 image:
 ```
-$ mkdir vwrs-image
-$ cd vwrs-image
+$ mkdir vw-image
+$ cd vw-image
 $ wget https://raw.githubusercontent.com/jjlin/docker-image-extract/main/docker-image-extract
 $ chmod +x docker-image-extract
 $ ./docker-image-extract vaultwarden/server:alpine
