@@ -1,15 +1,13 @@
-> WAL is an SQLite only setting and has no effect with Postgres or MySQL.
+> WAL is an SQLite-specific setting. It is not applicable to MySQL or PostgreSQL; if you are using one of these backends, the `ENABLE_DB_WAL` config option has no effect.
 
 By default during the startup `vaultwarden` will try to enable [WAL](https://sqlite.org/wal.html) for the DB. Adding this improves performance and in the past helped preventing failed requests under some circumstances.
 
 ## Reasons to turn WAL off
 
-Generally speaking unless you're absolutely sure, that you need to turn WAL off, you should leave it enabled. However there might be some valid cases to turn it off. For example:
+Generally speaking, unless you're absolutely sure that you need to turn WAL off, you should leave it enabled. However, there might be some valid cases to turn it off. For example:
 
 * Some filesystems don't support WAL - this is especially true for network filesystems. If you're using such filesystem, the service will fail to start with `Failed to turn on WAL` error message.
 * The database requires sqlite version `3.7.0` or newer, so if you for any reason (for example backups) require to access the DB directly with some other tool that cannot be updated, you might need to disable WAL.
-* You are [using the MySQL backend](https://github.com/dani-garcia/vaultwarden/wiki/Using-the-MySQL-Backend)
-* You are [using the PostgreSQL backend](https://github.com/dani-garcia/vaultwarden/wiki/Using-the-PostgreSQL-Backend)
 * One of the [disadvantages described here](https://sqlite.org/wal.html#advantages) affects you
 
 ## How to turn WAL off
