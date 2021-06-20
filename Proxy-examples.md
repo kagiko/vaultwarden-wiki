@@ -496,7 +496,7 @@ frontend http-in
     default_backend static-success-default
 
     # Define hosts
-    acl host_bitwarden_domain_tld hdr_dom(Host) -i bitwarden.domain.tld
+    acl host_bitwarden_domain_tld hdr(Host) -i bitwarden.domain.tld
 
     ## figure out which one to use
     use_backend vaultwarden_http if host_bitwarden_domain_tld !{ path_beg /notifications/hub } or { path_beg /notifications/hub/negotiate }
