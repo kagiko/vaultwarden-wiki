@@ -50,6 +50,12 @@ If that does work, there could also be a firewall or Outgoing Internet Proxy whi
 <br>
 <br>
 
+## Websocket connections show wrong IP address
+This is not something we can fix on our side. The library we use doesn't support any form of `X-Forwarded-For` or `Forward` headers.  
+It will always show the IP of the reverse proxy used unless you run vaultwarden directly without any proxy, or run a transparent proxy, that could cause it to do show the correct IP. It is not an important part to log, and if you use a reverse proxy you can probably also see this request in its logs which will have the correct IP.
+<br>
+<br>
+
 ## Can i run Vaultwarden as an Azure WebApp
 Unfortunately Azure WebApp's uses CIFS/Samba as there volume storage which does not support locking. This causes issues with the SQLite database file.  
 There are two ways to solve this.
