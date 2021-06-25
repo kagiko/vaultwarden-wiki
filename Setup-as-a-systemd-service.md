@@ -145,6 +145,16 @@ This is known to occur when vaultwarden is running inside a container (LXC, et a
 ```
 then reloading the daemon & restarting.
 
+### environment variable it's not loaded
+
+Please not systemd does not support comment in same line as a variable in `EnvironmentFile` file. In this `.env` file example the variable" WEBSOCKET_ENABLED "will not be loaded.
+```
+ROCKET_PORT=XXXX
+WEBSOCKET_ENABLED=true # enable websocket
+```
+
+Source: [#1607](/dani-garcia/vaultwarden/issues/1607)
+
 
 ## More information
 For more information on .service files, see the manpages of [systemd.service](https://www.freedesktop.org/software/systemd/man/systemd.service.html) and (for the security configuration) [systemd.exec](https://www.freedesktop.org/software/systemd/man/systemd.exec.html)
