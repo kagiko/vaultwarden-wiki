@@ -175,7 +175,7 @@ source /vw-data/mysqldump.sql
 exit
 ```
 
-*Note 2: If MariaDB might complain about mismatched value counts if SQLite database is migrated from a prior, older version, e.g.:
+*Note 2: If MariaDB might complain about mismatched value counts if SQLite database is migrated from a prior, older version, e.g.:*
 ```
 ERROR 1136 (21S01) at line ###: Column count doesn't match value count at row 1
 ```
