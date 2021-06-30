@@ -160,7 +160,7 @@ Note (Code 1265): Data truncated for column 'created_at' at row 1
 Note (Code 1265): Data truncated for column 'updated_at' at row 1
 ```
 
-*Note1:Then error loading data  mysqldump.sql Load error*
+*Note 1:Then error loading data  mysqldump.sql Load error*
 ```
 error (1064): Syntax error near '"users" VALUES('9b5c2d13-8c4f-47e9-bd94-f0d7036ff581'*********)
 ```
@@ -174,3 +174,9 @@ use vaultwarden
 source /vw-data/mysqldump.sql
 exit
 ```
+
+*Note 2: If MariaDB might complain about mismatched value counts if SQLite database is migrated from a prior, older version, e.g.:
+```
+ERROR 1136 (21S01) at line ###: Column count doesn't match value count at row 1
+```
+The version jump may have added new database columns. Upgrade vaultwarden using the SQLite backend first to run migrations on the SQLite database, switch to the MariaDB backend, then repeat migration steps above. Alternatively, look for the commits adding migrations since the version you had installed and run migrations manually using `sqlite3`
