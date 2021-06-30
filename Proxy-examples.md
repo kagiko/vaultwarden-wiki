@@ -123,7 +123,7 @@ server {
 ```
 </details>
 
-<details name="nginx">
+<details>
 <summary>Nginx with sub-path (by BlackDex)</summary><br/>
 
 In this example vaultwarden will be available via https://bitwarden.example.tld/vault/<br/>
