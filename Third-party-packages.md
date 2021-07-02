@@ -2,7 +2,7 @@ This page is an index of third-party vaultwarden packages. As these packages are
 
 ## Arch Linux
 
-Available in the [official repositories](https://www.archlinux.org/packages/community/x86_64/bitwarden_rs/), along with the [web vault](https://www.archlinux.org/packages/community/any/bitwarden_rs-web/).
+Available in the [official repositories](https://archlinux.org/packages/community/x86_64/vaultwarden/), along with the [web vault](https://archlinux.org/packages/community/any/vaultwarden-web/).
 
 ## Debian
 
