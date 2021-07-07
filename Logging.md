@@ -5,9 +5,9 @@ vaultwarden logs only to [standard output](https://en.wikipedia.org/wiki/Standar
 Logging to a file is supported as of version 1.5.0. You can specify the path to the log file with the `LOG_FILE` environment variable:
 
 ```sh
-docker run -d --name bitwarden \
+docker run -d --name vaultwarden \
 ...
-  -e LOG_FILE=/data/bitwarden.log \
+  -e LOG_FILE=/data/vaultwarden.log \
 ...
 ```
 
@@ -20,7 +20,7 @@ To reduce the amount of log messages, you can set the log level to 'warn' (defau
 `LOG_LEVEL` options are: "trace", "debug", "info", "warn", "error" or "off".
 
 ```sh
-docker run -d --name bitwarden \
+docker run -d --name vaultwarden \
 ...
   -e LOG_LEVEL=warn -e EXTENDED_LOGGING=true \
 ...
