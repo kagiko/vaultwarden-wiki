@@ -222,7 +222,6 @@ sudo systemctl reload fail2ban
 Now just try to login to vaultwarden using any email (it doesn't have to be a valid email, just an email format)
 If it works correctly and your IP is banned, you can unban the IP by running:
 
-Without Docker:  
 ```bash
 # With Docker
 sudo docker exec -t fail2ban fail2ban-client set vaultwarden unbanip XX.XX.XX.XX
