@@ -52,6 +52,9 @@
 1. [[Hardening Guide|Hardening Guide]]
 1. [[Fail2Ban Setup|Fail2Ban-Setup]]
 
+## Backup
+1. [[General (not docker)]]
+
 ## Other Information
 1. [[Importing data from Keepass or KeepassX|Importing-data-from-Keepass-or-KeepassX]]
 1. [[Backing up your vault|Backing-up-your-vault]]
