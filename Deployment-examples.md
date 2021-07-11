@@ -18,9 +18,10 @@ This page is an index of standalone deployment examples. If adding a new example
 
 ## Raspberry Pi
 
-* https://github.com/martient/bitwardenrs-ansible
+* https://github.com/martient/vaultwarden-ansible
 
-  Ansible deployment for vaultwarden on raspberry pi
+  Ansible deployment for vaultwarden on raspberry pi, for migrate from the previous configuration, follow this guide https://martient.medium.com/migrate-from-bitwarden-rs-to-vaultwarden-199aeb6927a3
+
 
 ## Shared hosting
 
