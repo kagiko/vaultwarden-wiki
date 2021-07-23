@@ -514,3 +514,96 @@ backend vaultwarden_ws
     server vw_ws 0.0.0.0:3012
 ```
 </details>
+
+<details>
+<summary>HAproxy inside PfSense (by <a href="https://github.com/RichardMawdsley" target="_blank">@RichardMawdsley</a>)</summary><br/>
+
+Being a GUI setup, details\instructions below for you to add where required. 
+ * Assumes you already have basic HTTP>HTTPS Redirection setup [Basic Setup](https://blog.devita.co/pfsense-to-proxy-traffic-for-websites-using-pfsense/)
+
+
+## Backend Creation
+Backend 1:
+```
+Mode	Name	                   Forwardto	     Address	     Port	 Encrypt(SSL)	SSL checks	Weight	Actions
+active 	Vaultwarden                Address+Port:     IPADDRESSHERE   80          no             no
+```
+Backend 2:
+```
+Mode	Name	                   Forwardto	     Address	     Port	 Encrypt(SSL)	SSL checks	Weight	Actions
+active 	Vaultwarden-Notifications  Address+Port:     IPADDRESSHERE   3012        no             no
+```
+
+## Frontend Creation
+**ACCESS CONTROL LIST**
+``` 	
+ACL1
+Path starts with:
+no
+yes
+/notifications/hub  
+ 	
+ACL2
+Path starts with:
+no
+no
+/notifications/hub/negotiate  
+ 	
+ACL3
+Path starts with:
+no
+no
+/notifications/hub  
+ 	
+ACL4
+Path starts with:
+no
+yes
+/notifications/hub/negotiate
+```
+
+**ACTIONS**
+``` 	
+Use Backend
+See below
+ACL1  
+backend: VaultWarden
+ 	
+Use Backend
+See below
+ACL2  
+backend: VaultWarden
+ 	
+Use Backend
+See below
+ACL3  
+backend: VaultWarden-Notifications
+ 	
+Use Backend
+See below
+ACL4
+backend: VaultWarden-Notifications
+```
+
+**DEFAULT BACKED**
+```
+VaultWarden
+```
+
+Complete! - Go test!
+
+This in turn will add the equivilent of below to your config. 
+
+	acl			ACL1	var(txn.txnpath) -m beg -i /notifications/hub
+	acl			ACL2	var(txn.txnpath) -m beg -i /notifications/hub/negotiate
+	acl			ACL3	var(txn.txnpath) -m beg -i /notifications/hub
+	acl			ACL4	var(txn.txnpath) -m beg -i /notifications/hub/negotiate
+
+	use_backend VaultWarden_ipvANY  if  !ACL1 
+	use_backend VaultWarden_ipvANY  if  ACL2 
+	use_backend VaultWarden-Notifications_ipvANY  if  ACL3 
+	use_backend VaultWarden-Notifications_ipvANY  if  !ACL4 
+	default_backend VanguardII_ipvANY
+
+To test, if you navigate in a browser to /notifications/hub then you should get a page saying "WebSocket Protocol Error: Unable to parse WebSocket key.".. that means its working! - all other sub pages should get a Rocket error.
+</details>
