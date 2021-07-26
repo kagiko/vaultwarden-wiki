@@ -21,7 +21,8 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
 * [Bitwarden Send](https://bitwarden.com/help/article/about-send/)
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (WebSocket only) for desktop/browser clients/extensions
 * [Trash](https://bitwarden.com/help/article/managing-items/#items-in-the-trash) (soft delete)
-* [Master password re-prompt](https://bitwarden.com/help/article/managing-items/#protect-individual-items)* Two-step login via [email](https://bitwarden.com/help/article/setup-two-step-login-email/), [Duo](https://bitwarden.com/help/article/setup-two-step-login-duo/), [YubiKey](https://bitwarden.com/help/article/setup-two-step-login-yubikey/), and [FIDO2 WebAuthn](https://bitwarden.com/help/article/setup-two-step-login-fido/)
+* [Master password re-prompt](https://bitwarden.com/help/article/managing-items/#protect-individual-items)
+* Two-step login via [email](https://bitwarden.com/help/article/setup-two-step-login-email/), [Duo](https://bitwarden.com/help/article/setup-two-step-login-duo/), [YubiKey](https://bitwarden.com/help/article/setup-two-step-login-yubikey/), and [FIDO2 WebAuthn](https://bitwarden.com/help/article/setup-two-step-login-fido/)
 * [Directory Connector](https://bitwarden.com/help/article/directory-sync/) support (basic implementation, no group support)
 * Certain enterprise policies:
   * [Two-Step Login](https://bitwarden.com/help/article/policies/#two-step-login)
