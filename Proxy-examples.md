@@ -647,9 +647,9 @@ Updated above 30/07 - I realised after the first config that because ACL1-4 have
 Updated again 30/07 - ^ Yeah that didnt work.  This all stems because HaProxy doesnt allow for 'AND' in ACL's. Sigh.  Now with the above, you cofigure a front end for you root domain.  This has a deny for itself, and anything not specified.  So if you have multiple other subdomains you're passing through, you need to add them here all under ACL01.  Now everything works as it should!
 ```
 
-**Notes**
+**Important Notes**
 ```
-1) You must keep the Domain up to date with any other sub domains on an allow list
+1) You must keep the Domain FrontEnd up to date with any other sub domains on an allow list
 2) On the Domain FrontEnd, ACL01 must be top of the Actions table - or atleast above ACL00
 3) Duplicate Use of ACL names is intentional. No I havent typoed them.  ACL00, ACL01 etc
 ```
