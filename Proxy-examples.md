@@ -534,7 +534,53 @@ Mode	Name	                   Forwardto	     Address	     Port	 Encrypt(SSL)	SSL 
 active 	Vaultwarden-Notifications  Address+Port:     IPADDRESSHERE   3012        no             no
 ```
 
-## Frontend Creation
+## Frontend Creation - 1 - Domain
+**ACCESS CONTROL LIST**
+``` 	
+ACL00
+Host matches:
+no
+no
+FQDN.com     -  NOTE:  This needs to be your root domain.  
+ 	
+ACL00
+Path starts with:
+no
+yes
+/big-ass-randomised-test-that-really-no-one-is-ever-going-to-type-DONT-USE-THIS-LINE-THOUGH-make-your-own-up
+
+ACL01
+Host matches:
+no
+no
+VAULTWARDEN.MYDOMAIN.COM
+
+ACL01
+Host matches:
+no
+no
+EXAMPLE-OTHER-SUB-DOMAIN-1.MYDOMAIN.COM
+
+ACL01
+Host matches:
+no
+no
+EXAMPLE-OTHER-SUB-DOMAIN-2.MYDOMAIN.COM
+```
+
+**ACTIONS - 1 - Domain**
+``` 	
+http-request allow
+See below
+ACL01
+
+http-request deny
+See below
+ACL00
+```
+
+
+## Frontend Creation - 2 - VaultWarden
 **ACCESS CONTROL LIST**
 ``` 	
 ACL1
@@ -562,19 +608,13 @@ yes
 /notifications/hub/negotiate
 
 ACL5
-Host starts with:
-no
-yes
-YOURFQDN EXAMPLEBEING  VAULTWARDEN.MYDOMAIN.COM
-
-ACL6
 Path starts with:
 no
 no
 /admin
 ```
 
-**ACTIONS**
+**ACTIONS - 2 - VaultWarden**
 ``` 	
 Use Backend
 See below
@@ -602,32 +642,43 @@ ACL5
 
 http-request deny
 See below
-ACL6
+ACL5
 ```
 
-**NOTE 1**
+**Updates**
 ```
 Updated above 30/07 - I realised after the first config that because ACL1-4 have 'Not' in, they were matching anything to their actions.  So BlahBlahMcGee.FQDN.com was passing through.  This was not intended, so ACL5 has been added above which resolves this, it also removes the need for the default backend.
+Updated again 30/07 - ^ Yeah that didnt work.  This all stems because HaProxy doesnt allow for 'AND' in ACL's. Sigh.  Now with the above, you cofigure a front end for you root domain.  This has a deny for itself, and anything not specified.  So if you have multiple other subdomains you're passing through, you need to add them here all under ACL01.  Now everything works as it should!
+```
+
+**Notes**
+1) You must keep the Domain up to date with any other sub domains on an allow list
+2) On the Domain FrontEnd, ACL01 must be top of the Actions table - or atleast above ACL00
 ```
 
 **OPTIONAL**
 ```
-ACL6 above denies access to the /admin portal.  I'm not particually fond of the admin portal not having any form of 2FA and only a password.  Thus when I'm not using it, I just deny access.  If I need it, unblock, do the required job and reblock.
+ACL5 above denies access to the /admin portal.  I'm not particually fond of the admin portal not having any form of 2FA and only a password.  Thus when I'm not using it, I just deny access.  If I need it, unblock, do the required job and reblock.
 ```
 
 Complete! - Go test!
 
 This in turn will add the equivilent of below to your config (note this is an extract for example). 
 
+	acl			ACL00	var(txn.txnhost) -m str -i VAULTWARDEN.MYDOMAIN.COM
+	acl			ACL00	var(txn.txnpath) -m beg -i /big-ass-randomised-test-that-really-no-one-is-ever-going-to-type-DONT-USE-THIS-LINE-THOUGH-make-your-own-up
+	acl			ACL01	var(txn.txnhost) -m str -i EXAMPLE-OTHER-SUB-DOMAIN-1.MYDOMAIN.COM
+	acl			ACL01	var(txn.txnhost) -m str -i EXAMPLE-OTHER-SUB-DOMAIN-2.MYDOMAIN.COM
 	acl			ACL1	var(txn.txnpath) -m beg -i /notifications/hub
 	acl			ACL2	var(txn.txnpath) -m beg -i /notifications/hub/negotiate
 	acl			ACL3	var(txn.txnpath) -m beg -i /notifications/hub
 	acl			ACL4	var(txn.txnpath) -m beg -i /notifications/hub/negotiate
-	acl			ACL5	var(txn.txnhost) -m beg -i VAULTWARDEN.MYDOMAIN.COM
-	acl			ACL6	var(txn.txnpath) -m beg -i /admin
+	acl			ACL5	var(txn.txnpath) -m beg -i /admin
 
+	http-request allow  if  ACL01 
+	http-request deny   if  !ACL00 
 	http-request deny   if  !ACL5 
-	http-request deny   if  ACL6 
+	http-request deny   if  ACL5 
 	use_backend VaultWarden_ipvANY  if  !ACL1 
 	use_backend VaultWarden_ipvANY  if  ACL2 
 	use_backend VaultWarden-Notifications_ipvANY  if  ACL3 
