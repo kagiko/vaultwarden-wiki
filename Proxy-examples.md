@@ -639,10 +639,6 @@ backend: VaultWarden-Notifications
 http-request deny
 See below
 ACL5
-
-http-request deny
-See below
-ACL5
 ```
 
 **Updates**
@@ -652,8 +648,10 @@ Updated again 30/07 - ^ Yeah that didnt work.  This all stems because HaProxy do
 ```
 
 **Notes**
+```
 1) You must keep the Domain up to date with any other sub domains on an allow list
 2) On the Domain FrontEnd, ACL01 must be top of the Actions table - or atleast above ACL00
+3) Duplicate Use of ACL names is intentional. No I havent typoed them.  ACL00, ACL01 etc
 ```
 
 **OPTIONAL**
