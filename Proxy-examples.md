@@ -560,6 +560,18 @@ Path starts with:
 no
 yes
 /notifications/hub/negotiate
+
+ACL5
+Host starts with:
+no
+yes
+YOURFQDN EXAMPLEBEING  VAULTWARDEN.MYDOMAIN.COM
+
+ACL6
+Path starts with:
+no
+no
+/admin
 ```
 
 **ACTIONS**
@@ -583,27 +595,43 @@ Use Backend
 See below
 ACL4
 backend: VaultWarden-Notifications
+
+http-request deny
+See below
+ACL5
+
+http-request deny
+See below
+ACL6
 ```
 
-**DEFAULT BACKED**
+**NOTE 1**
 ```
-VaultWarden
+Updated above 30/07 - I realised after the first config that because ACL1-4 have 'Not' in, they were matching anything to their actions.  So BlahBlahMcGee.FQDN.com was passing through.  This was not intended, so ACL5 has been added above which resolves this, it also removes the need for the default backend.
+```
+
+**OPTIONAL**
+```
+ACL6 above denies access to the /admin portal.  I'm not particually fond of the admin portal not having any form of 2FA and only a password.  Thus when I'm not using it, I just deny access.  If I need it, unblock, do the required job and reblock.
 ```
 
 Complete! - Go test!
 
-This in turn will add the equivilent of below to your config. 
+This in turn will add the equivilent of below to your config (note this is an extract for example). 
 
 	acl			ACL1	var(txn.txnpath) -m beg -i /notifications/hub
 	acl			ACL2	var(txn.txnpath) -m beg -i /notifications/hub/negotiate
 	acl			ACL3	var(txn.txnpath) -m beg -i /notifications/hub
 	acl			ACL4	var(txn.txnpath) -m beg -i /notifications/hub/negotiate
+	acl			ACL5	var(txn.txnhost) -m beg -i VAULTWARDEN.MYDOMAIN.COM
+	acl			ACL6	var(txn.txnpath) -m beg -i /admin
 
+	http-request deny   if  !ACL5 
+	http-request deny   if  ACL6 
 	use_backend VaultWarden_ipvANY  if  !ACL1 
 	use_backend VaultWarden_ipvANY  if  ACL2 
 	use_backend VaultWarden-Notifications_ipvANY  if  ACL3 
 	use_backend VaultWarden-Notifications_ipvANY  if  !ACL4 
-	default_backend VanguardII_ipvANY
 
 To test, if you navigate in a browser to /notifications/hub then you should get a page saying "WebSocket Protocol Error: Unable to parse WebSocket key.".. that means its working! - all other sub pages should get a Rocket error.
 </details>
