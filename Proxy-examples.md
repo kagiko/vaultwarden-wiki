@@ -121,6 +121,16 @@ server {
 
 }
 ```
+
+If you run into 504 Gateway Timeout problems, tell nginx to wait longer for vaultwarden by adding longer timeouts to the `server {` section, for example:
+
+```nginx
+  proxy_connect_timeout       777;
+  proxy_send_timeout          777;
+  proxy_read_timeout          777;
+  send_timeout                777;
+```
+
 </details>
 
 <details>
