@@ -60,13 +60,13 @@ If you prefer, you can also directly specify a value instead of substituting an 
   # redir @insecureadmin /
 
   # The negotiation endpoint is also proxied to Rocket
-  reverse_proxy /notifications/hub/negotiate vaultwarden:80
+  reverse_proxy /notifications/hub/negotiate <SERVER>:80
 
   # Notifications redirected to the websockets server
-  reverse_proxy /notifications/hub vaultwarden:3012
+  reverse_proxy /notifications/hub <SERVER>:3012
 
   # Proxy the Root directory to Rocket
-  reverse_proxy vaultwarden:80 {
+  reverse_proxy <SERVER>:80 {
        # Send the true remote IP to Rocket, so that vaultwarden can put this in the
        # log, so that fail2ban can ban the correct IP.
        header_up X-Real-IP {remote_host}
