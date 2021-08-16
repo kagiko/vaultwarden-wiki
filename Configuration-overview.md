@@ -4,9 +4,13 @@ In vaultwarden, you can perform configuration either via environment variables o
 
 A common source of confusion is enabling the admin page (which creates the `config.json` file), changing some settings via the admin page (which sets the corresponding values in `config.json`), then later trying to change those settings via environment variable (which doesn't work because `config.json` overrides env vars). To avoid this confusion, it's highly recommended to stick to one configuration method or the other; that is, configure entirely via environment variables, or entirely via `config.json` (whether using the admin page or editing `config.json` directly).
 
-Note that config settings under the `Read-Only Config` section of the admin page can only be set via environment variables, so you must restart vaultwarden to make changes to them. If you keep these environment variables in a file named `.env`, you can load them as follows:
+Note that config settings under the `Read-Only Config` section of the admin page can only be set via environment variables, so you must restart vaultwarden to make changes to them.
 
-* With standalone vaultwarden, by putting `.env` in the current working directory. vaultwarden will attempt to load this file on startup.
+## Loading environment variables from a file
+
+If you want to keep environment variables in a file (customarily named `.env`), you can load them as follows:
+
+* With standalone vaultwarden, by putting `.env` in the current working directory. vaultwarden will attempt to load this file on startup. Note that Vaultwarden looks only for an env file named `.env`; it will not know how to find env files with other names.
 * With Docker, by using `docker run --env-file <env-file> ...` (to have Docker load the env file) or `docker run -v /path/to/.env:/.env` (to have vaultwarden load the `.env` file from inside the container). If you use `--env-file`, note that Docker does not unquote values, so make sure to use `key=val` rather than `key="val"` or `key='val'`.
 * With Docker Compose, by using the [`env_file`](https://docs.docker.com/compose/environment-variables/#the-env_file-configuration-option) directive.
 
