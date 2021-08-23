@@ -48,3 +48,14 @@ https://github.com/dinger1986/bitwardenrs_install_script
 ## FreeBSD
 
 Available in the [FreeBSD ports tree](https://www.freshports.org/security/vaultwarden/) and as a binary package in the FreeBSD pkg repository: `pkg install vaultwarden`
+
+## Multiple RPM and DEB distributions
+
+openSUSE build service projekt with support for 'CentOS, Debian, Fedora, RHEL, SUSE, Ubuntu'.
+
+You can either download the packages directly or use the available repositories.
+
+**Warning:** For now the packages contain prebuilt binaries, it is not possible to build rust-nightly packages with this build service.
+
+[vaultwarden](https://build.opensuse.org/package/show/home:Masgalor:Vaultwarden/vaultwarden)
+[vaultwarden-webvault](https://build.opensuse.org/package/show/home:Masgalor:Vaultwarden/vaultwarden-webvault)
