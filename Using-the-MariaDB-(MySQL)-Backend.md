@@ -70,7 +70,7 @@ services:
   environment:
    - "MYSQL_ROOT_PASSWORD=<my-secret-pw>"
    - "MYSQL_PASSWORD=<vaultwarden_pw>"
-   - "MYSQL_DATABASE=vaultwarden_db"
+   - "MYSQL_DATABASE=vaultwarden"
    - "MYSQL_USER=<vaultwarden_user>"
 
  vaultwarden:
