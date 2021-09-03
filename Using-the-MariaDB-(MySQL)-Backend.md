@@ -84,7 +84,7 @@ services:
    - "vaultwarden_vol:/data/"
   environment:
 ## Had issues when using single parentheses around the mysql URL as in the plain docker example 
-   - "DATABASE_URL=mysql://<vaultwarden_user>:<vaultwarden_pw>@mariadb/vaultwarden_db"
+   - "DATABASE_URL=mysql://<vaultwarden_user>:<vaultwarden_pw>@mariadb/vaultwarden"
    - "ADMIN_TOKEN=<some_random_token_as_per_above_explanation>"
    - "RUST_BACKTRACE=1"
   ports:
