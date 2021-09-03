@@ -76,6 +76,29 @@ If you prefer, you can also directly specify a value instead of substituting an 
 </details>
 
 <details>
+<summary>lighttpd (by forkbomb9)</summary><br/>
+
+```lighttpd
+server.modules += ( "mod_proxy" )
+
+$HTTP["host"] == "vault.example.net" {
+    proxy.header = (
+        "https-remap" => "enable",
+        "upgrade" => "enable",
+        "connect" => "enable"
+    )
+    proxy.forwarded = ( "for"    => 1,
+                        "proto"  => 1,
+    )
+    proxy.server  = ( "" => ("vaultwarden" => ( "host" => "<SERVER>", "port" => 4567 )))
+}
+```
+
+You'll have to set `IP_HEADER=X-Forwarded-For` instead of `X-Real-IP`
+
+</details>
+
+<details>
 <summary>Nginx (by shauder)</summary><br/>
 
 ```nginx
