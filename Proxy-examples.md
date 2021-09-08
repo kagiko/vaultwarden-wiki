@@ -82,19 +82,24 @@ If you prefer, you can also directly specify a value instead of substituting an 
 server.modules += ( "mod_proxy" )
 
 $HTTP["host"] == "vault.example.net" {
-    proxy.header = (
-        "https-remap" => "enable",
-        "upgrade" => "enable",
-        "connect" => "enable"
-    )
-    proxy.forwarded = ( "for"    => 1,
-                        "proto"  => 1,
-    )
-    proxy.server  = ( "" => ("vaultwarden" => ( "host" => "<SERVER>", "port" => 4567 )))
+    $HTTP["url"] == "/notifications/hub" {
+       # WebSocket proxy
+       proxy.server  = ( "" => ("vaultwarden" => ( "host" => "<SERVER>", "port" => 3012 )))
+       proxy.forwarded = ( "for" => 1 )
+       proxy.header = (
+           "https-remap" => "enable",
+           "upgrade" => "enable",
+           "connect" => "enable"
+       )
+    } else {
+       proxy.server  = ( "" => ("vaultwarden" => ( "host" => "<SERVER>", "port" => 4567 )))
+       proxy.forwarded = ( "for" => 1 )
+       proxy.header = ( "https-remap" => "enable" )
+    }
 }
 ```
 
-You'll have to set `IP_HEADER=X-Forwarded-For` instead of `X-Real-IP`
+You'll have to set `IP_HEADER` to `X-Forwarded-For` instead of `X-Real-IP` in the Vaultwarden environment.
 
 </details>
 
