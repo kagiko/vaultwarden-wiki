@@ -4,7 +4,7 @@ This page is an index of standalone deployment examples. If adding a new example
 
 * https://github.com/dadatuputi/bitwarden_gcloud
 
-  Bitwarden installation optimized for Google Cloud's 'always free' f1-micro compute instance
+  Vaultwarden installation optimized for Google Cloud's 'always free' e2-micro compute instance
 
 ## Kubernetes
 
