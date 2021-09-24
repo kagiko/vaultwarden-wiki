@@ -5,7 +5,7 @@ Typical users should either [[deploy via Docker|Which-container-image-to-use]], 
 ## Dependencies
 - `Rust nightly` (strongly recommended to use [rustup](https://rustup.rs/))
 - On a Debian based distro some general packages to make sure building should go fine install the following: `build-essential`, `git`
-- `OpenSSL` (should be available in path, install through your system's package manager or use the [prebuilt binaries](https://wiki.openssl.org/index.php/Binaries))  
+- `OpenSSL` (should be available in path, see [openssl crate docs](https://docs.rs/openssl/0.10.16/openssl/#automatic))
   On a Debian based distro, you need to install `pkg-config` and `libssl-dev`
 - For the SQlite3 backend on a Debian based distro you need to install `libsqlite3-dev`
 - For the MySQL backend on a Debian based distro you need to install `libmariadb-dev-compat` and `libmariadb-dev`
