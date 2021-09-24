@@ -6,11 +6,11 @@ The persistent data is stored under /data inside the container, so the only requ
 
 ```sh
 # using Docker:
-docker run -d --name bitwarden -v /vw-data/:/data/ -p 80:80 vaultwarden/server:latest
+docker run -d --name vaultwarden -v /vw-data/:/data/ -p 80:80 vaultwarden/server:latest
 # using Podman as non-root:
-podman run -d --name bitwarden -v /vw-data/:/data/:Z -e ROCKET_PORT=8080 -p 8080:8080 vaultwarden/server:latest
+podman run -d --name vaultwarden -v /vw-data/:/data/:Z -e ROCKET_PORT=8080 -p 8080:8080 vaultwarden/server:latest
 # using Podman as root:
-sudo podman run -d --name bitwarden -v vw-data:/data/:Z -p 80:80 vaultwarden/server:latest
+sudo podman run -d --name vaultwarden -v vw-data:/data/:Z -p 80:80 vaultwarden/server:latest
 ```
 
 
@@ -24,14 +24,14 @@ If your docker/vaultwarden runs on a device with a fixed IP, you can bind the ho
 
 ```
 # using Docker:
-docker run -d --name bitwarden -v /vw-data/:/data/ -p 192.168.0.2:80:80 vaultwarden/server:latest
+docker run -d --name vaultwarden -v /vw-data/:/data/ -p 192.168.0.2:80:80 vaultwarden/server:latest
 ```
 
 # Starting the container
 
-If the container has been stopped by `docker stop bitwarden`, a reboot or any other reason you can just start it up again by using
+If the container has been stopped by `docker stop vaultwarden`, a reboot or any other reason you can just start it up again by using
 ```
-docker start bitwarden
+docker start vaultwarden
 ```
 
 # Customizing container startup
@@ -49,10 +49,10 @@ echo "starting up"
 
 You can run the script on startup like this:
 ```
-docker run -d --name bitwarden -v $(pwd)/init.sh:/etc/vaultwarden.sh <other docker args...> vaultwarden/server:latest
+docker run -d --name vaultwarden -v $(pwd)/init.sh:/etc/vaultwarden.sh <other docker args...> vaultwarden/server:latest
 ```
 
-If you run `docker logs bitwarden`, you should now see `starting up` as the first line of the output.
+If you run `docker logs vaultwarden`, you should now see `starting up` as the first line of the output.
 
 Note that the init scripts are run each time the container starts (not just the first time), so these scripts should generally be idempotent (i.e., you can run the scripts more than once without undesirable/erroneous behavior). If your scripts don't naturally have this property, you can do something like this:
 ```
