@@ -67,6 +67,9 @@ Some general settings per port.
   ```
 
 ### Google/Gmail
+You need to generate a App Password for Vaultwarden to work with Gmail.<br>
+Follow the steps here: https://support.google.com/accounts/answer/185833?hl=en&ref_topic=7189145 <br>
+In the end you well be shown a password (with spaces in between which are not there, it is just for easy type-over), us this password.
 ```ini
   # Domains: gmail.com, googlemail.com
   SMTP_HOST=smtp.gmail.com
@@ -90,15 +93,26 @@ Also see: https://web.archive.org/web/20210925161633/https://webewizard.com/2019
 ```
 
 ### Sendgrid
-Encode your api-key using base64 and use that output as your password.
-```bash
-echo -n '<YOUR_API_KEY>' | openssl base64
-```
+Replace `<full-api-key>` with the generated API-Key from SendGrid which starts with `SG.`<br>
+Also make sure the API-Key has full `Mail Send` rights, else you can't login with this key.<br>
+StartTLS:
 ```ini
   SMTP_HOST=smtp.sendgrid.net
   SMTP_PORT=587
   SMTP_SSL=true
   SMTP_EXPLICIT_TLS=false
   SMTP_USERNAME=apikey
-  SMTP_PASSWORD=<base64-encoded-api-key>
+  SMTP_PASSWORD=<full-api-key>
+  SMTP_AUTH_MECHANISM="Login"
+```
+
+Full SSL:
+```ini
+  SMTP_HOST=smtp.sendgrid.net
+  SMTP_PORT=465
+  SMTP_SSL=false
+  SMTP_EXPLICIT_TLS=true
+  SMTP_USERNAME=apikey
+  SMTP_PASSWORD=<full-api-key>
+  SMTP_AUTH_MECHANISM="Login"
 ```
