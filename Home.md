@@ -19,6 +19,7 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
 * [Website icons](https://bitwarden.com/help/article/website-icons/)
 * [Bitwarden Authenticator (TOTP)](https://bitwarden.com/help/article/authenticator-keys/)
 * [Bitwarden Send](https://bitwarden.com/help/article/about-send/)
+* [Emergency Access](https://bitwarden.com/help/article/emergency-access/)
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (WebSocket only) for desktop/browser clients/extensions
 * [Trash](https://bitwarden.com/help/article/managing-items/#items-in-the-trash) (soft delete)
 * [Master password re-prompt](https://bitwarden.com/help/article/managing-items/#protect-individual-items)
@@ -41,7 +42,6 @@ To simplify comparison with the official server, this section summarizes the fea
 
 Features that may be added as time permits (contributions are always welcome):
 
-* [Emergency Access](https://bitwarden.com/help/article/emergency-access/)
 * [Bitwarden Public API](https://bitwarden.com/help/article/public-api/)
 * [Event Logs](https://bitwarden.com/help/article/event-logs/)
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (push notifications) for mobile clients (Android/iOS)
