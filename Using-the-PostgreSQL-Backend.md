@@ -32,7 +32,8 @@ GRANT all privileges ON database vaultwarden TO vaultwarden;
 3. Configure vaultwarden and start it, so diesel can run migrations and set up the schema properly. Do not do anything else.
 4. Stop vaultwarden.
 5. install [pgloader](http://pgloader.io/)
-6. create the file bitwarden.load with the following content:
+6. [disable WAL](https://github.com/dani-garcia/vaultwarden/wiki/Running-without-WAL-enabled#1-disable-wal-on-old-db) of the SQLite database.
+7. create the file bitwarden.load with the following content:
 ```
 load database
      from sqlite:///where/you/keep/your/vaultwarden/db.sqlite3 
@@ -42,5 +43,5 @@ load database
      ALTER SCHEMA 'bitwarden' RENAME TO 'public'
 ;
 ```
-7. run the command ```pgloader bitwarden.load``` and you might see some warnings, but the migration should complete successfully
-8. Start vaultwarden again.
+8. run the command ```pgloader bitwarden.load``` and you might see some warnings, but the migration should complete successfully
+9. Start vaultwarden again.
