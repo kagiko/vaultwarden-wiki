@@ -56,14 +56,6 @@ Features that probably won't be added unless contributed:
 * [Groups](https://bitwarden.com/help/article/about-groups/)
 * [Custom roles](https://bitwarden.com/help/article/user-types-access-control/#custom-role)
 
-## Public instances
-
-*Note: Use public instances at your own discretion.*
-
-- https://bitwarden.garudalinux.org/
-- https://vault.tedomum.net/
-- https://passwd.hostux.net/
-
 ## Get in touch
 
 To ask a question, offer suggestions, request new features, or get help configuring or installing the software, please [use the forum](https://vaultwarden.discourse.group/).
