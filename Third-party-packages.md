@@ -34,7 +34,7 @@ Bitwarden_rs is packacked in Nix with 4 packages (one for mysql, sqlite and post
 Using Cloudron, you can easily install Bitwarden_rs on a custom domain from the [App Library](https://cloudron.io/store/com.github.bitwardenrs.html)
 The app package comes bundled with the upstream web vault and does not need any further configuration after installation to get started. The Cloudron team keeps track of releases and provides automatic updates.
 
-The package code and the issue tracker can be found at https://git.cloudron.io/cloudron/bitwardenrs-app
+The package code and the issue tracker can be found at https://git.cloudron.io/cloudron/vaultwarden-app
  
 ## Home Assistant
 
