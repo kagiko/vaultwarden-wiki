@@ -69,7 +69,7 @@ Some general settings per port.
 ### Google/Gmail
 You need to generate a App Password for Vaultwarden to work with Gmail.<br>
 Follow the steps here: https://support.google.com/accounts/answer/185833?hl=en&ref_topic=7189145 <br>
-In the end you well be shown a password (with spaces in between which are not there, it is just for easy type-over), us this password.
+In the end you well be shown a password (with spaces in between which are not there, it is just for easy type-over), us this password.<br>
 FullSSL:
 ```ini
   # Domains: gmail.com, googlemail.com
