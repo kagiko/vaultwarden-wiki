@@ -33,6 +33,7 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
   * [Personal Ownership](https://bitwarden.com/help/article/policies/#personal-ownership)
   * [Disable Send](https://bitwarden.com/help/article/policies/#disable-send)
   * [Send Options](https://bitwarden.com/help/article/policies/#send-options)
+  * [Single Organization](https://bitwarden.com/help/article/policies/#single-organization)
 
 ## Missing features
 
@@ -47,7 +48,6 @@ Features that may be added as time permits (contributions are always welcome):
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (push notifications) for mobile clients (Android/iOS)
 * [Admin Password Reset](https://bitwarden.com/help/article/admin-reset/)
 * Certain enterprise policies:
-  * [Single Organization](https://bitwarden.com/help/article/policies/#single-organization)
   * [Master Password Reset](https://bitwarden.com/help/article/policies/#master-password-reset)
 
 Features that probably won't be added unless contributed:
