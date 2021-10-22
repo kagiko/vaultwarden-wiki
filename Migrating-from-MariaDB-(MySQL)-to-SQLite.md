@@ -37,8 +37,8 @@ mysqldump \
   --single-transaction \
   --no-create-db \
   --no-create-info \
-  --hex-blob <database> \
-  --skip-quote-names \
+  --hex-blob \
+  --skip-quote-names <database> \
   | grep "^INSERT INTO" | grep -v "__diesel_schema_migrations" \
   | sed 's#\\"#"#g' \
   | sed -sE "s#,0x([^,]*)#,X'\L\1'#g" \
