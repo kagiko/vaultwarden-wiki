@@ -46,6 +46,7 @@
 1. [[Using the MariaDB (MySQL) Backend]]
 1. [[Using the PostgreSQL Backend]]
 1. [[Running without WAL enabled|Running-without-WAL-enabled]]
+1. [[Migrating from MariaDB (MySQL) to SQLite]]
 
 ### Security
 1. [[Hardening Guide|Hardening Guide]]
