@@ -18,17 +18,17 @@ If you want to keep environment variables in a file (customarily named `.env`), 
 
 You can find the list of environment variables you can set at
 
-https://github.com/dani-garcia/vaultwarden/blob/master/.env.template
+https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
 
 If you enable the [[admin page|Enabling-admin-page]], that will also show the full list of config options.
 
 In case there are any errors or omissions, the source of truth is
 
-https://github.com/dani-garcia/vaultwarden/blob/master/src/config.rs (search for `make_config! {`)
+https://github.com/dani-garcia/vaultwarden/blob/main/src/config.rs (search for `make_config! {`)
 
 Or you can use this direct link if your (Chromium-based) browser supports text fragments:
 
-https://github.com/dani-garcia/vaultwarden/blob/master/src/config.rs#LC290:~:text=make_config!%20%7B,-folders
+https://github.com/dani-garcia/vaultwarden/blob/main/src/config.rs#LC290:~:text=make_config!%20%7B,-folders
 
 ## Setting the domain URL
 
