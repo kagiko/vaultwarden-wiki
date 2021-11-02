@@ -31,8 +31,8 @@ services:
       - ./caddy-config:/config
       - ./caddy-data:/data
     environment:
-      - DOMAIN=http(s)://vaultwarden.example.com  # Your domain, prefixed with http or https.
-      - EMAIL=admin@example.com       # The email address to use for ACME registration.
+      - DOMAIN=https://vaultwarden.example.com  # Your domain.
+      - EMAIL=admin@example.com                 # The email address to use for ACME registration.
       - LOG_FILE=/data/access.log
 ```
 
@@ -112,9 +112,9 @@ services:
       - ./caddy-config:/config
       - ./caddy-data:/data
     environment:
-      - DOMAIN=http(s)://vaultwarden.example.com  # Your domain, prefixed with http or https.
-      - EMAIL=admin@example.com       # The email address to use for ACME registration.
-      - DUCKDNS_TOKEN=<token>         # Your Duck DNS token.
+      - DOMAIN=https://vaultwarden.example.com  # Your domain.
+      - EMAIL=admin@example.com                 # The email address to use for ACME registration.
+      - DUCKDNS_TOKEN=<token>                   # Your Duck DNS token.
       - LOG_FILE=/data/access.log
 ```
 
