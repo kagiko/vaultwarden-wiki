@@ -12,7 +12,7 @@ Example configurations are included in [[Proxy examples|proxy-examples]].
 Then you need to enable WebSockets negotiation on the vaultwarden side by setting the `WEBSOCKET_ENABLED` variable to `true`:
 
 ```sh
-docker run -d --name bitwarden \
+docker run -d --name vaultwarden \
   -e WEBSOCKET_ENABLED=true \
   -v /vw-data/:/data/ \
   -p 80:80 \
