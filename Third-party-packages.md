@@ -26,7 +26,7 @@ https://copr.fedorainfracloud.org/coprs/koalillo/bitwarden_rs/
 
 ## Nix (OS)
 
-Bitwarden_rs is packacked in Nix with 4 packages (one for mysql, sqlite and postgresql and one for the vault). For NixOS there's a Module as well (services.bitwarden_rs) so bitwarden_rs can be configured in NixOS declarative way as well. 
+Vaultwarden is both packaged for mysql, sqlite, postgresql and for vault. There is also a NixOS module for declarative configuration (see `services.vaultwarden`)
 
 ## Cloudron
 
