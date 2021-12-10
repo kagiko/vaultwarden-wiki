@@ -59,6 +59,8 @@ export WEBSOCKET_ENABLED=true
 
 You should now be able to reach your vaultwarden instance at https://my-vw.duckdns.org.
 
+**Important:** If necessary, in some routers (e.g. FritzBox) an exception must be set for the domain (e.g., `my-vw.duckdns.org`) due to DNS rebind protection.
+
 ## Cloudflare setup
 
 If you don't already have an account, create one at https://www.cloudflare.com/; you'll also have to go to your domain registrar to set your nameservers to the ones assigned to you by Cloudflare. Create a subdomain for your vaultwarden instance (e.g., `vw.example.com`), setting its IP to your vaultwarden host's private IP (e.g., `192.168.1.100`). For example:
@@ -110,6 +112,8 @@ export WEBSOCKET_ENABLED=true
 ```
 
 You should now be able to reach your vaultwarden instance at https://vw.example.com.
+
+**Important:** If necessary, in some routers (e.g. FritzBox) an exception must be set for the domain (e.g., `vw.example.com`) due to DNS rebind protection.
 
 ## Getting certs using the `lego` CLI
 
