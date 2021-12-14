@@ -2,7 +2,7 @@ Suppose you want to run an instance of vaultwarden that can only be accessed fro
 
 This article demonstrates how to create such a setup using the [Caddy](https://caddyserver.com/) web server, which has built-in ACME support for various DNS providers. We'll configure Caddy to obtain Let's Encrypt certs via the ACME [DNS challenge](https://letsencrypt.org/docs/challenge-types/#dns-01-challenge) -- using the more common HTTP challenge would be problematic here, since it would rely on Let's Encrypt servers being able to reach your internal web server.
 
-(Note that this article covers the DNS challenge setup in more generic terms, but many users will probably find it easiest to use Docker Compose to integrate Caddy and vaultwarden. See [Using Docker Compose](https://github.com/dani-garcia/vaultwarden/wiki/Using-Docker-Compose#caddy-with-dns-challenge) for an example specific to that.)
+:warning: This article covers the DNS challenge setup in more generic terms, but many users will probably find it easiest to use Docker Compose to integrate Caddy and Vaultwarden. See [Using Docker Compose](https://github.com/dani-garcia/vaultwarden/wiki/Using-Docker-Compose#caddy-with-dns-challenge) for an example specific to that.
 
 Two DNS providers are covered:
 
