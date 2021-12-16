@@ -70,10 +70,6 @@ See [Proxy Examples](https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examp
       ROCKET_PORT = 8812;
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    bitwarden_rs-vault
-  ];
 }
 ```
 
