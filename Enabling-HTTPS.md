@@ -83,7 +83,7 @@ If you run a local server which does not have a connection to the public interne
 Execute the following to verify if the certificate is installed with the chains.
 Change vault.domain.com to your own domain name.
 ```bash
-openssl s_client -showcerts -connect vault.domain.com:443 -servername vault.domain.com
+openssl s_client -showcerts -connect vault.domain.com:443 -servername vault.domain.com 
 
 # or with a different port
 openssl s_client -showcerts -connect vault.domain.com:7070 -servername vault.domain.com
@@ -105,7 +105,18 @@ A bit further in the output you should see the base64-encoded certificates from 
 #### Check OSCP validity
 
 Connecting a mobile app will fail with message `Chain validation failed` if OCSP Stapling isn't working properly.
+
 [Digicert SSL Certficate Checker](https://www.digicert.com/help/)'s revocation check section contains 'OCSP Staple: 	Good' once OCSP stapling is setup properly. Your webserver must be able to connect to the 'Authority Information Access' URLs that are part of your certificate's X509v3 extensions for OCSP stapling to work.
+
+You can also check the OCSP status from the command-line
+
+```sh
+openssl s_client -showcerts -connect vault.domain.com:443 -servername vault.domain.com -status
+```
+
+must contain in its output:
+
+    OCSP Response Status: successful (0x0)
 
 ## Getting SSL/TLS certificates
 
