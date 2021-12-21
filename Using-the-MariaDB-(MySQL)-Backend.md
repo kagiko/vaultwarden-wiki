@@ -180,3 +180,95 @@ exit
 ERROR 1136 (21S01) at line ###: Column count doesn't match value count at row 1
 ```
 The version jump may have added new database columns. Upgrade vaultwarden using the SQLite backend first to run migrations on the SQLite database, switch to the MariaDB backend, then repeat migration steps above. Alternatively, look for the commits adding migrations since the version you had installed and run migrations manually using `sqlite3`
+
+<br>
+<br>
+
+## Foreign key errors, collation and charset
+
+Because some data stored within the vault is either binary, or plain-text like mail addresses, user names or organization names which can contain Unicode characters you need to make sure the collation and charset of your database and tables is correctly set. If this is not the case, it could cause issues during updates which then generates messages like `Cannot add or update a child row: a foreign key constraint fails ...`
+
+To solve this you need to update/change the collation and charset of both the whole database and the tables it contains.
+You can do that by following and executing the following sets via your perfered SQL tool, or using the CLI.
+
+In the examples below i will use the database name `vaultwarden`, change this if you used a different name.
+
+First change the collation and charset of the database it self:
+```mysql
+ALTER DATABASE `vaultwarden` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+After that convert all the tables (including the text fields).
+Execute the following, and copy the output.
+```mysql
+SELECT CONCAT('ALTER TABLE `', TABLE_NAME,'` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;') AS CharSetConvert
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA="vaultwarden"
+AND TABLE_TYPE="BASE TABLE";
+```
+
+This will generate several queries which you need to execute to convert both the collation and the charset of these tables.
+For these changes to work we need to temporarily disable foreign key checking.
+Copy/Paste the output from the generated output from the query above between the following lines:
+```mysql
+SET foreign_key_checks = 0;
+-- Copy/Paste the output from above here
+SET foreign_key_checks = 1;
+```
+
+In the end it should look something like the following output (but it could be different depending on updates or changes to the database structure).:
+```mysql
+SET foreign_key_checks = 0;
+ALTER TABLE `__diesel_schema_migrations` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `attachments` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `ciphers_collections` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `ciphers` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `collections` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `devices` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `emergency_access` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `favorites` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `folders_ciphers` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `folders` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `invitations` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `org_policies` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `organizations` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `sends` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `twofactor_incomplete` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `twofactor` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `users_collections` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `users_organizations` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `users` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+SET foreign_key_checks = 1;
+```
+
+You need to run those queries to convert them to the correct collation and charset.
+You can verify if it worked by running the following query on at least one table.
+```mysql
+SHOW CREATE TABLE `users`; 
+```
+
+It should output something like this, note the `CHARSET=utf8mb4` at the end.
+```mysql
+CREATE TABLE `users` (
+  `uuid` char(36) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `name` text NOT NULL,
+  --- CUT ---
+  `enabled` tinyint(1) NOT NULL DEFAULT 1,
+  `stamp_exception` text DEFAULT NULL,
+  PRIMARY KEY (`uuid`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+```
+
+You can do the same for the database:
+```mysql
+SHOW CREATE DATABASE `vaultwarden`;
+```
+
+It should look something like this, note the `DEFAULT CHARACTER SET utf8mb4`.
+```mysql
+CREATE DATABASE `vaultwarden` /*!40100 DEFAULT CHARACTER SET utf8mb4 */
+```
