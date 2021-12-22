@@ -123,7 +123,7 @@ diesel migration redo
 ```
 
 ## How to migrate from SQLite backend to MySQL backend (for developers)
-Refer to [using the MySQL backend](https://github.com/dani-garcia/vaultwarden/wiki/Using-the-MySQL-Backend) if you want to migrate from SQLite.
+Refer to [using the MariaDB (MySQL) Backend](https://github.com/dani-garcia/vaultwarden/wiki/Using-the-MariaDB-%28MySQL%29-Backend) if you want to migrate from SQLite.
 
 ## How to migrate from SQLite backend to PostgreSQL backend (for developers)
 Refer to [using the PostgreSQL backend](https://github.com/dani-garcia/vaultwarden/wiki/Using-the-PostgreSQL-Backend) if you want to migrate from SQLite.
