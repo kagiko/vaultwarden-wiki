@@ -16,7 +16,7 @@ sudo podman run -d --name vaultwarden -v vw-data:/data/:Z -p 80:80 vaultwarden/s
 
 This will preserve any persistent data under `/vw-data/`, you can adapt the path to whatever suits you.
 
-The service will be exposed on host-port 80 or 8080.
+The service will be exposed on host-port 80 or 8080. By default, non-root containers are not allowed to use privileged ports (<1024), hence the need to change the port vaultwarden listens on by passing the ROCKET_PORT environmental variable along with the port mappings.
 
 For non-x86 hardware or to run specific version, you can [[choose some other image|Which-container-image-to-use]]. 
 
