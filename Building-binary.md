@@ -82,7 +82,7 @@ git apply vX.Y.Z.patch
 npm install
 # Read the note below (we do use this for our docker builds).
 # npm audit fix
-npm run dist
+npm run dist:oss:selfhost
 ```
 *Note: You might be asked to run ```npm audit fix``` to fix vulnerability. This will automatically try to upgrade packages to newer version, which might not be compatible and break web-vault functionality``` Use it at your own risk, if you know what you are doing. We do use this on our own releases btw!*
 
