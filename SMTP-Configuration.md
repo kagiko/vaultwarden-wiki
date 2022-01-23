@@ -132,8 +132,8 @@ Full SSL:
 ## Passwords with special characters
 
 If you want to use some special characters within your password, it could be that you need to escape some of these characters to not confuse the environment variable parsers.<br>
-For example a `\` or `'` or `"` can be used, but sometimes they need to be escaped so that they actually used.
-It is probably best, if you use special characters, to always uses single quotes around the password.<br>
+For example a `\` or `'` or `"` can be used, but sometimes they need to be escaped so that they are actually used.
+It is probably best, if you use special characters, to always use single quotes around the password.<br>
 Lets take the following password as an example: `~^",a.%\,'}b&@|/c!1(#}`<br>
 Here are a few characters which could break the environment variable parses like, `\`, `'` and `"`.
 A single `\` is normally used to escape other characters, so if you want to use a single `\`, you need to type `\\`.<br>
