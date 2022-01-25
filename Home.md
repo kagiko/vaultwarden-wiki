@@ -55,6 +55,9 @@ Features that probably won't be added unless contributed:
 * [Single Sign-On (SSO)](https://bitwarden.com/help/article/about-sso/)
 * [Groups](https://bitwarden.com/help/article/about-groups/)
 * [Custom roles](https://bitwarden.com/help/article/user-types-access-control/#custom-role)
+* Certain enterprise policies ([UI not open source](https://github.com/bitwarden/web/tree/master/bitwarden_license/src/app/policies), would probably need to be configured via admin page):
+  * [Vault Timeout](https://bitwarden.com/help/policies/#vault-timeout)
+  * [Disable Personal Vault Export](https://bitwarden.com/help/policies/#disable-personal-vault-export)
 
 ## Get in touch
 
