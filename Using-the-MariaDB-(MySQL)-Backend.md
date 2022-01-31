@@ -93,6 +93,13 @@ volumes:
  mariadb_vol:
 ```
 
+<br>
+
+## Manually create a database (For example, using an existing database server)
+
+:warning: To execute these queries you need a user which has the privileges to create new databases and users.<br>
+Most of the time that would be the `root` user, but it could be different for your database.
+
 ### Create database and user
 
 1. Create an new (empty) database for vaultwarden (Ensure the Charset and Collate are correct!):
@@ -126,7 +133,9 @@ GRANT ALTER, CREATE, DELETE, DROP, INDEX, INSERT, SELECT, UPDATE ON `vaultwarden
 FLUSH PRIVILEGES;
 ```
 
-### Migrating from SQLite to MySQL
+<br>
+
+## Migrating from SQLite to MySQL
 
 An easy way of migrating from SQLite to MySQL has been described in this [issue comment](https://github.com/dani-garcia/vaultwarden/issues/497#issuecomment-511827057). The steps are repeated below. Please, note that you are using this at your own risk and you are strongly advised to backup your installation and data!
 
