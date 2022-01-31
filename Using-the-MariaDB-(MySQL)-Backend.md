@@ -6,8 +6,6 @@ If you insist to use MySQLv8 instead of MariaDB then create a user using an old 
 
 :warning: :poop: :warning:
 
-:warning: Alpine is currently **not** supported, on amd64 Alpine supports sqlite and postgresql, on armv7 it only supports sqlite.
-
 ---
 
 To use the MariaDB (MySQL) backend, you can either use the [official Docker image](https://hub.docker.com/r/vaultwarden/server) or build your own binary [with MySQL enabled](https://github.com/dani-garcia/vaultwarden/wiki/Building-binary#mysql-backend).
