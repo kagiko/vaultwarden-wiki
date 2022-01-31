@@ -99,6 +99,8 @@ volumes:
 >:warning: To execute these queries you need a user which has the privileges to create new databases and users.<br>
 >Most of the time that would be the `root` user, but it could be different for your database.
 
+>Using the docker-compose example above makes these steps unnecessary. Database, collation and charset is created automatically at startup.
+
 ### Create database and user
 
 1. Create an new (empty) database for vaultwarden (Ensure the Charset and Collate are correct!):
