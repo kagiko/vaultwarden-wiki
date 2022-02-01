@@ -194,7 +194,7 @@ The version jump may have added new database columns. Upgrade vaultwarden using 
 
 ## Foreign key errors, collation and charset
 
-Because some data stored within the vault is either binary, or plain-text like mail addresses, user names or organization names which can contain Unicode characters you need to make sure the collation and charset of your database and tables is correctly set. If this is not the case, it could cause issues during updates which then generates messages like `Cannot add or update a child row: a foreign key constraint fails ...`
+Because some data stored within the vault is either binary, or plain-text like mail addresses, user names or organization names which can contain Unicode characters you need to make sure the collation and charset of your database and tables is correctly set. If this is not the case, it could cause issues during updates which then generates messages like `Cannot add or update a child row: a foreign key constraint fails ...` or `Row size too large. The maximum row size for the used table type, not counting BLOBs, is 8126.`.
 
 To solve this you need to update/change the collation and charset of both the whole database and the tables it contains.
 You can do that by following and executing the following sets via your perfered SQL tool, or using the CLI.
