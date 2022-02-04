@@ -201,6 +201,7 @@ server {
 
     ## Using a Sub Path Config
     # Path to the root of your installation
+    # Be sure to add the trailing /, else you could have issues
     location /vault/ {
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
