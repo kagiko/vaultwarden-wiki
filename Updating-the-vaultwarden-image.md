@@ -42,7 +42,7 @@ You can also use a tool like [Watchtower](https://containrrr.dev/watchtower/) to
 ```sh
 docker-compose stop
 docker-compose pull
-docker-compose start
+docker-compose up -d
 ```
 
 ## Updating when using systemd service (in this case Debian/Raspbian)
