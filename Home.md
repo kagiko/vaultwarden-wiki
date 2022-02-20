@@ -44,7 +44,7 @@ To simplify comparison with the official server, this section summarizes the fea
 
 Features that may be added as time permits (contributions are always welcome):
 
-* [Bitwarden Public API](https://bitwarden.com/help/article/public-api/)
+* [Bitwarden Public API](https://bitwarden.com/help/public-api/) / [Organization API key](https://bitwarden.com/help/public-api/#authentication)
 * [Event Logs](https://bitwarden.com/help/article/event-logs/)
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (push notifications) for mobile clients (Android/iOS)
 * [Admin Password Reset](https://bitwarden.com/help/article/admin-reset/)
