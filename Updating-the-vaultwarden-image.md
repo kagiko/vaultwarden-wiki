@@ -40,7 +40,7 @@ You can also use a tool like [Watchtower](https://containrrr.dev/watchtower/) to
 ## Updating when using docker-compose
 
 ```sh
-docker-compose stop
+docker-compose down
 docker-compose pull
 docker-compose up -d
 ```
