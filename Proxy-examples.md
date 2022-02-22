@@ -11,13 +11,13 @@ Secure TLS protocol and cipher configurations for webservers can be generated us
 <details>
 <summary>Caddy 2.x</summary><br/>
 
-Caddy 2 can automatically enable HTTPS in some circumstances, check the [docs](https://caddyserver.com/docs/automatic-https).
+Caddy 2 can automatically enable HTTPS in most circumstances, check the [docs](https://caddyserver.com/docs/automatic-https#activation).
 
 In the Caddyfile syntax, `{$VAR}` denotes the value of the environment variable `VAR`.
 If you prefer, you can also directly specify a value instead of substituting an env var value.
 
 ```
-{$DOMAIN}:443 {
+{$DOMAIN} {
   log {
     level INFO
     output file {$LOG_FILE} {
