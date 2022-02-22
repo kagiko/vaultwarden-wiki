@@ -28,7 +28,7 @@
 1. [[Enabling admin page|Enabling-admin-page]]
 1. [[Disable the admin token|Disable-admin-token]]
 1. [[Enabling WebSocket notifications|Enabling-WebSocket-notifications]]
-1. [[Enabling U2F authentication|Enabling-U2F-authentication]]
+1. [[Enabling U2F and FIDO2 WebAuthn authentication|Enabling-U2F-(and-FIDO2-WebAuthn)-authentication]]
 1. [[Enabling YubiKey OTP authentication|Enabling-Yubikey-OTP-authentication]]
 1. [[Changing persistent data location|Changing-persistent-data-location]]
 1. [[Changing the API request size limit|Changing-the-API-request-size-limit]]
