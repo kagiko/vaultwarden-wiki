@@ -6,7 +6,13 @@ To run the binary or container ensure the `DATABASE_URL` environment variable is
 ```ini
 DATABASE_URL=postgresql://[[user]:[password]@]host[:port][/database]
 ```
-An example docker run environment variable would be: ```-e 'DATABASE_URL=postgresql://postgresadmin:strongpassword@postgres:5432/vaultwarden'```.
+An example docker run environment variable would be: ```-e 'DATABASE_URL=postgresql://user_name:user_password@db_host:5432/vaultwarden'```.
+
+If you want to use a custom schema/search-path you need to use the following connection string:<br>
+Note the `%3D` which is an url-encoded `=` sign
+```ini
+DATABASE_URL=postgresql://user_name:user_password@db_host:5432/vaultwarden?application_name=vaultwarden&options=-c search_path%3Ddb_schema
+```
 
 If your password contains special characters, you will need to use percentage encoding.
 
@@ -16,7 +22,7 @@ If your password contains special characters, you will need to use percentage en
 
 A complete list of codes can be found on [Wikipedia page for percent encoding](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters)
 
-**Migrating from SQLite to PostgreSQL**
+## Migrating from SQLite to PostgreSQL
 
 An easy way of migrating from SQLite to PostgreSQL or to MySQL exists, but please, note that you **are using this at your own risk and you are strongly advised to backup your installation and data!**. This is **unsupported** and has not been robustly tested.
 
