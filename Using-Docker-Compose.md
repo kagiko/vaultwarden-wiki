@@ -1,5 +1,14 @@
 [Docker Compose](https://docs.docker.com/compose/) is a tool that allows the definition and configuration of multi-container applications. In our case, we want both the vaultwarden server and a proxy to redirect the WebSocket requests to the correct place.
 
+> :warning: :warning: :warning: <br>
+> **Do not use quotes `"` for `environment` variable values them self! This causes issues. <br>**
+> If you need to enclose it within quotes enclose the whole item, variable + value. <br>
+> :no_entry_sign: WRONG: <br>
+> `- DATABASE_URL="/path/to/db.sqlite3"` <br>
+> :heavy_check_mark: OK: <br>
+> `- "DATABASE_URL=/path/to/db.sqlite3"` <br>
+> :warning: :warning: :warning: <br>
+
 ## Caddy with HTTP challenge
 
 This example assumes that you have [installed](https://docs.docker.com/compose/install/) Docker Compose, that you have a domain name (e.g., `vaultwarden.example.com`) for your vaultwarden instance, and that it will be publicly accessible.
