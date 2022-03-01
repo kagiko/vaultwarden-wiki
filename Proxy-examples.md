@@ -176,8 +176,16 @@ DOMAIN=https://bitwarden.example.tld/vault/
 
 ```nginx
 # Define the server IP and ports here.
-upstream vaultwarden-default { server 127.0.0.1:8080; }
-upstream vaultwarden-ws { server 127.0.0.1:3012; }
+upstream vaultwarden-default {
+  zone vaultwarden-default 64k;
+  server 127.0.0.1:8080;
+  keepalive 2;
+}
+upstream vaultwarden-ws {
+  zone vaultwarden-ws 64k;
+  server 127.0.0.1:3012;
+  keepalive 2;
+}
 
 # Redirect HTTP to HTTPS
 server {
@@ -203,6 +211,9 @@ server {
     # Path to the root of your installation
     # Be sure to add the trailing /, else you could have issues
     location /vault/ {
+      proxy_http_version 1.1;
+      proxy_set_header "Connection" "";
+
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -212,6 +223,9 @@ server {
     }
 
     location /vault/notifications/hub/negotiate {
+      proxy_http_version 1.1;
+      proxy_set_header "Connection" "";
+
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -221,19 +235,28 @@ server {
     }
 
     location /vault/notifications/hub {
+      proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection $http_connection;
+      proxy_set_header Connection "upgrade";
+
+      proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header Forwarded $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
 
       proxy_pass http://vaultwarden-ws;
     }
 
     # Optionally add extra authentication besides the ADMIN_TOKEN
     # If you don't want this, leave this part out
-    location ^~ /vault/admin {
+    location /vault/admin {
       # See: https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/
       auth_basic "Private";
       auth_basic_user_file /path/to/htpasswd_file;
+
+      proxy_http_version 1.1;
+      proxy_set_header "Connection" "";
 
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
