@@ -7,7 +7,7 @@ To enable the admin page, you need to set an authentication token. This token ca
 To set the token, use the `ADMIN_TOKEN` variable:
 
 ```sh
-docker run -d --name bitwarden \
+docker run -d --name vaultwarden \
   -e ADMIN_TOKEN=some_random_token_as_per_above_explanation \
   -v /vw-data/:/data/ \
   -p 80:80 \
