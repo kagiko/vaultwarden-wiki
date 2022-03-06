@@ -66,6 +66,10 @@ Some general settings per port.
   SMTP_EXPLICIT_TLS=false
   ```
 
+### HELO Hostname
+
+By default the machine's hostname is used as the hostname in the HELO command. To overwrite this, you can set `HELO_NAME` in the configuration.
+
 ### Google/Gmail
 You need to generate a App Password for Vaultwarden to work with Gmail.<br>
 Follow the steps here: https://support.google.com/accounts/answer/185833?hl=en&ref_topic=7189145 <br>
