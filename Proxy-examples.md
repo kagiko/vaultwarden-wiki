@@ -478,7 +478,7 @@ labels:
   - traefik.http.routers.bitwarden-ui.rule=Host(`bitwarden.domain.tld`)
   - traefik.http.routers.bitwarden-ui.service=bitwarden-ui
   - traefik.http.services.bitwarden-ui.loadbalancer.server.port=80
-  - traefik.http.routers.bitwarden-websocket.rule=Host(`bitwarden.domain.tld`) && Path(`/notifications/hub`)
+  - traefik.http.routers.bitwarden-websocket.rule=Host(`bitwarden.domain.tld`) && Path(`/notifications/hub`) && !Path(`/notifications/hub/negotiate`)
   - traefik.http.routers.bitwarden-websocket.service=bitwarden-websocket
   - traefik.http.services.bitwarden-websocket.loadbalancer.server.port=3012
 ```
@@ -502,11 +502,11 @@ labels:
   - traefik.http.routers.bitwarden-ui-http.middlewares=redirect-https
   - traefik.http.routers.bitwarden-ui-http.service=bitwarden-ui
   - traefik.http.services.bitwarden-ui.loadbalancer.server.port=80
-  - traefik.http.routers.bitwarden-websocket-https.rule=Host(`bitwarden.domain.tld`) && Path(`/notifications/hub`)
+  - traefik.http.routers.bitwarden-websocket-https.rule=Host(`bitwarden.domain.tld`) && Path(`/notifications/hub`) && !Path(`/notifications/hub/negotiate`)
   - traefik.http.routers.bitwarden-websocket-https.entrypoints=websecure
   - traefik.http.routers.bitwarden-websocket-https.tls=true
   - traefik.http.routers.bitwarden-websocket-https.service=bitwarden-websocket
-  - traefik.http.routers.bitwarden-websocket-http.rule=Host(`bitwarden.domain.tld`) && Path(`/notifications/hub`)
+  - traefik.http.routers.bitwarden-websocket-http.rule=Host(`bitwarden.domain.tld`) && Path(`/notifications/hub`) && !Path(`/notifications/hub/negotiate`)
   - traefik.http.routers.bitwarden-websocket-http.entrypoints=web
   - traefik.http.routers.bitwarden-websocket-http.middlewares=redirect-https
   - traefik.http.routers.bitwarden-websocket-http.service=bitwarden-websocket
