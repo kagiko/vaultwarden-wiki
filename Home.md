@@ -10,31 +10,31 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
 
 * Web interface (equivalent to https://vault.bitwarden.com/)
 * Personal vault support
-* [Organization](https://bitwarden.com/help/article/getting-started-organizations/) vault support
-* [Password sharing](https://bitwarden.com/help/article/share-to-a-collection/) and [access control](https://bitwarden.com/help/article/user-types-access-control/)
-* [Collections](https://bitwarden.com/help/article/about-collections/)
-* [File attachments](https://bitwarden.com/help/article/attachments/)
-* [Folders](https://bitwarden.com/help/article/folders/)
-* [Favorites](https://bitwarden.com/help/article/favorites/)
-* [Website icons](https://bitwarden.com/help/article/website-icons/)
-* [Bitwarden Authenticator (TOTP)](https://bitwarden.com/help/article/authenticator-keys/)
-* [Bitwarden Send](https://bitwarden.com/help/article/about-send/)
-* [Emergency Access](https://bitwarden.com/help/article/emergency-access/)
+* [Organization](https://bitwarden.com/help/getting-started-organizations/) vault support
+* [Password sharing](https://bitwarden.com/help/sharing/) and [access control](https://bitwarden.com/help/user-types-access-control/)
+* [Collections](https://bitwarden.com/help/about-collections/)
+* [File attachments](https://bitwarden.com/help/attachments/)
+* [Folders](https://bitwarden.com/help/folders/)
+* [Favorites](https://bitwarden.com/help/favorites/)
+* [Website icons](https://bitwarden.com/help/website-icons/)
+* [Bitwarden Authenticator (TOTP)](https://bitwarden.com/help/authenticator-keys/)
+* [Bitwarden Send](https://bitwarden.com/help/about-send/)
+* [Emergency Access](https://bitwarden.com/help/emergency-access/)
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (WebSocket only) for desktop/browser clients/extensions
-* [Trash](https://bitwarden.com/help/article/managing-items/#items-in-the-trash) (soft delete)
-* [Master password re-prompt](https://bitwarden.com/help/article/managing-items/#protect-individual-items)
+* [Trash](https://bitwarden.com/help/managing-items/#items-in-the-trash) (soft delete)
+* [Master password re-prompt](https://bitwarden.com/help/managing-items/#protect-individual-items)
 * [Personal API key](https://bitwarden.com/help/personal-api-key/)
-* Two-step login via [email](https://bitwarden.com/help/article/setup-two-step-login-email/), [Duo](https://bitwarden.com/help/article/setup-two-step-login-duo/), [YubiKey](https://bitwarden.com/help/article/setup-two-step-login-yubikey/), and [FIDO2 WebAuthn](https://bitwarden.com/help/article/setup-two-step-login-fido/) (including Nitrokeys and Solokeys)
-* [Directory Connector](https://bitwarden.com/help/article/directory-sync/) support (basic implementation, no group support)
+* Two-step login via [email](https://bitwarden.com/help/setup-two-step-login-email/), [Duo](https://bitwarden.com/help/setup-two-step-login-duo/), [YubiKey](https://bitwarden.com/help/setup-two-step-login-yubikey/), and [FIDO2 WebAuthn](https://bitwarden.com/help/setup-two-step-login-fido/) (including Nitrokeys and Solokeys)
+* [Directory Connector](https://bitwarden.com/help/directory-sync/) support (basic implementation, no group support)
   <br>Only version [v2.9.2](https://github.com/bitwarden/directory-connector/releases/tag/v2.9.2) and lower is supported, v2.9.3 and up use a different login method not supported yet.
 * Certain enterprise policies:
-  * [Two-Step Login](https://bitwarden.com/help/article/policies/#two-step-login)
-  * [Master Password](https://bitwarden.com/help/article/policies/#master-password)
-  * [Password Generator](https://bitwarden.com/help/article/policies/#password-generator)
-  * [Personal Ownership](https://bitwarden.com/help/article/policies/#personal-ownership)
-  * [Disable Send](https://bitwarden.com/help/article/policies/#disable-send)
-  * [Send Options](https://bitwarden.com/help/article/policies/#send-options)
-  * [Single Organization](https://bitwarden.com/help/article/policies/#single-organization)
+  * [Two-Step Login](https://bitwarden.com/help/policies/#two-step-login)
+  * [Master Password](https://bitwarden.com/help/policies/#master-password)
+  * [Password Generator](https://bitwarden.com/help/policies/#password-generator)
+  * [Personal Ownership](https://bitwarden.com/help/policies/#personal-ownership)
+  * [Disable Send](https://bitwarden.com/help/policies/#disable-send)
+  * [Send Options](https://bitwarden.com/help/policies/#send-options)
+  * [Single Organization](https://bitwarden.com/help/policies/#single-organization)
 
 ## Missing features
 
@@ -45,17 +45,17 @@ To simplify comparison with the official server, this section summarizes the fea
 Features that may be added as time permits (contributions are always welcome):
 
 * [Bitwarden Public API](https://bitwarden.com/help/public-api/) / [Organization API key](https://bitwarden.com/help/public-api/#authentication)
-* [Event Logs](https://bitwarden.com/help/article/event-logs/)
+* [Event Logs](https://bitwarden.com/help/event-logs/)
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (push notifications) for mobile clients (Android/iOS)
-* [Admin Password Reset](https://bitwarden.com/help/article/admin-reset/)
+* [Admin Password Reset](https://bitwarden.com/help/admin-reset/)
 * Certain enterprise policies:
-  * [Master Password Reset](https://bitwarden.com/help/article/policies/#master-password-reset)
+  * [Master Password Reset](https://bitwarden.com/help/policies/#master-password-reset)
 
 Features that probably won't be added unless contributed:
 
-* [Single Sign-On (SSO)](https://bitwarden.com/help/article/about-sso/)
-* [Groups](https://bitwarden.com/help/article/about-groups/)
-* [Custom roles](https://bitwarden.com/help/article/user-types-access-control/#custom-role)
+* [Single Sign-On (SSO)](https://bitwarden.com/help/about-sso/)
+* [Groups](https://bitwarden.com/help/about-groups/)
+* [Custom roles](https://bitwarden.com/help/user-types-access-control/#custom-role)
 * Certain enterprise policies ([UI not open source](https://github.com/bitwarden/web/tree/master/bitwarden_license/src/app/policies), would probably need to be configured via admin page):
   * [Vault Timeout](https://bitwarden.com/help/policies/#vault-timeout)
   * [Disable Personal Vault Export](https://bitwarden.com/help/policies/#disable-personal-vault-export)
