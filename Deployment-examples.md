@@ -16,6 +16,10 @@ This page is an index of standalone deployment examples. If adding a new example
 
   Sets up a fully functional and secure `vaultwarden` application in Kubernetes behind an nginx controller of your choice. It works well and is tested with the [microk8s](https://microk8s.io/) setup. There is support for generating SSL certificates via [cert-manager](https://github.com/jetstack/cert-manager) too.
 
+* https://github.com/guerzon/vaultwarden
+
+  Deploy `Vaultwarden` to Kubernetes clusters using [Helm](https://helm.sh/docs/). This chart supports important customizations such as providing image tags and custom registry values, using an external MySQL or PostgreSQL database, using ingress controllers such as [nginx-ingress](https://kubernetes.github.io/ingress-nginx/deploy/) and [AWS LB Ingress Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/deploy/installation/), using service accounts, configuring SMTP, and configuring storage options. The chart is well-documented and will continue to introduce more configuration options in the future.
+
 ## Raspberry Pi
 
 * https://github.com/martient/vaultwarden-ansible
