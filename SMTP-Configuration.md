@@ -1,3 +1,12 @@
+---
+> :warning: **NOTE:** Vaultwarden version before v1.24.0 had a bug/mislabelled configuration setting regarding SSL and TLS. This has been fixed in testing and newer released versions.<br>
+> The old settings were `SMTP_SSL` and `SMTP_EXPLICIT_TLS`.<br>
+> The new setting is `SMTP_SECURITY` which has the following options: `starttls`, `force_tls` and `off`.<br>
+> `SMTP_SSL=true` equals `starttls`<br>
+> `SMTP_EXPLICIT_TLS=true` equals `force_tls`<br>
+> The examples below still represent v1.24.0 for now.<br>
+---
+
 You can configure vaultwarden to send emails via a SMTP agent:
 
 ```sh
