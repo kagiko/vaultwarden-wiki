@@ -101,52 +101,100 @@ You'll have to set `IP_HEADER` to `X-Forwarded-For` instead of `X-Real-IP` in th
 </details>
 
 <details>
-<summary>Nginx (by shauder)</summary><br/>
+<summary>Nginx (by blackdex)</summary><br/>
 
 ```nginx
+# The `upstream` directives ensure that you have a http/1.1 connection
+# This enables the keepalive option and better performance
+#
+# Define the server IP and ports here.
+upstream vaultwarden-default {
+  zone vaultwarden-default 64k;
+  server 127.0.0.1:8080;
+  keepalive 2;
+}
+upstream vaultwarden-ws {
+  zone vaultwarden-ws 64k;
+  server 127.0.0.1:3012;
+  keepalive 2;
+}
+
+# Redirect HTTP to HTTPS
 server {
-  listen 443 ssl http2;
-  server_name vault.*;
-  
-  # Specify SSL config if using a shared one.
-  #include conf.d/ssl/ssl.conf;
-  
-  # Allow large attachments
-  client_max_body_size 128M;
+    listen 80;
+    listen [::]:80;
+    server_name vaultwarden.example.tld;
+    return 301 https://$host$request_uri;
+}
 
-  location / {
-    proxy_pass http://<SERVER>:80;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-  }
-  
-  location /notifications/hub {
-    proxy_pass http://<SERVER>:3012;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-  }
-  
-  location /notifications/hub/negotiate {
-    proxy_pass http://<SERVER>:80;
-  }
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name vaultwarden.example.tld;
 
-  # Optionally add extra authentication besides the ADMIN_TOKEN
-  # If you don't want this, leave this part out
-  location /admin {
-    # See: https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/
-    auth_basic "Private";
-    auth_basic_user_file /path/to/htpasswd_file;
+    # Specify SSL Config when needed
+    #ssl_certificate /path/to/certificate/letsencrypt/live/vaultwarden.example.tld/fullchain.pem;
+    #ssl_certificate_key /path/to/certificate/letsencrypt/live/vaultwarden.example.tld/privkey.pem;
+    #ssl_trusted_certificate /path/to/certificate/letsencrypt/live/vaultwarden.example.tld/fullchain.pem;
 
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
+    client_max_body_size 128M;
 
-    proxy_pass http://<SERVER>:80;
-  }
+    location / {
+      proxy_http_version 1.1;
+      proxy_set_header "Connection" "";
 
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+
+      proxy_pass http://vaultwarden-default;
+    }
+
+    location /notifications/hub/negotiate {
+      proxy_http_version 1.1;
+      proxy_set_header "Connection" "";
+
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+
+      proxy_pass http://vaultwarden-default;
+    }
+
+    location /notifications/hub {
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header Forwarded $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+
+      proxy_pass http://vaultwarden-ws;
+    }
+
+    # Optionally add extra authentication besides the ADMIN_TOKEN
+    # Remove the comments below `#` and create the htpasswd_file to have it active
+    #
+    #location /admin {
+    #  # See: https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/
+    #  auth_basic "Private";
+    #  auth_basic_user_file /path/to/htpasswd_file;
+    #
+    #  proxy_http_version 1.1;
+    #  proxy_set_header "Connection" "";
+    #
+    #  proxy_set_header Host $host;
+    #  proxy_set_header X-Real-IP $remote_addr;
+    #  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #  proxy_set_header X-Forwarded-Proto $scheme;
+    #
+    #  proxy_pass http://vaultwarden-default;
+    #}
 }
 ```
 
@@ -175,6 +223,9 @@ DOMAIN=https://bitwarden.example.tld/vault/
 ```
 
 ```nginx
+# The `upstream` directives ensure that you have a http/1.1 connection
+# This enables the keepalive option and better performance
+#
 # Define the server IP and ports here.
 upstream vaultwarden-default {
   zone vaultwarden-default 64k;
@@ -249,23 +300,23 @@ server {
     }
 
     # Optionally add extra authentication besides the ADMIN_TOKEN
-    # If you don't want this, leave this part out
-    location /vault/admin {
-      # See: https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/
-      auth_basic "Private";
-      auth_basic_user_file /path/to/htpasswd_file;
-
-      proxy_http_version 1.1;
-      proxy_set_header "Connection" "";
-
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-
-      proxy_pass http://vaultwarden-default;
-    }
-
+    # Remove the comments below `#` and create the htpasswd_file to have it active
+    #
+    #location /vault/admin {
+    #  # See: https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/
+    #  auth_basic "Private";
+    #  auth_basic_user_file /path/to/htpasswd_file;
+    #
+    #  proxy_http_version 1.1;
+    #  proxy_set_header "Connection" "";
+    #
+    #  proxy_set_header Host $host;
+    #  proxy_set_header X-Real-IP $remote_addr;
+    #  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #  proxy_set_header X-Forwarded-Proto $scheme;
+    #
+    #  proxy_pass http://vaultwarden-default;
+    #}
 }
 ```
 </details>
