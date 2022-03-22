@@ -51,3 +51,36 @@ load database
 ```
 8. run the command ```pgloader bitwarden.load``` and you might see some warnings, but the migration should complete successfully
 9. Start vaultwarden again.
+
+## Migrating from MySQL to PostgreSQL
+> Tested with MariaDB 10.3.32, PostgreSQL 14.2 and Vaultwarden 1.24.0
+
+
+Please, note that you **are using this at your own risk and you are strongly advised to backup your installation and data!**. This is **unsupported** and has not been robustly tested.
+
+1. Create a new (empty) database for vaultwarden:
+```sql
+CREATE DATABASE vaultwarden;
+```
+2. Create a new database user and grant rights to database:
+```sql
+CREATE USER vaultwarden WITH ENCRYPTED PASSWORD 'yourpassword';
+GRANT all privileges ON database vaultwarden TO vaultwarden;
+```
+3. Configure vaultwarden and start it, so diesel can run migrations and set up the schema properly. Do not do anything else.
+4. Stop vaultwarden.
+5. Install [pgloader](http://pgloader.io/). Make sure that you have the latest version of pgloader, the official Ubuntu repository has an outdated version which does not work well with newer versions of PostgreSQL. The newest version can be obtained from the [PostgreSQL Apt Repository](https://www.postgresql.org/download/linux/ubuntu/)
+6. Create the file `vaultwarden.load ` with the following content:
+```
+load database
+     from mysql://yourmysqluser:yourmysqlpassword@yourmysqlserver:yourmysqlport/yourmysqldatabase 
+     into postgresql://yourpgsqluser:yourpgsqlpassword@yourpgsqlserver:yourpgsqlport/yourpgsqldatabase
+     WITH data only
+     EXCLUDING TABLE NAMES MATCHING '__diesel_schema_migrations'
+     ALTER SCHEMA 'vaultwarden' RENAME TO 'public'
+;
+```
+_Optionally add `?sslmode=require` to the PostgreSQL connection string if your connection requires SSL_
+
+7. Run the command ```pgloader vaultwarden.load```  and you might see some warnings, but the migration should complete successfully. If there are errors, it is likely that you have an outdated version of pgloader!
+8. Start vaultwarden again
