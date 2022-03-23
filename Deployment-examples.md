@@ -33,7 +33,8 @@ This page is an index of standalone deployment examples. If adding a new example
 
   Sample config for running `vaultwarden` on [DreamHost](https://www.dreamhost.com/), but should be readily adaptable to many other shared hosting services.
 
-* https://lab.uberspace.de/guide_bitwarden.html
+*
+https://lab.uberspace.de/guide_vaultwarden.html?highlight=bitwarden
 
   Instructions on how to install from source and run on [Uberspace](https://uberspace.de/en/) shared hosting provider.
 
