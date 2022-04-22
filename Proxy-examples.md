@@ -240,11 +240,19 @@ upstream vaultwarden-ws {
 
 # Redirect HTTP to HTTPS
 server {
+    if ($host = bitwarden.example.tld) {
+        return 301 https://$host$request_uri;
+    }
+
+
     listen 80;
     listen [::]:80;
-    server_name vaultwarden.example.tld;
-    return 301 https://$host$request_uri;
+    server_name bitwarden.example.tld;
+    return 404;
+
+
 }
+
 
 server {
     listen 443 ssl http2;
