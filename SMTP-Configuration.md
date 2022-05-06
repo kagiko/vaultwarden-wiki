@@ -39,10 +39,11 @@ User invitation links are valid for 5 days, after which a new invitation will ne
 
 Properly configuring an SMTP server/relay isn't trivial. The mailer library that vaultwarden uses also isn't the easiest to troubleshoot. So unless you're particularly interested in setting this up yourself, it's probably easier to use an external service.
 
-Here are a few services with a free tier that allows sending 100-200 emails per day (which is plenty for most use cases):
+Here are a few services with a free tier that supports most use cases:
 
-* [SendGrid](https://sendgrid.com/)
-* [MailJet](https://www.mailjet.com/)
+* [SendGrid](https://sendgrid.com/) (100 emails per day)
+* [MailJet](https://www.mailjet.com/) (200 emails per day)
+* [SMTP2GO](https://www.smtp2go.com/) (1000 emails per month)
 
 ## Here some sane defaults for well known services
 
