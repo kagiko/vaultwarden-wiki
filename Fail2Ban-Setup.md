@@ -161,6 +161,9 @@ Do not use this if you use a reverse proxy before Docker container. If proxy, li
 **NOTE on the NOTE above**:  
 That's at least not true for running on Docker (CentOS 7) with caddy as reverse proxy. `chain=FORWARD` is absolutely fine and working with caddy as reverse proxy.
 
+**NOTE FOR CLOUDFLARE USERS**
+If you use cloudflare proxy, you'll need to add Cloudflare in your actions list, like in [this guide](https://niksec.com/using-fail2ban-with-cloudflare/)
+
 Reload fail2ban for changes to take effect:
 
 ```bash
@@ -211,6 +214,8 @@ Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefor
 ```INI
 action = iptables-allports[name=vaultwarden-admin, chain=FORWARD]
 ```
+**NOTE FOR CLOUDFLARE USERS**
+If you use cloudflare proxy, you'll need to add Cloudflare in your actions list, like in [this guide](https://niksec.com/using-fail2ban-with-cloudflare/)
 
 Reload fail2ban for changes to take effect:
 
