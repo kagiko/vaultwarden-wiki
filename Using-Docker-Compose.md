@@ -1,14 +1,5 @@
 [Docker Compose](https://docs.docker.com/compose/) is a tool that allows the definition and configuration of multi-container applications. In our case, we want both the vaultwarden server and a proxy to redirect the WebSocket requests to the correct place.
 
-> :warning: :warning: :warning: <br>
-> **Do not use quotes `"` for `environment` variable values them self! This causes issues. <br>**
-> If you need to enclose it within quotes enclose the whole item, variable + value. <br>
-> :no_entry_sign: WRONG: <br>
-> `- DATABASE_URL="/path/to/db.sqlite3"` <br>
-> :heavy_check_mark: OK: <br>
-> `- "DATABASE_URL=/path/to/db.sqlite3"` <br>
-> :warning: :warning: :warning: <br>
-
 ## Caddy with HTTP challenge
 
 This example assumes that you have [installed](https://docs.docker.com/compose/install/) Docker Compose, that you have a domain name (e.g., `vaultwarden.example.com`) for your vaultwarden instance, and that it will be publicly accessible.
@@ -24,7 +15,7 @@ services:
     container_name: vaultwarden
     restart: always
     environment:
-      - WEBSOCKET_ENABLED=true  # Enable WebSocket notifications.
+      WEBSOCKET_ENABLED: "true"  # Enable WebSocket notifications.
     volumes:
       - ./vw-data:/data
 
@@ -40,9 +31,9 @@ services:
       - ./caddy-config:/config
       - ./caddy-data:/data
     environment:
-      - DOMAIN=https://vaultwarden.example.com  # Your domain.
-      - EMAIL=admin@example.com                 # The email address to use for ACME registration.
-      - LOG_FILE=/data/access.log
+      DOMAIN: "https://vaultwarden.example.com"  # Your domain.
+      EMAIL: "admin@example.com"                 # The email address to use for ACME registration.
+      LOG_FILE: "/data/access.log"
 ```
 
 In the same directory, create the `Caddyfile` below. (This file does not need to be modified.)
@@ -104,7 +95,7 @@ services:
     container_name: vaultwarden
     restart: always
     environment:
-      - WEBSOCKET_ENABLED=true  # Enable WebSocket notifications.
+      WEBSOCKET_ENABLED: "true"  # Enable WebSocket notifications.
     volumes:
       - ./vw-data:/data
 
@@ -121,10 +112,10 @@ services:
       - ./caddy-config:/config
       - ./caddy-data:/data
     environment:
-      - DOMAIN=https://vaultwarden.example.com  # Your domain.
-      - EMAIL=admin@example.com                 # The email address to use for ACME registration.
-      - DUCKDNS_TOKEN=<token>                   # Your Duck DNS token.
-      - LOG_FILE=/data/access.log
+      DOMAIN: "https://vaultwarden.example.com"  # Your domain.
+      EMAIL: "admin@example.com"                 # The email address to use for ACME registration.
+      DUCKDNS_TOKEN: "<token>"                   # Your Duck DNS token.
+      LOG_FILE: "/data/access.log"
 ```
 
 The stock Caddy builds (including the one in the Docker image) don't include the DNS challenge modules, so next you'll need to [get a custom Caddy build](https://github.com/dani-garcia/vaultwarden/wiki/Running-a-private-vaultwarden-instance-with-Let%27s-Encrypt-certs#getting-a-custom-caddy-build). Rename the custom build as `caddy` and move it under the same directory as `docker-compose.yml`. Make sure the `caddy` file is executable (e.g., `chmod a+x caddy`). The `docker-compose.yml` file above bind-mounts the custom build into the `caddy:2` container, replacing the stock build.
