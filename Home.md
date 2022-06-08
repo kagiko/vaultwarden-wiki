@@ -21,7 +21,7 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
 * [Bitwarden Send](https://bitwarden.com/help/about-send/)
 * [Emergency Access](https://bitwarden.com/help/emergency-access/)
 * [Live sync](https://bitwarden.com/blog/post/live-sync/) (WebSocket only) for desktop/browser clients/extensions
-* [Trash](https://bitwarden.com/help/managing-items/#items-in-the-trash) (soft delete)
+* [Trash](https://bitwarden.com/help/managing-items/#vault-trash) (soft delete)
 * [Master password re-prompt](https://bitwarden.com/help/managing-items/#protect-individual-items)
 * [Personal API key](https://bitwarden.com/help/personal-api-key/)
 * Two-step login via [email](https://bitwarden.com/help/setup-two-step-login-email/), [Duo](https://bitwarden.com/help/setup-two-step-login-duo/), [YubiKey](https://bitwarden.com/help/setup-two-step-login-yubikey/), and [FIDO2 WebAuthn](https://bitwarden.com/help/setup-two-step-login-fido/) (including Nitrokeys and Solokeys)
