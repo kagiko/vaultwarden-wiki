@@ -1,5 +1,5 @@
 ---
-> :warning: **NOTE:** Vaultwarden version before v1.24.0 had a bug/mislabelled configuration setting regarding SSL and TLS. This has been fixed in testing and newer released versions.<br>
+> :warning: **NOTE:** Vaultwarden version before v1.25.0 had a bug/mislabelled configuration setting regarding SSL and TLS. This has been fixed in testing and newer released versions.<br>
 > The old settings were `SMTP_SSL` and `SMTP_EXPLICIT_TLS`.<br>
 > The new setting is `SMTP_SECURITY` which has the following options: `starttls`, `force_tls` and `off`.<br>
 > `SMTP_SSL=true` equals `starttls`<br>
