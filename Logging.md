@@ -1,4 +1,4 @@
-vaultwarden logs only to [standard output](https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout)) (stdout) by default. You can also configure it to log to a file.
+vaultwarden logs only to [standard output](https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout)) (stdout) by default. You can also configure it to log to a file or Syslog.
 
 ## Logging to a file
 
@@ -12,6 +12,19 @@ docker run -d --name vaultwarden \
 ```
 
 When this environment variable is set, log messages will be logged to both stdout and the log file. If you're running in Docker, you'll most likely want to use a file path that is mounted from the Docker host (such as the `data` folder); otherwise, your log file will be lost (or at least hard to find) if the container is restarted or removed.
+
+## Logging to Syslog
+
+You can use Syslog with the `USE_SYSLOG` environment variable while alse setting `EXTENDED_LOGGING=true`:
+
+```sh
+docker run -d --name vaultwarden \
+...
+  -e USE_SYSLOG=true -e EXTENDED_LOGGING=true \
+...
+```
+
+When this environment variable is set, log messages will be logged to both stdout and Syslog.
 
 ## Changing the log level
 
