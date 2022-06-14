@@ -4,7 +4,6 @@
 > The new setting is `SMTP_SECURITY` which has the following options: `starttls`, `force_tls` and `off`.<br>
 > `SMTP_SSL=true` equals `starttls`<br>
 > `SMTP_EXPLICIT_TLS=true` equals `force_tls`<br>
-> The examples below still represent v1.24.0 for now.<br>
 ---
 
 You can configure vaultwarden to send emails via a SMTP agent:
@@ -14,7 +13,7 @@ docker run -d --name vaultwarden \
   -e SMTP_HOST=<smtp.domain.tld> \
   -e SMTP_FROM=<vaultwarden@domain.tld> \
   -e SMTP_PORT=587 \
-  -e SMTP_SSL=true \
+  -e SMTP_SECURITY=starttls \
   -e SMTP_USERNAME=<username> \
   -e SMTP_PASSWORD=<password> \
   -v /vw-data/:/data/ \
@@ -22,7 +21,8 @@ docker run -d --name vaultwarden \
   vaultwarden/server:latest
 ```
 
-When `SMTP_SSL` is set to `true`(this is the default), only TLSv1.1 and TLSv1.2 protocols will be accepted and `SMTP_PORT` will default to `587`. If set to `false`, `SMTP_PORT` will default to `25` and the opportunistic encryption will be tried (no encryption attempted with code prior to 3/12/2020). This can be very insecure, use this setting only if you know what you're doing. To run SMTP in implicit (forced TLS) mode, set `SMTP_EXPLICIT_TLS` to `true` (Hint: environment-variable is mislabelled, see bug #851). If you can send emails without logging in, you can simply not set `SMTP_USERNAME` and `SMTP_PASSWORD`.
+From v1.25.0, environment variable for SMTP SSL/TLS configuration has been updated to `SMTP_SECURITY` (which was mislabelled, see bug #851).<br>
+When `SMTP_SECURITY` is set to `starttls`(this is the default), only TLSv1.1 and TLSv1.2 protocols will be accepted and `SMTP_PORT` will default to `587`. If set to `off`, `SMTP_PORT` will default to `25` and the opportunistic encryption will be tried (no encryption attempted with code prior to 3/12/2020). This can be very insecure, use this setting only if you know what you're doing. To run SMTP in implicit (forced TLS) mode, set `SMTP_SECURITY` to `force_tls`. If you can send emails without logging in, you can simply not set `SMTP_USERNAME` and `SMTP_PASSWORD`.
 
 Note that if SMTP and invitations are enabled, invitations will be sent to new users via email. You must set the `DOMAIN` configuration option with the base URL of your vaultwarden instance for the invite link to be generated correctly:
 
@@ -60,20 +60,17 @@ Some general settings per port.
 * for mail servers that use port 465
   ```ini
   SMTP_PORT=465
-  SMTP_SSL=false
-  SMTP_EXPLICIT_TLS=true
+  SMTP_SECURITY=force_tls
   ```
 * for mail servers that use port 587 (or sometimes 25)
   ```ini
   SMTP_PORT=587
-  SMTP_SSL=true
-  SMTP_EXPLICIT_TLS=false
+  SMTP_SECURITY=starttls
   ```
 * for mail servers that do not support encryption at all.
   ```ini
   SMTP_PORT=25
-  SMTP_SSL=false
-  SMTP_EXPLICIT_TLS=false
+  SMTP_SECURITY=off
   ```
 
 ### HELO Hostname
@@ -89,8 +86,7 @@ FullSSL:
   # Domains: gmail.com, googlemail.com
   SMTP_HOST=smtp.gmail.com
   SMTP_PORT=465
-  SMTP_SSL=false
-  SMTP_EXPLICIT_TLS=true
+  SMTP_SECURITY=force_tls
   SMTP_USERNAME=<mail-address>
   SMTP_PASSWORD=<less-secure-app-password>
 ```
@@ -99,8 +95,7 @@ StartTLS:
   # Domains: gmail.com, googlemail.com
   SMTP_HOST=smtp.gmail.com
   SMTP_PORT=587
-  SMTP_SSL=true
-  SMTP_EXPLICIT_TLS=false
+  SMTP_SECURITY=starttls
   SMTP_USERNAME=<mail-address>
   SMTP_PASSWORD=<less-secure-app-password>
 ```
@@ -111,8 +106,7 @@ Also see: https://web.archive.org/web/20210925161633/https://webewizard.com/2019
   # Domains: hotmail.com, outlook.com, office365.com
   SMTP_HOST=smtp-mail.outlook.com
   SMTP_PORT=587
-  SMTP_SSL=true
-  SMTP_EXPLICIT_TLS=false
+  SMTP_SECURITY=starttls
   SMTP_USERNAME=<mail-address>
   SMTP_PASSWORD=<password>
   SMTP_AUTH_MECHANISM="Login"
@@ -125,8 +119,7 @@ StartTLS:
 ```ini
   SMTP_HOST=smtp.sendgrid.net
   SMTP_PORT=587
-  SMTP_SSL=true
-  SMTP_EXPLICIT_TLS=false
+  SMTP_SECURITY=starttls
   SMTP_USERNAME=apikey
   SMTP_PASSWORD=<full-api-key>
   SMTP_AUTH_MECHANISM="Login"
@@ -136,8 +129,7 @@ Full SSL:
 ```ini
   SMTP_HOST=smtp.sendgrid.net
   SMTP_PORT=465
-  SMTP_SSL=false
-  SMTP_EXPLICIT_TLS=true
+  SMTP_SECURITY=force_tls
   SMTP_USERNAME=apikey
   SMTP_PASSWORD=<full-api-key>
   SMTP_AUTH_MECHANISM="Login"
@@ -155,3 +147,24 @@ Also, the quotes `'` and `"` could cause some issues, so lets enclose this passw
 To have the password above to work we need to type `'~^",a.%\\,\'}b&@|/c!1(#}'`, here you see that we escaped both the `\` and the `'` characters and used single quotes to surround the whole password.
 So: `~^",a.%\,'}b&@|/c!1(#}` becomes `'~^",a.%\\,\'}b&@|/c!1(#}'`
 
+## Using deprecated SMTP environment variable `SMTP_SSL` and `SMTP_EXPLICIT_TLS` (for v1.24.0 and lower)
+
+Use of `SMTP_SSL` and `SMTP_EXPLICIT_TLS` environment variables has been deprecated since v1.25.0.<br>
+if you are using v1.24.0 and lower, you can still use `SMTP_SSL` and `SMTP_EXPLICIT_TLS` environment variables:
+
+```sh
+docker run -d --name vaultwarden \
+  -e SMTP_HOST=<smtp.domain.tld> \
+  -e SMTP_FROM=<vaultwarden@domain.tld> \
+  -e SMTP_PORT=587 \
+  -e SMTP_SSL=true \
+  -e SMTP_USERNAME=<username> \
+  -e SMTP_PASSWORD=<password> \
+  -v /vw-data/:/data/ \
+  -p 80:80 \
+  vaultwarden/server:latest
+```
+
+When `SMTP_SSL` is set to `true`(this is the default), only TLSv1.1 and TLSv1.2 protocols will be accepted and `SMTP_PORT` will default to `587` (equals `SMTP_SECURITY=starttls`). If set to `false`, `SMTP_PORT` will default to `25` and the opportunistic encryption will be tried (no encryption attempted with code prior to 3/12/2020)(equals `SMTP_SECURITY=off`). This can be very insecure, use this setting only if you know what you're doing. To run SMTP in implicit (forced TLS) mode, set `SMTP_EXPLICIT_TLS` to `true` (equals `SMTP_SECURITY=force_tls`). If you can send emails without logging in, you can simply not set `SMTP_USERNAME` and `SMTP_PASSWORD`.
+
+**NOTE:** if you use these `SMTP_SSL` and `SMTP_EXPLICIT_TLS` settings on v1.25.0 and higher, vaultwarden will omit error for using deprecated setting.
