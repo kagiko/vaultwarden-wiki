@@ -3,15 +3,14 @@ This page is primarily for those interested in vaultwarden development, or who h
 Typical users should either [[deploy via Docker|Which-container-image-to-use]], [[extract the pre-built binaries|Pre-built binaries]] from the Alpine-based Docker images, or look for a [[third-party package|Third-party-packages]].
 
 ## Dependencies
-- `Rust nightly` (strongly recommended to use [rustup](https://rustup.rs/))
+- `Rust stable` (strongly recommended to use [rustup](https://rustup.rs/))
 - On a Debian based distro some general packages to make sure building should go fine install the following: `build-essential`, `git`
-- `OpenSSL` (should be available in path, see [openssl crate docs](https://docs.rs/openssl/0.10.16/openssl/#automatic))
+- `OpenSSL` (should be available in path, see [openssl crate docs](https://docs.rs/openssl/latest/openssl/#automatic))
   On a Debian based distro, you need to install `pkg-config` and `libssl-dev`
 - For the SQlite3 backend on a Debian based distro you need to install `libsqlite3-dev`
 - For the MySQL backend on a Debian based distro you need to install `libmariadb-dev-compat` and `libmariadb-dev`
 - For the PostgreSQL on a Debian based distro you need to install `libpq-dev` and `pkg-config`
-- `NodeJS` (only when compiling the web-vault, install through your system's package manager, use the [prebuilt binaries](https://nodejs.org/en/download/)) or [nodesource binary distribution](https://github.com/nodesource/distributions)
-*Note: web-vault currently uses a package base (e.g. node-sass <v4.12) which requires NodeJS v11*
+- `NodeJS` (only when compiling the web-vault, install through your system's package manager, use the [prebuilt binaries](https://nodejs.org/en/download/)) or [nodesource binary distribution](https://github.com/nodesource/distributions) *Note: Building the web-vault currently requires NodeJS v16 and NPM v8.11*
 
 ## Run/Compile
 ### All backends
@@ -46,44 +45,66 @@ cargo build --features postgresql --release
 
 When run, the server is accessible in [http://localhost:8000](http://localhost:8000).
 
-~*Note: A previous [issue](https://github.com/rust-lang/rust/issues/62896) meant that compilation could fail with a segfault due to an incompatibility between the Rust compiler and LLVM. As a work around an older version of the compiler could be used, e.g. ```cargo +nightly-2019-08-27 build --features yourbackend --release```*~
 
 ### Install the web-vault
 A compiled version of the web vault can be downloaded from [dani-garcia/bw_web_builds](https://github.com/dani-garcia/bw_web_builds/releases).
 
-If you prefer to compile it manually, follow these steps:
-
 *Note: building the Vault needs ~1.5GB of RAM. On systems like a RaspberryPI with 1GB or less, please [enable swapping](https://www.tecmint.com/create-a-linux-swap-file/) or build it on a more powerful machine and copy the directory from there. This much memory is only needed for building it, running vaultwarden with vault needs only about 10MB of RAM.*
 
-- Clone the git repository at [bitwarden/web](https://github.com/bitwarden/web) and checkout the latest release tag (e.g. v2.1.1):
+If you prefer to compile it manually, follow these steps:
+
+#### New (easy way):
+
+- Clone the git repository at [dani-garcia/bw_web_builds](https://github.com/dani-garcia/bw_web_builds):
 ```sh
 # clone the repository
-git clone https://github.com/bitwarden/web.git web-vault
+git clone https://github.com/dani-garcia/bw_web_builds.git bw_web_builds
+cd bw_web_builds
+
+# Use docker as the build environment (safest way and uses the correct build versions)
+# This will build the web-vault, and extract the files to a docker_build directory.
+make docker-extract
+
+# Using the host provided npm and node instead.
+make full
+```
+
+#### Old (very manual way):
+
+- Clone the git repository at [bitwarden/clients](https://github.com/bitwarden/clients) and checkout the latest release tag (e.g. v2022.6.0):
+```sh
+# clone the repository
+git clone https://github.com/bitwarden/clients.git web-vault
 cd web-vault
 # switch to the latest tag
-git checkout "$(git tag --sort=v:refname | tail -n1)"
-# use the matching jslib commit
-git submodule update --init --recursive
+git -c advice.detachedHead=false checkout web-v2022.6.0
+# Or use the commit hash for that version
+git -c advice.detachedHead=false checkout bb5f9311a776b94a33bcf0a7bff44cd87a2fcc92
 ```
 
 - Download the patch file from [dani-garcia/bw_web_builds](https://github.com/dani-garcia/bw_web_builds/tree/master/patches) and copy it to the `web-vault` folder.
-To choose the version to use, assuming the web vault is version `vX.Y.Z`:
-  - If there is a patch with version `vX.Y.Z`, use that one
-  - Otherwise, pick the one with the largest version that is still smaller than `vX.Y.Z`
+To choose the version to use, assuming the web vault is version `vXXXX.Y.Z`:
+  - If there is a patch with version `vXXXX.Y.Z`, use that one
+  - Otherwise, pick the one with the largest version that is still smaller than `vXXXX.Y.Z`
 - Apply the patch
 ```sh
 # In the 'web-vault' directory
-git apply vX.Y.Z.patch
+git apply vXXXX.Y.Z.patch
 ```
 
 - Then, build the Vault:
 
 ```sh
-npm install
+npm ci
 # Read the note below (we do use this for our docker builds).
 # npm audit fix
+
+# Change to the web-vault directory
+cd apps/web
+# Build the web-vault
 npm run dist:oss:selfhost
 ```
+
 *Note: You might be asked to run ```npm audit fix``` to fix vulnerability. This will automatically try to upgrade packages to newer version, which might not be compatible and break web-vault functionality``` Use it at your own risk, if you know what you are doing. We do use this on our own releases btw!*
 
 Finally copy the contents of the `build` folder into the destination folder:
@@ -91,7 +112,8 @@ Finally copy the contents of the `build` folder into the destination folder:
 - If you run the compiled binary directly, it's next to the binary, in `vaultwarden/target/release/web-vault`.
 
 ## Configuration
-The available configuration options are documented in the default `.env` file, and they can be modified by uncommenting the desired options in that file or by setting their respective environment variables. See the Configuration section of this wiki for the main configuration options available.
+The available configuration options are documented in the default `.env.template` file, and they can be modified by uncommenting the desired options in that file or by setting their respective environment variables. See the Configuration section of this wiki for the main configuration options available.
+If you want to use this file you need to copy it, and name it `.env` and adjust the settings in that specific file.
 
 Note: the environment variables override the values set in the `.env` file.
 
