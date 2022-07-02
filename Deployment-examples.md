@@ -6,6 +6,12 @@ This page is an index of standalone deployment examples. If adding a new example
 
   Vaultwarden installation optimized for Google Cloud's 'always free' e2-micro compute instance
 
+## Heroku
+
+* https://github.com/davidjameshowell/vaultwarden_heroku
+
+  Installs vaultwarden on Heroku using all free addons. Takes about 15 minutes to install.
+
 ## Kubernetes
 
 * https://github.com/icicimov/kubernetes-bitwarden_rs
