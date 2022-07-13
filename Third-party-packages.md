@@ -57,6 +57,8 @@ https://github.com/dinger1986/bitwardenrs_install_script
 
 Available in the [FreeBSD ports tree](https://www.freshports.org/security/vaultwarden/) and as a binary package in the FreeBSD pkg repository: `pkg install vaultwarden`
 
+A sample configuration file is provided at `/usr/local/etc/rc.conf.d/vaultwarden.sample`. Copy this file to `/usr/local/etc/rc.conf.d/vaultwarden` and edit its content to [configure vaultwarden](https://github.com/dani-garcia/vaultwarden/wiki/Configuration-overview#configuration-options). The `vaultwarden` service can then be launched as usual (`service(8)`, etc.).
+
 ## Multiple RPM and DEB distributions
 
 openSUSE build service projekt with support for 'CentOS, Debian, Fedora, RHEL, SUSE, Ubuntu'.
