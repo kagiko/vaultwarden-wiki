@@ -27,10 +27,9 @@ Any issues with the RPMs can be reported here: https://github.com/MrMEEE/bitward
 
 ## CentOS 8 / RHEL 8
 
-A fork of the repo that builds an RPM and pushes it to COPR using Docker.
+A hacky package that uses SQLite. It doesn't have the vault (yet), and still has the old name in visible places.
 
-https://github.com/alexpdp7/bitwarden_rs/tree/rpm/packages/centos8
-https://copr.fedorainfracloud.org/coprs/koalillo/bitwarden_rs/
+https://github.com/alexpdp7/vaultwarden-rpm
 
 ## Nix (OS)
 
