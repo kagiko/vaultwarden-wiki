@@ -20,7 +20,7 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
 * [Bitwarden Authenticator (TOTP)](https://bitwarden.com/help/authenticator-keys/)
 * [Bitwarden Send](https://bitwarden.com/help/about-send/)
 * [Emergency Access](https://bitwarden.com/help/emergency-access/)
-* [Live sync](https://bitwarden.com/blog/post/live-sync/) (WebSocket only) for desktop/browser clients/extensions
+* [Live sync](https://bitwarden.com/blog/live-sync/) (WebSocket only) for desktop/browser clients/extensions
 * [Trash](https://bitwarden.com/help/managing-items/#vault-trash) (soft delete)
 * [Master password re-prompt](https://bitwarden.com/help/managing-items/#protect-individual-items)
 * [Personal API key](https://bitwarden.com/help/personal-api-key/)
@@ -46,7 +46,7 @@ Features that may be added as time permits (contributions are always welcome):
 
 * [Bitwarden Public API](https://bitwarden.com/help/public-api/) / [Organization API key](https://bitwarden.com/help/public-api/#authentication)
 * [Event Logs](https://bitwarden.com/help/event-logs/)
-* [Live sync](https://bitwarden.com/blog/post/live-sync/) (push notifications) for mobile clients (Android/iOS)
+* [Live sync](https://bitwarden.com/blog/live-sync/) (push notifications) for mobile clients (Android/iOS)
 * [Admin Password Reset](https://bitwarden.com/help/admin-reset/)
 * Certain enterprise policies:
   * [Master Password Reset](https://bitwarden.com/help/policies/#master-password-reset)
@@ -56,7 +56,7 @@ Features that probably won't be added unless contributed:
 * [Single Sign-On (SSO)](https://bitwarden.com/help/about-sso/)
 * [Groups](https://bitwarden.com/help/about-groups/)
 * [Custom roles](https://bitwarden.com/help/user-types-access-control/#custom-role)
-* Certain enterprise policies ([UI not open source](https://github.com/bitwarden/web/tree/master/bitwarden_license/src/app/policies), would probably need to be configured via admin page):
+* Certain enterprise policies ([UI not open source](https://github.com/bitwarden/clients/tree/master/bitwarden_license/bit-web/src/app/policies), would probably need to be configured via admin page):
   * [Vault Timeout](https://bitwarden.com/help/policies/#vault-timeout)
   * [Disable Personal Vault Export](https://bitwarden.com/help/policies/#disable-personal-vault-export)
 
