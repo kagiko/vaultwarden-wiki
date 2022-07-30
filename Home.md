@@ -25,6 +25,7 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
 * [Master password re-prompt](https://bitwarden.com/help/managing-items/#protect-individual-items)
 * [Personal API key](https://bitwarden.com/help/personal-api-key/)
 * Two-step login via [email](https://bitwarden.com/help/setup-two-step-login-email/), [Duo](https://bitwarden.com/help/setup-two-step-login-duo/), [YubiKey](https://bitwarden.com/help/setup-two-step-login-yubikey/), and [FIDO2 WebAuthn](https://bitwarden.com/help/setup-two-step-login-fido/) (including Nitrokeys and Solokeys)
+* Username generator integration with SimpleLogin, AnonAddy, or Firefox Relay
 * [Directory Connector](https://bitwarden.com/help/directory-sync/) support (basic implementation, no group support)
   <br>Only version [v2.9.2](https://github.com/bitwarden/directory-connector/releases/tag/v2.9.2) and lower is supported, v2.9.3 and up use a different login method not supported yet.
 * Certain enterprise policies:
