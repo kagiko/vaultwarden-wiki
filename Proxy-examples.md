@@ -463,6 +463,8 @@ Remember to enable `mod_proxy_wstunnel` and `mod_proxy_http`, for example with: 
     ProxyPreserveHost On
     ProxyRequests Off
     RequestHeader set X-Real-IP %{REMOTE_ADDR}s
+    # Add this line if your url attributes are reported back as http://... :
+    # RequestHeader add X-Forwarded-Proto https
 </VirtualHost>
 ```
 </details>
