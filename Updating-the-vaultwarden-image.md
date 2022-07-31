@@ -84,13 +84,12 @@ if `/usr/bin/docker` is not the correct path to docker
 
 ## Updating when using DietPi
 
-[https://dietpi.com/](DietPi) is a lightweight Debian-based distribution (image) for all kinds of devices like Raspberry Pi, Odroid, NanoPi and others.
-
-It offers a GUI for installing various programs including Vaultwarden. That spares the user tinkering with installation commands.
+[DietPi](https://dietpi.com/) is a lightweight Debian-based distribution (image) for all kinds of devices like Raspberry Pi, Odroid, NanoPi and others. It offers a GUI for installing various programs including Vaultwarden. That spares the user tinkering with installation commands.
 
 To update a previously installed Vautwarden instance which was installed using the DietPi GUI, use the following command on the DietPi command line:
+
 `dietpi-software reinstall 183`
 
 It is recommended to use DietPi version 8.7 or newer because the update process has been optimised and became considerably faster than in previous versions. 
 
-In case you run Vaultwarden with a customised confirguration file, it will be kept in place reserved by the update script.
+In case you run Vaultwarden with a customised confirguration file, it will be kept by the update script.
