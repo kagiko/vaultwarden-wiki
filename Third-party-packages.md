@@ -58,13 +58,24 @@ Available in the [FreeBSD ports tree](https://www.freshports.org/security/vaultw
 
 A sample configuration file is provided at `/usr/local/etc/rc.conf.d/vaultwarden.sample`. Copy this file to `/usr/local/etc/rc.conf.d/vaultwarden` and edit its content to [configure vaultwarden](https://github.com/dani-garcia/vaultwarden/wiki/Configuration-overview#configuration-options). The `vaultwarden` service can then be launched as usual (`service(8)`, etc.).
 
-## Multiple RPM and DEB distributions
+## RPM and DEB packages for most common distributions
 
-openSUSE build service projekt with support for 'CentOS, Debian, Fedora, RHEL, SUSE, Ubuntu'.
+openSUSE build service projekt with support for:
+
+| RPM    |                            |
+|--------|----------------------------|
+| SUSE   | 15.3<br>15.4<br>Tumbleweed |
+| RHEL   | 7                          |
+| CentOS | 7<br>8<br>8_Stream         |
+| Fedora | 34<br>35<br>36<br>Rawhide  |
+
+| DEB    |                            |
+|--------|----------------------------|
+| Debian | 10<br>11<br>Testing        |
+| Ubuntu | 18.04<br>20.04<br>22.04    |
 
 You can either download the packages directly or use the available repositories.
 
-**Warning:** For now the packages contain prebuilt binaries, it is not possible to build rust-nightly packages with this build service.
-
 [vaultwarden](https://build.opensuse.org/package/show/home:Masgalor:Vaultwarden/vaultwarden)
 [vaultwarden-webvault](https://build.opensuse.org/package/show/home:Masgalor:Vaultwarden/vaultwarden-webvault)
+[vaultwarden-webvault-dark](https://build.opensuse.org/package/show/home:Masgalor:Vaultwarden/vaultwarden-webvault-dark)
