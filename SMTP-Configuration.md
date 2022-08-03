@@ -43,6 +43,7 @@ Here are a few services with a free tier that supports most use cases:
 
 * [SendGrid](https://sendgrid.com/) (100 emails per day)
 * [MailJet](https://www.mailjet.com/) (200 emails per day)
+* [SendinBlue](https://www.sendinblue.com) (300 emails per day)
 * [SMTP2GO](https://www.smtp2go.com/) (1000 emails per month)
 
 ## Here some sane defaults for well known services
