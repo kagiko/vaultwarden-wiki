@@ -51,6 +51,7 @@
 ### Security
 1. [[Hardening Guide|Hardening Guide]]
 1. [[Fail2Ban Setup|Fail2Ban-Setup]]
+1. [[Fail2Ban + ModSecurity + Traefik + Docker|Docker---Traefik---ModSecurity-Setup]]
 
 ## Backup
 1. [[General (not docker)]]
