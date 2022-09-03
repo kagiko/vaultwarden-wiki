@@ -118,7 +118,7 @@ read -rp "Enter the name of the app: " APPNAME
 
 # check if app name is empty
 if [ -z "$APPNAME" ]; then
-    echo "App name empty. Using default name: $APPNAME"
+    echo "App name empty. Using default name: vaultwarden"
     APPNAME="vaultwarden"
 fi
 
