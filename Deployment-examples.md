@@ -100,3 +100,49 @@ If you have any Questions about this part, feel Free to contact me. I on @litsch
 
 You can install Vaultwarden into your secure network-attached storage (NAS) with Let's Encrypt.
 Due to the QNAP's built-in HTTP(S) server, you cannot publish Vaultwarden on the standard HTTP(S) port (80 / 443).
+
+## Dokku
+
+This is a script that automatically sets up vaultwarden using the docker image uploaded to DockerHub
+and creates a [Dokku](https://dokku.com/) app. The script assumes you havea global domain set
+up (i.e. the file `/home/dokku/VHOST` exists). Follow the prompts to set it up.
+
+```sh
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+APPNAME=""
+
+read -rp "Enter the name of the app: " APPNAME
+
+# check if app name is empty
+if [ -z "$APPNAME" ]; then
+    echo "App name empty. Using default name: $APPNAME"
+    APPNAME="vaultwarden"
+fi
+
+# check if dokku plugin exists
+if ! dokku plugin:list | grep letsencrypt; then
+    sudo dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git
+fi
+# check if global email for letsencrypt is set
+if ! dokku config:get --global DOKKU_LETSENCRYPT_EMAIL; then
+    read -rp "Enter email address for letsencrypt: " EMAIL
+    dokku config:set --global DOKKU_LETSENCRYPT_EMAIL="$EMAIL"
+fi
+
+dokku apps:create "$APPNAME"
+dokku storage:ensure-directory "$APPNAME"
+dokku storage:mount "$APPNAME" /var/lib/dokku/data/storage/"$APPNAME":/data
+dokku domains:add $APPNAME $APPNAME."$(cat /home/dokku/VHOST)"
+dokku letsencrypt:enable "$APPNAME"
+dokku proxy:ports-add "$APPNAME" http:80:80
+dokku proxy:ports-add "$APPNAME" https:443:80
+dokku proxy:ports-remove "$APPNAME" http:80:5000
+dokku proxy:ports-remove "$APPNAME" https:443:5000
+dokku git:from-image "$APPNAME" vaultwarden/server:latest
+```
+
+Copy the above script to your dokku host and run it. Once the script succeeds, the web vault will be
+available at https://$APPNAME.dokku.me.
