@@ -145,4 +145,4 @@ dokku git:from-image "$APPNAME" vaultwarden/server:latest
 ```
 
 Copy the above script to your dokku host and run it. Once the script succeeds, the web vault will be
-available at https://$APPNAME.dokku.me.
+available at `https://$APPNAME.dokku.me`.
