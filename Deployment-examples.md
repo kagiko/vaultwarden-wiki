@@ -104,7 +104,7 @@ Due to the QNAP's built-in HTTP(S) server, you cannot publish Vaultwarden on the
 ## Dokku
 
 This is a script that automatically sets up vaultwarden using the docker image uploaded to DockerHub
-and creates a [Dokku](https://dokku.com/) app. The script assumes you havea global domain set
+and creates a [Dokku](https://dokku.com/) app. The script assumes you have a global domain set
 up (i.e. the file `/home/dokku/VHOST` exists). Follow the prompts to set it up.
 
 ```sh
