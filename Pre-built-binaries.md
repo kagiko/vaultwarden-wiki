@@ -54,21 +54,8 @@ $ ls -ld output/{vaultwarden,web-vault}
 drwx------ 8 user user     4096 Feb  6 21:46 output/web-vault/
 ```
 
-If you want the ARMv7 image, you currently have to download it by digest.
+To download an image for another platform:
 
-Go to https://hub.docker.com/r/vaultwarden/server/tags?name=alpine and find the entry for the `alpine` tag.
-Click the partial digest for the `linux/arm/v7` image:
-
-![](https://i.imgur.com/T5WdwtS.png)
-
-This should bring you to a page that shows the full digest:
-
-![](https://i.imgur.com/Hsz8vJ4.png)
-
-Copy the full digest, and replace the `docker-image-extract vaultwarden/server:alpine` command above with
-`docker-image-extract vaultwarden/server:<full_digest>`.
-
-For example:
-```
-$ ./docker-image-extract vaultwarden/server:sha256:ef129de113bec3409b6370c37a6e5573a1dacc051a3aae2a8a3339323ae63623
-```
+* ARMv6: `./docker-image-extract -p linux/arm/v6 vaultwarden/server:alpine`
+* ARMv7: `./docker-image-extract -p linux/arm/v7 vaultwarden/server:alpine`
+* ARMv8 / AArch64: `./docker-image-extract -p linux/arm64 vaultwarden/server:alpine`
