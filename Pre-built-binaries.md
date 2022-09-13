@@ -1,4 +1,4 @@
-vaultwarden doesn't currently provide standalone binaries as a separate download, but for platforms that have an Alpine-based Docker image available (currently x86-64 and ARMv7), you can extract standalone, statically-linked binaries from the official Docker images. Each Docker image also includes a matching web vault build (which is platform-independent).
+Vaultwarden doesn't currently provide standalone binaries as a separate download, but you can extract standalone, statically-linked binaries from the official Alpine-based Docker images. Each Docker image also includes a matching web vault build (which is platform-independent).
 
 ## Extracting binaries with Docker installed
 
@@ -54,7 +54,7 @@ $ ls -ld output/{vaultwarden,web-vault}
 drwx------ 8 user user     4096 Feb  6 21:46 output/web-vault/
 ```
 
-To download an image for another platform:
+To pull and extract an image for another platform:
 
 * ARMv6: `./docker-image-extract -p linux/arm/v6 vaultwarden/server:alpine`
 * ARMv7: `./docker-image-extract -p linux/arm/v7 vaultwarden/server:alpine`
