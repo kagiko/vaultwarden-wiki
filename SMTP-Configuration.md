@@ -169,3 +169,37 @@ docker run -d --name vaultwarden \
 When `SMTP_SSL` is set to `true`(this is the default), only TLSv1.1 and TLSv1.2 protocols will be accepted and `SMTP_PORT` will default to `587` (equals `SMTP_SECURITY=starttls`). If set to `false`, `SMTP_PORT` will default to `25` and the opportunistic encryption will be tried (no encryption attempted with code prior to 3/12/2020)(equals `SMTP_SECURITY=off`). This can be very insecure, use this setting only if you know what you're doing. To run SMTP in implicit (forced TLS) mode, set `SMTP_EXPLICIT_TLS` to `true` (equals `SMTP_SECURITY=force_tls`). If you can send emails without logging in, you can simply not set `SMTP_USERNAME` and `SMTP_PASSWORD`.
 
 **NOTE:** if you use these `SMTP_SSL` and `SMTP_EXPLICIT_TLS` settings on v1.25.0 and higher, vaultwarden will omit error for using deprecated setting.
+
+## Troubleshooting
+
+It often happens that people are having issues with connecting to there SMTP server from Vaultwarden.<br>
+Most of the time it's a wrong configuration or the ISP/Hosting blocking the ports or IP's.<br>
+
+Some basic steps to check if you can access the SMTP server can be done by running the following commands on the host where you are running Vaultwarden, either using Docker or as a standalone binary.
+
+**NOTE:** Replace `smtp.google.com` and `587`, `465` or `25` with the host and port matching your SMTP server.
+
+```bash
+# First check if you can us this check at all by checking HTTPS access to google.com
+timeout 5 bash -c 'cat < /dev/null > /dev/tcp/www.google.com/443'; echo $?
+
+# Check for 587 SMTP Submission Port
+timeout 5 bash -c 'cat < /dev/null > /dev/tcp/smtp.gmail.com/587'; echo $?
+
+# Check for 465 SMTP SSL Port
+timeout 5 bash -c 'cat < /dev/null > /dev/tcp/smtp.gmail.com/465'; echo $?
+
+# Check for 25 Default SMTP Port
+timeout 5 bash -c 'cat < /dev/null > /dev/tcp/smtp.gmail.com/25'; echo $?
+
+# Or use a tool called nc (This tool is not always available on the host or within the container)
+nc -vz smtp.gmail.com 587
+```
+
+To check this from within the docker container, run the following on the docker host first to login into the container.<br>
+In the example bellow i assume the container name is `vaultwarden`, change this to the container name you used.<br>
+After running the command bellow, run one of the commands above to check access from within the container also.
+
+```bash
+docker exec -it vaultwarden sh
+```
