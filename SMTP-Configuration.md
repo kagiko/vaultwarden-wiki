@@ -179,6 +179,8 @@ Some basic steps to check if you can access the SMTP server can be done by runni
 
 **NOTE:** Replace `smtp.google.com` and `587`, `465` or `25` with the host and port matching your SMTP server.
 
+The output of these commands should be `0`, if it returns anything else but `0`, it means there is an issue connecting to the server.
+
 ```bash
 # First check if you can us this check at all by checking HTTPS access to google.com
 timeout 5 bash -c 'cat < /dev/null > /dev/tcp/www.google.com/443'; echo $?
