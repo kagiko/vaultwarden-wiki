@@ -150,16 +150,13 @@ bantime = 14400
 findtime = 14400
 ```
 
-Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefore replace the `banaction` line with the following `action` when using Docker:
-```INI
-action = iptables-allports[name=vaultwarden, chain=FORWARD]
+###### Note for Docker Users
+
+Docker uses the FORWARD chain instead of the default INPUT chain. If the machine receiving requests is mapping them straight to a Docker container, then chain will need to be set appropriately regardless of what is in the container (reverse proxy, Vaultwarden, etc). The default `action` is set to `banaction`, which we then set to `banaction_allports`, which already takes the chain into account. Thus, simply set the `chain`. See [this similar issue](https://forum.openwrt.org/t/resolved-fail2ban-and-iptables-ip-bans-not-blocked/90057).
+
+```ini
+chain = FORWARD
 ```
-
-**NOTE**:  
-Do not use this if you use a reverse proxy before Docker container. If proxy, like apache2 or nginx is used, use the ports of the proxy and do not use `chain=FORWARD`, only when using Docker **without** proxy!
-
-**NOTE on the NOTE above**:  
-That's at least not true for running on Docker (CentOS 7) with caddy as reverse proxy. `chain=FORWARD` is absolutely fine and working with caddy as reverse proxy.
 
 **Tip**:If you are using systemd to manage vaultwarden, you can use systemd-journal for fail2ban:
 ```
