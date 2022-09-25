@@ -152,7 +152,7 @@ findtime = 14400
 
 ###### Note for Docker Users
 
-Docker uses the FORWARD chain instead of the default INPUT chain. If the machine receiving requests is mapping them straight to a Docker container, then chain will need to be set appropriately regardless of what is in the container (reverse proxy, Vaultwarden, etc). The default `action` is set to `banaction`, which we then set to `banaction_allports`, which already takes the chain into account. Thus, simply set the `chain`. See [this similar issue](https://forum.openwrt.org/t/resolved-fail2ban-and-iptables-ip-bans-not-blocked/90057).
+Docker uses the FORWARD chain instead of the default INPUT chain. If the machine receiving requests is mapping them straight to a Docker container, then chain will need to be set appropriately regardless of what is in the container (reverse proxy, Vaultwarden, etc). The default `action` is set to `action_` (which uses `banaction`, which we alias to `banaction_allports`). `action_` already takes the chain into account. Thus, simply set the `chain`. See [this similar issue](https://forum.openwrt.org/t/resolved-fail2ban-and-iptables-ip-bans-not-blocked/90057).
 
 ```ini
 chain = FORWARD
