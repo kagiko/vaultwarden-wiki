@@ -79,3 +79,8 @@ You can either download the packages directly or use the available repositories.
 [vaultwarden](https://build.opensuse.org/package/show/home:Masgalor:Vaultwarden/vaultwarden)
 [vaultwarden-webvault](https://build.opensuse.org/package/show/home:Masgalor:Vaultwarden/vaultwarden-webvault)
 [vaultwarden-webvault-dark](https://build.opensuse.org/package/show/home:Masgalor:Vaultwarden/vaultwarden-webvault-dark)
+
+## Void Linux
+
+Available in void-packages as [vaultwarden](https://github.com/void-linux/void-packages/tree/master/srcpkgs/vaultwarden): `xbps-install vaultwarden`  
+The web vault ([vaultwarden-web](https://github.com/void-linux/void-packages/tree/master/srcpkgs/vaultwarden-web)) can be optionally installed as well: `xbps-install vaultwarden-web`
