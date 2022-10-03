@@ -26,7 +26,7 @@ PIDFile=/run/user/1000/overlay-containers/54502f309f3092d32b4c496ef3d099b270b2af
 WantedBy=multi-user.target default.target
 ```
 
-You can provide a `--files` flag to tell podman to put the systemd service into a file. With this we can enable and start the container as any normal service file.
+You can provide a `--files` flag to tell podman to put the systemd service into a file or use ```podman generate systemd --name vaultwarden > /etc/systemd/system/container-vaultwarden.service```. With this we can enable and start the container as any normal service file.
 ```sh
 $ systemctl enable /etc/systemd/system/container-vaultwarden.service
 $ systemctl start container-vaultwarden.service
