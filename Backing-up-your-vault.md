@@ -86,6 +86,10 @@ _**Backup recommended.**_
 
 These files are used to sign the JWTs (authentication tokens) of users currently logged in. Deleting them would simply log out each user, forcing them to log in again.
 
+The `rsa_key.pem` (private key) file could be considered mildly sensitive. In principle, it could be used to forge login sessions to your server, though in practice, doing so would require additional knowledge of various UUIDs (e.g., taken from a copy of your database). Also, any data obtained with a forged session would still be encrypted with personal and/or organization keys, so brute-forcing the relevant master password in order to obtain those keys would still be required.
+
+Nevertheless, encrypting the private key is recommended if you're concerned that someone else might be able to access to it (e.g., when uploaded to cloud storage).
+
 ### The `icon_cache` dir
 
 _**Backup optional.**_
