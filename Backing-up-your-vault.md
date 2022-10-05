@@ -78,7 +78,7 @@ _**Backup recommended.**_
 
 If you use the admin page to configure your vaultwarden instance and don't have your configuration backed up some other way, then you probably want to back up this file so you don't have to figure out your preferred configuration all over again.
 
-Keep in mind that this file does contain some data in plaintext that could be considered sensitive (admin token, SMTP credentials, etc.), so make sure to encrypt this data if you're concerned that someone else might be able to access to it (e.g., when uploaded to cloud storage).
+Keep in mind that this file does contain some data in plaintext that could be considered sensitive (admin token, SMTP credentials, etc.), so make sure to encrypt this data if you're concerned that someone else might be able to access it (e.g., when uploaded to cloud storage).
 
 ### The `rsa_key*` files
 
@@ -88,7 +88,7 @@ These files are used to sign the JWTs (authentication tokens) of users currently
 
 The `rsa_key.pem` (private key) file could be considered mildly sensitive. In principle, it could be used to forge login sessions to your server, though in practice, doing so would require additional knowledge of various UUIDs (e.g., taken from a copy of your database). Also, any data obtained with a forged session would still be encrypted with personal and/or organization keys, so brute-forcing the relevant master password in order to obtain those keys would still be required.
 
-Nevertheless, encrypting the private key is recommended if you're concerned that someone else might be able to access to it (e.g., when uploaded to cloud storage).
+Nevertheless, encrypting the private key is recommended if you're concerned that someone else might be able to access it (e.g., when uploaded to cloud storage).
 
 ### The `icon_cache` dir
 
