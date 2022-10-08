@@ -39,6 +39,7 @@ If you prefer, you can also directly specify a value instead of substituting an 
   encode gzip
 
   # Uncomment to improve security (WARNING: only use if you understand the implications!)
+  # If you want to use FIDO2 WebAuthn, set X-Frame-Options to "SAMEORIGIN" or the Browser will block those requests
   # header {
   #      # Enable HTTP Strict Transport Security (HSTS)
   #      Strict-Transport-Security "max-age=31536000;"
