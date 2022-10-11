@@ -4,6 +4,8 @@
 
 This example assumes that you have [installed](https://docs.docker.com/compose/install/) Docker Compose, that you have a domain name (e.g., `vaultwarden.example.com`) for your vaultwarden instance, and that it will be publicly accessible.
 
+**Note**: Docker Compose might be run as `docker-compose <command> ...` (with a dash) or `docker compose <command> ...` (with a space), depending on how you have installed Docker Compose. `docker-compose` is the original syntax, when Docker Compose was distributed as a standalone executable. You can still choose to do a [standalone](https://docs.docker.com/compose/install/other/#install-compose-standalone) installation, in which case you would continue to use this syntax. However, Docker currently recommends installing Docker Compose as a Docker plugin, where `compose` becomes a subcommand of `docker`, making the syntax `docker compose <command> ...`.
+
 Start by making a new directory and changing into it. Next, create the `docker-compose.yml` below, making sure to substitute appropriate values for the `DOMAIN` and `EMAIL` variables.
 
 ```yaml
@@ -69,12 +71,12 @@ In the same directory, create the `Caddyfile` below. (This file does not need to
 
 Run
 ```bash
-docker-compose up -d
+docker compose up -d  # or `docker-compose up -d` if using the standalone Docker Compose
 ```
 to create and start the containers. A private network for the services in this `docker-compose.yml` file will be created automatically, with only Caddy being publicly exposed.
 
 ```bash
-docker-compose down
+docker-compose down  # or `docker-compose down` if using the standalone Docker Compose
 ```
 stops and destroys the containers.
 
@@ -151,6 +153,6 @@ In the same directory, create the `Caddyfile` below. (This file does not need to
 
 As with the HTTP challenge example, run
 ```bash
-docker-compose up -d
+docker-compose up -d  # or `docker-compose up -d` if using the standalone Docker Compose
 ```
 to create and start the containers.
