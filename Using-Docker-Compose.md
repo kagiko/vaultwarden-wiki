@@ -71,12 +71,12 @@ In the same directory, create the `Caddyfile` below. (This file does not need to
 
 Run
 ```bash
-docker compose up -d  # or `docker-compose up -d` if using the standalone Docker Compose
+docker compose up -d  # or `docker-compose up -d` if using standalone Docker Compose
 ```
 to create and start the containers. A private network for the services in this `docker-compose.yml` file will be created automatically, with only Caddy being publicly exposed.
 
 ```bash
-docker-compose down  # or `docker-compose down` if using the standalone Docker Compose
+docker compose down  # or `docker-compose down` if using standalone Docker Compose
 ```
 stops and destroys the containers.
 
@@ -153,6 +153,6 @@ In the same directory, create the `Caddyfile` below. (This file does not need to
 
 As with the HTTP challenge example, run
 ```bash
-docker-compose up -d  # or `docker-compose up -d` if using the standalone Docker Compose
+docker compose up -d  # or `docker-compose up -d` if using standalone Docker Compose
 ```
 to create and start the containers.
