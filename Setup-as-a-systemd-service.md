@@ -31,7 +31,7 @@ After=network.target
 # The user/group vaultwarden is run under. the working directory (see below) should allow write and read access to this user/group
 User=vaultwarden
 Group=vaultwarden
-# The location of the .env file for configuration
+# Use an environment file for configuration.
 EnvironmentFile=/etc/vaultwarden.env
 # The location of the compiled binary
 ExecStart=/usr/bin/vaultwarden
@@ -84,7 +84,7 @@ Before doing anything else, you should stop and disable the service:
 ```
 $ sudo systemctl disable --now vaultwarden.service
 ```
-Then you can delete the binary, the `.env` file, the web-vault folder (if installed) and the user data (if necessary). Remember to also remove specially created users,groups and firewall rules (if needed) and the systemd file.
+Then you can delete the binary, the environment file, the web-vault folder (if installed) and the user data (if necessary). Remember to also remove specially created users,groups and firewall rules (if needed) and the systemd file.
 
 After removing the systemd file you should make systemd aware of it via:
 ```
@@ -145,15 +145,15 @@ This is known to occur when vaultwarden is running inside a container (LXC, et a
 ```
 then reloading the daemon & restarting.
 
-### environment variable it's not loaded
+### Environment variables are not loaded
 
-Please not systemd does not support comment in same line as a variable in `EnvironmentFile` file. In this `.env` file example the variable" WEBSOCKET_ENABLED "will not be loaded.
+Please note that systemd does not support comments in the same line as a variable in the `EnvironmentFile=/etc/vaultwarden.env` file (see [#1607](/dani-garcia/vaultwarden/issues/1607)). In this environment file example the variable `WEBSOCKET_ENABLED` will not be loaded.
 ```
-ROCKET_PORT=XXXX
+ROCKET_PORT=8080
 WEBSOCKET_ENABLED=true # enable websocket
 ```
 
-Source: [#1607](/dani-garcia/vaultwarden/issues/1607)
+If you want same-line comments consider using `/var/lib/vaultwarden/.env` instead (which will also get rid of the [.env file missing](https://github.com/dani-garcia/vaultwarden/wiki/FAQs#why-does-vaultwarden-say-info-no-env-file-found-even-though-i-provided-one) _INFO_ on startup).
 
 
 ## More information
