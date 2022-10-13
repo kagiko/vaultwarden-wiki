@@ -8,6 +8,9 @@
 |--------|-----------|
 |[![Packaging status](https://repology.org/badge/vertical-allrepos/vaultwarden.svg)](https://repology.org/project/vaultwarden/versions)|[![Packaging status](https://repology.org/badge/vertical-allrepos/vaultwarden-web.svg)](https://repology.org/project/vaultwarden-web/versions)|
 
+> :warning: Be aware that the latest vaultwarden release is not always forward-compatible with the latest web-vault version, so you might want to [use an older version](https://github.com/dani-garcia/bw_web_builds/releases) of vaultwarden-web to ensure compatibility.<br />
+
+
 ## Arch Linux
 
 Available in the [official repositories](https://archlinux.org/packages/community/x86_64/vaultwarden/), along with the [web vault](https://archlinux.org/packages/community/any/vaultwarden-web/).
