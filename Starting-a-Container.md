@@ -2,7 +2,16 @@ Note that the `docker run` command has a slightly misleading name, as it rather 
 
 # Creating the Container
 
-The persistent data is stored under /data inside the container, so the only requirement for persistent deployment using Docker is to mount persistent volume at the path:
+The persistent data is stored under /data inside the container, so the only requirement for persistent deployment using Docker is to mount a persistent volume. Create a local directory where to map the container's persistent storage:
+
+```sh
+mkdir /vw-data
+```
+If you happen to use SELinux (RHEL & Clones / Fedora), you'll have to set the context of the persistent storage so the container may write to it
+```sh
+semanage fcontext -a -t svirt_sandbox_file_t '/vw-data(/.*)?'
+restorecon -Rv /vw-data
+```
 
 ```sh
 # using Docker:
