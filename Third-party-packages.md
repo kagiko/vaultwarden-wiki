@@ -34,6 +34,15 @@ A hacky package that uses SQLite. It doesn't have the vault (yet), and still has
 
 https://github.com/alexpdp7/vaultwarden-rpm
 
+## Fedora (current release, x86_64)
+
+The vaultwarden package is built as a universal binary for MySQL, SQLite, and PostgreSQL. It also creates a `vaultwarden` user/group and a systemd service.
+
+```
+dnf config-manager --add-repo https://evermeet.cx/pub/repo/fedora/evermeet.repo
+dnf install vaultwarden vaultwarden-webvault
+```
+
 ## Nix (OS)
 
 Vaultwarden is both packaged for mysql, sqlite, postgresql and for vault. There is also a NixOS module for declarative configuration (see `services.vaultwarden`)
