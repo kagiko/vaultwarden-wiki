@@ -132,6 +132,11 @@ if ! dokku config:get --global DOKKU_LETSENCRYPT_EMAIL; then
     dokku config:set --global DOKKU_LETSENCRYPT_EMAIL="$EMAIL"
 fi
 
+# pull the latest image
+IMAGE_NAME="vaultwarden/server"
+docker pull $IMAGE_NAME
+image_sha="$(docker inspect --format='{{index .RepoDigests 0}}' $IMAGE_NAME)"
+echo "Calculated image sha: $image_sha"
 dokku apps:create "$APPNAME"
 dokku storage:ensure-directory "$APPNAME"
 dokku storage:mount "$APPNAME" /var/lib/dokku/data/storage/"$APPNAME":/data
@@ -141,8 +146,17 @@ dokku proxy:ports-add "$APPNAME" http:80:80
 dokku proxy:ports-add "$APPNAME" https:443:80
 dokku proxy:ports-remove "$APPNAME" http:80:5000
 dokku proxy:ports-remove "$APPNAME" https:443:5000
-dokku git:from-image "$APPNAME" vaultwarden/server:latest
+dokku git:from-image "$APPNAME" "$image_sha"
 ```
 
 Copy the above script to your dokku host and run it. Once the script succeeds, the web vault will be
 available at `https://$APPNAME.dokku.me`.
+
+To update your vaultwarden server, run the following (remembering to replace `$APP_NAME` with your app's name):
+
+```bash
+docker rmi -f vaultwarden/server
+docker pull vaultwarden/server:latest
+image_sha="$(docker inspect --format='{{index .RepoDigests 0}}' vaultwarden/server)"
+dokku git:from-image $APP_NAME $image_sha
+```
