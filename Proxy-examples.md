@@ -871,8 +871,8 @@ spec:
 </details>
 <details>
 <summary>relayd on openbsd (by olliestrickland)</summary><br/>
-```gateway+vs
 
+```
 table <vaultwarden-default-host> { localhost }
 table <vaultwarden-websocket-host> { localhost }
 
