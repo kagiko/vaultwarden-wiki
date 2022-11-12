@@ -872,7 +872,7 @@ spec:
 <details>
 <summary>relayd on openbsd (by olliestrickland)</summary><br/>
 
-This is a working good (websockets included) - /etc/relayd.conf - on openbsd 7.2 using vaultwarden from ports - https://openports.se/security/vaultwarden
+This is a tested and working (websockets included) - /etc/relayd.conf - on openbsd 7.2 using vaultwarden from ports - https://openports.se/security/vaultwarden
 
 This configuration depends on proper setup of tls - I used https://man.openbsd.org/acme-client
 ```
