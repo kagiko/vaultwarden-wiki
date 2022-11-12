@@ -906,7 +906,7 @@ http protocol vaultwarden-https {
         tls keypair bitwarden.example.tld
         tls { no tlsv1.0, ciphers HIGH }
 
-        # allow websockets - this is nice it handles all the headers no need for manual header edits
+        # allow websockets - this is nice it handles the connection upgrade, no need for manual header edits
         http websockets
 }
 
