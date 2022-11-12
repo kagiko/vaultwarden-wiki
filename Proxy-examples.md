@@ -874,6 +874,7 @@ spec:
 
 This is a working good (websockets included) - /etc/relayd.conf - on openbsd 7.2 using vaultwarden from ports - https://openports.se/security/vaultwarden
 
+This configuration depends on proper setup of tls - I used https://man.openbsd.org/acme-client
 ```
 table <vaultwarden-default-host> { localhost }
 table <vaultwarden-websocket-host> { localhost }
