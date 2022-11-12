@@ -869,3 +869,50 @@ spec:
         host: vaultwarden
 ```
 </details>
+<details>
+<summary>relayd on openbsd (by olliestrickland)</summary><br/>
+```gateway+vs
+table <vaultwarden-default-host> { localhost }
+table <vaultwarden-websocket-host> { localhost }
+
+# protocol definition for vaultwarden with tls
+
+http protocol vaultwarden-https {
+        # add a header vaultwarden needs
+        match request header append "X-Real-IP" value "$REMOTE_ADDR"
+
+        # add a few headers vaultwarden may not need
+        match request header append "Host" value "$HOST"
+        match request header append "X-Forwarded-For" value "$REMOTE_ADDR"
+        match request header append "X-Forwarded-By" value "$SERVER_ADDR:$SERVER_PORT"
+
+        # most general rule - forward connections to vaultwarden rocket
+        match request path "/*" forward to <vaultwarden-default-host>
+
+        # forward the path used for websocket to the vaultwarden websocket port
+        match request path "/notifications/hub" forward to <vaultwarden-websocket-host>
+
+        # save most specific path for last - this path should not forward to the websocket server
+        match request path "/notifications/hub/negotiate" forward to <vaultwarden-default-host>
+
+        # various TCP options
+        tcp { nodelay, sack, backlog 128 }
+
+        # tls config
+        tls keypair bitwarden.example.tld
+        tls { no tlsv1.0, ciphers HIGH }
+
+        # allow websockets - this is nice it handles all the headers no need for manual header edits
+        http websockets
+}
+
+# relay definition for vaultwarden - forward inbound 443 tls on the egress interface to rocket on default port 8000 and websocket on 3012
+
+relay vaultwarden-https-relay {
+        listen on egress port 443 tls
+        protocol vaultwarden-https
+        forward to <vaultwarden-default-host> port 8000
+        forward to <vaultwarden-websocket-host> port 3012
+}
+```
+</details>
