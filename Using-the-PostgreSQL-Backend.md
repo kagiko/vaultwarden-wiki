@@ -9,9 +9,9 @@ DATABASE_URL=postgresql://[[user]:[password]@]host[:port][/database]
 An example docker run environment variable would be: ```-e 'DATABASE_URL=postgresql://user_name:user_password@db_host:5432/vaultwarden'```.
 
 If you want to use a custom schema/search-path you need to use the following connection string:<br>
-Note the `%3D` which is an url-encoded `=` sign
+Note the URL-encoded characters such as `%20` for the space and `%3D` for `=` sign
 ```ini
-DATABASE_URL=postgresql://user_name:user_password@db_host:5432/vaultwarden?application_name=vaultwarden&options=-c search_path%3Ddb_schema
+DATABASE_URL=postgresql://user_name:user_password@db_host:5432/vaultwarden?application_name=vaultwarden&options=-c%20search_path%3Ddb_schema
 ```
 
 If your password contains special characters, you will need to use percentage encoding.
