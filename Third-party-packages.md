@@ -17,7 +17,7 @@ Available in the [official repositories](https://archlinux.org/packages/communit
 
 ## Debian
 
-A docker based toolchain can be used to build debian packages: https://github.com/greizgh/bitwarden_rs-debian
+A docker based toolchain can be used to build debian packages: https://github.com/greizgh/vaultwarden-debian
 It bundles the server and the web vault.
 
 ## CentOS7 / RHEL7
