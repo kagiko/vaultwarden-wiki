@@ -32,7 +32,7 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
   * [Two-Step Login](https://bitwarden.com/help/policies/#two-step-login)
   * [Master Password](https://bitwarden.com/help/policies/#master-password)
   * [Password Generator](https://bitwarden.com/help/policies/#password-generator)
-  * [Personal Ownership](https://bitwarden.com/help/policies/#personal-ownership)
+  * [Remove individual vault](https://bitwarden.com/help/policies/#remove-individual-vault)
   * [Disable Send](https://bitwarden.com/help/policies/#disable-send)
   * [Send Options](https://bitwarden.com/help/policies/#send-options)
   * [Single Organization](https://bitwarden.com/help/policies/#single-organization)
