@@ -21,3 +21,11 @@ docker run -d --name vaultwarden \
 ```
 
 Note: The reason for this workaround is the lack of support for WebSockets from Rocket (though [it's a planned feature](https://github.com/SergioBenitez/Rocket/issues/90)), which forces us to launch a secondary server on a separate port.
+
+## Test the WebSockets connection
+
+Testing if a connection is working correctly can be done in two ways:
+
+1. Open the developer tools of your browser, go to the network tab and filter for `WS`/`WebSockets`. Logout or refresh the page and login again and you you should see a 101 response for the upgraded WebSocket connection. If you click on that line you should be able to see the messages. If you do not get the status code 101 on `/notifications/hub` then something is configured incorrectly.
+
+2. Open two different browsers or an incognito/private window. Login into your account on both. Either create a new entry, or rename the cipher in one, and that should instantly change also in the other.
