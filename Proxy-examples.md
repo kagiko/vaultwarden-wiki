@@ -333,7 +333,7 @@ server {
 <details>
 <summary>Nginx configured by Ansible/DebOps (by ypid)</summary><br/>
 
-Ansible inventory example that uses [DebOps](https://debops.org) to configure Nginx as a reverse proxy for vaultwarden. I choose to go with the PSK in the URL for additional security to not expose the API to everyone on the Internet because the client apps do not support client certificates yet (I tested it). Refer to [[Hardening Guide -- hiding under a subdir|Hardening-Guide#hiding-under-a-subdir]]
+Ansible inventory example that uses [DebOps](https://debops.org) to configure Nginx as a reverse proxy for vaultwarden. I choose to go with the PSK in the URL for additional security to not expose the API to everyone on the Internet because the client apps do not support client certificates yet (I tested it). Refer to [[Hardening Guide – hiding under a subdir|Hardening-Guide#hiding-under-a-subdir]].
 
 ```YAML
 vaultwarden__fqdn: 'vault.example.org'
