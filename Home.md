@@ -33,7 +33,7 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
   * [Master password requirements](https://bitwarden.com/help/policies/#master-password-requirements)
   * [Password Generator](https://bitwarden.com/help/policies/#password-generator)
   * [Remove individual vault](https://bitwarden.com/help/policies/#remove-individual-vault)
-  * [Disable Send](https://bitwarden.com/help/policies/#disable-send)
+  * [Remove Send](https://bitwarden.com/help/policies/#remove-send)
   * [Send Options](https://bitwarden.com/help/policies/#send-options)
   * [Single Organization](https://bitwarden.com/help/policies/#single-organization)
 
