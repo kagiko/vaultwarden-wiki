@@ -30,7 +30,7 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
   <br>Only version [v2.9.2](https://github.com/bitwarden/directory-connector/releases/tag/v2.9.2) and lower is supported, v2.9.3 and up use a different login method not supported yet.
 * Certain enterprise policies:
   * [Require two-step login](https://bitwarden.com/help/policies/#require-two-step-login)
-  * [Master Password](https://bitwarden.com/help/policies/#master-password)
+  * [Master password requirements](https://bitwarden.com/help/policies/#master-password-requirements)
   * [Password Generator](https://bitwarden.com/help/policies/#password-generator)
   * [Remove individual vault](https://bitwarden.com/help/policies/#remove-individual-vault)
   * [Disable Send](https://bitwarden.com/help/policies/#disable-send)
