@@ -331,27 +331,37 @@ server {
 </details>
 
 <details>
-<summary>Nginx (by ypid)</summary><br/>
+<summary>Nginx configured by Ansible/DebOps (by ypid)</summary><br/>
 
-Ansible inventory example that uses DebOps to configure nginx as a reverse proxy for vaultwarden. I choose to go with the PSK in the URL for additional security to not expose the API to everyone on the Internet because the client apps do not support client certificates yet (I tested it). Note: Using subpath/PSK requires to patch the source code and recompile, ref: https://github.com/dani-garcia/vaultwarden/issues/241#issuecomment-436376497. /admin is untested. For general discussion about subpath hosting for security refer to: https://github.com/debops/debops/issues/1233
+Ansible inventory example that uses [DebOps](https://debops.org) to configure Nginx as a reverse proxy for vaultwarden. I choose to go with the PSK in the URL for additional security to not expose the API to everyone on the Internet because the client apps do not support client certificates yet (I tested it). Refer to [[Hardening Guide -- hiding under a subdir|Hardening-Guide#hiding-under-a-subdir]]
 
 ```YAML
-bitwarden__fqdn: 'vault.example.org'
+vaultwarden__fqdn: 'vault.example.org'
+vaultwarden__http_psk_subpath_enabled: True
+vaultwarden__http_psk_subpath: '{{ lookup("password", secret + "/vaultwarden/" +
+                                     inventory_hostname + "/config/subpath chars=ascii_letters,digits length=23")
+                                   if vaultwarden__http_psk_subpath_enabled | bool
+                                   else "" }}'
 
 nginx__upstreams:
 
-  - name: 'bitwarden'
+  - name: 'vaultwarden-default'
     type: 'default'
     enabled: True
     server: 'localhost:8000'
 
+  - name: 'vaultwarden-ws'
+    type: 'default'
+    enabled: True
+    server: 'localhost:3012'
+
 nginx__servers:
 
-  - name: '{{ bitwarden__fqdn }}'
-    filename: 'debops.bitwarden'
-    by_role: 'debops.bitwarden'
+  - name: '{{ vaultwarden__fqdn }}'
+    filename: 'debops.vaultwarden'
+    by_role: 'debops.vaultwarden'
     favicon: False
-    root: '/usr/share/vaultwarden/web-vault'
+    # root: '/usr/share/vaultwarden/web-vault'
 
     location_list:
 
@@ -359,28 +369,52 @@ nginx__servers:
         options: |-
           deny all;
 
-      - pattern: '= /ekkP9wtJ_psk_changeme_Hr9CCTud'
+      - pattern: '= /{{ vaultwarden__http_psk_subpath }}'
         options: |-
           return 307 $scheme://$host$request_uri/;
 
       ## All the security HTTP headers would then need to be set by nginx as well.
-      # - pattern: '/ekkP9wtJ_psk_changeme_Hr9CCTud/'
+      # - pattern: '/{{ vaultwarden__http_psk_subpath }}/'
       #   options: |-
       #     alias /usr/share/vaultwarden/web-vault/;
 
-      - pattern: '/ekkP9wtJ_psk_changeme_Hr9CCTud/'
+      - pattern: '/{{ vaultwarden__http_psk_subpath }}/'
         options: |-
           proxy_set_header Host              $host;
-          # proxy_set_header X-Real-IP         $remote_addr;
-          # proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+          proxy_set_header X-Real-IP         $remote_addr;
+          proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
           proxy_set_header X-Forwarded-Proto $scheme;
           proxy_set_header X-Forwarded-Port  443;
 
-          proxy_pass http://bitwarden;
+          proxy_pass http://vaultwarden-default;
 
-      ## Do not use the icons features as long as it reveals all domains from
-      ## our credentials to the server.
-      - pattern: '/ekkP9wtJ_psk_changeme_Hr9CCTud/icons/'
+      - pattern: '/{{ vaultwarden__http_psk_subpath }}/notifications/hub/negotiate'
+        options: |-
+          proxy_set_header Host              $host;
+          proxy_set_header X-Real-IP         $remote_addr;
+          proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Port  443;
+
+          proxy_pass http://vaultwarden-default;
+
+      - pattern: '/{{ vaultwarden__http_psk_subpath }}/notifications/hub'
+        options: |-
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection $connection_upgrade;
+
+          proxy_set_header Host              $host;
+          proxy_set_header X-Real-IP         $remote_addr;
+          proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Port  443;
+
+          proxy_pass http://vaultwarden-ws;
+
+      # Do not use the icons features as long as it reveals all domains from
+      # our credentials to the server.
+      - pattern: '/{{ vaultwarden__http_psk_subpath }}/icons/'
         options: |-
           access_log off;
           log_not_found off;
