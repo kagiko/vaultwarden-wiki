@@ -46,8 +46,6 @@ ProtectSystem=strict
 # Only allow writes to the following directory and set it to the working directory (user and password data are stored here)
 WorkingDirectory=/var/lib/vaultwarden
 ReadWriteDirectories=/var/lib/vaultwarden
-# Allow vaultwarden to bind ports in the range of 0-1024
-AmbientCapabilities=CAP_NET_BIND_SERVICE
 
 [Install]
 WantedBy=multi-user.target
