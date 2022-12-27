@@ -80,3 +80,11 @@ See: [[Fail2Ban Setup|Fail2Ban Setup]]
 Traditionally, a Bitwarden instance resides at the root of a subdomain (i.e., `bitwarden.example.com`, and not `bitwarden.example.com/some/path`). The upstream Bitwarden server currently only supports subdomain roots, while vaultwarden adds support for [[alternate base directories|Using-an-alternate-base-dir]]. For some users, this is useful simply because they only have access to one subdomain and want to run multiple services under different directories. In such cases, they typically choose something obvious like `mysubdomain.example.com/bitwarden`. However, you can also use this to provide an extra layer of protection by putting vaultwarden under something like `mysubdomain.example.com/bitwarden/<mysecretstring>`, where `<mysecretstring>` effectively acts as a password. Some may argue that this is [security through obscurity](https://en.wikipedia.org/wiki/Security_through_obscurity), but it's actually [defense in depth](https://en.wikipedia.org/wiki/Defense_in_depth_(computing)) -- the secrecy of the subdir is just an extra layer of security, and not intended to be the primary means of security (which is still the strength of a user's master password).
 
 For general discussion about subpath hosting for security refer to: https://github.com/debops/debops/issues/1233
+
+If you make this change, you may also have to change the reverse proxy to add this path to /notifications/hub. For example, in Caddy v2:
+```Caddyfile
+vaultwarden.example.com {
+	reverse_proxy /my-custom-path/notifications/hub 10.0.0.150:3012
+        reverse_proxy 10.0.0.150:8083
+}
+```
