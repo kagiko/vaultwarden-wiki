@@ -20,7 +20,7 @@ The first time you save a setting in the admin page, `config.json` will be gener
 
 Note that config changes in the admin page do not take effect until you click the `Save` button. For example, if you are testing SMTP settings, and you change the `SMTP Auth mechanism` setting and then click `Send test email` to test the change, this won't work as expected -- since you didn't click `Save`, the `SMTP Auth mechanism` change won't have taken effect.
 
-**Note:** After changing the `ADMIN_TOKEN`, the currently logged in admins will still be able to use their old login token for [up to 20 minutes](https://github.com/dani-garcia/vaultwarden/blob/master/src/api/admin.rs#L87).
+**Note:** After changing the `ADMIN_TOKEN`, the currently logged in admins will still be able to use their old login token for [up to 20 minutes](https://github.com/dani-garcia/vaultwarden/blob/main/src/api/admin.rs#L183).
 
 
 **Note:** Removing the environment variable `ADMIN_TOKEN` won't disable the admin page if the value is persisted in the `config.json` file mentioned above. **To disable admin page**, make sure no `ADMIN_TOKEN` environment variable is set, and no `"admin_token"` key exists in `config.json`, if that file exists.
