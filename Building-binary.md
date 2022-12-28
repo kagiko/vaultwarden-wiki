@@ -82,6 +82,8 @@ git -c advice.detachedHead=false checkout web-v2022.6.0
 git -c advice.detachedHead=false checkout bb5f9311a776b94a33bcf0a7bff44cd87a2fcc92
 ```
 
+- Patch all the images from [resources](https://github.com/dani-garcia/bw_web_builds/tree/master/resources) according to the instructions in the [apply_patches script](https://github.com/dani-garcia/bw_web_builds/blob/master/scripts/apply_patches.sh)
+
 - Download the patch file from [dani-garcia/bw_web_builds](https://github.com/dani-garcia/bw_web_builds/tree/master/patches) and copy it to the `web-vault` folder.
 To choose the version to use, assuming the web vault is version `vXXXX.Y.Z`:
   - If there is a patch with version `vXXXX.Y.Z`, use that one
