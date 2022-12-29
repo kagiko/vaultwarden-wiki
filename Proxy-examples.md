@@ -64,6 +64,8 @@ If you prefer, you can also directly specify a value instead of substituting an 
   reverse_proxy /notifications/hub <SERVER>:3012
 
   # Proxy everything else to Rocket
+  # if located at a sub-path the reverse_proxy line will look like:
+  #   reverse_proxy /subpath/* <SERVER>:80
   reverse_proxy <SERVER>:80 {
        # Send the true remote IP to Rocket, so that vaultwarden can put this in the
        # log, so that fail2ban can ban the correct IP.
