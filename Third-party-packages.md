@@ -20,6 +20,8 @@ Available in the [official repositories](https://archlinux.org/packages/communit
 A docker based toolchain can be used to build debian packages: https://github.com/greizgh/vaultwarden-debian
 It bundles the server and the web vault.
 
+Debian source with pure compilation toolchain (no docker): https://github.com/dionysius/vaultwarden-deb and https://github.com/dionysius/vaultwarden-web-vault-deb
+
 ## CentOS7 / RHEL7
 
 A RPM Repository is packaged by @MrMEEE here: https://copr.fedorainfracloud.org/coprs/mrmeee/bitwarden_rs/ ... This also includes the webinterface in an additional package. 
