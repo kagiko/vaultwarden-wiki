@@ -21,6 +21,7 @@ A docker based toolchain can be used to build debian packages: https://github.co
 It bundles the server and the web vault.
 
 Debian source with pure compilation toolchain (no docker): https://github.com/dionysius/vaultwarden-deb and https://github.com/dionysius/vaultwarden-web-vault-deb
+It offers prebuild packages for latest Ubuntu LTS.
 
 ## CentOS7 / RHEL7
 
