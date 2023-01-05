@@ -51,6 +51,11 @@ sudo  sed -i "s/^#\sROCKET_ADDRESS/ROCKET_ADDRESS/" /etc/vaultwarden/vaultwarden
 sudo systemctl enable --now vaultwarden
 sudo systemctl status -l  vaultwarden
 ```
+- You should then get following web GUI
+
+
+![image](https://user-images.githubusercontent.com/378638/210675481-9e088200-ee5d-4dc8-bef9-8002d5ae730b.png)
+
 
 ## Nix (OS)
 
