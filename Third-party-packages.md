@@ -48,13 +48,19 @@ dnf install vaultwarden vaultwarden-webvault
 sudo  sed -i "s/^#\sWEB_VAULT_ENABLED=true/WEB_VAULT_ENABLED=true/" /etc/vaultwarden/vaultwarden.cfg
 # Listen on 0.0.0.0:8000, not the default localhost(127.0.0.1)
 sudo  sed -i "s/^#\sROCKET_ADDRESS/ROCKET_ADDRESS/" /etc/vaultwarden/vaultwarden.cfg
+# Enable admin GUI, login using long token in vaultwarden.cfg
+sudo  sed -i "s/^#\sADMIN_TOKEN/ADMIN_TOKEN=/" /etc/vaultwarden/vaultwarden.cfg
 sudo systemctl enable --now vaultwarden
 sudo systemctl status -l  vaultwarden
 ```
-- You should then get following web GUI
+- You should then get following web GUI at  http://yourIP:8000/
 
 
 ![image](https://user-images.githubusercontent.com/378638/210675481-9e088200-ee5d-4dc8-bef9-8002d5ae730b.png)
+
+- This is admin GUI at http://yourIP:8000/admin
+
+![image](https://user-images.githubusercontent.com/378638/210676217-8300b754-0bc2-49f1-8499-7ab3f0557254.png)
 
 
 ## Nix (OS)
