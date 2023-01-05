@@ -49,7 +49,7 @@ sudo  sed -i "s/^#\sWEB_VAULT_ENABLED=true/WEB_VAULT_ENABLED=true/" /etc/vaultwa
 # Listen on 0.0.0.0:8000, not the default localhost(127.0.0.1)
 sudo  sed -i "s/^#\sROCKET_ADDRESS/ROCKET_ADDRESS/" /etc/vaultwarden/vaultwarden.cfg
 # Enable admin GUI, login using long token in vaultwarden.cfg
-sudo  sed -i "s/^#\sADMIN_TOKEN/ADMIN_TOKEN=/" /etc/vaultwarden/vaultwarden.cfg
+sudo  sed -i "s/^#\sADMIN_TOKEN/ADMIN_TOKEN/" /etc/vaultwarden/vaultwarden.cfg
 sudo systemctl enable --now vaultwarden
 sudo systemctl status -l  vaultwarden
 ```
