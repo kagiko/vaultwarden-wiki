@@ -44,6 +44,12 @@ The vaultwarden package is built as a universal binary for MySQL, SQLite, and Po
 ```
 dnf config-manager --add-repo https://evermeet.cx/pub/repo/fedora/evermeet.repo
 dnf install vaultwarden vaultwarden-webvault
+# Enable web GUI 
+sudo  sed -i "s/^#\sWEB_VAULT_ENABLED=true/WEB_VAULT_ENABLED=true/" /etc/vaultwarden/vaultwarden.cfg
+# Listen on 0.0.0.0:8000, not the default localhost(127.0.0.1)
+sudo  sed -i "s/^#\sROCKET_ADDRESS/ROCKET_ADDRESS/" /etc/vaultwarden/vaultwarden.cfg
+sudo systemctl enable --now vaultwarden
+sudo systemctl status -l  vaultwarden
 ```
 
 ## Nix (OS)
