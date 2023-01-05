@@ -39,7 +39,7 @@ https://github.com/alexpdp7/vaultwarden-rpm
 
 ## Fedora (current release, x86_64)
 
-The vaultwarden package is built as a universal binary for MySQL, SQLite, and PostgreSQL. It also creates a `vaultwarden` user/group and a systemd service.
+The vaultwarden package is built as a universal binary for SQLite(default), MySQL and PostgreSQL. It also creates a `vaultwarden` user/group and a systemd service.
 
 ```
 dnf config-manager --add-repo https://evermeet.cx/pub/repo/fedora/evermeet.repo
