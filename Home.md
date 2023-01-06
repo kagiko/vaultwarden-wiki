@@ -11,7 +11,8 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
 * Web interface (equivalent to https://vault.bitwarden.com/)
 * Personal vault support
 * [Organization](https://bitwarden.com/help/getting-started-organizations/) vault support
-* [Groups](https://bitwarden.com/help/about-groups/) (unstable, setting an [environment variable](https://github.com/dani-garcia/vaultwarden/blob/main/.env.template#L98) is required in order to enable it
+* [Groups](https://bitwarden.com/help/about-groups/) (unstable, setting an [environment variable](https://github.com/dani-garcia/vaultwarden/blob/main/.env.template#L98) is required in order to enable it)
+* [Event Logs](https://bitwarden.com/help/event-logs/)
 * [Password sharing](https://bitwarden.com/help/sharing/) and [access control](https://bitwarden.com/help/user-types-access-control/)
 * [Collections](https://bitwarden.com/help/about-collections/)
 * [File attachments](https://bitwarden.com/help/attachments/)
@@ -47,7 +48,6 @@ To simplify comparison with the official server, this section summarizes the fea
 Features that may be added as time permits (contributions are always welcome):
 
 * [Bitwarden Public API](https://bitwarden.com/help/public-api/) / [Organization API key](https://bitwarden.com/help/public-api/#authentication)
-* [Event Logs](https://bitwarden.com/help/event-logs/)
 * [Live sync](https://bitwarden.com/blog/live-sync/) (push notifications) for mobile clients (Android/iOS)
 * [Admin Password Reset](https://bitwarden.com/help/admin-reset/)
 * Certain enterprise policies:
