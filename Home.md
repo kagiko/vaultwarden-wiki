@@ -11,6 +11,7 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
 * Web interface (equivalent to https://vault.bitwarden.com/)
 * Personal vault support
 * [Organization](https://bitwarden.com/help/getting-started-organizations/) vault support
+* [Groups](https://bitwarden.com/help/about-groups/) (unstable, setting an [environment variable](https://github.com/dani-garcia/vaultwarden/blob/main/.env.template#L98) is required in order to enable it
 * [Password sharing](https://bitwarden.com/help/sharing/) and [access control](https://bitwarden.com/help/user-types-access-control/)
 * [Collections](https://bitwarden.com/help/about-collections/)
 * [File attachments](https://bitwarden.com/help/attachments/)
@@ -55,7 +56,6 @@ Features that may be added as time permits (contributions are always welcome):
 Features that probably won't be added unless contributed:
 
 * [Single Sign-On (SSO)](https://bitwarden.com/help/about-sso/)
-* [Groups](https://bitwarden.com/help/about-groups/)
 * [Custom roles](https://bitwarden.com/help/user-types-access-control/#custom-role)
 * Certain enterprise policies ([UI not open source](https://github.com/bitwarden/clients/tree/master/bitwarden_license/bit-web/src/app/policies), would probably need to be configured via admin page):
   * [Vault Timeout](https://bitwarden.com/help/policies/#vault-timeout)
