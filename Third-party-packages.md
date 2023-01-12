@@ -90,6 +90,12 @@ Available in the [FreeBSD ports tree](https://www.freshports.org/security/vaultw
 
 A sample configuration file is provided at `/usr/local/etc/rc.conf.d/vaultwarden.sample`. Copy this file to `/usr/local/etc/rc.conf.d/vaultwarden` and edit its content to [configure vaultwarden](https://github.com/dani-garcia/vaultwarden/wiki/Configuration-overview#configuration-options). The `vaultwarden` service can then be launched as usual (`service(8)`, etc.).
 
+## Syncloud
+
+[Syncloud](https://syncloud.org) is a self-hosting platform to help people with even no device administration experience to get popular services running on their devices.
+
+Bitwarden is available for installation in app store on the device and requires no configuration.
+
 ## RPM and DEB packages for most common distributions
 
 openSUSE build service projekt with support for:
