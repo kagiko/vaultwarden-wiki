@@ -12,6 +12,13 @@ This page is an index of standalone deployment examples. If adding a new example
 
   Installs vaultwarden on Heroku using all free addons. Takes about 15 minutes to install.
 
+## Fly.io
+
+* https://github.com/nosovk/vaultwarden-fly-io/blob/main/fly.toml
+
+Installs vaultwarden with SQLite database. But you need to create volume for database
+```flyctl volumes create vaultwarden_data -a [your app name] -s 1```
+
 ## Kubernetes
 
 * https://github.com/icicimov/kubernetes-bitwarden_rs
