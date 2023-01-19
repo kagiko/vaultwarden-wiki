@@ -167,3 +167,9 @@ docker pull vaultwarden/server:latest
 image_sha="$(docker inspect --format='{{index .RepoDigests 0}}' vaultwarden/server)"
 dokku git:from-image $APP_NAME $image_sha
 ```
+
+## Azure
+
+* https://github.com/adamhnat/vaultwarden-azure
+
+  Vaultwarden installation optimized for Azure Container App service with fileshare for data
