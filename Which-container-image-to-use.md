@@ -1,6 +1,6 @@
 `vaultwarden` provides a single Docker image ([`vaultwarden/server`](https://hub.docker.com/r/vaultwarden/server)) with unified support for SQLite, MySQL, and PostgreSQL database backends, as of version 1.17.0. Prior to that version, there were separate images for each database backend (see [Historical images](#historical-images)).
 
-The `vaultwarden/server` image is also multi-arch, meaning it supports multiple CPU architectures under a single image name. Assuming you're running one of the supported architectures, simply pulling `vaultwarden/server` should automatically yield the appropriate arch-specific image for your environment, with the possible exception of ARMv6 boards, such as Raspberry Pi 1 and Zero (see [moby/moby#41017](https://github.com/moby/moby/issues/41017)). ARMv6 users running Docker 20.10.0 and later can simply pull the `vaultwarden/server` multi-arch image as usual. ARMv6 users running earlier Docker versions must specify `arm32v6` in the image tag, e.g. `latest-arm32v6`.
+The `vaultwarden/server` image is also multi-arch, meaning it supports multiple CPU architectures under a single image name. Assuming you're running one of the supported architectures, simply pulling `vaultwarden/server` should automatically yield the appropriate arch-specific image for your environment. If you are using an ARMv6 board, such as Raspberry Pi 1 and Zero, you must be running Docker 20.10.0 or later for this to work (see [moby/moby#41017](https://github.com/moby/moby/issues/41017)).
 
 The SQLite backend is the most widely used/tested, and recommended for most users unless there is a specific need to use a different database backend.
 
@@ -17,12 +17,6 @@ The `vaultwarden/server` image has several tags, each of which represents some v
 * `alpine` -- With a few exceptions, this image is functionally the same as `latest`, but Alpine-based rather than Debian-based, resulting in a slimmer image. Therefore, `latest` vs. `alpine` is mostly a matter of preference. However, note that the `alpine` tag currently supports only the `amd64` and `arm32v7` architectures, and only the SQLite and PostgreSQL database backends.
 
 * `x.y.z-alpine` (e.g., `1.16.0-alpine`) -- Similar to `alpine`, but represents a specific released version.
-
-* `latest-arm32v6` -- Same as `latest`, but explicitly denotes the `arm32v6` image. This is required for users of ARMv6 boards (such as Raspberry Pi 1 and Zero) when running a Docker version older than 20.10.0. These older versions have an issue ([moby/moby#41017](https://github.com/moby/moby/issues/41017)) that results in the `arm32v7` image being pulled, which won't work. The issue is fixed in Docker 20.10.0 and later, so users running those versions can just use `latest` as usual.
-
-* `testing-arm32v6` -- Same as `testing`, but explicitly denotes the `arm32v6` image.
-
-* `x.y.z-arm32v6` (e.g., `1.16.0-arm32v6`) -- Similar to `latest-arm32v6`, but represents a specific released version.
 
 ## Image updates
 
