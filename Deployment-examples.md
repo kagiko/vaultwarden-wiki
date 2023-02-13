@@ -173,3 +173,9 @@ dokku git:from-image $APP_NAME $image_sha
 * https://github.com/adamhnat/vaultwarden-azure
 
   Vaultwarden installation optimized for Azure Container App service with fileshare for data
+
+## Digital Ocean
+
+* https://github.com/HarrisonLeach1/vaultwarden_digitalocean
+
+  Vaultwarden installation for Digital Ocean's cheapest droplet. Resources setup via terraform
