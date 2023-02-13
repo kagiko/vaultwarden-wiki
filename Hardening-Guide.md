@@ -35,32 +35,26 @@ The subsections below cover hardening related to Docker.
 
 ## Run as a non-root user
 
-The vaultwarden Docker image is configured to run the container process as the `root` user by default. This allows vaultwarden to read/write any data [bind-mounted](https://docs.docker.com/storage/bind-mounts/) into the container without permission issues, even if that data is owned by another user (e.g., your user account on the Docker host). 
-The default configuration provides a good balance of security and usability -- running as root within an unprivileged Docker container provides a reasonable level of isolation on its own, while also making setup easier for users who aren't necessarily well-versed in how to manage ownership/permissions on Linux. However, as a general policy, it's better security-wise to run processes with the minimum privileges required; this is somewhat less of a concern with programs written in a memory-safe language like Rust, but note that vaultwarden does also use some library code written in C (SQLite, OpenSSL, MySQL, PostgreSQL, etc.).
+The Vaultwarden Docker image is configured to run the container process as the `root` user by default. This allows Vaultwarden to read/write any data [bind-mounted](https://docs.docker.com/storage/bind-mounts/) into the container without permission issues, even if that data is owned by another user (e.g., your user account on the Docker host).
+
+The default configuration provides a good balance of security and usability -- running as root within an unprivileged Docker container provides a reasonable level of isolation on its own, while also making setup easier for users who aren't necessarily well-versed in how to manage ownership/permissions on Linux. However, as a general policy, it's better security-wise to run processes with the minimum privileges required; this is somewhat less of a concern with programs written in a memory-safe language like Rust, but note that Vaultwarden does also use some library code written in C (SQLite, OpenSSL, MySQL, PostgreSQL, etc.).
 
 To run the container process (vaultwarden) as a non-root user (uid/gid 1000) in Docker:
 
-    docker run -u 1000:1000 -e ROCKET_PORT=8080 -p <host-port>:8080 \
-           [...other args...] \
-           vaultwarden/server:latest
+    docker run -u 1000:1000 [...other args...] vaultwarden/server:latest
 
-The default user in many Linux distros has uid/gid 1000 (run the `id` command to verify), so this is a good value to use if you prefer to be able to easily access your vaultwarden data without changing to another user, but you can adjust the uid/gid as needed. Note that you'll most likely need to specify a numeric uid/gid, because the vaultwarden container doesn't share the same mapping of user/group names to uid/gid (e.g., compare the `/etc/passwd` and `/etc/group` files in the container to the ones on the Docker host).
-
- `ROCKET_PORT` defaults to 80, which is a [privileged port](https://www.w3.org/Daemon/User/Installation/PrivilegedPorts.html); it needs to be 1024 or higher when running as a non-root user, or else you'll get a permission denied error when vaultwarden attempts to bind and listen for connections on that port.
-
-To do the same in `docker-compose`:
+To do similarly in `docker-compose`:
 
     services:
       vaultwarden:
         image: vaultwarden/server:latest
         container_name: bitwarden
         user: 1000:1000
-        environment:
-          - ROCKET_PORT=8080
-
         ... other configuration ...
 
-Since `ROCKET_PORT` is being changed here, make sure to also update your reverse proxy config to proxy vaultwarden traffic to port 8080 (or whatever higher port you chose) instead of 80.
+The default user in many Linux distros has uid/gid 1000 (run the `id` command to verify), so this is a good value to use if you prefer to be able to easily access your Vaultwarden data without changing to another user, but you can adjust the uid/gid as needed. Note that you'll most likely need to specify a numeric uid/gid, because the Vaultwarden container doesn't share the same mapping of user/group names to uid/gid (e.g., compare the `/etc/passwd` and `/etc/group` files in the container to the ones on the Docker host).
+
+The Vaultwarden Docker images are set up such that the `vaultwarden` executable binds to port 80, which works fine since it runs as root by default.   However, a non-root process is normally unable to bind to a [privileged port](https://www.w3.org/Daemon/User/Installation/PrivilegedPorts.html) (i.e., a port below 1024). As of version 20.10.0 (see [moby/moby#41030](https://github.com/moby/moby/pull/41030)), Docker specially configures its containers so that non-root processes are allowed to bind to privileged ports by default. For earlier versions of Docker, or other container runtimes without this special behavior, the Vaultwarden Docker images also sets the [`cap_net_bind_service`](https://man7.org/linux/man-pages/man7/capabilities.7.html) capability on the `vaultwarden` executable, which is another way to allow an executable to bind to privileged ports when running as a non-root user.
 
 ## Mounting data into the container
 
