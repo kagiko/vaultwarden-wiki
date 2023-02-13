@@ -30,6 +30,8 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
 * Username generator integration with SimpleLogin, AnonAddy, or Firefox Relay
 * [Directory Connector](https://bitwarden.com/help/directory-sync/) support (basic implementation, no group support)
   <br>Only version [v2.9.2](https://github.com/bitwarden/directory-connector/releases/tag/v2.9.2) and lower is supported, v2.9.3 and up use a different login method not supported yet.
+* [Admin Password Reset](https://bitwarden.com/help/admin-reset/)
+
 * Certain enterprise policies:
   * [Require two-step login](https://bitwarden.com/help/policies/#require-two-step-login)
   * [Master password requirements](https://bitwarden.com/help/policies/#master-password-requirements)
@@ -38,6 +40,7 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
   * [Remove Send](https://bitwarden.com/help/policies/#remove-send)
   * [Send Options](https://bitwarden.com/help/policies/#send-options)
   * [Single Organization](https://bitwarden.com/help/policies/#single-organization)
+  * [Master Password Reset](https://bitwarden.com/help/policies/#master-password-reset)
 
 ## Missing features
 
@@ -49,9 +52,6 @@ Features that may be added as time permits (contributions are always welcome):
 
 * [Bitwarden Public API](https://bitwarden.com/help/public-api/) / [Organization API key](https://bitwarden.com/help/public-api/#authentication)
 * [Live sync](https://bitwarden.com/blog/live-sync/) (push notifications) for mobile clients (Android/iOS)
-* [Admin Password Reset](https://bitwarden.com/help/admin-reset/)
-* Certain enterprise policies:
-  * [Master Password Reset](https://bitwarden.com/help/policies/#master-password-reset)
 
 Features that probably won't be added unless contributed:
 
