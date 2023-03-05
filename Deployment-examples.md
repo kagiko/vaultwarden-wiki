@@ -43,7 +43,7 @@ Installs vaultwarden with SQLite database. But you need to create volume for dat
 
   [DietPi](https://dietpi.com/) is a lightweight Debian-based distribution (image) for all kinds of devices like Raspberry Pi, Odroid, NanoPi and others. It offers a software script for installing various programs including Vaultwarden. That spares the user tinkering with installation commands.
 
-  More information about the installation process and first access to Vaultwarden on DietPi can be found at [https://dietpi.com/docs/software/cloud/#vaultwarden](https://dietpi.com/docs/software/cloud/#vaultwarden)
+  For installing Vaultwarden on DietPi just type `dietpi-software install 183` on the command line. More information about the installation process and first access to Vaultwarden on DietPi can be found at [https://dietpi.com/docs/software/cloud/#vaultwarden](https://dietpi.com/docs/software/cloud/#vaultwarden)
 
 ## Shared hosting
 
