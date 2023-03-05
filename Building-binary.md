@@ -1,5 +1,5 @@
 ---
-> :information_source: **NOTE:** The (**MSRV**) Minimum Support Rust Version policy is **N-2**, which means that if the current Rust version is **v1.67**, we support building with **v1.65**, and when **v1.69** is stable, the MSRV would be **v1.67**.<br>
+> :information_source: **NOTE:** The (**MSRV**) Minimum Support Rust Version policy is **N-2**, which means that if the current Rust version is **v1.67**, we support building with **v1.65**, and when **v1.69** is stable, then the MSRV would be **v1.67**.<br>
 That means that new Rust features which come to stable can not be used once a new stable has been released, but have to wait for two more releases.<br>
 To be sure you are using the stable version we strongly suggest to use [rustup](https://rustup.rs/) which makes installing and updating Rust very easy.<br>
 Any version below the MSRV will generate a warning, and you are on your own when forcing to build with an older version.
