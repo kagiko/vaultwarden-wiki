@@ -23,6 +23,12 @@ It bundles the server and the web vault.
 Debian source with pure compilation toolchain (no docker): https://github.com/dionysius/vaultwarden-deb and https://github.com/dionysius/vaultwarden-web-vault-deb
 It offers prebuild packages for latest Ubuntu LTS.
 
+## DietPi (Highly optimised minimal Debian OS)
+
+[DietPi](https://dietpi.com/) is a lightweight Debian-based distribution (image) for all kinds of devices like Raspberry Pi, Odroid, NanoPi and others. It offers a software script for installing various programs including Vaultwarden. That spares the user tinkering with installation commands.
+
+For installing Vaultwarden on DietPi just type `dietpi-software install 183` on the command line. More information about the installation process and first access to Vaultwarden on DietPi can be found at https://dietpi.com/docs/software/cloud/#vaultwarden
+
 ## CentOS7 / RHEL7
 
 A RPM Repository is packaged by @MrMEEE here: https://copr.fedorainfracloud.org/coprs/mrmeee/bitwarden_rs/ ... This also includes the webinterface in an additional package. 
@@ -45,13 +51,6 @@ The vaultwarden package is built as a universal binary for SQLite(default), MySQ
 dnf config-manager --add-repo https://evermeet.cx/pub/repo/fedora/evermeet.repo
 dnf install vaultwarden vaultwarden-webvault
 ```
-
-## DietPi
-
-[DietPi](https://dietpi.com/) is a lightweight Debian-based distribution (image) for all kinds of devices like Raspberry Pi, Odroid, NanoPi and others. It offers a software script for installing various programs including Vaultwarden. That spares the user tinkering with installation commands.
-
-For installing Vaultwarden on DietPi just type `dietpi-software install 183` on the command line. More information about the installation process and first access to Vaultwarden on DietPi can be found at https://dietpi.com/docs/software/cloud/#vaultwarden
-
 
 ## Nix (OS)
 
