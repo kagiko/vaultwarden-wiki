@@ -8,6 +8,8 @@ DATABASE_URL=postgresql://[[user]:[password]@]host[:port][/database]
 ```
 An example docker run environment variable would be: ```-e 'DATABASE_URL=postgresql://user_name:user_password@db_host:5432/vaultwarden'```.
 
+If you need to set additional connection parameters, note that the `DATABASE_URL` value ends up getting parsed by `libpq`, so you can use any of the parameters listed in the `libpq` [docs](https://www.postgresql.org/docs/current/libpq-envars.html). You can either add the connection parameter to `DATABASE_URL` or specify it via its corresponding `PG*` environment variable. If running under Docker, keep in mind that any paths provided need to be from the perspective of the Docker container, not the Docker host.
+
 If you want to use a custom schema/search-path you need to use the following connection string:<br>
 Note the URL-encoded characters such as `%20` for the space and `%3D` for `=` sign
 ```ini
