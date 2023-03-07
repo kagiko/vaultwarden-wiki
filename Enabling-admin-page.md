@@ -28,7 +28,8 @@ Note that config changes in the admin page do not take effect until you click th
 
 ## Secure the `ADMIN_TOKEN`
 
-> :warning: This feature not yet released, but will be soon!
+> :warning: This feature not yet released in a `latest` image, but will be soon!
+> It currently is available in the `testing` images.
 
 Previously the `ADMIN_TOKEN` could only be in a plain text format.<br>
 You can now hash the `ADMIN_TOKEN` using Argon2 by generating a [PHC string](https://github.com/P-H-C/phc-string-format/blob/master/phc-sf-spec.md).<br>
