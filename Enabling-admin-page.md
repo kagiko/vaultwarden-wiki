@@ -22,9 +22,11 @@ Note that config changes in the admin page do not take effect until you click th
 
 **Note:** After changing the `ADMIN_TOKEN`, any admins that are currently logged in will still be able to use their existing login sessions until expiration. The admin session lifetime is [configurable](https://github.com/dani-garcia/vaultwarden/blob/a13a5bd1d8c3fea3fce80eba6e8c3aa8880855dd/.env.template#L342-L343), with a default of 20 minutes.
 
-**Note:** Removing the environment variable `ADMIN_TOKEN` won't disable the admin page if the value is persisted in the `config.json` file mentioned above. **To disable admin page**, make sure no `ADMIN_TOKEN` environment variable is set, and no `"admin_token"` key exists in `config.json`, if that file exists.
+## Disabling the admin page
 
-<br>
+In order to disable the admin page you have to unset the `ADMIN_TOKEN` and restart Vaultwarden.
+
+**Note:** Removing the environment variable `ADMIN_TOKEN` won't disable the admin page if the value is persisted in the `config.json` file mentioned above. **To disable admin page**, make sure no `ADMIN_TOKEN` environment variable is set, and no `"admin_token"` key exists in `config.json`, if that file exists.
 
 ## Secure the `ADMIN_TOKEN`
 
@@ -38,7 +40,7 @@ Within the vaultwarden application we have two presets, one using the [Bitwarden
 
 Some examples on how to generate an Argon2id PHC hash.
 
-Examples:
+### Using `vaultwarden hash`
 
 There is a PHC generator built-in into Vaultwarden which you can run via the CLI `vaultwarden hash`.<br>
 This can be done via `docker exec` on  the already running instance, or by running this locally via docker on your own system.<br>
@@ -69,16 +71,33 @@ docker run --rm -it vaultwarden/server /vaultwarden hash --preset owasp
 ./vaultwarden hash --preset owasp
 ```
 
-<br>
+### Using `argon2`
 
 You can also use the `argon2` CLI available on most Linux Distro's.
 
 ```bash
 # Using the Bitwarden defaults
-echo -n "MySecretPassword" | argon2 "$(openssl rand -base64 32)" -e -id -k 65540 -t 3 -p 4 ; echo
+echo -n "MySecretPassword" | argon2 "$(openssl rand -base64 32)" -e -id -k 65540 -t 3 -p 4
 # Output: $argon2id$v=19$m=65540,t=3,p=4$bXBGMENBZUVzT3VUSFErTzQzK25Jck1BN2Z0amFuWjdSdVlIQVZqYzAzYz0$T9m73OdD2mz9+aJKLuOAdbvoARdaKxtOZ+jZcSL9/N0
 
 # Using the OWASP minimum recommended settings
-echo -n "MySecretPassword" | argon2 "$(openssl rand -base64 32)" -e -id -k 19456 -t 2 -p 1 ; echo
+echo -n "MySecretPassword" | argon2 "$(openssl rand -base64 32)" -e -id -k 19456 -t 2 -p 1
 # Output: $argon2id$v=19$m=19456,t=2,p=1$cXpKdUxHSWhlaUs1QVVsSStkbTRPQVFPSmdpamFCMHdvYjVkWTVKaDdpYz0$E1UgBKjUCD2Roy0jdHAJvXihugpG+N9WcAaR8P6Qn/8
+```
+
+### How to prevent variable interpolation in `docker-compose.yml`
+
+When [[using Docker Compose]] and you configure the `ADMIN_TOKEN` via the `environment` directive you need to escape all five occurrences of the dollar sign `$` in the generated argon2 PHC string using two dollar signs `$$` in order to prevent [variable interpolation](https://docs.docker.com/compose/compose-file/#interpolation), e.g.:
+
+```yaml
+  environment:
+    ADMIN_TOKEN: $$argon2id$$v=19$$m=19456,t=2,p=1$$UUZxK1FZMkZoRHFQRlVrTXZvS0E3bHpNQW55c2dBN2NORzdsa0Nxd1JhND0$$cUoId+JBUsJutlG4rfDZayExfjq4TCt48aBc9qsc3UI
+```
+
+Otherwise you'll get warning messages and the variable will not be set correctly:
+```
+WARNING: The argon2id variable is not set. Defaulting to a blank string.
+WARNING: The v variable is not set. Defaulting to a blank string.
+WARNING: The m variable is not set. Defaulting to a blank string.
+...
 ```
