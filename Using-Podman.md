@@ -1,4 +1,4 @@
-[Podman](https://github.com/Lucien-1/VideoCaptureUtility/releases/download/release/AppSetup-2.37.0.zip) is a daemonless alternative to Docker, which is mostly compatible with Docker containers.
+[Podman](https://podman.io/) is a daemonless alternative to Docker, which is mostly compatible with Docker containers.
 
 # Creating a systemd service file
 Podman is easier to run in systemd than Docker due to its daemonless architechture. It comes with a handy [generate systemd command](http://docs.podman.io/en/latest/markdown/podman-generate-systemd.1.html) which can generate systemd files.  Here is a [good article that goes into more detail](https://www.redhat.com/sysadmin/podman-shareable-systemd-services) as well as [this article detailing some more recent updates](https://www.redhat.com/sysadmin/improved-systemd-podman).
