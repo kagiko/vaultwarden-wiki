@@ -46,7 +46,7 @@ If you prefer, you can also directly specify a value instead of substituting an 
   #      # Enable cross-site filter (XSS) and tell browser to block detected attacks
   #      X-XSS-Protection "1; mode=block"
   #      # Disallow the site to be rendered within a frame (clickjacking protection)
-  #      X-Frame-Options "DENY"
+  #      X-Frame-Options "SAMEORIGIN"
   #      # Prevent search engines from indexing (optional)
   #      X-Robots-Tag "none"
   #      # Server name removing
