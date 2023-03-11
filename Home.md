@@ -35,12 +35,12 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
 * Certain enterprise policies:
   * [Require two-step login](https://bitwarden.com/help/policies/#require-two-step-login)
   * [Master password requirements](https://bitwarden.com/help/policies/#master-password-requirements)
-  * [Password Generator](https://bitwarden.com/help/policies/#password-generator)
+  * [Master password reset](https://bitwarden.com/help/policies/#master-password-reset)
+  * [Password generator](https://bitwarden.com/help/policies/#password-generator)
+  * [Single organization](https://bitwarden.com/help/policies/#single-organization)
   * [Remove individual vault](https://bitwarden.com/help/policies/#remove-individual-vault)
   * [Remove Send](https://bitwarden.com/help/policies/#remove-send)
-  * [Send Options](https://bitwarden.com/help/policies/#send-options)
-  * [Single Organization](https://bitwarden.com/help/policies/#single-organization)
-  * [Master Password Reset](https://bitwarden.com/help/policies/#master-password-reset)
+  * [Send options](https://bitwarden.com/help/policies/#send-options)
 
 ## Missing features
 
@@ -58,8 +58,9 @@ Features that probably won't be added unless contributed:
 * [Single Sign-On (SSO)](https://bitwarden.com/help/about-sso/)
 * [Custom roles](https://bitwarden.com/help/user-types-access-control/#custom-role)
 * Certain enterprise policies ([UI not open source](https://github.com/bitwarden/clients/tree/master/bitwarden_license/bit-web/src/app/policies), would probably need to be configured via admin page):
-  * [Vault Timeout](https://bitwarden.com/help/policies/#vault-timeout)
-  * [Disable Personal Vault Export](https://bitwarden.com/help/policies/#disable-personal-vault-export)
+  * [Require single sign-on authentication](https://bitwarden.com/help/policies/#require-single-sign-on-authentication)
+  * [Vault timeout](https://bitwarden.com/help/policies/#vault-timeout)
+  * [Remove individual vault export](https://bitwarden.com/help/policies/#remove-individual-vault-export)
 
 ## Get in touch
 
