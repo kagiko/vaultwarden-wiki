@@ -82,7 +82,7 @@ Keep in mind that this file does contain some data in plaintext that could be co
 
 ### The `rsa_key*` files
 
-_**Backup recommended**_
+_**Backup recommended.**_
 
 These files are used to sign the JWTs (authentication tokens) of users currently logged in. Deleting them would simply log out each user, forcing them to log in again.
 
