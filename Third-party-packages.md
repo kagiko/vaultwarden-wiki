@@ -29,14 +29,6 @@ It offers prebuild packages for latest Ubuntu LTS.
 
 For installing Vaultwarden on DietPi just type `dietpi-software install 183` on the command line. More information about the installation process and first access to Vaultwarden on DietPi can be found at https://dietpi.com/docs/software/cloud/#vaultwarden
 
-## CentOS7 / RHEL7
-
-A RPM Repository is packaged by @MrMEEE here: https://copr.fedorainfracloud.org/coprs/mrmeee/bitwarden_rs/ ... This also includes the webinterface in an additional package. 
-
-Installation instructions: https://github.com/MrMEEE/bitwarden_rs_rpm/blob/master/README.md
-
-Any issues with the RPMs can be reported here: https://github.com/MrMEEE/bitwarden_rs_rpm/issues
-
 ## CentOS 8 / RHEL 8
 
 A hacky package that uses SQLite. It doesn't have the vault (yet), and still has the old name in visible places.
@@ -106,6 +98,14 @@ You can either download the packages directly or use the available repositories.
 [vaultwarden](https://build.opensuse.org/package/show/home:Masgalor:Vaultwarden/vaultwarden)
 [vaultwarden-webvault](https://build.opensuse.org/package/show/home:Masgalor:Vaultwarden/vaultwarden-webvault)
 [vaultwarden-webvault-dark](https://build.opensuse.org/package/show/home:Masgalor:Vaultwarden/vaultwarden-webvault-dark)
+
+## RHEL 9 / CentOS 9
+
+Packages built for EL9 from the Masgalor packages:
+
+https://rpm.awx.wiki/vaultwarden/
+
+New versions are automatically built every night
 
 ## Void Linux
 
