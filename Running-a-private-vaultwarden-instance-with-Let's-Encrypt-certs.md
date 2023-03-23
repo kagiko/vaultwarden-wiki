@@ -46,7 +46,7 @@ DUCKDNS_TOKEN=00112233-4455-6677-8899-aabbccddeeff
 
 Start `caddy` by running
 ```
-caddy run -envfile caddy.env
+caddy run --envfile caddy.env
 ```
 
 Start `vaultwarden` by running
