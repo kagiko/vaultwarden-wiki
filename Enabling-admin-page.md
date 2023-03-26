@@ -87,12 +87,12 @@ echo -n "MySecretPassword" | argon2 "$(openssl rand -base64 32)" -e -id -k 19456
 
 ### How to prevent variable interpolation in `docker-compose.yml`
 
-When [[using Docker Compose]] and you configure the `ADMIN_TOKEN` via the `environment` directive you need to escape all five occurrences of the dollar sign `$` in the generated argon2 PHC string using two dollar signs `$$` in order to prevent [variable interpolation](https://docs.docker.com/compose/compose-file/#interpolation), e.g.:
-
+When [[using Docker Compose]] and you configure the `ADMIN_TOKEN` via the `environment` directive you need to escape all five occurrences of the dollar sign `$` in the generated argon2 PHC string using two dollar signs `$$` in order to prevent [variable interpolation](https://docs.docker.com/compose/compose-file/#interpolation):
 ```yaml
   environment:
     ADMIN_TOKEN: $$argon2id$$v=19$$m=19456,t=2,p=1$$UUZxK1FZMkZoRHFQRlVrTXZvS0E3bHpNQW55c2dBN2NORzdsa0Nxd1JhND0$$cUoId+JBUsJutlG4rfDZayExfjq4TCt48aBc9qsc3UI
 ```
+This can be done automatically e.g. using sed by adding `| sed 's#\$#\$\$#g'` to the end of the `argon2` command line above.
 
 Otherwise you'll get warning messages and the variable will not be set correctly:
 ```
