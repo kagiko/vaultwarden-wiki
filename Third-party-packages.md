@@ -79,14 +79,14 @@ Bitwarden is available for installation in app store on the device and requires 
 
 ## RPM and DEB packages for most common distributions
 
-openSUSE build service projekt with support for:
+openSUSE build service project with support for:
 
 | RPM    |                            |
 |--------|----------------------------|
-| SUSE   | 15.3<br>15.4<br>Tumbleweed |
+| SUSE   | 15.4<br>Tumbleweed |
 | RHEL   | 7                          |
 | CentOS | 7<br>8<br>8_Stream         |
-| Fedora | 34<br>35<br>36<br>Rawhide  |
+| Fedora | 36<br>37<br>Rawhide  |
 
 | DEB    |                            |
 |--------|----------------------------|
