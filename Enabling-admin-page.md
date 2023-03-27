@@ -100,3 +100,34 @@ WARNING: The v variable is not set. Defaulting to a blank string.
 WARNING: The m variable is not set. Defaulting to a blank string.
 ...
 ```
+
+<br>
+
+**⚠️ Note:** This is not the case when using a `.env` file for `docker-compose.yaml`<br>
+As shown below. In this case just use the single `$` variant.<br>
+The same for using the docker/podman cli using `-e ADMIN_TOKEN`.
+
+```
+/docker-data
+├── .env
+├── docker-compose.yaml
+├── vaultwarden/data
+```
+
+**.env:**
+```bash
+VAULTWARDEN_ADMIN_TOKEN='$argon2id$v=19$m=65540,t=3,p=4$MmeK.....`
+```
+
+**docker-compose.yaml:**
+```yaml
+services:
+  vaultwarden:
+    image: ghcr.io/dani-garcia/vaultwarden
+    container_name: vaultwarden
+    restart: unless-stopped
+    volumes:
+      - /path/to/vaultwarden/data/:/data/
+    environment:
+      - ADMIN_TOKEN=${VAULTWARDEN_ADMIN_TOKEN}
+```
