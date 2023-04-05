@@ -34,6 +34,7 @@
 1. [[Changing the API request size limit|Changing-the-API-request-size-limit]]
 1. [[Changing the number of workers|Changing-the-number-of-workers]]
 1. [[SMTP configuration|SMTP-configuration]]
+1. [[Translating the email templates]]
 1. [[Password hint display|Password-hint-display]]
 1. [[Disabling or overriding the Vault interface hosting|Disabling-or-overriding-the-Vault-interface-hosting]]
 1. [[Logging|Logging]]
