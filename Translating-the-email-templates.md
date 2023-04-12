@@ -10,4 +10,10 @@ You can use customized templates by
 2. changing them (e.g. translate them - but be sure to keep the `{{variables}}` in the link intact so everything still works) and
 3. restarting vaultwarden to load the new (overwritten) templates.
 
-**Note:** For ensuring compatibility you should initially download the templates for your version and you will also have to keep them uptodate yourself if they ever change (or new templates get added).
+**Note:** For ensuring compatibility you should initially download the templates for your version and you will also have to keep them up to date yourself if they ever change (or should new templates get added).
+
+## Translations
+
+* German by @kennymc-c: https://github.com/kennymc-c/vaultwarden-lang-de
+
+:warning: Translations are provided as is by community members and we have not tested them. So use them at your own risk. If there has been a breaking change (e.g. caused by a new release of Vaultwarden) inform the maintainer and/or make a note here.
