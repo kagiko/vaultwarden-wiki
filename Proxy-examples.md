@@ -17,6 +17,16 @@ In the Caddyfile syntax, `{$VAR}` denotes the value of the environment variable 
 If you prefer, you can also directly specify a value instead of substituting an env var value.
 
 ```
+
+# Uncomment this in addition with the import admin_redir statement allow access to the admin interface only from local networks
+# (admin_redir) {
+#        @admin {
+#                path /admin*
+#                not remote_ip private_ranges
+#        }
+#        redir @admin /
+# }
+
 {$DOMAIN} {
   log {
     level INFO
@@ -54,11 +64,7 @@ If you prefer, you can also directly specify a value instead of substituting an 
   # }
 
   # Uncomment to allow access to the admin interface only from local networks
-  # @insecureadmin {
-  #   not remote_ip 192.168.0.0/16 172.16.0.0/12 10.0.0.0/8
-  #   path /admin*
-  # }
-  # redir @insecureadmin /
+# import admin_redir
 
   # Notifications redirected to the websockets server
   reverse_proxy /notifications/hub <SERVER>:3012
