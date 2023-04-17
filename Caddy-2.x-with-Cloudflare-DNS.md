@@ -32,9 +32,9 @@ https://[YOUR-DOMAIN]:443 {
        # Disallow the site to be rendered within a frame (clickjacking protection)
        X-Frame-Options "DENY"
        # Prevent search engines from indexing (optional)
+       X-Robots-Tag "none"
        # Disallow sniffing of X-Content-Type-Options
        X-Content-Type-Options "nosniff"
-       X-Robots-Tag "none"
        # Server name removing
        -Server
        # Remove X-Powered-By though this shouldn't be an issue, better opsec to remove
