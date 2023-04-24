@@ -1,4 +1,4 @@
-Setup Fail2ban will prevent attackers to brute force your vault logins. This is particularly important if your instance is publicly available.
+Setting up Fail2ban will prevent attackers to brute force your vault logins. This is particularly important if your instance is publicly available.
 
 ## Table of Contents
 - [Pre-requisite](#pre-requisite)
