@@ -32,7 +32,7 @@ https://[YOUR-DOMAIN]:443 {
        # Disallow the site to be rendered within a frame (clickjacking protection)
        X-Frame-Options "DENY"
        # Prevent search engines from indexing (optional)
-       X-Robots-Tag "none"
+       X-Robots-Tag "noindex, nofollow"
        # Disallow sniffing of X-Content-Type-Options
        X-Content-Type-Options "nosniff"
        # Server name removing
