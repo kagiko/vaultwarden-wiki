@@ -1,1 +1,2 @@
 Like really? Can I do it?
+Okay, Anyone can edit this wiki and no permissions from the owners are needed. Not sure if that's Github's limitation but something to look out for as it attacks the authenticity of this wiki
