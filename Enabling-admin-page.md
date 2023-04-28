@@ -83,6 +83,7 @@ echo -n "MySecretPassword" | argon2 "$(openssl rand -base64 32)" -e -id -k 65540
 echo -n "MySecretPassword" | argon2 "$(openssl rand -base64 32)" -e -id -k 19456 -t 2 -p 1
 # Output: $argon2id$v=19$m=19456,t=2,p=1$cXpKdUxHSWhlaUs1QVVsSStkbTRPQVFPSmdpamFCMHdvYjVkWTVKaDdpYz0$E1UgBKjUCD2Roy0jdHAJvXihugpG+N9WcAaR8P6Qn/8
 ```
+Use this string in you docker/podman CLI command. For `docker-compose.yml` files follow the instructions below. Do not forget to edit the `admin_token` in your `config.json` too, if it has already been created.
 
 ### How to prevent variable interpolation in `docker-compose.yml`
 
