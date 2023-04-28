@@ -30,7 +30,11 @@ In order to disable the admin page you have to unset the `ADMIN_TOKEN` and resta
 
 ## Secure the `ADMIN_TOKEN`
 
-> :warning: This feature is released in [1.28.0](https://github.com/dani-garcia/vaultwarden/releases/tag/1.28.0)+. Previous versions do not support Argon2 hashing.
+> :warning: This feature is available since [1.28.0](https://github.com/dani-garcia/vaultwarden/releases/tag/1.28.0)+.
+
+> :warning: Using environment variables is preferred.<br>
+> :warning: But if you updated settings via the admin interface you need to update the admin token via the same web interface!<br>
+> :warning: Please **do not** edit the `config.json` manually since that could cause issues if done wrong!
 
 Previously the `ADMIN_TOKEN` could only be in a plain text format.<br>
 You can now hash the `ADMIN_TOKEN` using Argon2 by generating a [PHC string](https://github.com/P-H-C/phc-string-format/blob/master/phc-sf-spec.md).<br>
