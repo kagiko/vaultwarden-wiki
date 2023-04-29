@@ -277,7 +277,8 @@ server {
 
     ## Using a Sub Path Config
     # Path to the root of your installation
-    # Be sure to add the trailing /, else you could have issues
+    # Be sure to DO ADD a trailing /, else you will experience issues 
+    # But only for this location, all other locations should NOT add this.
     location /vault/ {
       proxy_http_version 1.1;
       proxy_set_header "Connection" "";
@@ -290,6 +291,7 @@ server {
       proxy_pass http://vaultwarden-default;
     }
 
+    # DO NOT add a trailing /, else you will experience issues
     location /vault/notifications/hub/negotiate {
       proxy_http_version 1.1;
       proxy_set_header "Connection" "";
@@ -302,6 +304,7 @@ server {
       proxy_pass http://vaultwarden-default;
     }
 
+    # DO NOT add a trailing /, else you will experience issues
     location /vault/notifications/hub {
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
@@ -319,6 +322,7 @@ server {
     # Optionally add extra authentication besides the ADMIN_TOKEN
     # Remove the comments below `#` and create the htpasswd_file to have it active
     #
+    # DO NOT add a trailing /, else you will experience issues
     #location /vault/admin {
     #  # See: https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/
     #  auth_basic "Private";
