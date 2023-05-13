@@ -127,7 +127,10 @@ ignoreregex =
 `fail2ban.filter         [5291]: ERROR   No 'host' group in '^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$'`  
 Please Use `<HOST>` instead of `<ADDR>` in `vaultwarden.local`
 
+**Tip:** Cloudflare users, make sure you set your Client IP header to `CF-Connecting-IP` in admin panel -> advanced settings -> Client IP header, else the clients real IP will not be logged/banned.
+
 **Tip:** If you see 127.0.0.1 as the IP address of failed logins in vaultwarden.log, then you're probably using a reverse proxy and fail2ban won't work correctly:
+
 ```
 [YYYY-MM-DD hh:mm:ss][vaultwarden::api::identity][ERROR] Username or password is incorrect. Try again. IP: 127.0.0.1. Username: email@example.com.
 ```
