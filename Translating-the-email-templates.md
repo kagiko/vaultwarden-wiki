@@ -15,5 +15,6 @@ You can use customized templates by
 ## Translations
 
 * German by @kennymc-c: https://github.com/kennymc-c/vaultwarden-lang-de
+* French by @YoanSimco: https://github.com/YoanSimco/vaultwarden-lang-fr
 
 :warning: Translations are provided as is by community members and we have not tested them. So use them at your own risk. If there has been a breaking change (e.g. caused by a new release of Vaultwarden) inform the maintainer and/or make a note here.
