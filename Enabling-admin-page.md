@@ -121,8 +121,10 @@ The same for using the docker/podman cli using `-e ADMIN_TOKEN`.
 
 **.env:**
 ```bash
-VAULTWARDEN_ADMIN_TOKEN='$argon2id$v=19$m=65540,t=3,p=4$MmeK.....`
+VAULTWARDEN_ADMIN_TOKEN=$argon2id$v=19$m=65540,t=3,p=4$MmeK.....
 ```
+
+Compose interprets every character after the equal sign in `.env` files literally. This means the single quotation marks need to be omitted here.
 
 **docker-compose.yaml:**
 ```yaml
