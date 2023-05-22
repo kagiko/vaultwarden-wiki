@@ -108,6 +108,7 @@ Also see: https://web.archive.org/web/20210925161633/https://webewizard.com/2019
   SMTP_HOST=smtp-mail.outlook.com
   SMTP_PORT=587
   SMTP_SECURITY=starttls
+  SMTP_FROM=<mail-address>
   SMTP_USERNAME=<mail-address>
   SMTP_PASSWORD=<password>
   SMTP_AUTH_MECHANISM="Login"
