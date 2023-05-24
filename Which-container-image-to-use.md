@@ -62,3 +62,4 @@ Please add your details here, if you're running the image on a hardware that is 
 | Synology             | DSM (DSM 6.2.2-24922 Update 4) | Docker-x64-18.09.0-0506 | `vaultwarden/server:1.13.0-alpine` | OK |
 | Regular 64bit server | Unraid 6.8.0 | 19.03.5                         | `vaultwarden/server:latest` | OK |
 | QNAP TS-451DEU (Intel Celeron J4025) | QTS 5.0.0.1891 | x86_64                         | `vaultwarden/server:latest` | OK |     |
+| Regular 64 bit server | OpenMediaVault 6 (Debian Bullseye) | x86_64 | `vaultwarden/server:alpine` | OK |  |
