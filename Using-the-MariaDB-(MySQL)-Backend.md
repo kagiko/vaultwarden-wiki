@@ -201,6 +201,19 @@ You can do that by following and executing the following sets via your perfered 
 
 In the examples below i will use the database name `vaultwarden`, change this if you used a different name.
 
+<br>
+
+Before starting, verify if there are any issue by running the following two queries.<br>
+It should return `utf8mb4` and `utf8mb4_general_ci`.<br>
+Also run these queries at the end of the queries below to verify it worked!
+
+```mysql
+SELECT DEFAULT_CHARACTER_SET_NAME, DEFAULT_COLLATION_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = "vaultwarden";
+SELECT CHARACTER_SET_NAME, COLLATION_NAME FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA = "vaultwarden" AND CHARACTER_SET_NAME IS NOT NULL;
+```
+
+<br>
+
 First change the collation and charset of the database it self:
 ```mysql
 ALTER DATABASE `vaultwarden` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
