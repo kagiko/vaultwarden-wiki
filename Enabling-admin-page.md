@@ -2,7 +2,9 @@
 
 This page allows a server administrator to view all the registered users and to delete them. It also allows inviting new users, even when registration is disabled.
 
-To enable the admin page, you need to set an authentication token. This token can be anything, but it's recommended to use a long, randomly generated string of characters, for example running `openssl rand -base64 48`. **Keep this token secret, this is the password to access the admin area of your server!**
+To enable the admin page, you need to set an authentication token. This token can be anything, but it's recommended to use a long, randomly generated string of characters, for example running `openssl rand -base64 48`.
+
+**Keep this token secret, this is the password to access the admin area of your server!** Which is why you should [secure the admin token](#secure-the-admin-token).
 
 To set the token, use the `ADMIN_TOKEN` variable:
 
@@ -35,6 +37,8 @@ In order to disable the admin page you have to unset the `ADMIN_TOKEN` and resta
 > :warning: Using environment variables is preferred.<br>
 > :warning: But if you updated settings via the admin interface you need to update the admin token via the same web interface!<br>
 > :warning: Please **do not** edit the `config.json` manually since that could cause issues if done wrong!
+
+> :warning: To log into the admin page after securing the token, you instead use the password provided during token creation.
 
 Previously the `ADMIN_TOKEN` could only be in a plain text format.<br>
 You can now hash the `ADMIN_TOKEN` using Argon2 by generating a [PHC string](https://github.com/P-H-C/phc-string-format/blob/master/phc-sf-spec.md).<br>
