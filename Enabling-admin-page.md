@@ -4,7 +4,7 @@ This page allows a server administrator to view all the registered users and to 
 
 To enable the admin page, you need to set an authentication token. This token can be anything, but it's recommended to use a long, randomly generated string of characters, for example running `openssl rand -base64 48`.
 
-**Keep this token secret, this is now the password to access the admin area of your server!** Which is why you should [secure the admin token](#secure-the-admin-token).
+**Keep this token secret, this is now the password to access the admin area of your server!** Which is why you should [secure the admin token](https://github.com/dani-garcia/vaultwarden/wiki/Enabling-admin-page#secure-the-admin_token).
 
 To set the token, use the `ADMIN_TOKEN` variable:
 
