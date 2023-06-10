@@ -6,6 +6,10 @@ This page is an index of standalone deployment examples. If adding a new example
 
   Vaultwarden installation optimized for Google Cloud's 'always free' e2-micro compute instance
 
+* https://medium.com/@sreafterhours/terraform-helm-external-dns-cert-manager-nginx-and-vaultwarden-on-gke-5080f3b4909f
+
+  Detailed Vaultwarden installation in Google Kubernetes Engine, which includes infrastructure and cluster configuration.
+
 ## Heroku
 
 * https://github.com/davidjameshowell/vaultwarden_heroku
