@@ -161,12 +161,12 @@ Docker uses the FORWARD chain instead of the default INPUT chain. If the machine
 chain = FORWARD
 ```
 
-**Tip**:If you are using systemd to manage vaultwarden, you can use systemd-journal for fail2ban:
+**Tip**: If you are using systemd to manage vaultwarden, you can use systemd-journal for fail2ban:
 ```
 backend = systemd
 filter = vaultwarden[journalmatch='_SYSTEMD_UNIT=your_vaultwarden.service']
 ```
-Use these instead of `logpath = ` variable.
+Use these instead of `logpath = ` and `filter = ` variables.
 
 **NOTE FOR CLOUDFLARE USERS**
 If you use cloudflare proxy, you'll need to add Cloudflare in your actions list, like in [this guide](https://niksec.com/using-fail2ban-with-cloudflare/)
@@ -221,6 +221,14 @@ Note: Docker uses the FORWARD chain instead of the default INPUT chain. Therefor
 ```INI
 action = iptables-allports[name=vaultwarden-admin, chain=FORWARD]
 ```
+
+**Tip**: If you are using systemd to manage vaultwarden, you can use systemd-journal for fail2ban here as well:
+```
+backend = systemd
+filter = vaultwarden-admin[journalmatch='_SYSTEMD_UNIT=your_vaultwarden.service']
+```
+Use these instead of `logpath = ` and `filter = ` variables.
+
 **NOTE FOR CLOUDFLARE USERS**
 If you use cloudflare proxy, you'll need to add Cloudflare in your actions list, like in [this guide](https://niksec.com/using-fail2ban-with-cloudflare/)
 
