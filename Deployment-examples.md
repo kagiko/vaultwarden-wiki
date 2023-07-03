@@ -23,6 +23,10 @@ This page is an index of standalone deployment examples. If adding a new example
 Installs vaultwarden with SQLite database. But you need to create volume for database
 ```flyctl volumes create vaultwarden_data -a [your app name] -s 1```
 
+* https://github.com/arthurgeek/vaultwarden-fly-template
+
+Template to deploy Vaultwarden on Fly.io with websockets support (with caddy) and sqlite hourly backups using restic.
+
 ## Kubernetes
 
 * https://github.com/icicimov/kubernetes-bitwarden_rs
