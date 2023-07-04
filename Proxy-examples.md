@@ -1067,3 +1067,12 @@ relay vaultwarden-https-relay {
 }
 ```
 </details>
+
+<details>
+<summary>CloudFlare (by <a href="https://github.com/williamdes" target="_blank">@williamdes</a>)</summary><br/>
+
+Follow the screenshot to create a new rule.
+Example dashboard URL to find the settings: `https://dash.cloudflare.com/xxxxxx/example.org/rules/origin-rules/new`
+
+![Rules](https://github.com/dani-garcia/vaultwarden/assets/7784660/e27d9152-219b-4b6a-bf96-dcfce30ebd73)
+</details>
