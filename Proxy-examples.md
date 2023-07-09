@@ -145,8 +145,10 @@ server {
 }
 
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    # For older versions of nginx appened http2 to the listen line after ssl and remove `http2 on`
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
     server_name vaultwarden.example.tld;
 
     # Specify SSL Config when needed
@@ -248,8 +250,10 @@ server {
 }
 
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    # For older versions of nginx appened `http2` to the listen line after ssl and remove `http2 on;`
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
     server_name vaultwarden.example.tld;
 
     # Specify SSL Config when needed
