@@ -110,7 +110,7 @@ You'll have to set `IP_HEADER` to `X-Forwarded-For` instead of `X-Real-IP` in th
 </details>
 
 <details>
-<summary>Nginx - v1.29.0 (by blackdex)</summary><br/>
+<summary>Nginx - v1.29.0 (by BlackDex)</summary><br/>
 
 ```nginx
 # The `upstream` directives ensure that you have a http/1.1 connection
