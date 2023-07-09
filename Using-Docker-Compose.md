@@ -17,7 +17,6 @@ services:
     container_name: vaultwarden
     restart: always
     environment:
-      WEBSOCKET_ENABLED: "true"  # Enable WebSocket notifications.
       DOMAIN: "https://vaultwarden.example.com"  # Your domain; vaultwarden needs to know it's https to work properly with attachments
     volumes:
       - ./vw-data:/data
@@ -95,7 +94,6 @@ services:
     container_name: vaultwarden
     restart: always
     environment:
-      WEBSOCKET_ENABLED: "true"  # Enable WebSocket notifications.
       DOMAIN: "https://vaultwarden.example.com"  # Your domain; vaultwarden needs to know it's https to work properly with attachments
     volumes:
       - ./vw-data:/data
