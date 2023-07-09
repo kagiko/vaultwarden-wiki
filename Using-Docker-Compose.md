@@ -58,10 +58,7 @@ In the same directory, create the `Caddyfile` below. (This file does not need to
   # if you encounter issues.
   encode gzip
 
-  # Notifications redirected to the WebSocket server
-  reverse_proxy /notifications/hub vaultwarden:3012
-
-  # Proxy everything else to Rocket
+  # Proxy everything Rocket
   reverse_proxy vaultwarden:80 {
        # Send the true remote IP to Rocket, so that vaultwarden can put this in the
        # log, so that fail2ban can ban the correct IP.
@@ -145,10 +142,7 @@ In the same directory, create the `Caddyfile` below. (This file does not need to
   # if you encounter issues.
   encode gzip
 
-  # Notifications redirected to the WebSocket server
-  reverse_proxy /notifications/hub vaultwarden:3012
-
-  # Proxy everything else to Rocket
+  # Proxy everything to Rocket
   reverse_proxy vaultwarden:80
 }
 ```
