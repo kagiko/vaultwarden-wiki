@@ -204,7 +204,7 @@ In the examples below i will use the database name `vaultwarden`, change this if
 <br>
 
 Before starting, verify if there are any issue by running the following two queries.<br>
-It should return `utf8mb4` and `utf8mb4_general_ci`.<br>
+It should return `utf8mb4` and `utf8mb4_unicode_ci`.<br>
 Also run these queries at the end of the queries below to verify it worked!
 
 ```mysql
