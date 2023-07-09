@@ -42,13 +42,7 @@ https://[YOUR-DOMAIN]:443 {
        # Remove Last-Modified because etag is the same and is as effective
        -Last-Modified
    }
-  # The negotiation endpoint is also proxied to Rocket
-  reverse_proxy /notifications/hub/negotiate vaultwarden:80
-
-  # Notifications redirected to the websockets server
-  reverse_proxy /notifications/hub vaultwarden:3012
-
-  # Proxy the Root directory to Rocket
+  # Proxy to Rocket
   reverse_proxy vaultwarden:80 {
        # Send the true remote IP to Rocket, so that vaultwarden can put this in the
        # log, so that fail2ban can ban the correct IP.
