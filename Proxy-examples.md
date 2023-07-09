@@ -110,7 +110,7 @@ You'll have to set `IP_HEADER` to `X-Forwarded-For` instead of `X-Real-IP` in th
 </details>
 
 <details>
-<summary>Nginx (by blackdex)</summary><br/>
+<summary>Nginx - v1.29.0 (by blackdex)</summary><br/>
 
 ```nginx
 # The `upstream` directives ensure that you have a http/1.1 connection
@@ -122,10 +122,14 @@ upstream vaultwarden-default {
   server 127.0.0.1:8080;
   keepalive 2;
 }
-upstream vaultwarden-ws {
-  zone vaultwarden-ws 64k;
-  server 127.0.0.1:3012;
-  keepalive 2;
+
+# Needed to support websocket connections
+# See: https://nginx.org/en/docs/http/websocket.html
+# Instead of "close" as stated in the above link we send an empty value.
+# Else all keepalive connections will not work.
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      "";
 }
 
 # Redirect HTTP to HTTPS
@@ -133,7 +137,11 @@ server {
     listen 80;
     listen [::]:80;
     server_name vaultwarden.example.tld;
-    return 301 https://$host$request_uri;
+
+    if ($host = vaultwarden.example.tld) {
+        return 301 https://$host$request_uri;
+    }
+    return 404;
 }
 
 server {
@@ -146,11 +154,12 @@ server {
     #ssl_certificate_key /path/to/certificate/letsencrypt/live/vaultwarden.example.tld/privkey.pem;
     #ssl_trusted_certificate /path/to/certificate/letsencrypt/live/vaultwarden.example.tld/fullchain.pem;
 
-    client_max_body_size 128M;
+    client_max_body_size 525M;
 
     location / {
       proxy_http_version 1.1;
-      proxy_set_header "Connection" "";
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $connection_upgrade;
 
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
@@ -158,21 +167,6 @@ server {
       proxy_set_header X-Forwarded-Proto $scheme;
 
       proxy_pass http://vaultwarden-default;
-    }
-
-    # DO NOT add a trailing /, else you will experience issues
-    location /notifications/hub {
-      proxy_http_version 1.1;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection "upgrade";
-
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header Forwarded $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-
-      proxy_pass http://vaultwarden-ws;
     }
 
     # Optionally add extra authentication besides the ADMIN_TOKEN
@@ -184,7 +178,8 @@ server {
     #  auth_basic_user_file /path/to/htpasswd_file;
     #
     #  proxy_http_version 1.1;
-    #  proxy_set_header "Connection" "";
+    #  proxy_set_header Upgrade $http_upgrade;
+    #  proxy_set_header Connection $connection_upgrade;
     #
     #  proxy_set_header Host $host;
     #  proxy_set_header X-Real-IP $remote_addr;
@@ -208,7 +203,7 @@ If you run into 504 Gateway Timeout problems, tell nginx to wait longer for vaul
 </details>
 
 <details>
-<summary>Nginx with sub-path (by BlackDex)</summary><br/>
+<summary>Nginx with sub-path - v1.29.0 (by BlackDex)</summary><br/>
 
 In this example vaultwarden will be available via https://bitwarden.example.tld/vault/<br/>
 If you want to use any other sub-path, like `bitwarden` or `secret-vault` you should change `/vault/` in the example below to match.<br/>
@@ -217,7 +212,7 @@ For this to work you need to configure your `DOMAIN` variable to match so it sho
 
 ```ini
 ; Add the sub-path! Else this will not work!
-DOMAIN=https://bitwarden.example.tld/vault/
+DOMAIN=https://vaultwarden.example.tld/vault/
 ```
 
 ```nginx
@@ -230,27 +225,27 @@ upstream vaultwarden-default {
   server 127.0.0.1:8080;
   keepalive 2;
 }
-upstream vaultwarden-ws {
-  zone vaultwarden-ws 64k;
-  server 127.0.0.1:3012;
-  keepalive 2;
+
+# Needed to support websocket connections
+# See: https://nginx.org/en/docs/http/websocket.html
+# Instead of "close" as stated in the above link we send an empty value.
+# Else all keepalive connections will not work.
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      "";
 }
 
 # Redirect HTTP to HTTPS
 server {
-    if ($host = bitwarden.example.tld) {
-        return 301 https://$host$request_uri;
-    }
-
-
     listen 80;
     listen [::]:80;
-    server_name bitwarden.example.tld;
+    server_name vaultwarden.example.tld;
+
+    if ($host = vaultwarden.example.tld) {
+        return 301 https://$host$request_uri;
+    }
     return 404;
-
-
 }
-
 
 server {
     listen 443 ssl http2;
@@ -262,7 +257,7 @@ server {
     #ssl_certificate_key /path/to/certificate/letsencrypt/live/vaultwarden.example.tld/privkey.pem;
     #ssl_trusted_certificate /path/to/certificate/letsencrypt/live/vaultwarden.example.tld/fullchain.pem;
 
-    client_max_body_size 128M;
+    client_max_body_size 525M;
 
     ## Using a Sub Path Config
     # Path to the root of your installation
@@ -270,42 +265,15 @@ server {
     # But only for this location, all other locations should NOT add this.
     location /vault/ {
       proxy_http_version 1.1;
-      proxy_set_header "Connection" "";
-
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-
-      proxy_pass http://vaultwarden-default;
-    }
-
-    # DO NOT add a trailing /, else you will experience issues
-    location /vault/notifications/hub/negotiate {
-      proxy_http_version 1.1;
-      proxy_set_header "Connection" "";
-
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-
-      proxy_pass http://vaultwarden-default;
-    }
-
-    # DO NOT add a trailing /, else you will experience issues
-    location /vault/notifications/hub {
-      proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection "upgrade";
+      proxy_set_header Connection $connection_upgrade;
 
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header Forwarded $remote_addr;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header X-Forwarded-Proto $scheme;
 
-      proxy_pass http://vaultwarden-ws;
+      proxy_pass http://vaultwarden-default;
     }
 
     # Optionally add extra authentication besides the ADMIN_TOKEN
@@ -318,7 +286,8 @@ server {
     #  auth_basic_user_file /path/to/htpasswd_file;
     #
     #  proxy_http_version 1.1;
-    #  proxy_set_header "Connection" "";
+    #  proxy_set_header Upgrade $http_upgrade;
+    #  proxy_set_header Connection $connection_upgrade;
     #
     #  proxy_set_header Host $host;
     #  proxy_set_header X-Real-IP $remote_addr;
