@@ -75,19 +75,10 @@ Traditionally, a Bitwarden instance resides at the root of a subdomain (i.e., `b
 
 For general discussion about subpath hosting for security refer to: https://github.com/debops/debops/issues/1233
 
-If you make this change, you may also have to change the reverse proxy to add this path to /notifications/hub. For example, in Caddy v2:
-```Caddyfile
-mysubdomain.example.com {
-	reverse_proxy /my-custom-path/notifications/hub 10.0.0.150:3012
-        reverse_proxy 10.0.0.150:8083
-}
-```
-
-Or if you'd like to make Caddy drop all connections besides for vaultwarden
+If you'd like to make Caddy drop all connections besides for vaultwarden
 ```Caddyfile
 mysubdomain.example.com {
 	route {
-		reverse_proxy /my-custom-path/notifications/hub 10.0.0.150:3012
 		reverse_proxy /my-custom-path/* 10.0.0.150:8083 {
 			header_up X-Real-IP {remote_host}
 		}
