@@ -34,7 +34,6 @@ Create a file named `Caddyfile` with the following content:
         dns duckdns {$DUCKDNS_TOKEN}
     }
     reverse_proxy localhost:8080
-    reverse_proxy /notifications/hub localhost:3012
 }
 ```
 
@@ -52,7 +51,6 @@ caddy run --envfile caddy.env
 Start `vaultwarden` by running
 ```
 export ROCKET_PORT=8080
-export WEBSOCKET_ENABLED=true
 
 ./vaultwarden
 ```
@@ -88,7 +86,6 @@ Create a file named `Caddyfile` with the following content:
         dns cloudflare {$CLOUDFLARE_API_TOKEN}
     }
     reverse_proxy localhost:8080
-    reverse_proxy /notifications/hub localhost:3012
 }
 ```
 
@@ -106,7 +103,6 @@ caddy run -envfile caddy.env
 Start `vaultwarden` by running
 ```
 export ROCKET_PORT=8080
-export WEBSOCKET_ENABLED=true
 
 ./vaultwarden
 ```
