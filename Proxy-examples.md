@@ -66,10 +66,7 @@ If you prefer, you can also directly specify a value instead of substituting an 
   # Uncomment to allow access to the admin interface only from local networks
 # import admin_redir
 
-  # Notifications redirected to the websockets server
-  reverse_proxy /notifications/hub <SERVER>:3012
-
-  # Proxy everything else to Rocket
+  # Proxy everything to Rocket
   # if located at a sub-path the reverse_proxy line will look like:
   #   reverse_proxy /subpath/* <SERVER>:80
   reverse_proxy <SERVER>:80 {
@@ -576,10 +573,7 @@ Remember to enable `mod_proxy_wstunnel` and `mod_proxy_http`, for example with: 
     ErrorLog \${APACHE_LOG_DIR}/bitwarden-error.log
     CustomLog \${APACHE_LOG_DIR}/bitwarden-access.log combined
 
-    RewriteEngine On
-    RewriteCond %{HTTP:Upgrade} =websocket [NC]
-    RewriteRule /notifications/hub(.*) ws://<SERVER>:3012/$1 [P,L]
-    ProxyPass / http://<SERVER>:80/
+    ProxyPass / http://<SERVER>:80/ upgrade=websocket
 
     ProxyPreserveHost On
     ProxyRequests Off
