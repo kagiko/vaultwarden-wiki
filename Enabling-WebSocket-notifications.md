@@ -20,7 +20,7 @@ docker run -d --name vaultwarden \
   vaultwarden/server:latest
 ```
 
-Note: Port 3012 is only required when using an old reverse proxy configuration. From version 1.29.0, vaultwarden support WebSocket notifications through port 80.
+Note: Port 3012 is only required when using an old reverse proxy configuration. From version 1.29.0, vaultwarden supports WebSocket notifications through port 80.
 
 ## Test the WebSockets connection
 
