@@ -59,6 +59,7 @@ Please add your details here, if you're running the image on a hardware that is 
 | Raspberry Pi 3 B     | Raspbian (4.14.98-v7+) | linux/arm (armv7l)    | `vaultwarden/server:raspberry` | OK |     |
 | Raspberry Pi 4    | Raspbian (4.19.118-v7l+) | linux/arm (armv7l)    | `vaultwarden/server:raspberry` | OK | 4go version, rev 1.1   |
 | Synology             | DSM (DSM 6.2.1-23824 Update 6) | Docker-x64-17.05.0-0367 | `vaultwarden/server:latest` | OK |
+| Synology             | DSM (DSM 7.2-64570 Update 1) | Docker-20.10.23 | `vaultwarden/server:latest` | OK |
 | Synology             | DSM (DSM 6.2.2-24922 Update 4) | Docker-x64-18.09.0-0506 | `vaultwarden/server:1.13.0-alpine` | OK |
 | Regular 64bit server | Unraid 6.8.0 | 19.03.5                         | `vaultwarden/server:latest` | OK |
 | QNAP TS-451DEU (Intel Celeron J4025) | QTS 5.0.0.1891 | x86_64                         | `vaultwarden/server:latest` | OK |     |
