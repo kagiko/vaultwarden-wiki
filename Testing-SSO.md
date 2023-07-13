@@ -6,12 +6,12 @@ SSO support for Vaultwarden is currently [in development](https://github.com/dan
 
 ## Setup
 
-- Checkout the SSO branch, note the path
-- Create a `docker-compose.yml` somewhere with the following contents (replace the path as needed):
+- Checkout the SSO branch
+- Create `docker-compose.yml` with the following contents:
 ~~~
 services:
   vaultwarden:
-    build: /path/to/vaultwarden-source-with-sso
+    build: .
     environment:
       DOMAIN: "http://localhost:8000"
       I_REALLY_WANT_VOLATILE_STORAGE: "true"
@@ -30,10 +30,12 @@ services:
 ~~~
 - Add `auth.test` to your systems host file:
   `echo "127.0.0.1 auth.test" | sudo tee -a /etc/hosts`
+- Build vaultwarden:
+  `docker compose build`
 
 ## Testing
 
-- Start the services: `cd /path/to/docker-compose.yml && docker compose up --build`
+- Start the services: `docker compose up`
 - Go to [http://localhost:8000/#/sso](http://localhost:8000/#/sso), enter any string as identifier, click "Log in".
 - On the Mock Auth2 Server Sign-in-Page, enter any string for user/subject and add the email you want to test in the claims field like so:
   `{"email": "user@example.com"}`
