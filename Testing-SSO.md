@@ -7,7 +7,7 @@ SSO support for Vaultwarden is currently [in development](https://github.com/dan
 ## Setup
 
 - Checkout the SSO branch, note the path
-- Create a `docker-compose.yml` somewhere with the following contents:
+- Create a `docker-compose.yml` somewhere with the following contents (replace the path as needed):
 ~~~
 services:
   vaultwarden:
