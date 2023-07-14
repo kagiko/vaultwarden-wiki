@@ -107,7 +107,7 @@ You'll have to set `IP_HEADER` to `X-Forwarded-For` instead of `X-Real-IP` in th
 </details>
 
 <details>
-<summary>Nginx - v1.29.0 (by BlackDex)</summary><br/>
+<summary>Nginx - v1.29.0+ (by BlackDex)</summary><br/>
 
 ```nginx
 # The `upstream` directives ensure that you have a http/1.1 connection
@@ -202,7 +202,7 @@ If you run into 504 Gateway Timeout problems, tell nginx to wait longer for vaul
 </details>
 
 <details>
-<summary>Nginx with sub-path - v1.29.0 (by BlackDex)</summary><br/>
+<summary>Nginx with sub-path - v1.29.0+ (by BlackDex)</summary><br/>
 
 In this example vaultwarden will be available via https://bitwarden.example.tld/vault/<br/>
 If you want to use any other sub-path, like `bitwarden` or `secret-vault` you should change `/vault/` in the example below to match.<br/>
@@ -691,7 +691,7 @@ labels:
 </details>
 
 <details>
-<summary>HAproxy (by BlackDex)</summary><br/>
+<summary>HAproxy - v1.29.0+ (by BlackDex)</summary><br/>
 
 Add these lines to your haproxy configuration. 
 
@@ -701,22 +701,18 @@ frontend vaultwarden
     option forwardfor header X-Real-IP
     http-request set-header X-Real-IP %[src]
     default_backend vaultwarden_http
-    use_backend vaultwarden_ws if { path_beg /notifications/hub } !{ path_beg /notifications/hub/negotiate }
 
 backend vaultwarden_http
     # Enable compression if you want
     # compression algo gzip
     # compression type text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript
-    server vwhttp 0.0.0.0:8080
-
-backend vaultwarden_ws
-    server vwws 0.0.0.0:3012
+    server vwhttp 0.0.0.0:8080 alpn http/1.1
 ```
 </details>
 
 
 <details>
-<summary>HAproxy (by <a href="https://github.com/williamdes" target="_blank">@williamdes</a>)</summary><br/>
+<summary>HAproxy - v1.29.0+ (by <a href="https://github.com/williamdes" target="_blank">@williamdes</a>)</summary><br/>
 
 Add these lines to your HAproxy configuration. 
 
@@ -727,8 +723,7 @@ backend static-success-default
   errorfile 200 /usr/local/etc/haproxy/static/index.static.default.html
 
 frontend http-in
-    bind *:80
-    bind *:443 ssl crt /acme.sh/domain.tld/domain.tld.pem
+    bind *:443 ssl crt /acme.sh/domain.tld/domain.tld.pem alpn h2,http/1.1
     option forwardfor header X-Real-IP
     http-request set-header X-Real-IP %[src]
     default_backend static-success-default
@@ -737,19 +732,14 @@ frontend http-in
     acl host_bitwarden_domain_tld hdr(Host) -i bitwarden.domain.tld
 
     ## figure out which one to use
-    use_backend vaultwarden_http if host_bitwarden_domain_tld !{ path_beg /notifications/hub } or { path_beg /notifications/hub/negotiate }
-    use_backend vaultwarden_ws if host_bitwarden_domain_tld { path_beg /notifications/hub } !{ path_beg /notifications/hub/negotiate }
+    use_backend vaultwarden_http if host_bitwarden_domain_tld
 
 backend vaultwarden_http
     # Enable compression if you want
     # compression algo gzip
     # compression type text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript
     # You can use the container hostname if you are using haproxy with docker-compose
-    server vw_http 0.0.0.0:8080
-
-backend vaultwarden_ws
-    # You can use the container hostname if you are using haproxy with docker-compose
-    server vw_ws 0.0.0.0:3012
+    server vw_http 0.0.0.0:8080 alpn http/1.1
 ```
 </details>
 
