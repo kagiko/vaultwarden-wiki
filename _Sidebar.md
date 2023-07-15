@@ -28,6 +28,7 @@
 1. [[Enabling admin page|Enabling-admin-page]]
 1. [[Disable the admin token|Disable-admin-token]]
 1. [[Enabling WebSocket notifications|Enabling-WebSocket-notifications]]
+1. [[Enabling Mobile Client push notification|Enabling-Mobile-Client-push-notification]]
 1. [[Enabling U2F and FIDO2 WebAuthn authentication|Enabling-U2F-(and-FIDO2-WebAuthn)-authentication]]
 1. [[Enabling YubiKey OTP authentication|Enabling-Yubikey-OTP-authentication]]
 1. [[Changing persistent data location|Changing-persistent-data-location]]
