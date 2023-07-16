@@ -60,7 +60,7 @@ mkdir -p /volumeX/docker/fail2ban/filter.d/
 
 2. Replace `REJECT` by `DROP` blocktype
 ```INI
-# /volumeX/docker/fail2ban/action.d/iptables-common.local
+# /volumeX/docker/fail2ban/action.d/iptables.local
 
 [Init]
 blocktype = DROP
