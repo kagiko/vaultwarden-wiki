@@ -1,26 +1,23 @@
-WebSocket notifications are used to inform the browser and desktop Bitwarden clients that some event of interest has occurred, such as when an entry in the password database has been modified or deleted. Upon receiving the notification, the client can take an appropriate action, such as refetching the modified entry, or removing the deleted entry from its local copy of the database. In this notification scheme, the Bitwarden client establishes a persistent WebSocket connection with the Bitwarden server (vaultwarden in this case). Whenever the server has an event to report, it sends it to the client via this persistent connection.
+WebSocket notifications are used to inform the browser, desktop and Browser Extension Bitwarden clients that some event of interest has occurred, such as when an entry in the password database has been modified or deleted. Upon receiving the notification, the client can take an appropriate action, such as refresh the modified entry, or removing the deleted entry from its local cache. In this notification scheme, the Bitwarden client establishes a persistent WebSocket connection with the Bitwarden server (Vaultwarden in this case). Whenever the server has an event to report, it sends it to the client via this persistent connection.
 
-Note that WebSocket notifications are not applicable to the mobile (Android/iOS) Bitwarden clients. These clients use the native push notification service instead ([FCM](https://firebase.google.com/docs/cloud-messaging) for Android, [APNs](https://developer.apple.com/go/?id=push-notifications) for iOS). These have to be configured separately using push credentials from Bitwarden's cloud service.
+Note that WebSocket notifications are not applicable to the mobile (Android/iOS) Bitwarden clients. These clients use the native push notification service instead ([FCM](https://firebase.google.com/docs/cloud-messaging) for Android, [APNs](https://developer.apple.com/go/?id=push-notifications) for iOS). These have to be configured separately using push credentials from Bitwarden's cloud service, also available since v1.29.0.
 
-To enable WebSockets notifications, an external reverse proxy is necessary, and it must be configured to do the following:
-- Route the `/notifications/hub` endpoint to the WebSocket server, by default at port `3012`, making sure to pass the `Connection` and `Upgrade` headers. (Note the port can be changed with `WEBSOCKET_PORT` variable)
-- Route everything else, including `/notifications/hub/negotiate`, to the standard Rocket server, by default at port `80`.
-- If using Docker, you may need to map both ports with the `-p` flag
+WebSocket's are enabled by default since v1.29.0 of Vaultwarden. Previous versions needed a reverse proxy because WebSockets were running on a different port than then default HTTPS port.<br>
+The old implementation is still available in v1.29.0 to not break during updates for now. But this will be removed in the future.<br>
 
-Example configurations are included in [[Proxy examples|proxy-examples]].
 
-Then you need to enable WebSockets negotiation on the vaultwarden side by setting the `WEBSOCKET_ENABLED` variable to `true`:
+<br>
+If you do use a reverse proxy like nginx or Apache HTTPd, then you need to make sure you configure it correctly to pass through the WebSocket `Upgrade` and `Connection` headers. Some reverse proxies do this by default like Traefik for example.
 
-```sh
-docker run -d --name vaultwarden \
-  -e WEBSOCKET_ENABLED=true \
-  -v /vw-data/:/data/ \
-  -p 80:80 \
-  -p 3012:3012 \
-  vaultwarden/server:latest
-```
 
-Note: Port 3012 is only required when using an old reverse proxy configuration. From version 1.29.0, vaultwarden supports WebSocket notifications through port 80.
+<br>
+The old `WEBSOCKET_ENABLED` and `WEBSOCKET_PORT` are not needed anymore since v1.29.0 of Vaultwarden and can be ignored.<br>
+In fact, if you use the native implementation setting `WEBSOCKET_ENABLED` back to the default `false` value will reduce resources used by Vaultwarden (though not that much).
+
+<br>
+Example configurations are included in [[Proxy examples|proxy-examples]].<br>
+**Note that some examples are not yet updated for the v1.29.0 version.**
+
 
 ## Test the WebSockets connection
 
