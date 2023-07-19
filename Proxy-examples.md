@@ -447,7 +447,7 @@ Example NixOS nginx config. For more Information about NixOS Deployment see [Dep
 </details>
 
 <details>
-<summary>Nginx with proxy_protocol in front (by dionysius)</summary><br/>
+<summary>Nginx with proxy_protocol in front - v1.29.0 (by dionysius)</summary><br/>
 
 In this example there is a downstream proxy communicating in [proxy_protocol in front of this nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/using-proxy-protocol/) (E.g. a [LXD proxy device with proxy_protocol enabled](https://linuxcontainers.org/lxd/docs/master/reference/devices_proxy/)). Nginx needs to correctly consume the protocol and headers to forward need to be set from the those. Lines marked with `# <---` have different contents than blackdex example.
 
