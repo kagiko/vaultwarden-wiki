@@ -108,7 +108,7 @@ You'll have to set `IP_HEADER` to `X-Forwarded-For` instead of `X-Real-IP` in th
 </details>
 
 <details>
-<summary>Nginx - v1.29.0+ (by BlackDex)</summary><br/>
+<summary>Nginx - v1.29.0+ (by <a href="https://github.com/BlackDex" target="_blank">@BlackDex</a>)</summary><br/>
 
 ```nginx
 # The `upstream` directives ensure that you have a http/1.1 connection
@@ -203,7 +203,7 @@ If you run into 504 Gateway Timeout problems, tell nginx to wait longer for Vaul
 </details>
 
 <details>
-<summary>Nginx with sub-path - v1.29.0+ (by BlackDex)</summary><br/>
+<summary>Nginx with sub-path - v1.29.0+ (by <a href="https://github.com/BlackDex" target="_blank">@BlackDex</a>)</summary><br/>
 
 In this example Vaultwarden will be available via https://bitwarden.example.tld/vault/<br/>
 If you want to use any other sub-path, like `bitwarden` or `secret-vault` you should change `/vault/` in the example below to match.<br/>
@@ -449,7 +449,7 @@ Example NixOS nginx config. For more Information about NixOS Deployment see [Dep
 <details>
 <summary>Nginx with proxy_protocol in front - v1.29.0+ (by dionysius)</summary><br/>
 
-In this example there is a downstream proxy communicating in [proxy_protocol in front of this nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/using-proxy-protocol/) (E.g. a [LXD proxy device with proxy_protocol enabled](https://linuxcontainers.org/lxd/docs/master/reference/devices_proxy/)). Nginx needs to correctly consume the protocol and headers to forward need to be set from the those. Lines marked with `# <---` have different contents than blackdex example.
+In this example there is a downstream proxy communicating in [proxy_protocol in front of this nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/using-proxy-protocol/) (E.g. a [LXD proxy device with proxy_protocol enabled](https://linuxcontainers.org/lxd/docs/master/reference/devices_proxy/)). Nginx needs to correctly consume the protocol and headers to forward need to be set from the those. Lines marked with `# <---` have different contents than BlackDex's example.
 
 For reference this LXD downstream proxy device configuration:
 ```yaml
@@ -472,7 +472,7 @@ devices:
 set_real_ip_from ::1; # which downstream proxy to trust, enter address of your proxy in front
 real_ip_header proxy_protocol; # optional, if you want nginx to override remote_addr with info from proxy_protocol. depends on which variables you use regarding remote addr in log template and in server or stream blocks.
 
-# below based on @BlackDex's example:
+# below based on BlackDex's example:
 
 # The `upstream` directives ensure that you have a http/1.1 connection
 # This enables the keepalive option and better performance
@@ -673,7 +673,7 @@ labels:
 </details>
 
 <details>
-<summary>HAproxy - v1.29.0+ (by BlackDex)</summary><br/>
+<summary>HAproxy - v1.29.0+ (by <a href="https://github.com/BlackDex" target="_blank">@BlackDex</a>)</summary><br/>
 
 Add these lines to your haproxy configuration. 
 
