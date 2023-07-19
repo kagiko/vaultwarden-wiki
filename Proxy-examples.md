@@ -1,10 +1,11 @@
-In this document, `<SERVER>` refers to the IP or domain where you access vaultwarden. If both the reverse proxy and vaultwarden are running on the same system, simply use `localhost`.
+In this document, `<SERVER>` refers to the IP or domain where you access Vaultwarden. If both the reverse proxy and Vaultwarden are running on the same system, simply use `localhost`.
 
-By default, vaultwarden listens on port 80 for web (REST API) traffic and on port 3012 for WebSocket traffic (if [[WebSocket notifications|Enabling-WebSocket-notifications]] are enabled). The reverse proxy should be configured to terminate SSL/TLS connections (preferably on port 443, the standard port for HTTPS). The reverse proxy then passes incoming client requests to vaultwarden on port 80 or 3012 as appropriate, and upon receiving a response from vaultwarden, passes that response back to the client.
+By default, Vaultwarden listens on port 80 for web (REST API) traffic and [[WebSocket traffic|Enabling-WebSocket-notifications]].
+The reverse proxy should be configured to terminate SSL/TLS connections (preferably on port 443, the standard port for HTTPS). The reverse proxy then passes incoming client requests to Vaultwarden on port 80 or the port on which you configured Vaultwarden to listen on, and upon receiving a response from Vaultwarden, passes that response back to the client.
 
-Note that when you put vaultwarden behind a reverse proxy, the connections between the reverse proxy and vaultwarden are typically assumed to be going through a secure private network, and thus do not need to be encrypted. The examples below assume you are running in this configuration, in which case you should not enable the HTTPS functionality built into vaultwarden (i.e., you should not set the `ROCKET_TLS` environment variable). If you do, connections will fail since the reverse proxy is using HTTP to connect to vaultwarden, but you're configuring vaultwarden to expect HTTPS.
+Note that when you put Vaultwarden behind a reverse proxy, the connections between the reverse proxy and Vaultwarden are typically assumed to be going through a secure private network, and thus do not need to be encrypted. The examples below assume you are running in this configuration, in which case you should not enable the HTTPS functionality built into Vaultwarden (i.e., you should not set the `ROCKET_TLS` environment variable). If you do, connections will fail since the reverse proxy is using HTTP to connect to Vaultwarden, but you're configuring Vaultwarden to expect HTTPS.
 
-It's common to use [Docker Compose](https://docs.docker.com/compose/) to link containerized services together (e.g., vaultwarden and a reverse proxy). See [[Using Docker Compose|Using-Docker-Compose]] for an example of this.
+It's common to use [Docker Compose](https://docs.docker.com/compose/) to link containerized services together (e.g., Vaultwarden and a reverse proxy). See [[Using Docker Compose|Using-Docker-Compose]] for an example of this.
 
 Secure TLS protocol and cipher configurations for webservers can be generated using Mozilla's [SSL Configuration Generator](https://ssl-config.mozilla.org/). All supported browsers and the Mobile apps are known to work with the "Modern" configuration.
 
@@ -70,7 +71,7 @@ If you prefer, you can also directly specify a value instead of substituting an 
   # if located at a sub-path the reverse_proxy line will look like:
   #   reverse_proxy /subpath/* <SERVER>:80
   reverse_proxy <SERVER>:80 {
-       # Send the true remote IP to Rocket, so that vaultwarden can put this in the
+       # Send the true remote IP to Rocket, so that Vaultwarden can put this in the
        # log, so that fail2ban can ban the correct IP.
        header_up X-Real-IP {remote_host}
   }
@@ -190,7 +191,7 @@ server {
 }
 ```
 
-If you run into 504 Gateway Timeout problems, tell nginx to wait longer for vaultwarden by adding longer timeouts to the `server {` section, for example:
+If you run into 504 Gateway Timeout problems, tell nginx to wait longer for Vaultwarden by adding longer timeouts to the `server {` section, for example:
 
 ```nginx
   proxy_connect_timeout       777;
@@ -204,7 +205,7 @@ If you run into 504 Gateway Timeout problems, tell nginx to wait longer for vaul
 <details>
 <summary>Nginx with sub-path - v1.29.0+ (by BlackDex)</summary><br/>
 
-In this example vaultwarden will be available via https://bitwarden.example.tld/vault/<br/>
+In this example Vaultwarden will be available via https://bitwarden.example.tld/vault/<br/>
 If you want to use any other sub-path, like `bitwarden` or `secret-vault` you should change `/vault/` in the example below to match.<br/>
 <br/>
 For this to work you need to configure your `DOMAIN` variable to match so it should look like:
@@ -304,7 +305,7 @@ server {
 <details>
 <summary>Nginx configured by Ansible/DebOps (by ypid)</summary><br/>
 
-Ansible inventory example that uses [DebOps](https://debops.org) to configure Nginx as a reverse proxy for vaultwarden. I choose to go with the PSK in the URL for additional security to not expose the API to everyone on the Internet because the client apps do not support client certificates yet (I tested it). Refer to [[Hardening Guide – hiding under a subdir|Hardening-Guide#hiding-under-a-subdir]].
+Ansible inventory example that uses [DebOps](https://debops.org) to configure Nginx as a reverse proxy for Vaultwarden. I choose to go with the PSK in the URL for additional security to not expose the API to everyone on the Internet because the client apps do not support client certificates yet (I tested it). Refer to [[Hardening Guide – hiding under a subdir|Hardening-Guide#hiding-under-a-subdir]].
 
 ```YAML
 vaultwarden__fqdn: 'vault.example.org'
@@ -471,7 +472,7 @@ devices:
 set_real_ip_from ::1; # which downstream proxy to trust, enter address of your proxy in front
 real_ip_header proxy_protocol; # optional, if you want nginx to override remote_addr with info from proxy_protocol. depends on which variables you use regarding remote addr in log template and in server or stream blocks.
 
-# below based on blackdex example:
+# below based on @BlackDex's example:
 
 # The `upstream` directives ensure that you have a http/1.1 connection
 # This enables the keepalive option and better performance
@@ -482,27 +483,32 @@ upstream vaultwarden-default {
   server 127.0.0.1:8080;
   keepalive 2;
 }
-upstream vaultwarden-ws {
-  zone vaultwarden-ws 64k;
-  server 127.0.0.1:3012;
-  keepalive 2;
+
+# Needed to support websocket connections
+# See: https://nginx.org/en/docs/http/websocket.html
+# Instead of "close" as stated in the above link we send an empty value.
+# Else all keepalive connections will not work.
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      "";
 }
 
 # Redirect HTTP to HTTPS
 server {
-    if ($host = bitwarden.example.tld) {
+    if ($host = vaultwarden.example.tld) {
         return 301 https://$host$request_uri;
     }
 
     listen 80 proxy_protocol; # <---
     listen [::]:80 proxy_protocol; # <---
-    server_name bitwarden.example.tld;
+    server_name vaultwarden.example.tld;
     return 404;
 }
 
 server {
-    listen 443 ssl http2 proxy_protocol; # <---
-    listen [::]:443 ssl http2 proxy_protocol; # <---
+    listen 443 ssl proxy_protocol; # <---
+    listen [::]:443 ssl proxy_protocol; # <---
+    http2 on;
     server_name vaultwarden.example.tld;
 
     # Specify SSL Config when needed
@@ -510,47 +516,23 @@ server {
     #ssl_certificate_key /path/to/certificate/letsencrypt/live/vaultwarden.example.tld/privkey.pem;
     #ssl_trusted_certificate /path/to/certificate/letsencrypt/live/vaultwarden.example.tld/fullchain.pem;
 
-    client_max_body_size 128M;
+    client_max_body_size 525M;
 
     ## Using a Sub Path Config
     # Path to the root of your installation
-    # Be sure to add the trailing /, else you could have issues
+    # Be sure to DO ADD a trailing /, else you will experience issues 
+    # But only for this location, all other locations should NOT add this.
     location /vault/ {
       proxy_http_version 1.1;
-      proxy_set_header "Connection" "";
-
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr; # <--- or if real_ip_header not set above: $proxy_forwarded_for
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; # <-- or if real_ip_header not set above: $proxy_forwarded_for
-      proxy_set_header X-Forwarded-Proto $scheme;
-
-      proxy_pass http://vaultwarden-default;
-    }
-
-    location /vault/notifications/hub/negotiate {
-      proxy_http_version 1.1;
-      proxy_set_header "Connection" "";
-
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr; # <--- or if real_ip_header not set above: $proxy_forwarded_for
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; # <-- or if real_ip_header not set above: $proxy_forwarded_for
-      proxy_set_header X-Forwarded-Proto $scheme;
-
-      proxy_pass http://vaultwarden-default;
-    }
-
-    location /vault/notifications/hub {
-      proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection "upgrade";
+      proxy_set_header Connection $connection_upgrade;
 
       proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr; # <--- or if real_ip_header not set above: $proxy_forwarded_for
-      proxy_set_header Forwarded $remote_addr; # <--- [sic] this is not correct [RFC 7239](https://datatracker.ietf.org/doc/html/rfc7239)
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; # <-- or if real_ip_header not set above: $proxy_forwarded_for
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header X-Forwarded-Proto $scheme;
 
-      proxy_pass http://vaultwarden-ws;
+      proxy_pass http://vaultwarden-default;
     }
 }
 ```
