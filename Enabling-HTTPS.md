@@ -3,7 +3,7 @@ For proper operation of vaultwarden, enabling [HTTPS](https://en.wikipedia.org/w
 There are a few ways you can enable HTTPS:
 
 * (Recommended) Put vaultwarden behind a [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy) that handles HTTPS connections on behalf of vaultwarden.
-* (Not recommended) Enable the HTTPS functionality built into vaultwarden (via the [Rocket](https://rocket.rs/) web framework). Rocket's HTTPS implementation is relatively immature and limited. This method also does not support [[WebSocket notifications|Enabling-WebSocket-notifications]].
+* (Not recommended) Enable the HTTPS functionality built into vaultwarden (via the [Rocket](https://rocket.rs/) web framework). Rocket's HTTPS implementation is relatively immature and limited.
 
 Refer to the [Enabling HTTPS](#enabling-https) section for more details on these options.
 
