@@ -17,4 +17,4 @@ Once it's done, restart your docker container with
 docker compose up -d vaultwarden
 ```
 
-💡 At first the sync will not work with the mobile app, unless you're using a freshly installed Bitwarden app. You have to reinstall the app and relog to you Vaultwarden to make the push notification work.
+💡 Unless you're using a freshly installed Bitwarden app, push notifications will not work with the mobile app straight away. You have to reinstall the app and login again to your Vaultwarden account to make the push notifications work.
