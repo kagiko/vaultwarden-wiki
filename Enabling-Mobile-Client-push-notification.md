@@ -18,3 +18,5 @@ docker compose up -d vaultwarden
 ```
 
 💡 Unless you're using a freshly installed Bitwarden app, push notifications will not work with the mobile app straight away. You have to reinstall the app and login again to your Vaultwarden account to make the push notifications work.
+
+💡Data Region EU is currently not supported by Vaultwarden push unifications. If you requested an INSTALLATION_ID and -KEY for Data Region EU, you need to request a new one for the US Data Region and use those in your Vaultwarden config to successfully enable push. 
