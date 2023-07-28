@@ -9,7 +9,7 @@ Edit your  vaultwarden docker compose file and add this lines in the environneme
       - PUSH_INSTALLATION_KEY=
 ```
 
-To get the PUSH_INSTALLATION_ID and PUSH_INSTALLATION_KEY go to [https://bitwarden.com/host/](https://bitwarden.com/host/), put an email address and you'll get your ID and KEY.
+To get the PUSH_INSTALLATION_ID and PUSH_INSTALLATION_KEY go to [https://bitwarden.com/host/](https://bitwarden.com/host/), put an email address and you'll get your ID and KEY. Make sure to only select the US region, the EU region does not seem to work yet.
 
 Once it's done, restart your docker container with
 
