@@ -97,7 +97,7 @@ CLOUDFLARE_API_TOKEN=<your-api-token>
 
 Start `caddy` by running
 ```
-caddy run -envfile caddy.env
+caddy run --envfile caddy.env
 ```
 
 Start `vaultwarden` by running
