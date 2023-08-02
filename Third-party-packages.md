@@ -83,17 +83,17 @@ openSUSE build service project with support for:
 
 | RPM    |                                 |
 |--------|---------------------------------|
-| SUSE   | 15.4<br>Tumbleweed              |
+| SUSE   | 15.4<br>15.5<br>Tumbleweed      |
 | RHEL   | 7*<br>8                         |
 | CentOS | 7*<br>8<br>8_Stream<br>9_Stream |
-| Fedora | 36<br>37<br>Rawhide             |
+| Fedora | 36<br>37<br>38<br>Rawhide       |
 
 _(* Only up to vaultwarden-1.28.0 because GCC-4.9 is not available. )_
 
-| DEB    |                            |
-|--------|----------------------------|
-| Debian | 10<br>11<br>Testing        |
-| Ubuntu | 18.04<br>20.04<br>22.04    |
+| DEB    |                                  |
+|--------|----------------------------------|
+| Debian | 10<br>11<br>12<br>Testing        |
+| Ubuntu | 18.04<br>20.04<br>22.04<br>23.04 |
 
 You can either download the packages directly or use the available repositories.
 
