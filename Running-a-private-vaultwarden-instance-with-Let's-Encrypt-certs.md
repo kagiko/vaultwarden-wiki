@@ -27,7 +27,7 @@ Move the `caddy` binary to `/usr/local/bin/caddy` or some other appropriate dire
 
 If you don't already have an account, create one at https://www.duckdns.org/. Create a subdomain for your vaultwarden instance (e.g., `my-vw.duckdns.org`) and set its IP to your vaultwarden host's private IP (e.g., `192.168.1.100`). Make note of your account's token (a string in [UUID](https://en.wikipedia.org/wiki/UUID) format). Caddy will need this token to solve the DNS challenge.
 
-Create a file named `Caddyfile` (captial C and no file extention) in the same directory where the caddy executable is located with the following content and replace the port of `localhost:` by the one used by your vaultwarden in its `ROCKET_PORT=` directive (vaultwarden's default rocket_port is 8001):
+Create a file named `Caddyfile` (capital C and no file extention) in the same directory where the caddy executable is located with the following content and replace the `localhost:` port by the one used by your vaultwarden in its `ROCKET_PORT=` directive (vaultwarden's default rocket_port is 8001):
 
 ```
 {$DOMAIN}:443 {
@@ -154,16 +154,14 @@ If you get a DNS resolution error for your subdomain (e.g., `DNS_PROBE_FINISHED_
 1. It blocks dynamic DNS services for security reasons.
 2. It blocks domains that resolve to private (RFC 1918) IP addresses to prevent [DNS rebinding](https://en.wikipedia.org/wiki/DNS_rebinding) attacks, or for some other reason.
 
-In either case, you might try using another DNS resolver, such as Google's `8.8.8.8` or Cloudflare's `1.1.1.1`. In the second case, if you're running behind a local DNS server like dnsmasq or Unbound, you may be able to configure it to either disable DNS rebind protection entirely, or allow certain domains to return private addresses.
-
-Regarding Unbound you can do so by adding the following directive to its configuration file (replacing the domain by your own Duck DNS domain):
+In either case, you might try using another DNS resolver, such as Google's `8.8.8.8` or Cloudflare's `1.1.1.1`. In the second case, if you're running behind a local DNS server like dnsmasq or Unbound, you may be able to configure it to either disable DNS rebind protection entirely, or allow certain domains to return private addresses. Regarding Unbound you can do so by adding the following directive to its configuration file (replacing the domain by your own Duck DNS domain):
 ```
 private-domain: "my-vw.duckdns.org"
 ```
 
-Restart unbound afterwards with `unbound-control reload` or `systemctl restart unbound` to make it use the new configuration.
+Afterwards restart unbound by `unbound-control reload` or `systemctl restart unbound` to make it load its new configuration.
 
-Additionally, make sure you turn off a previous HTTPS setup you might had set up for vaultwarden, in particular a private CA with your own (self-signed) certificates via Rocket TLS because this will prevent your new domain to be able to connect to vaultwarden. You can do so by commenting out (# sign) the ROCKET_TLS directive in <our vaultwarden's environment file:
+Additionally, make sure to turn off a previous HTTPS setup you might had set up for vaultwarden, in particular a private CA with your own (self-signed) certificates via Rocket TLS because this interferes with your new Let's Encrypt-protected domain. Simply do so by commenting out (# sign) the ROCKET_TLS directive in your vaultwarden's environment file:
 
 ```
 # ROCKET_TLS={certs="./cert.pem",key="./privkey.pem"}
