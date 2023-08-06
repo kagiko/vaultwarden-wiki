@@ -64,10 +64,8 @@ You should now be able to reach your vaultwarden instance at https://my-vw.duckd
 
 You can stop caddy by [STRG]-[C]. In the future start caddy in the background by running
 ```
-caddy start --envfile caddy.env --resume
+caddy start --envfile caddy.env
 ```
-
-The `--resume` parameter makes it load the latest configuration saved saved in `/root/.config/caddy`.
 
 **Important:** If necessary, in some routers (e.g. FritzBox) or DNS resolvers (e.g. unbound) an exception must be set for the domain (e.g., `my-vw.duckdns.org`) due to DNS rebind protection.
 
