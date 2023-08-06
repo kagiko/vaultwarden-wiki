@@ -21,19 +21,20 @@ If you prefer to build from source, you can use [`xcaddy`](https://caddyserver.c
 
     xcaddy build --with github.com/caddy-dns/cloudflare --with github.com/caddy-dns/duckdns
 
-Move the `caddy` binary to `/usr/local/bin/caddy` or some other appropriate directory in your path. Optionally, run `sudo setcap cap_net_bind_service=+ep /usr/local/bin/caddy` to allow `caddy` to listen on privileged ports (< 1024) without running as root.
+Move the `caddy` binary to `/usr/local/bin/caddy` or some other appropriate directory in your path. Make the file executable. Optionally, run `sudo setcap cap_net_bind_service=+ep /usr/local/bin/caddy` to allow `caddy` to listen on privileged ports (< 1024) without running as root.
 
 ## Duck DNS setup
 
-If you don't already have an account, create one at https://www.duckdns.org/. Create a subdomain for your vaultwarden instance (e.g., `my-vw.duckdns.org`), setting its IP to your vaultwarden host's private IP (e.g., `192.168.1.100`). Make note of your account's token (a string in [UUID](https://en.wikipedia.org/wiki/UUID) format). Caddy will need this token to solve the DNS challenge.
+If you don't already have an account, create one at https://www.duckdns.org/. Create a subdomain for your vaultwarden instance (e.g., `my-vw.duckdns.org`) and set its IP to your vaultwarden host's private IP (e.g., `192.168.1.100`). Make note of your account's token (a string in [UUID](https://en.wikipedia.org/wiki/UUID) format). Caddy will need this token to solve the DNS challenge.
 
-Create a file named `Caddyfile` with the following content:
+Create a file named `Caddyfile` (captial C and no file extention) in the same directory where the caddy executable is located with the following content and replace the port of `localhost:` by the one used by your vaultwarden in its `ROCKET_PORT=` directive (vaultwarden's default rocket_port is 8001):
+
 ```
 {$DOMAIN}:443 {
     tls {
         dns duckdns {$DUCKDNS_TOKEN}
     }
-    reverse_proxy localhost:8080
+    reverse_proxy localhost:8001
 }
 ```
 
@@ -43,21 +44,32 @@ DOMAIN=my-vw.duckdns.org
 DUCKDNS_TOKEN=00112233-4455-6677-8899-aabbccddeeff
 ```
 
-Start `caddy` by running
+Change to the directory where caddy is located and start `caddy` for the first time by running
 ```
 caddy run --envfile caddy.env
 ```
 
-Start `vaultwarden` by running
+The first start of caddy for your Duck DNS domain (e.g. my-vw.duckns.org) takes a few seconds to solve the DNS challenge and obtain the HTTPS certificates. Caddy usually stores them in `/root/.local/share/caddy` and caddy's configuration is automatically saved to `/root/.config/caddy`.
+
+Start `vaultwarden` - if not already the case - by running
 ```
-export ROCKET_PORT=8080
+export ROCKET_PORT=8001
 
 ./vaultwarden
 ```
 
-You should now be able to reach your vaultwarden instance at https://my-vw.duckdns.org.
+Note: It does not matter if vaultwarden has been running already or not before you set up caddy. 
 
-**Important:** If necessary, in some routers (e.g. FritzBox) an exception must be set for the domain (e.g., `my-vw.duckdns.org`) due to DNS rebind protection.
+You should now be able to reach your vaultwarden instance at https://my-vw.duckdns.org. If not, check the output of caddy.
+
+You can stop caddy by [STRG]-[C]. In the future start caddy in the background by running
+```
+caddy start --envfile caddy.env --resume
+```
+
+The `--resume` parameter makes it load the latest configuration saved saved in `/root/.config/caddy`.
+
+**Important:** If necessary, in some routers (e.g. FritzBox) or DNS resolvers (e.g. unbound) an exception must be set for the domain (e.g., `my-vw.duckdns.org`) due to DNS rebind protection.
 
 ## Cloudflare setup
 
@@ -143,6 +155,26 @@ If you get a DNS resolution error for your subdomain (e.g., `DNS_PROBE_FINISHED_
 2. It blocks domains that resolve to private (RFC 1918) IP addresses to prevent [DNS rebinding](https://en.wikipedia.org/wiki/DNS_rebinding) attacks, or for some other reason.
 
 In either case, you might try using another DNS resolver, such as Google's `8.8.8.8` or Cloudflare's `1.1.1.1`. In the second case, if you're running behind a local DNS server like dnsmasq or Unbound, you may be able to configure it to either disable DNS rebind protection entirely, or allow certain domains to return private addresses.
+
+Regarding Unbound you can do so by adding the following directive to its configuration file (replacing the domain by your own Duck DNS domain):
+```
+private-domain: "my-vw.duckdns.org"
+```
+
+Restart unbound afterwards with `unbound-control reload` or `systemctl restart unbound` to make it use the new configuration.
+
+Additionally, make sure you turn off a previous HTTPS setup you might had set up for vaultwarden, in particular a private CA with your own (self-signed) certificates via Rocket TLS because this will prevent your new domain to be able to connect to vaultwarden. You can do so by commenting out (# sign) the ROCKET_TLS directive in <our vaultwarden's environment file:
+
+```
+# ROCKET_TLS={certs="./cert.pem",key="./privkey.pem"}
+```
+
+### Vaultwarden login issues
+
+Do not miss to update vaultwardens's environment file to reflect the domain change:
+```
+DOMAIN=https://my-vw.duckdns.org
+```
 
 ## References
 
