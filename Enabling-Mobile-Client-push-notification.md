@@ -1,24 +1,27 @@
-Since the version 1.29.0 of Vaultwarden, you can activate the Mobile Client push notification to seamlessly sync your vault between the mobile app, the web extension and the web vault without the need to sync manually.
+Since version `1.29.0` of Vaultwarden, you can activate Mobile Client push notifications to [automatically sync](https://bitwarden.com/help/vault-sync/#automatic-sync) your personal vault between the mobile app, the web extension and the web vault without the need to sync manually.
 
 ### Enable Mobile Client push notification
 
-Edit your  vaultwarden docker compose file and add this lines in the environnement part:
+1. Go to [https://bitwarden.com/host/](https://bitwarden.com/host/) insert your email address and you'll get an INSTALLATION ID and KEY.  
+:warning: Until [#3752](https://github.com/dani-garcia/vaultwarden/pull/3752) is implemented, make sure to select `bitwarden.com (United States)` as Data Region.  
+:bulb: The EU Data Region is currently **not supported** by Vaultwarden. If you have requested an INSTALLATION ID and KEY for `bitwarden.eu (European Union)`, you need to either wait until the PR is merged and released, [build Vaultwarden](https://github.com/dani-garcia/vaultwarden/wiki/Building-your-own-docker-image) with necessary changes yourself, or you can simply request a new id/key pair for the US Data Region.
+
+2. Add the following settings to your `docker-compose.yml` (and make sure you insert the correct ID and the KEY from the previous step):
 ```yaml
+    environment:
       - PUSH_ENABLED=true
       - PUSH_INSTALLATION_ID=
-      - PUSH_INSTALLATION_KEY=
+      - PUSH_INSTALLATION_KEY= 
 ```
 
-To get the PUSH_INSTALLATION_ID and PUSH_INSTALLATION_KEY go to [https://bitwarden.com/host/](https://bitwarden.com/host/), put an email address and you'll get your ID and KEY. Make sure to only select the US region, the EU region does not seem to work yet.
-
-Once it's done, restart your docker container with
+3. Recreate your container, e.g. with
 
 ```bash 
 docker compose up -d vaultwarden
 ```
 
-💡 Unless you're using a freshly installed Bitwarden app, push notifications will not work with the mobile app straight away. You have to reinstall the app and login again to your Vaultwarden account to make the push notifications work.
+4. Connect your app to your Vaultwarden instance.  
+:warning: Unless you're using a freshly installed Bitwarden app, push notifications **will not work** with already connected clients. You have to **clear the app data** of your mobile app (or **reinstall the app**) and connect your Vaultwarden account again to [register the push token with the Bitwarden's Azure Notification Hub](https://contributing.bitwarden.com/architecture/deep-dives/push-notifications/mobile/#self-hosted-implementation).
+:bulb: Push notifications will also only work on Bitwarden apps installed from the official mobile stores (App Store, Google Play Store) or when using alternative clients for the Google Play Store (such as Aurora Store). Push notifications **will not work** using Bitwarden clients installed from [F-Droid](https://mobileapp.bitwarden.com/fdroid/), NeoStore or other alternative stores. Those apps have been built without support for Firebase Messaging.
 
-💡 Push notifications will only work on Bitwarden app installed from the official mobile stores (App Store, Google Play Store) or when using alternative clients for the Google Play Store (such as Aurora Store). Push notifications **will not work** on Bitwarden installed from F-Droid, NeoStore or other alternative stores.
-
-💡Data Region EU is currently not supported by Vaultwarden push. If you requested an INSTALLATION_ID and -KEY for Data Region EU, you need to request a new one for the US Data Region and use those in your Vaultwarden config to successfully enable push. 
+5. Test if mobile push notifications work, for example by renaming a folder in your personal vault and see if it changes after a few seconds in your mobile app.
