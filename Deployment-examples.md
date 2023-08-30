@@ -1,5 +1,11 @@
 This page is an index of standalone deployment examples. If adding a new example, please create a new category if appropriate, and keep things organized in general.
 
+## Sealos
+
+[![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-fastdeploy%3FtemplateName%3Dvaultwarden)
+
+Installs vaultwarden on Sealos using all free addons. Takes about 1 minutes to install. Gracefully handle high concurrency and offer dynamic scalability.
+
 ## Google Cloud
 
 * https://github.com/dadatuputi/bitwarden_gcloud
@@ -9,12 +15,6 @@ This page is an index of standalone deployment examples. If adding a new example
 * https://medium.com/@sreafterhours/terraform-helm-external-dns-cert-manager-nginx-and-vaultwarden-on-gke-5080f3b4909f
 
   Detailed Vaultwarden installation in Google Kubernetes Engine, which includes infrastructure and cluster configuration.
-
-## Sealos
-
-[![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-fastdeploy%3FtemplateName%3Dvaultwarden)
-
-Installs vaultwarden on Sealos using all free addons. Takes about 1 minutes to install.
 
 ## Heroku
 
