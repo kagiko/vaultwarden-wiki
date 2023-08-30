@@ -10,6 +10,12 @@ This page is an index of standalone deployment examples. If adding a new example
 
   Detailed Vaultwarden installation in Google Kubernetes Engine, which includes infrastructure and cluster configuration.
 
+## Sealos
+
+[![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-fastdeploy%3FtemplateName%3Dvaultwarden)
+
+Installs vaultwarden on Sealos using all free addons. Takes about 1 minutes to install.
+
 ## Heroku
 
 * https://github.com/davidjameshowell/vaultwarden_heroku
