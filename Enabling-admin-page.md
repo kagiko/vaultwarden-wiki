@@ -144,4 +144,4 @@ services:
       - ADMIN_TOKEN=${VAULTWARDEN_ADMIN_TOKEN}
 ```
 
-You can check your configuration by calling `docker compose config`, you should see the escaped $-sign as double-$.
+You can check your configuration by calling `docker compose config`, you should see the escaped <span>$</span>-sign as double-<span>$</span>.
