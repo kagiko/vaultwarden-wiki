@@ -62,7 +62,7 @@ While launching, Vaultwarden checks for the existence of a file called `.env` (i
 <br>
 
 ## Can i run Vaultwarden as an Azure WebApp
-Unfortunately Azure WebApp's uses CIFS/Samba as there volume storage which does not support locking. This causes issues with the SQLite database file.  
+Unfortunately Azure WebApp's uses CIFS/Samba as their volume storage which does not support locking. This causes issues with the SQLite database file.  
 There are two ways to solve this.
 1. Do not use SQLite, but MariaDB/MySQL or Posgresql as the database backend.
 2. Try to disable WAL using the `ENABLE_DB_WAL` environment variable by setting it's value to `false`. This needs to be done on a new file, so you need to remove the previously created `db.sqlite3` file and restart the Vaultwarden app again.
