@@ -41,6 +41,8 @@ subjectAltName = @alt_names
 [alt_names]
 DNS.1 = bitwarden.local
 DNS.2 = www.bitwarden.local
+# Optionally add IP if you're not using DNS names:
+IP.1 = 192.168.1.3
 ```
 
 
