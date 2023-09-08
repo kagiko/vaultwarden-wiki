@@ -1,53 +1,9 @@
 This page is an index of standalone deployment examples. If adding a new example, please create a new category if appropriate, and keep things organized in general.
 
-## Sealos
+## Self-hosted
+This section documents different options to host Vaultwarden on your **own hardware** or any infrastructure that is primarily **managed by yourself**.
 
-[![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-fastdeploy%3FtemplateName%3Dvaultwarden)
-
-Installs vaultwarden on Sealos using all free addons. Takes about 1 minutes to install. Gracefully handle high concurrency and offer dynamic scalability.
-
-## Google Cloud
-
-* https://github.com/dadatuputi/bitwarden_gcloud
-
-  Vaultwarden installation optimized for Google Cloud's 'always free' e2-micro compute instance
-
-* https://medium.com/@sreafterhours/terraform-helm-external-dns-cert-manager-nginx-and-vaultwarden-on-gke-5080f3b4909f
-
-  Detailed Vaultwarden installation in Google Kubernetes Engine, which includes infrastructure and cluster configuration.
-
-## Heroku
-
-* https://github.com/davidjameshowell/vaultwarden_heroku
-
-  Installs vaultwarden on Heroku using all free addons. Takes about 15 minutes to install.
-
-## Fly.io
-
-* https://github.com/nosovk/vaultwarden-fly-io/blob/main/fly.toml
-
-Installs vaultwarden with SQLite database. But you need to create volume for database
-```flyctl volumes create vaultwarden_data -a [your app name] -s 1```
-
-* https://github.com/arthurgeek/vaultwarden-fly-template
-
-Template to deploy Vaultwarden on Fly.io with websockets support (with caddy) and sqlite hourly backups using restic.
-
-## Kubernetes
-
-* https://github.com/icicimov/kubernetes-bitwarden_rs
-
-  Sets up a fully functional and secure `vaultwarden` application in Kubernetes behind [nginx-ingress-controller](https://github.com/kubernetes/ingress-nginx) and AWS [ELBv1](https://aws.amazon.com/elasticloadbalancing/features/#Details_for_Elastic_Load_Balancing_Products). It provides a little bit more than just simple deployment but you can use all or just part of the manifests depending on your needs and setup.
-
-* https://github.com/Skeen/helm-bitwarden_rs
-
-  Sets up a fully functional and secure `vaultwarden` application in Kubernetes behind an nginx controller of your choice. It works well and is tested with the [microk8s](https://microk8s.io/) setup. There is support for generating SSL certificates via [cert-manager](https://github.com/jetstack/cert-manager) too.
-
-* https://github.com/guerzon/vaultwarden
-
-  Deploy `Vaultwarden` to Kubernetes clusters using [Helm](https://helm.sh/docs/). This chart supports important customizations such as providing image tags and custom registry values, using an external MySQL or PostgreSQL database, using ingress controllers such as [nginx-ingress](https://kubernetes.github.io/ingress-nginx/deploy/) and [AWS LB Ingress Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/deploy/installation/), using service accounts, configuring SMTP, and configuring storage options. The chart is well-documented and will continue to introduce more configuration options in the future.
-
-## Raspberry Pi
+### Raspberry Pi
 
 * https://github.com/martient/vaultwarden-ansible
 
@@ -59,19 +15,17 @@ Template to deploy Vaultwarden on Fly.io with websockets support (with caddy) an
 
   For installing Vaultwarden on DietPi just type `dietpi-software install 183` on the command line. More information about the installation process and first access to Vaultwarden on DietPi can be found at [https://dietpi.com/docs/software/cloud/#vaultwarden](https://dietpi.com/docs/software/cloud/#vaultwarden)
 
-## Shared hosting
+### Shared hosting
 
 * https://github.com/jjlin/vaultwarden-shared-hosting
 
   Sample config for running `vaultwarden` on [DreamHost](https://www.dreamhost.com/), but should be readily adaptable to many other shared hosting services.
 
-*
-https://lab.uberspace.de/guide_vaultwarden.html?highlight=bitwarden
+* https://lab.uberspace.de/guide_vaultwarden.html?highlight=bitwarden
 
   Instructions on how to install from source and run on [Uberspace](https://uberspace.de/en/) shared hosting provider.
 
-
-## NixOS (by tklitschi)
+### NixOS (by tklitschi)
   There's a example bitwarden config for NixOS. It's not very complex, you have the backend option, for the type of Database you wanna use, the Backupdir for a dedicated Backup systemdserive, the option to enable it and the config Option. For the Config Option you simply pass the .env Variables [from the .env template](https://github.com/dani-garcia/vaultwarden/blob/1.13.1/.env.template) in nix syntax. Secrets ( SMTP_PASSWORD,... ) store inside another .env file outside /nix/store and include by [services.vaultwarden.environmentFile](https://search.nixos.org/options?channel=21.11&show=services.vaultwarden.environmentFile&from=0&size=50&sort=relevance&type=packages&query=vaultw)
 See [Proxy Examples](https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examples) for a nixos-nginx example config.
 <details>
@@ -115,14 +69,64 @@ If you have any Questions about this part, feel Free to contact me. I on @litsch
 
 </details>
 
-## QNAP NAS (ARM and x86)
+### QNAP NAS (ARM and x86)
 
 * https://github.com/umireon/vaultwarden-qnap
 
 You can install Vaultwarden into your secure network-attached storage (NAS) with Let's Encrypt.
 Due to the QNAP's built-in HTTP(S) server, you cannot publish Vaultwarden on the standard HTTP(S) port (80 / 443).
 
-## Dokku
+### Kubernetes
+
+* https://github.com/icicimov/kubernetes-bitwarden_rs
+
+  Sets up a fully functional and secure `vaultwarden` application in Kubernetes behind [nginx-ingress-controller](https://github.com/kubernetes/ingress-nginx) and AWS [ELBv1](https://aws.amazon.com/elasticloadbalancing/features/#Details_for_Elastic_Load_Balancing_Products). It provides a little bit more than just simple deployment but you can use all or just part of the manifests depending on your needs and setup.
+
+* https://github.com/Skeen/helm-bitwarden_rs
+
+  Sets up a fully functional and secure `vaultwarden` application in Kubernetes behind an nginx controller of your choice. It works well and is tested with the [microk8s](https://microk8s.io/) setup. There is support for generating SSL certificates via [cert-manager](https://github.com/jetstack/cert-manager) too.
+
+* https://github.com/guerzon/vaultwarden
+
+  Deploy `Vaultwarden` to Kubernetes clusters using [Helm](https://helm.sh/docs/). This chart supports important customizations such as providing image tags and custom registry values, using an external MySQL or PostgreSQL database, using ingress controllers such as [nginx-ingress](https://kubernetes.github.io/ingress-nginx/deploy/) and [AWS LB Ingress Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/deploy/installation/), using service accounts, configuring SMTP, and configuring storage options. The chart is well-documented and will continue to introduce more configuration options in the future.
+
+## PaaS Hosting
+This section presents different options to host Vaultwarden **in the cloud** or using Platform as a Service providers. 
+
+### Sealos
+
+[![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-fastdeploy%3FtemplateName%3Dvaultwarden)
+
+Installs vaultwarden on Sealos using all free addons. Takes about 1 minutes to install. Gracefully handle high concurrency and offer dynamic scalability.
+
+### Google Cloud
+
+* https://github.com/dadatuputi/bitwarden_gcloud
+
+  Vaultwarden installation optimized for Google Cloud's 'always free' e2-micro compute instance
+
+* https://medium.com/@sreafterhours/terraform-helm-external-dns-cert-manager-nginx-and-vaultwarden-on-gke-5080f3b4909f
+
+  Detailed Vaultwarden installation in Google Kubernetes Engine, which includes infrastructure and cluster configuration.
+
+### Heroku
+
+* https://github.com/davidjameshowell/vaultwarden_heroku
+
+  Installs vaultwarden on Heroku using all free addons. Takes about 15 minutes to install.
+
+### Fly.io
+
+* https://github.com/nosovk/vaultwarden-fly-io/blob/main/fly.toml
+
+Installs vaultwarden with SQLite database. But you need to create volume for database
+```flyctl volumes create vaultwarden_data -a [your app name] -s 1```
+
+* https://github.com/arthurgeek/vaultwarden-fly-template
+
+Template to deploy Vaultwarden on Fly.io with websockets support (with caddy) and sqlite hourly backups using restic.
+
+### Dokku
 
 This is a script that automatically sets up vaultwarden using the docker image uploaded to DockerHub
 and creates a [Dokku](https://dokku.com/) app. The script assumes you have a global domain set
@@ -182,14 +186,22 @@ image_sha="$(docker inspect --format='{{index .RepoDigests 0}}' vaultwarden/serv
 dokku git:from-image $APP_NAME $image_sha
 ```
 
-## Azure
+### Azure
 
 * https://github.com/adamhnat/vaultwarden-azure
 
   Vaultwarden installation optimized for Azure Container App service with fileshare for data
 
-## Digital Ocean
+### Digital Ocean
 
 * https://github.com/HarrisonLeach1/vaultwarden_digitalocean
 
   Vaultwarden installation for Digital Ocean's cheapest droplet. Resources setup via terraform
+
+## Managed Hosting
+Lastly, this section showcases different providers and options to purchase managed Vaultwarden hosting, in case you do not want to concern yourself with configuration and administration at all.
+
+### Server.Camp :camping:
+* https://server.camp/product/vaultwarden
+
+  Managed, EU-based, GDPR-compliant Vaultwarden hosting by developers for developers, startups and small to medium businesses. 15 % of the revenue are donated back to the open-source community.
