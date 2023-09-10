@@ -4,9 +4,6 @@
 Short answer, **No**.
 There sometimes is some contact between the developers of both projects, but there is no collaboration.
 Besides that, the Vaultwarden project only uses the web vault provided by Bitwarden, Inc with some [patches](https://github.com/dani-garcia/bw_web_builds/tree/master/patches) to make it work with our implementation.
-<br>
-<br>
-
 
 ## Can Vaultwarden connect to an Oracle MySQL V8.x database?
 It could happen that you get the following warning when trying to start Vaultwarden when using Oracle MySQL v8.x
@@ -28,8 +25,6 @@ If you already created the user and only want to change the hashing method, use 
 ALTER USER 'vaultwarden'@'localhost' IDENTIFIED WITH mysql_native_password BY 'yourpassword';
 ```
 Also see: [Using MariaDB - Create Database and User](https://github.com/dani-garcia/vaultwarden/wiki/Using-the-MariaDB-(MySQL)-Backend#create-database-and-user)
-<br>
-<br>
 
 ## My client (Desktop, Mobile, Web) does not work, I can not login or it complains about invalid certificates.
 The Bitwarden clients need a secure connection to fully work without any issues. Though some clients can work without a secure connection we do not recommend this.  
@@ -38,7 +33,6 @@ We recommend to use a service like Lets Encrypt to provide a valid and by most d
 See the following page:
 * [Enabling-HTTPS](https://github.com/dani-garcia/vaultwarden/wiki/Enabling-HTTPS)
 * [Running a private vaultwarden instance with Let's Encrypt certs](https://github.com/dani-garcia/vaultwarden/wiki/Running-a-private-vaultwarden-instance-with-Let%27s-Encrypt-certs)
-<br>
 
 ## Why do I see no icons for all my vault items?
 There are multiple reasons why there is no icon shown.  
@@ -47,27 +41,19 @@ If it is just for a few of the vault items it could be that we are not able to e
 It could also be that the Vaultwarden server is not able to access the Internet or resolve DNS queries.  
 You could check the `/admin/diagnostics` page (See [[Enabling admin page]]) to see if you can resolve DNS queries and have a connection to the Internet.  
 If that does work, there could also be a firewall or Outgoing Internet Proxy which maybe blocks these requests.
-<br>
-<br>
 
 ## Websocket connections show wrong IP address
 This is not something we can fix on our side. The library we use doesn't support any form of `X-Forwarded-For` or `Forward` headers.  
 It will always show the IP of the reverse proxy used unless you run vaultwarden directly without any proxy, or run a transparent proxy, that could cause it to do show the correct IP. It is not an important part to log, and if you use a reverse proxy you can probably also see this request in its logs which will have the correct IP.
-<br>
-<br>
 
 ## Why does Vaultwarden say `[INFO] No .env file found.` even though I provided one?
 While launching, Vaultwarden checks for the existence of a file called `.env` (if not changed via the environment variable `ENV_FILE`) in the current working directory of the process. If you have not provided this file Vaultwarden will simply _inform_ you that it has not found it. This file is not related to the env file you have provided to docker which loads in the environment variables on container creation or the EnvironmentFile used within a [systemd .service](https://github.com/dani-garcia/vaultwarden/wiki/Setup-as-a-systemd-service).
-<br>
-<br>
 
 ## Can i run Vaultwarden as an Azure WebApp
 Unfortunately Azure WebApp's uses CIFS/Samba as their volume storage which does not support locking. This causes issues with the SQLite database file.  
 There are two ways to solve this.
 1. Do not use SQLite, but MariaDB/MySQL or Posgresql as the database backend.
 2. Try to disable WAL using the `ENABLE_DB_WAL` environment variable by setting it's value to `false`. This needs to be done on a new file, so you need to remove the previously created `db.sqlite3` file and restart the Vaultwarden app again.
-<br>
-<br>
 
 ## I did not find my answer here in the FAQ, what to do next?
 Well, please try to search and click through our wonderful [Wiki](https://github.com/dani-garcia/vaultwarden/wiki).  
