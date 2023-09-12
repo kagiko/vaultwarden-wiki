@@ -410,7 +410,6 @@ Example NixOS nginx config. For more Information about NixOS Deployment see [Dep
     "vw.example.com" = {
       group = "vaultwarden";
       keyType = "rsa2048";
-      allowKeysForGroup = true;
     };
   };
 
