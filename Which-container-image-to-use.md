@@ -12,11 +12,11 @@ The `vaultwarden/server` image has several tags, each of which represents some v
 
 * `testing` -- Tracks the latest commits to the source repository. This tag is recommended for users who want early access to the newest features, enhancements, or bug fixes. The testing version is generally pretty stable, but occasional issues are unavoidable.
 
-* `x.y.z` (e.g., `1.16.0`) -- Represents a specific released version.
+* `x.y.z` (e.g., `1.29.2`) -- Represents a specific released version.
 
-* `alpine` -- With a few exceptions, this image is functionally the same as `latest`, but Alpine-based rather than Debian-based, resulting in a slimmer image. Therefore, `latest` vs. `alpine` is mostly a matter of preference. However, note that the `alpine` tag currently supports only the `amd64` and `arm32v7` architectures, and only the SQLite and PostgreSQL database backends.
+* `alpine` -- this image is functionally the same as `latest`, but Alpine-based rather than Debian-based, resulting in a slimmer image and newer base applications. Therefore, `latest` vs. `alpine` is mostly a matter of preference.
 
-* `x.y.z-alpine` (e.g., `1.16.0-alpine`) -- Similar to `alpine`, but represents a specific released version.
+* `x.y.z-alpine` (e.g., `1.29.2-alpine`) -- Similar to `alpine`, but represents a specific released version.
 
 ## Image updates
 
