@@ -27,3 +27,9 @@ docker run -d \
 ```
 
 Notice that the port mapping (`-p 80:1024`) reflects the `ROCKET_PORT` setting. 
+
+Another way may be CAP_NET_BIND_SERVICE, which allows to bind to ports below 1024 as non-root user.
+
+    cap_add:
+      - CAP_NET_BIND_SERVICE
+    user: nobody
