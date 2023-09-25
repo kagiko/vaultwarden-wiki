@@ -197,11 +197,3 @@ dokku git:from-image $APP_NAME $image_sha
 * https://github.com/HarrisonLeach1/vaultwarden_digitalocean
 
   Vaultwarden installation for Digital Ocean's cheapest droplet. Resources setup via terraform
-
-## Managed Hosting
-Lastly, this section showcases different providers and options to purchase managed Vaultwarden hosting, in case you do not want to concern yourself with configuration and administration at all.
-
-### Server.Camp :camping:
-* https://server.camp/product/vaultwarden
-
-  Managed, EU-based, GDPR-compliant Vaultwarden hosting by developers for developers, startups and small to medium businesses. 15 % of the revenue are donated back to the open-source community.
