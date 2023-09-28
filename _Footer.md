@@ -1,1 +1,1 @@
-Someone else can edit this
+This can be edited
