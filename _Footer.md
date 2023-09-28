@@ -1,1 +1,1 @@
-This can be edited
+This can be edited by anyone with a github account
