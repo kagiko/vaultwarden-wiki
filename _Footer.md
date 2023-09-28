@@ -1,1 +1,1 @@
-This can be edited by anyone with a githhttps://github.com/dani-garcia/vaultwarden.wiki.gitub account
+ 
