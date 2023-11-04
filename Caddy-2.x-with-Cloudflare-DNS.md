@@ -22,32 +22,7 @@ https://[YOUR-DOMAIN]:443 {
         dns cloudflare [API-KEY]
   }
 
-  encode gzip
-
-  header / {
-       # Enable HTTP Strict Transport Security (HSTS)
-       Strict-Transport-Security "max-age=31536000;"
-       # Enable cross-site filter (XSS) and tell browser to block detected attacks
-       X-XSS-Protection "0"
-       # Disallow the site to be rendered within a frame (clickjacking protection)
-       X-Frame-Options "DENY"
-       # Prevent search engines from indexing (optional)
-       X-Robots-Tag "noindex, nofollow"
-       # Disallow sniffing of X-Content-Type-Options
-       X-Content-Type-Options "nosniff"
-       # Server name removing
-       -Server
-       # Remove X-Powered-By though this shouldn't be an issue, better opsec to remove
-       -X-Powered-By
-       # Remove Last-Modified because etag is the same and is as effective
-       -Last-Modified
-   }
-  # Proxy to Rocket
-  reverse_proxy vaultwarden:80 {
-       # Send the true remote IP to Rocket, so that vaultwarden can put this in the
-       # log, so that fail2ban can ban the correct IP.
-       header_up X-Real-IP {remote_host}
-  }
+  # For the remaining config, see https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examples
 }
 ```
 
