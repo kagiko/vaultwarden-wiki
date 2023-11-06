@@ -690,7 +690,7 @@ backend vaultwarden_http
 
 
 <details>
-<summary>HAproxy - v1.29.0+ (by <a href="https://github.com/williamdes" target="_blank">@williamdes</a>)</summary><br/>
+<summary>HAproxy - (before v1.29.0) (by <a href="https://github.com/williamdes" target="_blank">@williamdes</a>)</summary><br/>
 
 Add these lines to your HAproxy configuration. 
 
@@ -753,7 +753,7 @@ ACL00
 Path starts with:
 no
 yes
-/big-ass-randomised-test-that-really-no-one-is-ever-going-to-type-DONT-USE-THIS-LINE-THOUGH-make-your-own-up
+/big-ass-randomized-test-that-really-no-one-is-ever-going-to-type-DONT-USE-THIS-LINE-THOUGH-make-your-own-up
 
 ACL01
 Host matches:
@@ -849,8 +849,8 @@ ACL5
 
 **Updates**
 ```
-Updated above 30/07 - I realised after the first config that because ACL1-4 have 'Not' in, they were matching anything to their actions.  So BlahBlahMcGee.FQDN.com was passing through.  This was not intended, so ACL5 has been added above which resolves this, it also removes the need for the default backend.
-Updated again 30/07 - ^ Yeah that didnt work.  This all stems because HaProxy doesnt allow for 'AND' in ACL's. Sigh.  Now with the above, you cofigure a front end for you root domain.  This has a deny for itself, and anything not specified.  So if you have multiple other subdomains you're passing through, you need to add them here all under ACL01.  Now everything works as it should!
+Updated above 30/07 - I realized after the first config that because ACL1-4 have 'Not' in, they were matching anything to their actions.  So BlahBlahMcGee.FQDN.com was passing through.  This was not intended, so ACL5 has been added above which resolves this, it also removes the need for the default backend.
+Updated again 30/07 - ^ Yeah that didn't work.  This all stems because HaProxy doesn't allow for 'AND' in ACL's. Sigh.  Now with the above, you cofigure a front end for you root domain.  This has a deny for itself, and anything not specified.  So if you have multiple other subdomains you're passing through, you need to add them here all under ACL01.  Now everything works as it should!
 ```
 
 **Important Notes**
@@ -862,12 +862,12 @@ Updated again 30/07 - ^ Yeah that didnt work.  This all stems because HaProxy do
 
 **OPTIONAL**
 ```
-ACL5 above denies access to the /admin portal.  I'm not particually fond of the admin portal not having any form of 2FA and only a password.  Thus when I'm not using it, I just deny access.  If I need it, unblock, do the required job and reblock.
+ACL5 above denies access to the /admin portal.  I'm not particularly fond of the admin portal not having any form of 2FA and only a password.  Thus when I'm not using it, I just deny access.  If I need it, unblock, do the required job and reblock.
 ```
 
 Complete! - Go test!
 
-This in turn will add the equivilent of below to your config (note this is an extract for example). 
+This in turn will add the equivalent of below to your config (note this is an extract for example). 
 
 	acl			ACL00	var(txn.txnhost) -m str -i VAULTWARDEN.MYDOMAIN.COM
 	acl			ACL00	var(txn.txnpath) -m beg -i /big-ass-randomised-test-that-really-no-one-is-ever-going-to-type-DONT-USE-THIS-LINE-THOUGH-make-your-own-up
@@ -1004,7 +1004,7 @@ relay vaultwarden-https-relay {
 </details>
 
 <details>
-<summary>CloudFlare (by <a href="https://github.com/williamdes" target="_blank">@williamdes</a>)</summary><br/>
+<summary>CloudFlare (before v1.29.0) (by <a href="https://github.com/williamdes" target="_blank">@williamdes</a>)</summary><br/>
 
 Follow the screenshot to create a new rule.
 Example dashboard URL to find the settings: `https://dash.cloudflare.com/xxxxxx/example.org/rules/origin-rules/new`
