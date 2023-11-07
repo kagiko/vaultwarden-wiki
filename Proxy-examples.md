@@ -438,6 +438,8 @@ Example NixOS nginx config. For more Information about NixOS Deployment see [Dep
           proxyPass = "http://localhost:8812"; #changed the default rocket port due to some conflict
           proxyWebsockets = true;
         };
+
+        # remove the notification location blocks on vaultwarden 1.29+
         locations."/notifications/hub" = {
           proxyPass = "http://localhost:3012";
           proxyWebsockets = true;
