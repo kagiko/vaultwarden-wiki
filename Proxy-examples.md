@@ -412,14 +412,12 @@ Example NixOS nginx config. For more Information about NixOS Deployment see [Dep
 ```nix
 { config, ... }:
 {
-  security.acme.acceptTerms = true;
-  security.acme.email = "me@example.com";
-  security.acme.certs = {
-
-    "vw.example.com" = {
-      group = "vaultwarden";
-      keyType = "rsa2048";
+  security.acme = {
+    defaults = {
+      acceptTerms = true;
+      email = "me@example.com";
     };
+    certs."vaultwarden.example.com".group = "vaultwarden";
   };
 
   services.nginx = {
@@ -431,21 +429,14 @@ Example NixOS nginx config. For more Information about NixOS Deployment see [Dep
     recommendedTlsSettings = true;
 
     virtualHosts = {
-      "vw.example.com" = {
-        forceSSL = true;
+      "vaultwarden.example.com" = {
         enableACME = true;
+        forceSSL = true;
         locations."/" = {
-          proxyPass = "http://localhost:8812"; #changed the default rocket port due to some conflict
-          proxyWebsockets = true;
+          proxyPass = "http://localhost:8080";
         };
-
-        # remove the notification location blocks on vaultwarden 1.29+
         locations."/notifications/hub" = {
-          proxyPass = "http://localhost:3012";
-          proxyWebsockets = true;
-        };
-        locations."/notifications/hub/negotiate" = {
-          proxyPass = "http://localhost:8812";
+          proxyPass = "http://localhost:8080";
           proxyWebsockets = true;
         };
       };
