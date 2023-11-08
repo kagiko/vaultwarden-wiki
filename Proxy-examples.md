@@ -1001,3 +1001,42 @@ Example dashboard URL to find the settings: `https://dash.cloudflare.com/xxxxxx/
 
 ![Rules](https://github.com/dani-garcia/vaultwarden/assets/7784660/e27d9152-219b-4b6a-bf96-dcfce30ebd73)
 </details>
+
+<details>
+<summary>Pound</summary><br/>
+
+```
+Alive		15
+
+ListenHTTP
+	Address 127.0.0.1
+	Port    80
+	xHTTP 3
+	HeadRemove "X-Forwarded-For"
+	Service
+		Host "vaultwarden.example.tld"
+		Redirect 301 "https://vaultwarden.example.tld"
+	End
+End
+
+ListenHTTPS
+	Address 127.0.0.1
+	Port    443
+	Cert    "/path/to/certificate/letsencrypt/live/vaultwarden.example.tld/fullchain.pem"
+	xHTTP 3
+	AddHeader "Front-End-Https: on"
+	RewriteLocation 0
+	HeadRemove "X-Forwarded-Proto"
+	AddHeader "X-Forwarded-Proto: https"
+End
+
+Service
+	Host "vaultwarden.example.tld"
+	BackEnd
+		Address <SERVER>
+		Port    80
+	End
+End
+```
+
+</details>
