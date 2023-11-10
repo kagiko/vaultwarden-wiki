@@ -15,6 +15,10 @@ This section documents different options to host Vaultwarden on your **own hardw
 
   For installing Vaultwarden on DietPi just type `dietpi-software install 183` on the command line. More information about the installation process and first access to Vaultwarden on DietPi can be found at [https://dietpi.com/docs/software/cloud/#vaultwarden](https://dietpi.com/docs/software/cloud/#vaultwarden)
 
+* https://mijo.remotenode.io/posts/tailscale-caddy-docker/
+
+  A walkthrough guide for securing access to Vaultwarden with Tailscale and Caddy. All services are containerized and managed with Docker Compose, hosted on a Raspberry Pi.
+
 ### Shared hosting
 
 * https://github.com/jjlin/vaultwarden-shared-hosting
