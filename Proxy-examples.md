@@ -568,7 +568,7 @@ Remember to enable `mod_proxy_wstunnel` and `mod_proxy_http`, for example with: 
 </details>
 
 <details>
-<summary>Apache in a sub-location (by ss89)</summary><br/>
+<summary>Apache in a sub-location v1.29.0+ (by @agentdr8)</summary><br/>
 Modify your docker start-up to include the sub-location.
 
 ```
@@ -601,11 +601,13 @@ On some OS's you can use a2enmod, for example with: `a2enmod proxy_wstunnel` and
     <Location /$sublocation/> #adjust here if necessary
         RewriteEngine On
         RewriteCond %{HTTP:Upgrade} =websocket [NC]
-        RewriteRule /notifications/hub(.*) ws://<SERVER>:3012/$1 [P,L]
-        ProxyPass http://<SERVER>:80/$sublocation/
+        RewriteRule /notifications/hub(.*) ws://<SERVER>:<SERVER_PORT>/$sublocation/notifications/hub/$1 [P,L]
+        ProxyPass http://<SERVER>:<SERVER_PORT>/$sublocation
 
-        ProxyPreserveHost On
+        ProxyPreserveHost Off
         RequestHeader set X-Real-IP %{REMOTE_ADDR}s
+        RequestHeader setifempty Connection "Upgrade"
+        RequestHeader setifempty Upgrade "websocket"
     </Location>
 </VirtualHost>
 ```
