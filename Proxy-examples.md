@@ -80,7 +80,7 @@ If you prefer, you can also directly specify a value instead of substituting an 
        # Send the true remote IP to Rocket, so that Vaultwarden can put this in the
        # log, so that fail2ban can ban the correct IP.
        header_up X-Real-IP {remote_host}
-       # If you use Cloudlfare proxying, replace remote_host with http.request.header.Cf-Connecting-Ip
+       # If you use Cloudflare proxying, replace remote_host with http.request.header.Cf-Connecting-Ip
        # See https://developers.cloudflare.com/support/troubleshooting/restoring-visitor-ips/restoring-original-visitor-ips/
        # and https://caddy.community/t/forward-auth-copy-headers-value-not-replaced/16998/4
   }
