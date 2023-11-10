@@ -568,7 +568,7 @@ Remember to enable `mod_proxy_wstunnel` and `mod_proxy_http`, for example with: 
 </details>
 
 <details>
-<summary>Apache in a sub-location v1.29.0+ (by @agentdr8)</summary><br/>
+<summary>Apache in a sub-location - v1.29.0+ (by @agentdr8)</summary><br/>
 Modify your docker start-up to include the sub-location.
 
 ```
