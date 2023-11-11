@@ -117,6 +117,49 @@ You'll have to set `IP_HEADER` to `X-Forwarded-For` instead of `X-Real-IP` in th
 </details>
 
 <details>
+<summary>lighttpd with sub-path - v1.29.0+ (by FlakyPi)</summary><br/>
+
+In this example Vaultwarden will be available via https://vaultwarden.example.tld/vault/<br/>
+If you want to use any other sub-path, like `bitwarden` or `secret-vault` you should change `vault` in the example below to match.<br/>
+
+```lighttpd
+server.modules += (
+"mod_openssl"
+)
+
+$SERVER["socket"] == ":443" {  
+    ssl.engine   = "enable"   
+    ssl.pemfile  = "/etc/letsencrypt/live/vaultwarden.example.tld/fullchain.pem"
+    ssl.privkey  = "/etc/letsencrypt/live/vaultwarden.example.tld/privkey.pem"
+}
+
+# Redirect HTTP requests (port 80) to HTTPS (port 443)
+$SERVER["socket"] == ":80" {  
+        $HTTP["host"] =~ "vaultwarden.example.tld" {  
+         url.redirect = ( "^/(.*)" => "https://vaultwarden.example.tld/$1" )  
+          server.name                 = "vaultwarden.example.tld"   
+        }  
+}
+
+server.modules += ( "mod_proxy" )
+
+$HTTP["host"] == "vaultwarden.example.tld" {
+    $HTTP["url"] =~ "/vault" {
+       proxy.server  = ( "" => ("vaultwarden" => ( "host" => "<SERVER>", "port" => 8080 )))
+       proxy.forwarded = ( "for" => 1 )
+       proxy.header = (
+           "https-remap" => "enable",
+           "upgrade" => "enable",
+           "connect" => "enable"
+       )
+    }
+}
+```
+You'll have to set `IP_HEADER` to `X-Forwarded-For` instead of `X-Real-IP` in the Vaultwarden environment.
+
+</details>
+
+<details>
 <summary>Nginx - v1.29.0+ (by <a href="https://github.com/BlackDex" target="_blank">@BlackDex</a>)</summary><br/>
 
 ```nginx
