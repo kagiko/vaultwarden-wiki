@@ -35,6 +35,7 @@ CREATE DATABASE vaultwarden;
 2. Create a new database user and grant rights to database:
 ```sql
 CREATE USER vaultwarden WITH ENCRYPTED PASSWORD 'yourpassword';
+GRANT ALL ON DATABASE vaultwarden TO vaultwarden;
 GRANT all privileges ON database vaultwarden TO vaultwarden;
 ```
 3. Configure vaultwarden and start it, so diesel can run migrations and set up the schema properly. Do not do anything else.
@@ -67,6 +68,7 @@ CREATE DATABASE vaultwarden;
 2. Create a new database user and grant rights to database:
 ```sql
 CREATE USER vaultwarden WITH ENCRYPTED PASSWORD 'yourpassword';
+GRANT ALL ON DATABASE vaultwarden TO vaultwarden;
 GRANT all privileges ON database vaultwarden TO vaultwarden;
 ```
 3. Configure vaultwarden and start it, so diesel can run migrations and set up the schema properly. Do not do anything else.
