@@ -22,7 +22,7 @@ sudo nano /etc/logrotate.d/bitwarden
     missingok
     # Don't rotate log if file is empty
     notifempty
-    # Add date instaed of number to rotated log file
+    # Add date instead of number to rotated log file
     dateext
     # Date format of dateext
     dateformat -%Y-%m-%d-%s
