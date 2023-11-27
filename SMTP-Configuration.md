@@ -211,6 +211,7 @@ docker exec -it vaultwarden sh
 
 If you already have a working SMTP server (Postfix for ex.) running on your system and you install Vaultwarden without docker, a few extra steps are needed to allow the server to use your SMTP server through sendmail:
 - in Vaultwarden config file (usually `/etc/vaultwarden.env`), set `USE_SENDMAIL=true`
+- in the same file, set `SMTP_FROM=user@example.com` (replace with your own!) variable since it's also used by sendmail
 - as `root` user (or using `sudo`), add `vaultwarden` user to `postdrop` group with `gpasswd -a vaultwarden postdrop`
 - edit vaultwarden systemd service with `systemctl edit vaultwarden` and add this two lines in `[Service]` section:
 ```
