@@ -206,3 +206,16 @@ After running the command bellow, run one of the commands above to check access 
 ```bash
 docker exec -it vaultwarden sh
 ```
+
+## Using `sendmail` (without docker)
+
+If you already have a working SMTP server (Postfix for ex.) running on your system and you install Vaultwarden without docker, a few extra steps are needed to allow the server to use your SMTP server through sendmail:
+- in Vaultwarden config file (usually `/etc/vaultwarden.env`), set `USE_SENDMAIL=true`
+- as `root` user (or using `sudo`), add `vaultwarden` user to `postdrop` group with `gpasswd -a vaultwarden postdrop`
+- edit vaultwarden systemd service with `systemctl edit vaultwarden` and add this two lines in `[Service]` section:
+```
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_LOCAL AF_NETLINK
+ReadWritePaths=/var/lib/vaultwarden /var/log/vaultwarden.log /var/spool/postfix/maildrop
+```
+
+Finally don't forget to restart the service with `systemctl restart vaultwarden`.
