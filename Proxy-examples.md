@@ -447,7 +447,7 @@ nginx__servers:
 </details>
 
 <details>
-<summary>Nginx (NixOS)(by tklitschi)</summary><br/>
+<summary>Nginx (NixOS) - v1.29.0+ (by tklitschi, samdoshi)</summary><br/>
 
 Example NixOS nginx config. For more Information about NixOS Deployment see [Deployment Wiki page](https://github.com/dani-garcia/vaultwarden/wiki/Deployment-examples).
 
@@ -476,9 +476,6 @@ Example NixOS nginx config. For more Information about NixOS Deployment see [Dep
         enableACME = true;
         forceSSL = true;
         locations."/" = {
-          proxyPass = "http://localhost:8080";
-        };
-        locations."/notifications/hub" = {
           proxyPass = "http://localhost:8080";
           proxyWebsockets = true;
         };
