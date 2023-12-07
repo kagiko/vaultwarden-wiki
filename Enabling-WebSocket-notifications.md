@@ -29,8 +29,6 @@ Example configurations are included in [[Proxy examples|proxy-examples]].
 Testing if a connection is working correctly can be done in two ways:
 
 1. Open the developer tools of your browser, go to the network tab and filter for `WS`/`WebSockets`. Logout or refresh the page and login again and you you should see a 101 response for the upgraded WebSocket connection. If you click on that line you should be able to see the messages. If you do not get the status code 101 on `/notifications/hub` then something is configured incorrectly.
-Messages will be shown in the console window of your browser:
-
-`[2023-12-01T00:00:00.000Z] Information: WebSocket connected to wss://HOST_NAME/notifications/hub?access_token=eyJ0eX......`
+Messages will be shown in the console window of your browser:`[2023-12-01T00:00:00.000Z] Information: WebSocket connected to wss://HOST_NAME/notifications/hub?access_token=eyJ0eX......`
 
 2. Open two different browsers or an incognito/private window. Login into your account on both. Either create a new entry, or rename the cipher in one, and that should instantly change also in the other.
