@@ -924,7 +924,7 @@ To test, if you navigate in a browser to /notifications/hub then you should get 
 </details>
 
 <details>
-<summary>Istio k8s (by <a href="https://github.com/dpoke" target="_blank">@dpoke</a>)</summary><br/>
+<summary>Istio k8s - v1.29.0+ (by <a href="https://github.com/asenyaev" target="_blank">@asenyaev</a>)</summary><br/>
 
 ```gateway+vs
 apiVersion: networking.istio.io/v1beta1
@@ -965,14 +965,6 @@ spec:
   gateways:
   - vaultwarden-gateway
   http:
-  - match:
-    - uri:
-        exact: /notifications/hub
-    route:
-    - destination:
-        port:
-          number: 3012
-        host: vaultwarden-ws
   - match:
     - uri:
         prefix: /
