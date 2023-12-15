@@ -975,6 +975,68 @@ spec:
         host: vaultwarden
 ```
 </details>
+
+<details>
+<summary>Istio k8s - (before v1.29.0) (by <a href="https://github.com/dpoke" target="_blank">@dpoke</a>)</summary><br/>
+
+```gateway+vs
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: vaultwarden-gateway
+  namespace: vaultwarden
+spec:
+  selector:
+    istio: ingressgateway-internal # use Istio default gateway implementation
+  servers:
+  - hosts:
+    - vw.k8s.prod
+    port:
+      number: 80
+      name: http
+      protocol: HTTP
+    tls:
+      httpsRedirect: true
+  - hosts:
+    - vw.k8s.prod
+    port:
+      name: https-443
+      number: 443
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: vw-k8s-prod-tls
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: vaultwarden-vs
+  namespace: vaultwarden
+spec:
+  hosts:
+  - vw.k8s.prod
+  gateways:
+  - vaultwarden-gateway
+  http:
+  - match:
+    - uri:
+        exact: /notifications/hub
+    route:
+    - destination:
+        port:
+          number: 3012
+        host: vaultwarden-ws
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 80
+        host: vaultwarden
+```
+</details>
+
 <details>
 <summary>relayd on openbsd (by olliestrickland)</summary><br/>
 
