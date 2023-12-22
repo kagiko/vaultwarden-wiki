@@ -125,10 +125,10 @@ The same for using the docker/podman cli using `-e ADMIN_TOKEN`.
 
 **.env:**
 
-_Make sure you don't use quotes in the `.env` file._
+_Make sure you use single quotes in the `.env` file used by docker-compose._
 
 ```bash
-VAULTWARDEN_ADMIN_TOKEN=$argon2id$v=19$m=65540,t=3,p=4$MmeK.....
+VAULTWARDEN_ADMIN_TOKEN='$argon2id$v=19$m=65540,t=3,p=4$MmeK.....'
 ```
 
 **docker-compose.yaml:**
