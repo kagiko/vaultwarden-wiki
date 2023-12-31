@@ -113,3 +113,11 @@ New versions are automatically built every night
 
 Available in void-packages as [vaultwarden](https://github.com/void-linux/void-packages/tree/master/srcpkgs/vaultwarden): `xbps-install vaultwarden`  
 The web vault ([vaultwarden-web](https://github.com/void-linux/void-packages/tree/master/srcpkgs/vaultwarden-web)) can be optionally installed as well: `xbps-install vaultwarden-web`
+
+## Snap App
+
+[Vaultwarden](https://github.com/DownThePark/snapcraft-vaultwarden) is available as a Snap through the Snap Store at https://snapcraft.io/vaultwarden
+
+It can be installed on the command line using: `snap install vaultwarden`
+
+The configuration file is located at: `/var/snap/vaultwarden/current/.env`
