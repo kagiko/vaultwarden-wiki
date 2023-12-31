@@ -116,7 +116,7 @@ The web vault ([vaultwarden-web](https://github.com/void-linux/void-packages/tre
 
 ## Snapcraft
 
-Available as a [snap](https://github.com/DownThePark/snapcraft-vaultwarden) through the [Snap Store](https://snapcraft.io/vaultwarden). The web-vault is included, and it's enabled by default.
+Available as a [snap](https://github.com/DownThePark/snapcraft-vaultwarden) through the [Snap Store](https://snapcraft.io/vaultwarden). The web-vault is also included and enabled by default.
 
 Vaultwarden can be installed on the command line using: `snap install vaultwarden`
 
