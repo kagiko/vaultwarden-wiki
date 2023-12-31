@@ -118,6 +118,6 @@ The web vault ([vaultwarden-web](https://github.com/void-linux/void-packages/tre
 
 Available as a [snap](https://github.com/DownThePark/snapcraft-vaultwarden) through the [Snap Store](https://snapcraft.io/vaultwarden). The web-vault is also included and enabled by default.
 
-Vaultwarden can be installed on the command line using: `snap install vaultwarden`
+Vaultwarden can be installed from the command line using: `snap install vaultwarden`
 
 Its configuration file is located at: `/var/snap/vaultwarden/current/.env`
