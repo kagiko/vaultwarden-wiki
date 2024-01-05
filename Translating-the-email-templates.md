@@ -17,6 +17,7 @@ You can use customized templates by
 * German by @kennymc-c: https://github.com/kennymc-c/vaultwarden-lang-de
 * French by @YoanSimco: https://github.com/YoanSimco/vaultwarden-lang-fr
 * Simplified Chinese by @wcjxixi: https://github.com/wcjxixi/vaultwarden-lang-zhcn
+* Simplified Chinese by @zituoguan: https://github.com/zituoguan/vaultwarden-lang-zh_CN
 * Italian by @rizlas: https://github.com/rizlas/vaultwarden-lang-it
 * Spanish by @javier-varez: https://github.com/javier-varez/vaultwarden-lang-es
 
