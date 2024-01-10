@@ -1,1 +1,1 @@
-hola mundo
+[Enabling admin page](https://github.com/dani-garcia/vaultwarden/wiki/Enabling-admin-page)
