@@ -1099,6 +1099,72 @@ Example dashboard URL to find the settings: `https://dash.cloudflare.com/xxxxxx/
 </details>
 
 <details>
+<summary>CloudFlare (after v1.29.0) (by <a href="https://github.com/calvin-li-developer" target="_blank">@calvin-li-developer</a>)</summary><br/>
+
+`docker-compose.yml`:
+
+```yml
+version: '3'
+
+services:
+  vaultwarden:
+    container_name: vaultwarden
+    image: vaultwarden/server:latest
+    restart: unless-stopped
+    environment:
+      DOMAIN: "https://vaultwarden.example.com"  # Your domain; vaultwarden needs to know it's https to work properly with attachments
+    volumes:
+      - ./vw-data:/data
+    networks:
+      - vaultwarden-network
+
+  cloudflared:
+    image: cloudflare/cloudflared:2024.1.2
+    container_name: vaultwarden-cloudflared
+    restart: unless-stopped
+    read_only: true
+    volumes:
+      - ./cloudflared-config:/root/.cloudflared/
+    command: [ "tunnel", "run", "${TUNNEL_ID}" ]
+    user: root
+    depends_on:
+      - vaultwarden
+    networks:
+      - vaultwarden-network
+```
+Contents in `cloudflared-config` folder:
+```sh
+config.yml  aaaaa-bbbb-cccc-dddd-eeeeeeeee.json
+```
+Please use [this](https://thedxt.ca/2022/10/cloudflare-tunnel-with-docker/) guide to figure out the contents/values below for your cloudflare account.
+<br>Note: `aaaaa-bbbb-cccc-dddd-eeeeeeeee` is just a random tunnelID please use a real ID.
+
+`config.yml`:
+```
+tunnel: aaaaa-bbbb-cccc-dddd-eeeeeeeee
+credentials-file: /root/.cloudflared/aaaaa-bbbb-cccc-dddd-eeeeeeeee.json
+
+originRequest:
+  noHappyEyeballs: true
+  disableChunkedEncoding: true
+  noTLSVerify: true
+
+ingress:
+  - hostname: vault.example.com # change to your domain
+    service: http_status:404
+    path: admin
+  - hostname: vault.example.com # change to your domain
+    service: http://vaultwarden
+  - service: http_status:404
+```
+`aaaaa-bbbb-cccc-dddd-eeeeeeeee.json`:
+```
+{"AccountTag":"changeme","TunnelSecret":"changeme","TunnelID":"aaaaa-bbbb-cccc-dddd-eeeeeeeee"}
+```
+
+</details>
+
+<details>
 <summary>Pound</summary><br/>
 
 ```
