@@ -1131,6 +1131,10 @@ services:
       - vaultwarden
     networks:
       - vaultwarden-network
+networks:
+  vaultwarden-network:
+    name: vaultwarden-network
+    external: false
 ```
 Contents in `cloudflared-config` folder:
 ```sh
