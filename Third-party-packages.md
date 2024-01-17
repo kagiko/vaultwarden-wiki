@@ -13,7 +13,7 @@
 
 ## Arch Linux
 
-Available in the [official repositories](https://archlinux.org/packages/community/x86_64/vaultwarden/), along with the [web vault](https://archlinux.org/packages/community/any/vaultwarden-web/).
+Available in the [official repositories](https://archlinux.org/packages/extra/x86_64/vaultwarden/), along with the [web vault](https://archlinux.org/packages/extra/any/vaultwarden-web/).
 
 ## Debian
 
