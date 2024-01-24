@@ -48,13 +48,13 @@ This is useful if you want to use a feature like `docker secrets`, e.g. by setti
 
 To an extend, Vaultwarden can also be configured using a `config.json` file, which can be generated and edited over the `/admin` panel and is saved in the data folder.
 
-:pray: While it's technically possible to create and edit the `config.json` file manually, **we strongly advise against it**. [JSON](https://www.json.org/) has a rather strict syntax and if you don't know what you are doing, this might become a nightmare to debug.
+> :pray: While it's technically possible to create and edit the `config.json` file manually, **we strongly advise against it**. [JSON](https://www.json.org/) has a rather strict syntax and if you don't know what you are doing, this might become a nightmare to debug.
 
 The settings in `config.json` will override any other configuration method and you will be warned on startup which settings are overwritten.
 
 Since this generated `config.json` will include **all** editable options when saved, be aware that once you generate the configuration file via the `/admin` page, you cannot modify those options via any of the other methods (at least not without modifying or removing the `config.json` file).
 
-> :warning: **NOTE:** The options in the section `Read-Only Config` **cannot** be modified via the `/admin` page because they require a server restart and **they will be ignored** if you add them manually in the `config.json`. Use the other methods described above to modify them. In most cases this means that you also need to recreate the container!
+> :warning: **NOTE:** The options in the section `Read-Only Config` **cannot** be modified via the `/admin` page because they require a server restart and **they will be removed** if you have added them manually to the `config.json` and click on save. Use the other methods described above to modify them. In most cases this means that you also need to recreate the container!
 
 ## Setting the domain URL
 
