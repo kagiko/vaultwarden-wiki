@@ -1,6 +1,57 @@
 [Podman](https://podman.io/) is a daemonless alternative to Docker, which is mostly compatible with Docker containers.
 
-# Creating a systemd service file
+# Creating a Quadlet (Podman 4.4+)
+
+As of version 4.4, Podman uses [quadlet](https://docs.podman.io/en/latest/markdown/podman-systemd.unit.5.html)s and will show a warning if you use the previous `generate systemd` method.
+
+Additional benefit is that this method will keep the container updated.
+
+## Configuration via environment file
+
+Configuration may be easier in an environment file and less error-prone.
+
+*NOTE*: this file contains secrets, make sure only root has access!
+
+```sh
+sudo install -o0 -g0 -m600 /etc/vaultwarden.env
+sudo vi /etc/vaultwarden.env
+```
+
+```sh
+# Contents of /etc/vaultwarden.env
+ROCKET_PORT=8080
+
+# DISABLE_ADMIN_TOKEN=true
+# ADMIN_TOKEN=$argon2id$...
+
+# LOG_LEVEL=debug
+```
+
+## Creating the podman quadlet
+
+Configuration looks like systemd's but we configure a Container, not a Unit. See the [documentation](https://man.archlinux.org/man/quadlet.5.en#Container_units_%5BContainer%5D) for all `[Container]` directives.
+
+```conf
+# Content of /usr/share/containers/systemd/vaultwarden.container
+[Unit]
+Description=Vaultwarden container
+After=network-online.target
+
+[Container]
+Image=ghcr.io/dani-garcia/vaultwarden:latest
+Exec=/start.sh
+EnvironmentFile=/etc/vaultwarden.env
+Volume=/vw-data/:/data/
+PublishPort=8080:8080
+
+[Install]
+WantedBy=default.target
+```
+
+After editing the quadlet, run `systemctl daemon-reload` to create or updates the systemd unit. You control this container using regular `systemctl` commands.
+
+# Creating a systemd service file (older Podman versions)
+
 Podman is easier to run in systemd than Docker due to its daemonless architechture. It comes with a handy [generate systemd command](http://docs.podman.io/en/latest/markdown/podman-generate-systemd.1.html) which can generate systemd files.  Here is a [good article that goes into more detail](https://www.redhat.com/sysadmin/podman-shareable-systemd-services) as well as [this article detailing some more recent updates](https://www.redhat.com/sysadmin/improved-systemd-podman).
 ```sh
 $ podman run -d --name vaultwarden -v /vw-data/:/data/:Z -e ROCKET_PORT=8080 -p 8080:8080 vaultwarden/server:latest
@@ -27,12 +78,14 @@ WantedBy=multi-user.target default.target
 ```
 
 You can provide a `--files` flag to tell podman to put the systemd service into a file or use ```podman generate systemd --name vaultwarden > /etc/systemd/system/container-vaultwarden.service```. With this we can enable and start the container as any normal service file.
+
 ```sh
 $ systemctl enable /etc/systemd/system/container-vaultwarden.service
 $ systemctl start container-vaultwarden.service
 ```
 
 ## New container every restart
+
 If we want to create a new container every time the service starts we can use the `podman generate systemd --new` command to generate a service file that recreates containers
 
 ```sh
@@ -58,7 +111,9 @@ PIDFile=/%t/%n-pid
 [Install]
 WantedBy=multi-user.target default.target
 ```
+
 Where `vaultwarden.conf` environment file can contain all the container environment values you need
+
 ```conf
 ROCKET_PORT=8080
 ```
@@ -66,7 +121,9 @@ ROCKET_PORT=8080
 If you want the container to have a specific name, you might need to add `ExecStartPre=/usr/bin/podman rm -i -f vaultwarden` if the process isn't cleaned up correctly. Note that this method currently doesn't work with the `User=` options users (see https://github.com/containers/podman/issues/5572).
 
 # Troubleshooting
+
 ## Debugging systemd service file
+
 If the host goes down or the container crashes, the systemd service file should automatically stop the existing container and spin it up again. We can find the error through `journalctl -u container-vaultwarden -t 100`. 
 
 Most of the time the errors we see can be fixed by simply upping the timeout in Podman command in the service file. 
