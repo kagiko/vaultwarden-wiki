@@ -29,3 +29,18 @@ docker compose up -d vaultwarden
 > :bulb: Push notifications will also **only work** on Bitwarden apps obtained from the official mobile stores (App Store, Google Play Store) or when using alternative clients for the Google Play Store (such as Aurora Store). Push notifications **will not work** using Bitwarden clients installed from [F-Droid](https://mobileapp.bitwarden.com/fdroid/), NeoStore or other alternative stores. Those apps have been built without support for Firebase Messaging.
 
 5. Test if mobile push notifications work, for example by renaming a folder in the web vault and see if it changes after a few seconds in your mobile app.
+
+### Switching from US to EU servers (or vice versa)
+
+To switch from one to the other you'll have to:
+1. deauthorize all sessions and also clear the app data on the mobile app
+2. repeat steps 1. to 5. from the previous section with the different data region
+
+Alternatively to 1., you could also clear the `push_uuid` field of the `devices` table in the database, e.g.
+```sql
+UPDATE devices SET push_uuid = NULL;
+```
+
+This _should_ trigger your push devices to be re-registered on your next login with the device.
+
+:warning: Make sure you use the latest version (> 1.30.2) before doing that change.
