@@ -31,8 +31,10 @@ docker compose up -d vaultwarden
 5. Test if mobile push notifications work, for example by renaming a folder in the web vault and see if it changes after a few seconds in your mobile app.
 
 ### Switching from US to EU servers (or vice versa)
+ 
+> :warning: Make sure you use the latest version [![GitHub Release](https://img.shields.io/github/release/dani-garcia/vaultwarden.svg)](https://github.com/dani-garcia/vaultwarden/releases/latest) before doing that change.
 
-To switch from one to the other you'll have to:
+To switch from one data region to the other you'll have to:
 1. deauthorize all sessions and also clear the app data on the mobile app
 2. repeat steps 1. to 5. from the previous section with the different data region
 
@@ -42,5 +44,3 @@ UPDATE devices SET push_uuid = NULL;
 ```
 
 This _should_ trigger your push devices to be re-registered on your next login with the device.
-
-:warning: Make sure you use the latest version (> 1.30.2) before doing that change.
