@@ -56,7 +56,7 @@ Prior to the addition of multi-arch image support in version 1.16.0, all arch-sp
 ## Reported compatibility table
 
 Please add your details here, if you're running the image on a hardware that is not already in the table.
-Note that some images mentioned here are no longer tagged like mentioned bellow.
+Note that some images mentioned here are no longer tagged like mentioned above.
 
 | Hardware used        | OS           | Docker architecture reported    | Image used          | Status | Notes |
 |----------------------|--------------|---------------------------------|---------------------|--------|-------|
@@ -66,6 +66,7 @@ Note that some images mentioned here are no longer tagged like mentioned bellow.
 | Raspberry Pi 1 B     | Raspbian (4.19.97+) | linux/arm (armv6l)       | `vaultwarden/server:armv6` | OK |     |
 | Raspberry Pi 3 B     | Raspbian (4.14.98-v7+) | linux/arm (armv7l)    | `vaultwarden/server:latest` | OK |     |
 | Raspberry Pi 4    | Raspbian (4.19.118-v7l+) | linux/arm (armv7l)    | `vaultwarden/server:raspberry` | OK | 4go version, rev 1.1   |
+| Raspberry Pi 5    | Raspberry Pi OS (Debian GNU/Linux 12) | linux/arm (arm64)    | `vaultwarden/server:latest` and `vaultwarden/server:testing-alpine` | OK | Tested on 02/16/2024 |
 | Synology             | DSM (DSM 6.2.1-23824 Update 6) | Docker-x64-17.05.0-0367 | `vaultwarden/server:latest` | OK |
 | Synology             | DSM (DSM 7.2-64570 Update 1) | Docker-20.10.23 | `vaultwarden/server:latest` | OK |
 | Synology             | DSM (DSM 6.2.2-24922 Update 4) | Docker-x64-18.09.0-0506 | `vaultwarden/server:1.13.0-alpine` | OK |
