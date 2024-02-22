@@ -45,12 +45,12 @@ ProtectHome=true
 ProtectSystem=strict
 # Only allow writes to the following directory and set it to the working directory (user and password data are stored here)
 WorkingDirectory=/var/lib/vaultwarden
-ReadWriteDirectories=/var/lib/vaultwarden
+ReadWritePaths=/var/lib/vaultwarden
 
 [Install]
 WantedBy=multi-user.target
 ```
-Change all paths to match your installation (`WorkingDirectory` and `ReadWriteDirectory` should be the same),
+Change all paths to match your installation (`WorkingDirectory` and `ReadWritePaths` should be the same),
 name this file `vaultwarden.service` and put it into `/etc/systemd/system`. 
 
 If you have to change an existing systemd file (which was provided to you by the package you installed), you can add your changes by using 
@@ -111,7 +111,7 @@ or
 Failed to parse protect system value
 ```
 To work around this you can comment out some or all of these settings by putting a `#` in front of the lines containing
-`PrivateTmp`, `PrivateDevices`, `ProtectHome`, `ProtectSystem` and `ReadWriteDirectories`. While commenting out all of them will probably work, it's not recommended as these are security measures which are good to have. To see which options your systemd supports, look at the output of
+`PrivateTmp`, `PrivateDevices`, `ProtectHome`, `ProtectSystem` and `ReadWritePaths`. While commenting out all of them will probably work, it's not recommended as these are security measures which are good to have. To see which options your systemd supports, look at the output of
 ```
 $ systemctl --version
 ```
