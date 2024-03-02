@@ -44,6 +44,15 @@ dnf config-manager --add-repo https://evermeet.cx/pub/repo/fedora/evermeet.repo
 dnf install vaultwarden vaultwarden-webvault
 ```
 
+## Gentoo
+User can customize (whether to use mysql/sqlite/postgresql or web/cli) how vaultwarden is built with USE flags.  
+First enable GURU overlay by following [this wiki](https://wiki.gentoo.org/wiki/Project:GURU/Information_for_End_Users). To view available USE flags for vaultwarden, `equery uses vaultwarden`.
+
+```
+echo "app-admin/vaultwarden <your USE flags here>" >> /etc/portage/package.use/vaultwarden
+emerge app-admin/vaultwarden
+```
+
 ## Nix (OS)
 
 Vaultwarden is both packaged for mysql, sqlite, postgresql and for vault. There is also a NixOS module for declarative configuration (see `services.vaultwarden`)
