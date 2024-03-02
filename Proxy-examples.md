@@ -1099,7 +1099,7 @@ Example dashboard URL to find the settings: `https://dash.cloudflare.com/xxxxxx/
 </details>
 
 <details>
-<summary>CloudFlare (after v1.29.0) (by <a href="https://github.com/calvin-li-developer" target="_blank">@calvin-li-developer</a>)</summary><br/>
+<summary>CloudFlare Tunnel (after v1.29.0) (by <a href="https://github.com/calvin-li-developer" target="_blank">@calvin-li-developer</a>)</summary><br/>
 
 `docker-compose.yml`:
 
