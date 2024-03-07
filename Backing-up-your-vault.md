@@ -80,7 +80,7 @@ Keep in mind that this file does contain some data in plaintext that could be co
 
 _**Backup recommended.**_
 
-These files are used to sign the JWTs (authentication tokens) of users currently logged in. Deleting them would simply log out each user, forcing them to log in again.
+These files are used to sign the JWTs (authentication tokens) of users currently logged in. Deleting them would simply log out each user, forcing them to log in again and it would also invalidate any open invitation tokens that have been sent via mail.
 
 The `rsa_key.pem` (private key) file could be considered somewhat sensitive. In principle, it could be used to forge vault login sessions to your server, though in practice, doing so would require additional knowledge of various UUIDs (e.g., taken from a copy of your database). Also, any data obtained with a forged session would still be encrypted with personal and/or organization keys, so brute-forcing the relevant master password in order to obtain those keys would still be required. Admin panel login sessions, however, could be forged easily (this would only work if the admin panel is enabled). This wouldn't provide access to vault data, but it would allow some administrative actions like deleting users or removing 2FA.
 
