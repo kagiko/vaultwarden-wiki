@@ -2,7 +2,7 @@
 1. [[FAQs]]
 
 ## Container Image Usage
-1. [[Which container image to use|Which-Container-image-to-use]]
+1. [[Which container image to use|Which-Container-image-to-usee]]
 1. [[Starting a container|Starting-a-container]]
 1. [[Updating the vaultwarden image|Updating-the-vaultwarden-image]]
 1. [[Using Docker Compose|Using-Docker-Compose]]
