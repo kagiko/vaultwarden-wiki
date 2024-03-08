@@ -46,6 +46,10 @@ A basic backup command looks like this, assuming your data folder is `data` (the
 ```
 sqlite3 data/db.sqlite3 ".backup '/path/to/backups/db-$(date '+%Y%m%d-%H%M').sqlite3'"
 ```
+You can also use `VACUUM INTO`, which will compact empty space, but takes somewhat more processing time:
+```
+sqlite3 data/db.sqlite3 "VACUUM INTO '/path/to/backups/db-$(date '+%Y%m%d-%H%M').sqlite3'"
+```
 Assuming this command is run on January 1, 2021 at 12:34pm (local time), this backs up your SQLite database file to `/path/to/backups/db-20210101-1234.sqlite3`.
 
 You can run this command via a cron job periodically (preferably at least once a day). If you are running via Docker, note that the Docker images do not include an `sqlite3` binary or `cron` daemon, so you would generally install these on the Docker host itself and run the cron job outside of the container. If you really want to run backups from within the container for some reason, you can install any necessary packages during [container startup](https://github.com/dani-garcia/vaultwarden/wiki/Starting-a-Container#customizing-container-startup), or create your own custom Docker image with your preferred `vaultwarden/server:<tag>` image as the parent.
@@ -96,7 +100,7 @@ The icon cache stores [website icons](https://bitwarden.com/help/article/website
 
 Make sure vaultwarden is stopped, and then simply replace each file or directory in the `data` dir with its backed up version.
 
-When restoring a backup created using `.backup`, make sure to first delete any existing `db.sqlite3-wal` file, as this could potentially result in database corruption when SQLite tries to recover `db.sqlite3` using a stale/mismatched WAL file. However, if you backed up the database using a straight copy of `db.sqlite3` and its matching `db.sqlite3-wal` file, then you must restore both files as a pair. You don't need to back up or restore the `db.sqlite3-shm` file.
+When restoring a backup created using `.backup` or `VACUUM INTO`, make sure to first delete any existing `db.sqlite3-wal` file, as this could potentially result in database corruption when SQLite tries to recover `db.sqlite3` using a stale/mismatched WAL file. However, if you backed up the database using a straight copy of `db.sqlite3` and its matching `db.sqlite3-wal` file, then you must restore both files as a pair. You don't need to back up or restore the `db.sqlite3-shm` file.
 
 It's a good idea to run through the process of restoring from backup periodically, just to verify that your backups are working properly. When doing this, make sure to move or keep a copy of your original data in case your backups do not in fact work properly. 
 
