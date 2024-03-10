@@ -23,7 +23,8 @@ There are quite a few reverse proxies in common use; some example configurations
 
 ### Via Rocket
 
-:warning: This method is not recommended.
+> [!WARNING]
+> **This method is not recommended.**
 
 To enable HTTPS in `vaultwarden` itself, set the `ROCKET_TLS` environment variable, which has the following format:
 ```
@@ -53,7 +54,10 @@ docker run -d --name bitwarden \
 
 You need to mount ssl files (-v argument) and you need to forward appropriate port (-p argument), usually port 443 for HTTPS connections. If you choose a different port number than 443 like for example 3456, remember to explicitly provide that port number when you connect to the service, example: `https://bitwarden.local:3456`.
 
-:warning: Make sure that your certificate file includes the full chain of trust. In the case of certbot, this means using `fullchain.pem` instead of `cert.pem`. The full chain should include two certs: the leaf cert (same as what's in `cert.pem`), followed by an R3 or E1 [intermediate cert](https://letsencrypt.org/certificates/#intermediate-certificates). For example, Android by default does not include any Let's Encrypt intermediate certs in their system trust store, so the Android client will likely fail to connect if you don't provide the full chain.
+> [!WARNING]
+> Make sure that your certificate file includes the full chain of trust. In the case of certbot, this means using `fullchain.pem` instead of `cert.pem`.  
+> The full chain should include two certs: the leaf cert (same as what's in `cert.pem`), followed by an R3 or E1 [intermediate cert](https://letsencrypt.org/certificates/#intermediate-certificates).  
+> For example, Android by default does not include any Let's Encrypt intermediate certs in their system trust store, so the Android client will likely fail to connect if you don't provide the full chain.
 
 Software used for getting certs often use symlinks. If that is the case, both locations need to be accessible to the docker container.
 
