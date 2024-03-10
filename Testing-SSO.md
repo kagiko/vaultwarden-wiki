@@ -2,7 +2,8 @@
 
 SSO support for Vaultwarden is currently [in development](https://github.com/dani-garcia/vaultwarden/pull/3154). The following describes a docker-compose based setup for locally testing these changes.
 
-**ONLY USE FOR TESTING SSO, SETUP IS INSECURE**
+> [!WARNING]
+> **ONLY USE FOR TESTING SSO, SETUP IS INSECURE**
 
 ## Setup
 
