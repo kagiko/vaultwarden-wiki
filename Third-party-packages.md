@@ -1,14 +1,16 @@
-> :warning: This page is an index of third-party vaultwarden packages.<br>
+> [!WARNING]
+> This page is an index of third-party vaultwarden packages.  
 > As these packages are not maintained or controlled by vaultwarden, they can lag behind official releases, sometimes significantly. If you rely on these packages, you might want to [enable watching](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/viewing-your-subscriptions#configuring-your-watch-settings-for-an-individual-repository) for new vaultwarden releases and let the maintainer know if the package isn't being kept up to date.
 
-***
+---
 
 ### Unofficial Packaging Status
 | Server | Web-Vault |
 |--------|-----------|
 |[![Packaging status](https://repology.org/badge/vertical-allrepos/vaultwarden.svg)](https://repology.org/project/vaultwarden/versions)|[![Packaging status](https://repology.org/badge/vertical-allrepos/vaultwarden-web.svg)](https://repology.org/project/vaultwarden-web/versions)|
 
-> :warning: Be aware that the latest vaultwarden release is not always forward-compatible with the latest web-vault version, so you might want to [use an older version](https://github.com/dani-garcia/bw_web_builds/releases) of vaultwarden-web to ensure compatibility.<br />
+> [!WARNING] 
+> Be aware that the latest vaultwarden release is not always forward-compatible with the latest web-vault version, so you might want to [use an older version](https://github.com/dani-garcia/bw_web_builds/releases) of vaultwarden-web to ensure compatibility.
 
 
 ## Arch Linux
