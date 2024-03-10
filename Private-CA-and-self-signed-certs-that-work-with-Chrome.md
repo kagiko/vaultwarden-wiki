@@ -1,6 +1,10 @@
-:warning: :poop: :warning: This method is for testing and development only. The vast majority of users should not use this method, as it requires loading a cert on each of your devices, which is both error-prone and requires future maintenance. Instead, focus your energy on obtaining real certs via [Let's Encrypt](https://letsencrypt.org/getting-started/). This can even work if your vaultwarden instance is not on the public Internet ([[example|Running-a-private-vaultwarden-instance-with-Let's-Encrypt-certs]]).
-
-:skull_and_crossbones: :skull_and_crossbones: :skull_and_crossbones: This method is not supported. Please do not open GitHub issues or post on the discussion forums asking about how to get this to work.
+> [!WARNING]
+> <p align=center>⚠️ 💩 ⚠️</p>
+>
+> <p align=center><b>This method is for testing and development only.</b><br>The vast majority of users should not use this method, as it requires loading a cert on each of your devices, which is both error-prone and requires future maintenance.<br>Instead, focus your energy on obtaining real certs via <a href="https://letsencrypt.org/getting-started/">Let's Encrypt</a>.<br>This can even work if your vaultwarden instance is not on the public Internet (<a href="Running-a-private-vaultwarden-instance-with-Let's-Encrypt-certs">example</a>).</p>
+> 
+> <p align=center>☠️ ☠️ ☠️</p>
+> <p align=center><b>This method is not supported.<br>Please do not open GitHub issues or post on the discussion forums asking about how to get this to work.</b></p>
 
 ---
 
