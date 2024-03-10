@@ -22,4 +22,5 @@ You can use customized templates by
 * Italian by @rizlas: https://github.com/rizlas/vaultwarden-lang-it
 * Spanish by @javier-varez: https://github.com/javier-varez/vaultwarden-lang-es
 
-:warning: Translations are provided as is by community members and we have not tested them. So use them at your own risk. If there has been a breaking change (e.g. caused by a new release of Vaultwarden) inform the maintainer and/or make a note here.
+> [!WARNING]
+> Translations are provided as is by community members and we have not tested them. So use them at your own risk. If there has been a breaking change (e.g. caused by a new release of Vaultwarden) inform the maintainer and/or make a note here.
