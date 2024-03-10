@@ -1,6 +1,6 @@
 By default, anyone who can access your instance can register for a new account. To disable this, set the `SIGNUPS_ALLOWED` env variable to `false`:
 
-```sh
+```bash
 docker run -d --name bitwarden \
   -e SIGNUPS_ALLOWED=false \
   -v /vw-data/:/data/ \
@@ -21,7 +21,8 @@ You can restrict registration to email addresses from certain domains by setting
 * `SIGNUPS_DOMAINS_WHITELIST=example.com` (single domain)
 * `SIGNUPS_DOMAINS_WHITELIST=example.com,example.net,example.org` (multiple domains)
 
-:warning: If `SIGNUPS_DOMAINS_WHITELIST` is set, then the value of `SIGNUPS_ALLOWED` is ignored.
+> [!WARNING]
+> If `SIGNUPS_DOMAINS_WHITELIST` is set, then the value of `SIGNUPS_ALLOWED` is ignored.
 
 You may also want to set `SIGNUPS_VERIFY=true`, which would require email verification before a newly-registered user can successfully log in. This would prevent someone from registering with a fake email address that has the proper domain.
 
