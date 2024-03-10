@@ -2,7 +2,8 @@ Suppose you want to run an instance of vaultwarden that can only be accessed fro
 
 This article demonstrates how to create such a setup using the [Caddy](https://caddyserver.com/) web server, which has built-in ACME support for various DNS providers. We'll configure Caddy to obtain Let's Encrypt certs via the ACME [DNS challenge](https://letsencrypt.org/docs/challenge-types/#dns-01-challenge) -- using the more common HTTP challenge would be problematic here, since it would rely on Let's Encrypt servers being able to reach your internal web server.
 
-:warning: This article covers the DNS challenge setup in more generic terms, but many users will probably find it easiest to use Docker Compose to integrate Caddy and Vaultwarden. See [Using Docker Compose](https://github.com/dani-garcia/vaultwarden/wiki/Using-Docker-Compose#caddy-with-dns-challenge) for an example specific to that.
+> [!WARNING]
+> This article covers the DNS challenge setup in more generic terms, but many users will probably find it easiest to use Docker Compose to integrate Caddy and Vaultwarden. See [Using Docker Compose](https://github.com/dani-garcia/vaultwarden/wiki/Using-Docker-Compose#caddy-with-dns-challenge) for an example specific to that.
 
 Two DNS providers are covered:
 
@@ -58,7 +59,8 @@ export ROCKET_PORT=8001
 ./vaultwarden
 ```
 
-Note: It does not matter if vaultwarden has been running already or not before you set up caddy. 
+> [!NOTE]
+> It does not matter if vaultwarden has been running already or not before you set up caddy. 
 
 You should now be able to reach your vaultwarden instance at https://my-vw.duckdns.org. If not, check the output of caddy.
 
@@ -136,7 +138,8 @@ Here's an example of how to do this:
 3. Set up a weekly cron job to run `DUCKDNS_TOKEN=<token> ./lego --dns duckdns -d my-vw.duckdns.org -m me@example.com renew`.
    This renews your certificate as it nears expiration.
 
-(Note: `lego` requests ECC/ECDSA certs by default. If you are using the [[Rocket HTTPS server|Enabling-HTTPS#via-rocket]] built into vaultwarden, you will need to request RSA certs instead. In the `lego` commands above, add the option `--key-type rsa2048`.)
+> [!NOTE]
+> `lego` requests ECC/ECDSA certs by default. If you are using the [[Rocket HTTPS server|Enabling-HTTPS#via-rocket]] built into vaultwarden, you will need to request RSA certs instead. In the `lego` commands above, add the option `--key-type rsa2048`.
 
 In this example, the generated outputs you need to configure your reverse proxy with are:
 
