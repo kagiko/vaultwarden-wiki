@@ -1,10 +1,9 @@
->:warning: :poop: :warning:
+> [!WARNING]
+> <p align=center>⚠️ 💩 ⚠️</p>
 >
->Our builds are based upon MariaDB client libraries since that is what Debian provides.  
->Support for the latest Oracle MySQLv8 version needs some extra attention.  
->If you insist to use MySQLv8 instead of MariaDB then create a user using an old password hashing method instead of the default one!
+> <p align=center>Our builds are based upon MariaDB client libraries since that is what Debian provides.<br>Support for the latest Oracle MySQLv8 version needs some extra attention.<br>If you insist to use MySQLv8 instead of MariaDB then create a user using an old password hashing method instead of the default one!</p>
 >
->:warning: :poop: :warning:
+> <p align=center>⚠️ 💩 ⚠️</p>
 
 
 To use the MariaDB (MySQL) backend, you can either use the [official Docker image](https://hub.docker.com/r/vaultwarden/server) or build your own binary [with MySQL enabled](https://github.com/dani-garcia/vaultwarden/wiki/Building-binary#mysql-backend).
@@ -96,8 +95,9 @@ volumes:
 
 ## Manually create a database (For example, using an existing database server)
 
->:warning: To execute these queries you need a user which has the privileges to create new databases and users.<br>
->Most of the time that would be the `root` user, but it could be different for your database.
+> [!WARNING]
+> To execute these queries you need a user which has the privileges to create new databases and users.  
+> Most of the time that would be the `root` user, but it could be different for your database.
 
 >Using the docker-compose example above makes these steps unnecessary. Database, collation and charset is created automatically at startup.
 
