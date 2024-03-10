@@ -1,3 +1,4 @@
+> [!IMPORTANT]
 > WAL is an SQLite-specific setting. It is not applicable to MySQL or PostgreSQL; if you are using one of these backends, the `ENABLE_DB_WAL` config option has no effect.
 
 By default during the startup `vaultwarden` will try to enable [WAL](https://sqlite.org/wal.html) for the DB. Adding this improves performance and in the past helped preventing failed requests under some circumstances.
