@@ -1,7 +1,7 @@
----
-> :information_source: **NOTE:** The (**MSRV**) Minimum Support Rust Version policy is **N-2**, which means that if the current Rust version is **v1.67**, we support building with **v1.65**, and when **v1.69** is stable, then the MSRV would be **v1.67**.<br>
-That means that new Rust features which come to stable can not be used once a new stable has been released, but have to wait for two more releases.<br>
-To be sure you are using the stable version we strongly suggest to use [rustup](https://rustup.rs/) which makes installing and updating Rust very easy.<br>
+> [!NOTE]
+> The (**MSRV**) Minimum Support Rust Version policy is **N-2**, which means that if the current Rust version is **v1.67**, we support building with **v1.65**, and when **v1.69** is stable, then the MSRV would be **v1.67**.  
+That means that new Rust features which come to stable can not be used once a new stable has been released, but have to wait for two more releases.  
+To be sure you are using the stable version we strongly suggest to use [rustup](https://rustup.rs/) which makes installing and updating Rust very easy.  
 Any version below the MSRV will generate a warning, and you are on your own when forcing to build with an older version.
 ---
 
@@ -10,8 +10,8 @@ This page is primarily for those interested in vaultwarden development, or who h
 Typical users should either [[deploy via Docker|Which-container-image-to-use]], [[extract the pre-built binaries|Pre-built binaries]] from the Alpine-based Docker images, or look for a [[third-party package|Third-party-packages]].
 
 ## Dependencies
-- `Rust stable` (strongly recommended to use [rustup](https://rustup.rs/))<br>
-  :warning: The (MSRV) minimum support Rust version is **N-2**, which means that if the current Rust version is **v1.67**, we support building with **v1.65**.<br>
+- `Rust stable` (strongly recommended to use [rustup](https://rustup.rs/))  
+  ⚠️ The (MSRV) minimum support Rust version is **N-2**, which means that if the current Rust version is **v1.67**, we support building with **v1.65**.  
 - On a Debian based distro some general packages to make sure building should go fine install the following: `build-essential`, `git`
 - `OpenSSL` (should be available in path, see [openssl crate docs](https://docs.rs/openssl/latest/openssl/#automatic))
   On a Debian based distro, you need to install `pkg-config` and `libssl-dev`
