@@ -1,9 +1,11 @@
-:warning: :skull: :warning:
+> [!WARNING]
+> <p align="center">⚠️ ☠️ ⚠️</p>
+> 
+> <p align="center"><b>Use these commands at your own risk!<br>Always create a backup before you do anything which could destroy your whole vault!</b></p>
+> 
+> <p align="center">⚠️ ☠️ ⚠️</p>
 
-**Use these commands at your own risk!**  
-**Always create a backup before you do anything which could destroy your whole vault!**
-
-:warning: :skull: :warning:
+---
 
 ## General
 Vaultwarden was designed at first using SQLite only, but at the time both MariaDB (MySQL) and PostgreSQL also were added into the mix.
