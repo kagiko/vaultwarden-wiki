@@ -1,9 +1,10 @@
----
-> :warning: **NOTE:** Vaultwarden version before v1.25.0 had a bug/mislabelled configuration setting regarding SSL and TLS. This has been fixed in testing and newer released versions.<br>
-> The old settings were `SMTP_SSL` and `SMTP_EXPLICIT_TLS`.<br>
-> The new setting is `SMTP_SECURITY` which has the following options: `starttls`, `force_tls` and `off`.<br>
-> `SMTP_SSL=true` equals `starttls`<br>
-> `SMTP_EXPLICIT_TLS=true` equals `force_tls`<br>
+> [!WARNING]
+> Vaultwarden version before v1.25.0 had a bug/mislabelled configuration setting regarding SSL and TLS.  
+> This has been fixed in testing and newer released versions.  
+> The old settings were `SMTP_SSL` and `SMTP_EXPLICIT_TLS`.  
+> The new setting is `SMTP_SECURITY` which has the following options: `starttls`, `force_tls` and `off`.  
+> `SMTP_SSL=true` equals `starttls`  
+> `SMTP_EXPLICIT_TLS=true` equals `force_tls`  
 ---
 
 You can configure vaultwarden to send emails via a SMTP agent:
@@ -169,7 +170,8 @@ docker run -d --name vaultwarden \
 
 When `SMTP_SSL` is set to `true`(this is the default), only TLSv1.1 and TLSv1.2 protocols will be accepted and `SMTP_PORT` will default to `587` (equals `SMTP_SECURITY=starttls`). If set to `false`, `SMTP_PORT` will default to `25` and the opportunistic encryption will be tried (no encryption attempted with code prior to 3/12/2020)(equals `SMTP_SECURITY=off`). This can be very insecure, use this setting only if you know what you're doing. To run SMTP in implicit (forced TLS) mode, set `SMTP_EXPLICIT_TLS` to `true` (equals `SMTP_SECURITY=force_tls`). If you can send emails without logging in, you can simply not set `SMTP_USERNAME` and `SMTP_PASSWORD`.
 
-**NOTE:** if you use these `SMTP_SSL` and `SMTP_EXPLICIT_TLS` settings on v1.25.0 and higher, vaultwarden will omit error for using deprecated setting.
+> [!NOTE]
+> If you use these `SMTP_SSL` and `SMTP_EXPLICIT_TLS` settings on v1.25.0 and higher, vaultwarden will omit error for using deprecated setting.
 
 ## Troubleshooting
 
@@ -178,7 +180,8 @@ Most of the time it's a wrong configuration or the ISP/Hosting blocking the port
 
 Some basic steps to check if you can access the SMTP server can be done by running the following commands on the host where you are running Vaultwarden, either using Docker or as a standalone binary.
 
-**NOTE:** Replace `smtp.google.com` and `587`, `465` or `25` with the host and port matching your SMTP server.
+> [!NOTE]
+> Replace `smtp.google.com` and `587`, `465` or `25` with the host and port matching your SMTP server.
 
 The output of these commands should be `0`, if it returns anything else but `0`, it means there is an issue connecting to the server.
 
