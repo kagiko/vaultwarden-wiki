@@ -89,35 +89,7 @@ If you prefer, you can also directly specify a value instead of substituting an 
 </details>
 
 <details>
-<summary>lighttpd (by forkbomb9)</summary><br/>
-
-```lighttpd
-server.modules += ( "mod_proxy" )
-
-$HTTP["host"] == "vault.example.net" {
-    $HTTP["url"] == "/notifications/hub" {
-       # WebSocket proxy
-       proxy.server  = ( "" => ("vaultwarden" => ( "host" => "<SERVER>", "port" => 3012 )))
-       proxy.forwarded = ( "for" => 1 )
-       proxy.header = (
-           "https-remap" => "enable",
-           "upgrade" => "enable",
-           "connect" => "enable"
-       )
-    } else {
-       proxy.server  = ( "" => ("vaultwarden" => ( "host" => "<SERVER>", "port" => 4567 )))
-       proxy.forwarded = ( "for" => 1 )
-       proxy.header = ( "https-remap" => "enable" )
-    }
-}
-```
-
-You'll have to set `IP_HEADER` to `X-Forwarded-For` instead of `X-Real-IP` in the Vaultwarden environment.
-
-</details>
-
-<details>
-<summary>lighttpd with sub-path - v1.29.0+ (by FlakyPi)</summary><br/>
+<summary>lighttpd with sub-path (by FlakyPi)</summary><br/>
 
 In this example Vaultwarden will be available via https://vaultwarden.example.tld/vault/<br/>
 If you want to use any other sub-path, like `bitwarden` or `secret-vault` you should change `vault` in the example below to match.<br/>
@@ -160,7 +132,7 @@ You'll have to set `IP_HEADER` to `X-Forwarded-For` instead of `X-Real-IP` in th
 </details>
 
 <details>
-<summary>Nginx - v1.29.0+ (by <a href="https://github.com/BlackDex" target="_blank">@BlackDex</a>)</summary><br/>
+<summary>Nginx (by <a href="https://github.com/BlackDex" target="_blank">@BlackDex</a>)</summary><br/>
 
 ```nginx
 # The `upstream` directives ensure that you have a http/1.1 connection
@@ -255,7 +227,7 @@ If you run into 504 Gateway Timeout problems, tell nginx to wait longer for Vaul
 </details>
 
 <details>
-<summary>Nginx with sub-path - v1.29.0+ (by <a href="https://github.com/BlackDex" target="_blank">@BlackDex</a>)</summary><br/>
+<summary>Nginx with sub-path (by <a href="https://github.com/BlackDex" target="_blank">@BlackDex</a>)</summary><br/>
 
 In this example Vaultwarden will be available via https://bitwarden.example.tld/vault/<br/>
 If you want to use any other sub-path, like `bitwarden` or `secret-vault` you should change `/vault/` in the example below to match.<br/>
@@ -355,99 +327,7 @@ server {
 </details>
 
 <details>
-<summary>Nginx configured by Ansible/DebOps (by ypid)</summary><br/>
-
-Ansible inventory example that uses [DebOps](https://debops.org) to configure Nginx as a reverse proxy for Vaultwarden. I choose to go with the PSK in the URL for additional security to not expose the API to everyone on the Internet because the client apps do not support client certificates yet (I tested it). Refer to [[Hardening Guide – hiding under a subdir|Hardening-Guide#hiding-under-a-subdir]].
-
-```YAML
-vaultwarden__fqdn: 'vault.example.org'
-vaultwarden__http_psk_subpath_enabled: True
-vaultwarden__http_psk_subpath: '{{ lookup("password", secret + "/vaultwarden/" +
-                                     inventory_hostname + "/config/subpath chars=ascii_letters,digits length=23")
-                                   if vaultwarden__http_psk_subpath_enabled | bool
-                                   else "" }}'
-
-nginx__upstreams:
-
-  - name: 'vaultwarden-default'
-    type: 'default'
-    enabled: True
-    server: 'localhost:8000'
-
-  - name: 'vaultwarden-ws'
-    type: 'default'
-    enabled: True
-    server: 'localhost:3012'
-
-nginx__servers:
-
-  - name: '{{ vaultwarden__fqdn }}'
-    filename: 'debops.vaultwarden'
-    by_role: 'debops.vaultwarden'
-    favicon: False
-    # root: '/usr/share/vaultwarden/web-vault'
-
-    location_list:
-
-      - pattern: '/'
-        options: |-
-          deny all;
-
-      - pattern: '= /{{ vaultwarden__http_psk_subpath }}'
-        options: |-
-          return 307 $scheme://$host$request_uri/;
-
-      ## All the security HTTP headers would then need to be set by nginx as well.
-      # - pattern: '/{{ vaultwarden__http_psk_subpath }}/'
-      #   options: |-
-      #     alias /usr/share/vaultwarden/web-vault/;
-
-      - pattern: '/{{ vaultwarden__http_psk_subpath }}/'
-        options: |-
-          proxy_set_header Host              $host;
-          proxy_set_header X-Real-IP         $remote_addr;
-          proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-          proxy_set_header X-Forwarded-Port  443;
-
-          proxy_pass http://vaultwarden-default;
-
-      - pattern: '/{{ vaultwarden__http_psk_subpath }}/notifications/hub/negotiate'
-        options: |-
-          proxy_set_header Host              $host;
-          proxy_set_header X-Real-IP         $remote_addr;
-          proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-          proxy_set_header X-Forwarded-Port  443;
-
-          proxy_pass http://vaultwarden-default;
-
-      - pattern: '/{{ vaultwarden__http_psk_subpath }}/notifications/hub'
-        options: |-
-          proxy_http_version 1.1;
-          proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header Connection $connection_upgrade;
-
-          proxy_set_header Host              $host;
-          proxy_set_header X-Real-IP         $remote_addr;
-          proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-          proxy_set_header X-Forwarded-Port  443;
-
-          proxy_pass http://vaultwarden-ws;
-
-      # Do not use the icons features as long as it reveals all domains from
-      # our credentials to the server.
-      - pattern: '/{{ vaultwarden__http_psk_subpath }}/icons/'
-        options: |-
-          access_log off;
-          log_not_found off;
-          deny all;
-```
-</details>
-
-<details>
-<summary>Nginx (NixOS) - v1.29.0+ (by tklitschi, samdoshi)</summary><br/>
+<summary>Nginx (NixOS) (by tklitschi, samdoshi)</summary><br/>
 
 Example NixOS nginx config. For more Information about NixOS Deployment see [Deployment Wiki page](https://github.com/dani-garcia/vaultwarden/wiki/Deployment-examples).
 
@@ -488,7 +368,7 @@ Example NixOS nginx config. For more Information about NixOS Deployment see [Dep
 </details>
 
 <details>
-<summary>Nginx with proxy_protocol in front - v1.29.0+ (by dionysius)</summary><br/>
+<summary>Nginx with proxy_protocol in front (by dionysius)</summary><br/>
 
 In this example there is a downstream proxy communicating in [proxy_protocol in front of this nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/using-proxy-protocol/) (E.g. a [LXD proxy device with proxy_protocol enabled](https://linuxcontainers.org/lxd/docs/master/reference/devices_proxy/)). Nginx needs to correctly consume the protocol and headers to forward need to be set from the those. Lines marked with `# <---` have different contents than BlackDex's example.
 
@@ -608,7 +488,7 @@ Remember to enable `mod_proxy_wstunnel` and `mod_proxy_http`, for example with: 
 </details>
 
 <details>
-<summary>Apache in a sub-location - v1.29.0+ (by <a href=https://github.com/agentdr8 target=_blank>@agentdr8</a>)</summary><br/>
+<summary>Apache in a sub-location (by <a href=https://github.com/agentdr8 target=_blank>@agentdr8</a>)</summary><br/>
 Modify your docker start-up to include the sub-location.
 
 ```
@@ -666,7 +546,7 @@ labels:
 </details>
 
 <details>
-<summary>Traefik v2 - v1.29.0+ (docker-compose example by hwwilliams, gzfrozen)</summary><br/>
+<summary>Traefik v2 (docker-compose example by hwwilliams, gzfrozen)</summary><br/>
 
 #### Traefik v1 labels migrated to Traefik v2
 ```yaml
@@ -701,7 +581,7 @@ labels:
 </details>
 
 <details>
-<summary>HAproxy - v1.29.0+ (by <a href="https://github.com/BlackDex" target="_blank">@BlackDex</a>)</summary><br/>
+<summary>HAproxy (by <a href="https://github.com/BlackDex" target="_blank">@BlackDex</a>)</summary><br/>
 
 Add these lines to your haproxy configuration. 
 
@@ -720,211 +600,8 @@ backend vaultwarden_http
 ```
 </details>
 
-
 <details>
-<summary>HAproxy - (before v1.29.0) (by <a href="https://github.com/williamdes" target="_blank">@williamdes</a>)</summary><br/>
-
-Add these lines to your HAproxy configuration. 
-
-```haproxy
-backend static-success-default
-  mode http
-  errorfile 503 /usr/local/etc/haproxy/static/index.static.default.html
-  errorfile 200 /usr/local/etc/haproxy/static/index.static.default.html
-
-frontend http-in
-    bind *:443 ssl crt /acme.sh/domain.tld/domain.tld.pem alpn h2,http/1.1
-    option forwardfor header X-Real-IP
-    http-request set-header X-Real-IP %[src]
-    default_backend static-success-default
-
-    # Define hosts
-    acl host_bitwarden_domain_tld hdr(Host) -i bitwarden.domain.tld
-
-    ## figure out which one to use
-    use_backend vaultwarden_http if host_bitwarden_domain_tld
-
-backend vaultwarden_http
-    # Enable compression if you want
-    # compression algo gzip
-    # compression type text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript
-    # You can use the container hostname if you are using haproxy with docker-compose
-    server vw_http 0.0.0.0:8080 alpn http/1.1
-```
-</details>
-
-<details>
-<summary>HAproxy inside PfSense (by <a href="https://github.com/RichardMawdsley" target="_blank">@RichardMawdsley</a>)</summary><br/>
-
-Being a GUI setup, details\instructions below for you to add where required. 
- * Assumes you already have basic HTTP>HTTPS Redirection setup [Basic Setup](https://blog.devita.co/pfsense-to-proxy-traffic-for-websites-using-pfsense/)
-
-
-## Backend Creation
-Backend 1:
-```
-Mode	Name	                   Forwardto	     Address	     Port	 Encrypt(SSL)	SSL checks	Weight	Actions
-active 	Vaultwarden                Address+Port:     IPADDRESSHERE   80          no             no
-```
-Backend 2:
-```
-Mode	Name	                   Forwardto	     Address	     Port	 Encrypt(SSL)	SSL checks	Weight	Actions
-active 	Vaultwarden-Notifications  Address+Port:     IPADDRESSHERE   3012        no             no
-```
-
-## Frontend Creation - 1 - Domain
-**ACCESS CONTROL LIST**
-``` 	
-ACL00
-Host matches:
-no
-no
-FQDN.com     -  NOTE:  This needs to be your root domain.  
- 	
-ACL00
-Path starts with:
-no
-yes
-/big-ass-randomized-test-that-really-no-one-is-ever-going-to-type-DONT-USE-THIS-LINE-THOUGH-make-your-own-up
-
-ACL01
-Host matches:
-no
-no
-VAULTWARDEN.MYDOMAIN.COM
-
-ACL01
-Host matches:
-no
-no
-EXAMPLE-OTHER-SUB-DOMAIN-1.MYDOMAIN.COM
-
-ACL01
-Host matches:
-no
-no
-EXAMPLE-OTHER-SUB-DOMAIN-2.MYDOMAIN.COM
-```
-
-**ACTIONS - 1 - Domain**
-``` 	
-http-request allow
-See below
-ACL01
-
-http-request deny
-See below
-ACL00
-```
-
-
-## Frontend Creation - 2 - VaultWarden
-**ACCESS CONTROL LIST**
-``` 	
-ACL1
-Path starts with:
-no
-yes
-/notifications/hub  
- 	
-ACL2
-Path starts with:
-no
-no
-/notifications/hub/negotiate  
- 	
-ACL3
-Path starts with:
-no
-no
-/notifications/hub  
- 	
-ACL4
-Path starts with:
-no
-yes
-/notifications/hub/negotiate
-
-ACL5
-Path starts with:
-no
-no
-/admin
-```
-
-**ACTIONS - 2 - VaultWarden**
-``` 	
-Use Backend
-See below
-ACL1  
-backend: VaultWarden
- 	
-Use Backend
-See below
-ACL2  
-backend: VaultWarden
- 	
-Use Backend
-See below
-ACL3  
-backend: VaultWarden-Notifications
- 	
-Use Backend
-See below
-ACL4
-backend: VaultWarden-Notifications
-
-http-request deny
-See below
-ACL5
-```
-
-**Updates**
-```
-Updated above 30/07 - I realized after the first config that because ACL1-4 have 'Not' in, they were matching anything to their actions.  So BlahBlahMcGee.FQDN.com was passing through.  This was not intended, so ACL5 has been added above which resolves this, it also removes the need for the default backend.
-Updated again 30/07 - ^ Yeah that didn't work.  This all stems because HaProxy doesn't allow for 'AND' in ACL's. Sigh.  Now with the above, you cofigure a front end for you root domain.  This has a deny for itself, and anything not specified.  So if you have multiple other subdomains you're passing through, you need to add them here all under ACL01.  Now everything works as it should!
-```
-
-**Important Notes**
-```
-1) You must keep the Domain FrontEnd up to date with any other sub domains on an allow list
-2) On the Domain FrontEnd, ACL01 must be top of the Actions table - or atleast above ACL00
-3) Duplicate Use of ACL names is intentional. No I havent typoed them.  ACL00, ACL01 etc
-```
-
-**OPTIONAL**
-```
-ACL5 above denies access to the /admin portal.  I'm not particularly fond of the admin portal not having any form of 2FA and only a password.  Thus when I'm not using it, I just deny access.  If I need it, unblock, do the required job and reblock.
-```
-
-Complete! - Go test!
-
-This in turn will add the equivalent of below to your config (note this is an extract for example). 
-
-	acl			ACL00	var(txn.txnhost) -m str -i VAULTWARDEN.MYDOMAIN.COM
-	acl			ACL00	var(txn.txnpath) -m beg -i /big-ass-randomised-test-that-really-no-one-is-ever-going-to-type-DONT-USE-THIS-LINE-THOUGH-make-your-own-up
-	acl			ACL01	var(txn.txnhost) -m str -i EXAMPLE-OTHER-SUB-DOMAIN-1.MYDOMAIN.COM
-	acl			ACL01	var(txn.txnhost) -m str -i EXAMPLE-OTHER-SUB-DOMAIN-2.MYDOMAIN.COM
-	acl			ACL1	var(txn.txnpath) -m beg -i /notifications/hub
-	acl			ACL2	var(txn.txnpath) -m beg -i /notifications/hub/negotiate
-	acl			ACL3	var(txn.txnpath) -m beg -i /notifications/hub
-	acl			ACL4	var(txn.txnpath) -m beg -i /notifications/hub/negotiate
-	acl			ACL5	var(txn.txnpath) -m beg -i /admin
-
-	http-request allow  if  ACL01 
-	http-request deny   if  !ACL00 
-	http-request deny   if  !ACL5 
-	http-request deny   if  ACL5 
-	use_backend VaultWarden_ipvANY  if  !ACL1 
-	use_backend VaultWarden_ipvANY  if  ACL2 
-	use_backend VaultWarden-Notifications_ipvANY  if  ACL3 
-	use_backend VaultWarden-Notifications_ipvANY  if  !ACL4 
-
-To test, if you navigate in a browser to /notifications/hub then you should get a page saying "WebSocket Protocol Error: Unable to parse WebSocket key.".. that means its working! - all other sub pages should get a Rocket error.
-</details>
-
-<details>
-<summary>Istio k8s - v1.29.0+ (by <a href="https://github.com/asenyaev" target="_blank">@asenyaev</a>)</summary><br/>
+<summary>Istio k8s (by <a href="https://github.com/asenyaev" target="_blank">@asenyaev</a>)</summary><br/>
 
 ```gateway+vs
 apiVersion: networking.istio.io/v1beta1
@@ -977,129 +654,7 @@ spec:
 </details>
 
 <details>
-<summary>Istio k8s - (before v1.29.0) (by <a href="https://github.com/dpoke" target="_blank">@dpoke</a>)</summary><br/>
-
-```gateway+vs
-apiVersion: networking.istio.io/v1beta1
-kind: Gateway
-metadata:
-  name: vaultwarden-gateway
-  namespace: vaultwarden
-spec:
-  selector:
-    istio: ingressgateway-internal # use Istio default gateway implementation
-  servers:
-  - hosts:
-    - vw.k8s.prod
-    port:
-      number: 80
-      name: http
-      protocol: HTTP
-    tls:
-      httpsRedirect: true
-  - hosts:
-    - vw.k8s.prod
-    port:
-      name: https-443
-      number: 443
-      protocol: HTTPS
-    tls:
-      mode: SIMPLE
-      credentialName: vw-k8s-prod-tls
----
-apiVersion: networking.istio.io/v1beta1
-kind: VirtualService
-metadata:
-  name: vaultwarden-vs
-  namespace: vaultwarden
-spec:
-  hosts:
-  - vw.k8s.prod
-  gateways:
-  - vaultwarden-gateway
-  http:
-  - match:
-    - uri:
-        exact: /notifications/hub
-    route:
-    - destination:
-        port:
-          number: 3012
-        host: vaultwarden-ws
-  - match:
-    - uri:
-        prefix: /
-    route:
-    - destination:
-        port:
-          number: 80
-        host: vaultwarden
-```
-</details>
-
-<details>
-<summary>relayd on openbsd (by olliestrickland)</summary><br/>
-
-This is a tested and working (websockets included) - /etc/relayd.conf - on openbsd 7.2 using vaultwarden from ports - https://openports.se/security/vaultwarden
-
-This configuration depends on proper setup of tls - I used https://man.openbsd.org/acme-client
-```
-table <vaultwarden-default-host> { localhost }
-table <vaultwarden-websocket-host> { localhost }
-
-# protocol definition for vaultwarden with tls
-
-http protocol vaultwarden-https {
-        # add a header vaultwarden needs
-        match request header append "X-Real-IP" value "$REMOTE_ADDR"
-
-        # add a few headers vaultwarden may not need
-        match request header append "Host" value "$HOST"
-        match request header append "X-Forwarded-For" value "$REMOTE_ADDR"
-        match request header append "X-Forwarded-By" value "$SERVER_ADDR:$SERVER_PORT"
-
-        # most general rule - forward connections to vaultwarden rocket
-        match request path "/*" forward to <vaultwarden-default-host>
-
-        # forward the path used for websocket to the vaultwarden websocket port
-        match request path "/notifications/hub" forward to <vaultwarden-websocket-host>
-
-        # save most specific path for last - this path should not forward to the websocket server
-        match request path "/notifications/hub/negotiate" forward to <vaultwarden-default-host>
-
-        # various TCP options
-        tcp { nodelay, sack, backlog 128 }
-
-        # tls config
-        tls keypair bitwarden.example.tld
-        tls { no tlsv1.0, ciphers HIGH }
-
-        # allow websockets - this is nice it handles the connection upgrade, no need for manual header edits
-        http websockets
-}
-
-# relay definition for vaultwarden - forward inbound 443 tls on the egress interface to rocket on default port 8000 and websocket on 3012
-
-relay vaultwarden-https-relay {
-        listen on egress port 443 tls
-        protocol vaultwarden-https
-        forward to <vaultwarden-default-host> port 8000
-        forward to <vaultwarden-websocket-host> port 3012
-}
-```
-</details>
-
-<details>
-<summary>CloudFlare (before v1.29.0) (by <a href="https://github.com/williamdes" target="_blank">@williamdes</a>)</summary><br/>
-
-Follow the screenshot to create a new rule.
-Example dashboard URL to find the settings: `https://dash.cloudflare.com/xxxxxx/example.org/rules/origin-rules/new`
-
-![Rules](https://github.com/dani-garcia/vaultwarden/assets/7784660/e27d9152-219b-4b6a-bf96-dcfce30ebd73)
-</details>
-
-<details>
-<summary>CloudFlare Tunnel (after v1.29.0) (by <a href="https://github.com/calvin-li-developer" target="_blank">@calvin-li-developer</a>)</summary><br/>
+<summary>CloudFlare Tunnel (by <a href="https://github.com/calvin-li-developer" target="_blank">@calvin-li-developer</a>)</summary><br/>
 
 `docker-compose.yml`:
 
