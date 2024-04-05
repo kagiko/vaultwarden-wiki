@@ -4,7 +4,7 @@ Note that WebSocket notifications are not applicable to the mobile (Android/iOS)
 
 <br>
 
-WebSocket's are enabled by default since v1.29.0 of Vaultwarden. Previous versions needed a reverse proxy because WebSockets were running on a different port than then default HTTPS port.<br>
+WebSocket's are enabled by default since v1.29.0 of Vaultwarden. Previous versions needed a reverse proxy because WebSockets were running on a different port than than default HTTPS port.<br>
 The old implementation is still available in v1.29.0 to not break during updates for now. But this will be removed in the future.<br>
 
 <br>
