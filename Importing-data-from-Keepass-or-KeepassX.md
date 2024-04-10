@@ -11,6 +11,8 @@ Importing from Keepass or KeepassX gives complete different results, although th
 It is a lot of work in Bitwarden itself to change Collections to Folders or to transfer ownership of all the entries.
 So depending on what you want, choose the appropriate method!
 
+An alternative approach is to do the import with [KP2BW - KeePass 2.x to Bitwarden Converter](https://github.com/jampe/kp2bw) which supports more Keepass Features like file attachments, references and even more!
+
 ## Example
 ### Keepass database with name 'MyVault'
 
