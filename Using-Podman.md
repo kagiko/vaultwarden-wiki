@@ -13,7 +13,7 @@ Configuration may be easier in an environment file and less error-prone.
 *NOTE*: this file contains secrets, make sure only root has access!
 
 ```sh
-sudo install -o0 -g0 -m600 /etc/vaultwarden.env
+sudo install -o0 -g0 -m600 /dev/null /etc/vaultwarden.env
 sudo vi /etc/vaultwarden.env
 ```
 
