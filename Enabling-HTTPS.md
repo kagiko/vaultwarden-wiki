@@ -44,7 +44,7 @@ Notes:
 * If running under Docker, remember that vaultwarden will be parsing the `ROCKET_TLS` value when running inside the container, so make sure the `certs` and `key` paths are how they would appear inside the container (which may be different from the paths on the Docker host system).
 
 ```sh
-docker run -d --name bitwarden \
+docker run -d --name vaultwarden \
   -e ROCKET_TLS='{certs="/ssl/certs.pem",key="/ssl/key.pem"}' \
   -v /ssl/keys/:/ssl/ \
   -v /vw-data/:/data/ \
@@ -68,7 +68,7 @@ These files are symlinked to `../../archive/mydomain/privkey.pem`
 So to use from bitwarden container:
 
 ```sh
-docker run -d --name bitwarden \
+docker run -d --name vaultwarden \
   -e ROCKET_TLS='{certs="/ssl/live/mydomain/fullchain.pem",key="/ssl/live/mydomain/privkey.pem"}' \
   -v /etc/letsencrypt/:/ssl/ \
   -v /bw-data/:/data/ \
