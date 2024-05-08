@@ -4,7 +4,7 @@ There are basically three different ways to configure Vaultwarden:
 
 1. setting up environment variables,
 2. using an `ENV_FILE` and
-3. via a `config.json` (which can be generated and managed via the [[admin page|Enabling-admin-page]]).
+3. via a `config.json`, **not recommended** (which can be generated and managed via the [[admin page|Enabling-admin-page]]).
 
 You can find a documented list of most configuration options in the [**`.env.template`**](https://github.com/dani-garcia/vaultwarden/blob/main/.env.template) file. Typically the commented values will indicate the default values but that is not a guarantee. In case it's not, the source of truth will be [**`src/config.rs`**](https://github.com/dani-garcia/vaultwarden/blob/main/src/config.rs).
 
