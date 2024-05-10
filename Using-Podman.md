@@ -2,7 +2,7 @@
 
 # Creating a Quadlet (Podman 4.4+)
 
-As of version 4.4, Podman uses [quadlet](https://docs.podman.io/en/latest/markdown/podman-systemd.unit.5.html)s and will show a warning if you use the previous `generate systemd` method.
+As of version 4.4, Podman uses [quadlets](https://docs.podman.io/en/latest/markdown/podman-systemd.unit.5.html) and will show a warning if you use the previous `generate systemd` method.
 
 Additional benefit is that this method will keep the container updated.
 
