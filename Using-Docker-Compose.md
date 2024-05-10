@@ -29,6 +29,7 @@ services:
     ports:
       - 80:80  # Needed for the ACME HTTP-01 challenge.
       - 443:443
+      - 443:443/udp # Needed for HTTP/3.
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - ./caddy-config:/config
@@ -106,6 +107,7 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 443:443/udp # Needed for HTTP/3.
     volumes:
       - ./caddy:/usr/bin/caddy  # Your custom build of Caddy.
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
