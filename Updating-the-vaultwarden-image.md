@@ -37,10 +37,15 @@ docker rm vaultwarden_data
 
 You can also use a tool like [Watchtower](https://containrrr.dev/watchtower/) to automate the update process. Watchtower can periodically check for an update to the Docker image, pull the updated image, and recreate the container using the updated image.
 
-## Updating when using docker-compose
+## Updating when using Docker Compose
 
 ```sh
-docker-compose down
+docker compose pull
+docker compose up -d
+```
+For legacy/standalone versions:
+
+```sh
 docker-compose pull
 docker-compose up -d
 ```
