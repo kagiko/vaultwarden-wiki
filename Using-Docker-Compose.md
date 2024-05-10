@@ -10,8 +10,6 @@ This example assumes that you have [installed](https://docs.docker.com/compose/i
 Start by making a new directory and changing into it. Next, create the `compose.yaml` (or `docker-compose.yml` for legacy versions) below, making sure to substitute appropriate values for the `DOMAIN` and `EMAIL` variables.
 
 ```yaml
-version: '3'
-
 services:
   vaultwarden:
     image: vaultwarden/server:latest
@@ -88,8 +86,6 @@ This example is the same as the previous one, but for the case where you don't w
 Start by making a new directory and changing into it. Next, create the `compose.yaml` (or `docker-compose.yml` for legacy versions) below, making sure to substitute appropriate values for the `DOMAIN` and `EMAIL` variables.
 
 ```yaml
-version: '3'
-
 services:
   vaultwarden:
     image: vaultwarden/server:latest
