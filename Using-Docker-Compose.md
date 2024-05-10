@@ -57,7 +57,7 @@ In the same directory, create the `Caddyfile` below. (This file does not need to
   # This setting may have compatibility issues with some browsers
   # (e.g., attachment downloading on Firefox). Try disabling this
   # if you encounter issues.
-  encode gzip
+  encode zstd gzip
 
   # Proxy everything Rocket
   reverse_proxy vaultwarden:80 {
@@ -141,7 +141,7 @@ In the same directory, create the `Caddyfile` below. (This file does not need to
   # This setting may have compatibility issues with some browsers
   # (e.g., attachment downloading on Firefox). Try disabling this
   # if you encounter issues.
-  encode gzip
+  encode zstd gzip
 
   # Proxy everything to Rocket
   reverse_proxy vaultwarden:80
