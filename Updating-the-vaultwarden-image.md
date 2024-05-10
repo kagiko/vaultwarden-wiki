@@ -40,14 +40,8 @@ You can also use a tool like [Watchtower](https://containrrr.dev/watchtower/) to
 ## Updating when using Docker Compose
 
 ```sh
-docker compose pull
-docker compose up -d
-```
-For legacy/standalone versions:
-
-```sh
-docker-compose pull
-docker-compose up -d
+docker compose pull # or `docker-compose pull` if using standalone Docker Compose
+docker compose up -d # or `docker-compose up -d` if using standalone Docker Compose
 ```
 
 ## Updating when using systemd service (in this case Debian/Raspbian)
