@@ -7,7 +7,7 @@ This example assumes that you have [installed](https://docs.docker.com/compose/i
 > [!NOTE]
 > Docker Compose might be run as `docker-compose <command> ...` (with a dash) or `docker compose <command> ...` (with a space), depending on how you have installed Docker Compose. `docker-compose` is the original syntax, when Docker Compose was distributed as a standalone executable. You can still choose to do a [standalone](https://docs.docker.com/compose/install/other/#install-compose-standalone) installation, in which case you would continue to use this syntax. However, Docker currently recommends installing Docker Compose as a Docker plugin, where `compose` becomes a subcommand of `docker`, making the syntax `docker compose <command> ...`.
 
-Start by making a new directory and changing into it. Next, create the `docker-compose.yml` below, making sure to substitute appropriate values for the `DOMAIN` and `EMAIL` variables.
+Start by making a new directory and changing into it. Next, create the `compose.yaml` (or `docker-compose.yml` for legacy versions) below, making sure to substitute appropriate values for the `DOMAIN` and `EMAIL` variables.
 
 ```yaml
 version: '3'
