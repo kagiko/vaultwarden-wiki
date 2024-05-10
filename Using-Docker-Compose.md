@@ -72,7 +72,7 @@ Run
 ```bash
 docker compose up -d  # or `docker-compose up -d` if using standalone Docker Compose
 ```
-to create and start the containers. A private network for the services in this `docker-compose.yml` file will be created automatically, with only Caddy being publicly exposed.
+to create and start the containers. A private network for the services in this `compose.yaml` (or `docker-compose.yml` for legacy versions) file will be created automatically, with only Caddy being publicly exposed.
 
 ```bash
 docker compose down  # or `docker-compose down` if using standalone Docker Compose
@@ -85,7 +85,7 @@ A similar Caddy-based example for Synology is available [here](https://github.co
 
 This example is the same as the previous one, but for the case where you don't want your instance to be publicly accessible (i.e., you can access it only from your local network). This example uses Duck DNS as the DNS provider. Refer to [[Running a private vaultwarden instance with Let's Encrypt certs|Running-a-private-vaultwarden-instance-with-Let's-Encrypt-certs]] for more background, and details on how to set up Duck DNS.
 
-Start by making a new directory and changing into it. Next, create the `docker-compose.yml` below, making sure to substitute appropriate values for the `DOMAIN` and `EMAIL` variables.
+Start by making a new directory and changing into it. Next, create the `compose.yaml` (or `docker-compose.yml` for legacy versions) below, making sure to substitute appropriate values for the `DOMAIN` and `EMAIL` variables.
 
 ```yaml
 version: '3'
@@ -120,7 +120,7 @@ services:
       LOG_FILE: "/data/access.log"
 ```
 
-The stock Caddy builds (including the one in the Docker image) don't include the DNS challenge modules, so next you'll need to [get a custom Caddy build](https://github.com/dani-garcia/vaultwarden/wiki/Running-a-private-vaultwarden-instance-with-Let%27s-Encrypt-certs#getting-a-custom-caddy-build). Rename the custom build as `caddy` and move it under the same directory as `docker-compose.yml`. Make sure the `caddy` file is executable (e.g., `chmod a+x caddy`). The `docker-compose.yml` file above bind-mounts the custom build into the `caddy:2` container, replacing the stock build.
+The stock Caddy builds (including the one in the Docker image) don't include the DNS challenge modules, so next you'll need to [get a custom Caddy build](https://github.com/dani-garcia/vaultwarden/wiki/Running-a-private-vaultwarden-instance-with-Let%27s-Encrypt-certs#getting-a-custom-caddy-build). Rename the custom build as `caddy` and move it under the same directory as `compose.yaml` (or `docker-compose.yml` for legacy versions). Make sure the `caddy` file is executable (e.g., `chmod a+x caddy`). The `compose.yaml` (or `docker-compose.yml` for legacy versions) file above bind-mounts the custom build into the `caddy:2` container, replacing the stock build.
 
 In the same directory, create the `Caddyfile` below. (This file does not need to be modified.)
 ```
