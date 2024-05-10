@@ -47,7 +47,7 @@ If you prefer, you can also directly specify a value instead of substituting an 
   # This setting may have compatibility issues with some browsers
   # (e.g., attachment downloading on Firefox). Try disabling this
   # if you encounter issues.
-  encode gzip
+  encode zstd gzip
 
   # Uncomment to improve security (WARNING: only use if you understand the implications!)
   # If you want to use FIDO2 WebAuthn, set X-Frame-Options to "SAMEORIGIN" or the Browser will block those requests
