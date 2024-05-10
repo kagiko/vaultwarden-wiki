@@ -98,7 +98,7 @@ services:
     environment:
       DOMAIN: "https://vaultwarden.example.com"  # Your domain; vaultwarden needs to know it's https to work properly with attachments
     volumes:
-      - ./vw-data:/data
+      - /vw-data:/data
 
   caddy:
     image: caddy:2
