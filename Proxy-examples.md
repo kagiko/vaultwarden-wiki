@@ -600,7 +600,7 @@ backend vaultwarden_http
 ```
 </details>
 <details>
-<summary>HAproxy Kubernetes Ingress(by <a href="https://github.com/devinslick" target="_blank">@BlackDex</a>)</summary><br/>
+<summary>HAproxy Kubernetes Ingress(by <a href="https://github.com/devinslick" target="_blank">@devinslick</a>)</summary><br/>
 
 Controller installation details can be found here: https://www.haproxy.com/documentation/kubernetes-ingress/community/installation/on-prem/
 Note that the CF-Connecting-IP header is only required if you use cloudflare 
