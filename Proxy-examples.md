@@ -599,7 +599,44 @@ backend vaultwarden_http
     server vwhttp 0.0.0.0:8080 alpn http/1.1
 ```
 </details>
+<details>
+<summary>HAproxy Kubernetes Ingress(by <a href="https://github.com/devinslick" target="_blank">@BlackDex</a>)</summary><br/>
 
+Controller installation details can be found here: https://www.haproxy.com/documentation/kubernetes-ingress/community/installation/on-prem/
+Note that the CF-Connecting-IP header is only required if you use cloudflare 
+
+Add the following resource definition:
+
+```haproxy-kubernetes-ingress
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vaultwarden
+  namespace: default
+  annotations:
+    haproxy.org/forwarded-for: "true"
+    haproxy.org/compression-algo: "gzip"
+    haproxy.org/compression-type: "text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript"
+    haproxy.org/http2-enabled: "true"
+spec:
+  ingressClassName: haproxy
+  tls:
+  - hosts:
+    - vaultwarden.example.tld
+  rules:
+  - host: vaultwarden.example.tld
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: vaultwarden-http
+            port:
+              number: 80
+```
+</details>
 <details>
 <summary>Istio k8s (by <a href="https://github.com/asenyaev" target="_blank">@asenyaev</a>)</summary><br/>
 
