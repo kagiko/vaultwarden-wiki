@@ -5,6 +5,10 @@ Short answer, **No**.
 There sometimes is some contact between the developers of both projects, but there is no collaboration.
 Besides that, the Vaultwarden project only uses the web vault provided by Bitwarden, Inc with some [patches](https://github.com/dani-garcia/bw_web_builds/tree/master/patches) to make it work with our implementation.
 
+## I've found a public Vaultwarden instance. Is it associated with this project? Is it safe to use?
+
+This project does not host any public Vaultwarden instance and we don't endorse the use of any such site either. Cf. [#3233](https://github.com/dani-garcia/vaultwarden/discussions/3233#discussioncomment-4917141) [#4142](https://github.com/dani-garcia/vaultwarden/discussions/4142) [#4367](https://github.com/dani-garcia/vaultwarden/discussions/4367#discussioncomment-8529763)
+
 ## Can Vaultwarden connect to an Oracle MySQL V8.x database?
 It could happen that you get the following warning when trying to start Vaultwarden when using Oracle MySQL v8.x
 ```
