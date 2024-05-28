@@ -40,7 +40,7 @@ services:
 
 In the same directory, create the `Caddyfile` below. (This file does not need to be modified.)
 ```
-{$DOMAIN}:443 {
+{$DOMAIN} {
   log {
     level INFO
     output file {$LOG_FILE} {
@@ -120,7 +120,7 @@ The stock Caddy builds (including the one in the Docker image) don't include the
 
 In the same directory, create the `Caddyfile` below. (This file does not need to be modified.)
 ```
-{$DOMAIN}:443 {
+{$DOMAIN} {
   log {
     level INFO
     output file {$LOG_FILE} {
