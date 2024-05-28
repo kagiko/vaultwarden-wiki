@@ -16,7 +16,7 @@ docker build -t [YOUR-NAME]/caddycfdns .
 
 Caddyfile (as reverse proxy)
 ```nginx
-https://[YOUR-DOMAIN]:443 {
+[YOUR-DOMAIN] {
 
   tls {
         dns cloudflare [API-KEY]
