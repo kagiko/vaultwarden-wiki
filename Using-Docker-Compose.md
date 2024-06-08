@@ -17,6 +17,7 @@ services:
     restart: always
     environment:
       DOMAIN: "https://vaultwarden.example.com"  # Your domain; vaultwarden needs to know it's https to work properly with attachments
+      SIGNUPS_ALLOWED: "true"
     volumes:
       - /vw-data:/data
 
