@@ -1,5 +1,36 @@
 [Docker Compose](https://docs.docker.com/compose/) is a tool that allows the definition and configuration of multi-container applications. In our case, we want both the vaultwarden server and a proxy to redirect the WebSocket requests to the correct place.
 
+## Minimal template for no reverse proxy / a reverse proxy other than caddy
+
+This example assumes that you have [installed](https://docs.docker.com/compose/install/) Docker Compose. This configuration can be used either for local servers that are not open to the 'outside world', or as a template for a reverse proxy.
+
+Start by creating a new directory at your preferred location and changing into it. Next, create the `compose.yml` (or `docker-compose.yml` for legacy versions)
+
+```yaml
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: always
+    environment:
+      # DOMAIN: "https://vaultwarden.example.com"  # required when using a reverse proxy; your domain; vaultwarden needs to know it's https to work properly with attachments
+      SIGNUPS_ALLOWED: "true" # Deactivate this with "false" after you have created your account so that no strangers can register
+    volumes:
+      - ./vw-data:/data # the path before the : can be changed
+    ports:
+      - 11001:80 # you can replace the 11001 with your preferred port
+```
+
+to create and run the container, run:
+```bash
+docker compose up -d && docker compose logs -f
+```
+
+to update and run the container, run:
+```bash
+docker compose pull && docker compose up -d && docker compose logs -f
+```
+
 ## Caddy with HTTP challenge
 
 This example assumes that you have [installed](https://docs.docker.com/compose/install/) Docker Compose, that you have a domain name (e.g., `vaultwarden.example.com`) for your vaultwarden instance, and that it will be publicly accessible.
