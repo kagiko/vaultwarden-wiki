@@ -1,8 +1,8 @@
 [Docker Compose](https://docs.docker.com/compose/) is a tool that allows the definition and configuration of multi-container applications. In our case, we want both the vaultwarden server and a proxy to redirect the WebSocket requests to the correct place.
 
-## Minimal template for no reverse proxy / a reverse proxy fully configured by yourself (caddy example below)
+## Minimal template for no reverse proxy / a reverse proxy configured by yourself (caddy example below)
 
-This example assumes that you have [installed](https://docs.docker.com/compose/install/) Docker Compose. This configuration can be used either for local servers that are not open to the 'outside world', or as a template for a reverse proxy.
+This example assumes that you have [installed](https://docs.docker.com/compose/install/) Docker Compose. This configuration can be used either for local servers that are not open to the 'outside world', or as a template for a [reverse proxy](https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examples).
 
 Start by creating a new directory at your preferred location and changing into it. Next, create the `compose.yml` (or `docker-compose.yml` for legacy versions)
 
