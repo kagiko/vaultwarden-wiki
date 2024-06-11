@@ -26,7 +26,7 @@ Most environment variables that can be set are found in the `.env.template` file
 > [!TIP]
 > Be aware that there might be some subtle differences between the different platforms for how an environment file is interpreted (in regards to variable expansion or whether you can or should use quotation marks around the values, etc).
 
-You also need to make sure that you set the variable in the <a id="correct-environment">correct environment</a>. If you use a containerized environment the `vaultwarden` process will be running isolated from the host platform. This is especially relevant if you use a container management platform that you can set environment variables for (e.g. when using `docker-compose`). Because typically those environment variables can then be used in the creation of a container but they will not be passed to down into the running container.
+You also need to make sure that you set the variable in the <a id="correct-environment">correct environment</a>. If you use a containerized environment the `vaultwarden` process will be running isolated from the host platform. This is especially relevant if you use a container management platform that you can set environment variables for (e.g. when using `docker-compose`). Because typically those environment variables can then be used in the creation of a container but they will not be passed down into the running container.
 
 > [!NOTE]
 > A container configured like this with environment variables needs to be recreated if you change a value because the values are bound to the container. So unless the value is [read from a (changed) file](#loading-individual-values-from-files) a restart will not do anything.
@@ -55,12 +55,21 @@ To an extend, Vaultwarden can also be configured using a `config.json` file, whi
 > [!IMPORTANT]
 > :pray: While it's technically possible to create and edit the `config.json` file manually, **we strongly advise against it**. [JSON](https://www.json.org/) has a rather strict syntax and if you don't know what you are doing, this might become a nightmare to debug.
 
-The settings in `config.json` will override any other configuration method and you will be warned on startup which settings are overwritten.
+The settings in `config.json` will override any other configuration method and you will be warned on startup which settings have been overwritten by `config.json`.
 
 Since this generated `config.json` will include **all** editable options when saved, be aware that once you generate the configuration file via the `/admin` page, you cannot modify those options via any of the other methods (at least not without modifying or removing the `config.json` file).
 
 > [!NOTE]
 > The options in the section `Read-Only Config` **cannot** be modified via the `/admin` page because they require a server restart and **they will be removed** if you have added them manually to the `config.json` and click on save. Use the other methods described above to modify them. In most cases this means that you also need to recreate the container!
+
+Some environment variables are not part of Vaultwardens configuration system and therefore cannot be set via `config.json` (e.g. `ROCKET_ADDRESS` or `ROCKET_PORT`).
+
+## Configuration precedence
+
+1. On compilation the defaults are hard coded via `src/config.rs`.
+2. Those defaults can be changed without recompiling the binary by providing an `ENV_FILE` and also
+3. by setting the environment variables (which will overrule settings in the `ENV_FILE`).
+4. The end user (with access to `/admin` panel) optionally can create a `config.json` which will take the highest precedence.
 
 ## Setting the domain URL
 
