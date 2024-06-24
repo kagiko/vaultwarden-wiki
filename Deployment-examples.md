@@ -19,6 +19,23 @@ This section documents different options to host Vaultwarden on your **own hardw
 
   A walkthrough guide for securing access to Vaultwarden with Tailscale and Caddy. All services are containerized and managed with Docker Compose, hosted on a Raspberry Pi.
 
+
+* https://github.com/AlphanAksoyoglu/vaultwarden-rpi/
+
+  A docker-compose based, modular, self-hosted Vaultwarden deployment.
+
+  Options:
+
+  - LAN only, or LAN + Tailscale (Access from everywhere through VPN)
+  - Your domain (Cloudflare) or DuckDNS domain
+  - Optional Backup Service which does not rely on 3rd party containers
+  - Optional UFW and IPTABLES Hardening
+
+  Comes with a convenient **installer:**
+  - just run `install.sh --init` and `install.sh --install` 
+
+  and an extensive **README**.
+
 ### Shared hosting
 
 * https://github.com/jjlin/vaultwarden-shared-hosting
