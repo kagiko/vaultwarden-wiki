@@ -73,3 +73,4 @@ Note that some images mentioned here are no longer tagged like mentioned above.
 | Regular 64bit server | Unraid 6.8.0 | 19.03.5                         | `vaultwarden/server:latest` | OK |
 | QNAP TS-451DEU (Intel Celeron J4025) | QTS 5.0.0.1891 | x86_64                         | `vaultwarden/server:latest` | OK |     |
 | Regular 64 bit server | OpenMediaVault 6 (Debian Bullseye) | x86_64 | `vaultwarden/server:alpine` | OK |  |
+| Oracle Cloud Infrastructure (OCI) Ampere Altra | Ubuntu 24.04 LTS | linux/arm (arm64) | `vaultwarden/server:latest` | OK |  |
