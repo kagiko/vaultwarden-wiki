@@ -1,1 +1,1 @@
-test
+[[Enabling-admin-page#secure-the-admin_token]]
