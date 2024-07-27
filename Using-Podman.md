@@ -38,6 +38,7 @@ Description=Vaultwarden container
 After=network-online.target
 
 [Container]
+AutoUpdate=registry
 Image=ghcr.io/dani-garcia/vaultwarden:latest
 Exec=/start.sh
 EnvironmentFile=/etc/vaultwarden.env
@@ -48,7 +49,17 @@ PublishPort=8080:8080
 WantedBy=default.target
 ```
 
-After editing the quadlet, run `systemctl daemon-reload` to create or updates the systemd unit. You control this container using regular `systemctl` commands.
+After editing the quadlet, run `systemctl daemon-reload` to create or updates the systemd unit. You control this container using regular `systemctl` commands, e.g. `systemctl start vaultwarden.service`.
+
+## Auto update
+[auto-update](https://docs.podman.io/en/latest/markdown/podman-auto-update.1.html#description) automates the update process.
+```sh
+sudo podman auto-update
+```
+Or, you can enable the timer which invokes auto-update daily (by default, may be edited).
+```sh
+sudo systemctl enable podman-auto-update.timer
+```
 
 # Creating a systemd service file (older Podman versions)
 
