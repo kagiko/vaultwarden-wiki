@@ -43,6 +43,8 @@ If your reverse proxy is configured to save access logs, or the access logs are 
 
 No other data is ever send via GET request, encrypted or unencrypted.
 
+Be advised that internal vaultwarden logging strips query to 30 chars, hence access_token is truncated, meaning if not using reverse proxy, you shall be safe from this by default. 
+
 # Docker configuration
 
 The subsections below cover hardening related to Docker.
