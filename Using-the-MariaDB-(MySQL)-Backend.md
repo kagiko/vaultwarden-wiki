@@ -232,14 +232,14 @@ This will generate several queries which you need to execute to convert both the
 For these changes to work we need to temporarily disable foreign key checking.
 Copy/Paste the output from the generated output from the query above between the following lines:
 ```mysql
-SET foreign_key_checks = 0;
+SET foreign_key_checks=0;
 -- Copy/Paste the output from above here
-SET foreign_key_checks = 1;
+SET foreign_key_checks=1;
 ```
 
 In the end it should look something like the following output (but it could be different depending on updates or changes to the database structure).:
 ```mysql
-SET foreign_key_checks = 0;
+SET foreign_key_checks=0;
 ALTER TABLE `__diesel_schema_migrations` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `attachments` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `ciphers_collections` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -259,7 +259,7 @@ ALTER TABLE `twofactor` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode
 ALTER TABLE `users_collections` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `users_organizations` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `users` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-SET foreign_key_checks = 1;
+SET foreign_key_checks=1;
 ```
 
 You need to run those queries to convert them to the correct collation and charset.
