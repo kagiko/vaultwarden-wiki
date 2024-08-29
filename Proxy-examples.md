@@ -588,14 +588,19 @@ Add these lines to your haproxy configuration.
 ```haproxy
 frontend vaultwarden
     bind 0.0.0.0:80
-    option forwardfor header X-Real-IP
-    http-request set-header X-Real-IP %[src]
     default_backend vaultwarden_http
 
 backend vaultwarden_http
     # Enable compression if you want
     # compression algo gzip
     # compression type text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript
+    # Vaultwarden does not support the forwarded header, but you can enable it
+    # option forward
+    # Add the x-forwarded-for header
+    option forwardfor
+    # Set the Source IP in the `X-Real-IP` header
+    http-request set-header X-Real-IP %[src]
+    # Send the traffic to the local instance
     server vwhttp 0.0.0.0:8080 alpn http/1.1
 ```
 </details>
