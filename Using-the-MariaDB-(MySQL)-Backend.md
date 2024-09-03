@@ -60,7 +60,7 @@ services:
   env_file:
    - ".env"
   volumes:
-   - "mariadb_vol:/var/lib/mysql"
+   - "vaultwarden-db_vol:/var/lib/mysql"
    - "/etc/localtime:/etc/localtime:ro"
   environment:
    - "MYSQL_ROOT_PASSWORD=<my-secret-pw>"
@@ -96,7 +96,7 @@ services:
 
 volumes:
  vaultwarden_vol:
- mariadb_vol:
+ vaultwarden-db_vol:
 ```
 
 <br>
