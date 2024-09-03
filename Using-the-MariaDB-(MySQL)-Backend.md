@@ -1,7 +1,7 @@
 > [!WARNING]
 > <p align=center>⚠️ 💩 ⚠️</p>
 >
-> <p align=center>Our builds are based upon MariaDB client libraries since that is what Debian provides.</p>
+> <p align=center>Although MySQL database works fine, be aware that our builds are based upon MariaDB client libraries since that is what Debian provides.</p>
 >
 > <p align=center>⚠️ 💩 ⚠️</p>
 
@@ -53,10 +53,9 @@ mysql://dbuser:yourpassword@192.168.1.10:3306/vaultwarden
 ```yaml
 version: "3.7"
 services:
- mariadb:
-  image: "mariadb"
-  container_name: "mariadb"
-  hostname: "mariadb"
+ vaultwarden-db:
+  image: "mariadb" # or "mysql"
+  container_name: "vaultwarden-db"
   restart: always
   env_file:
    - ".env"
@@ -68,21 +67,30 @@ services:
    - "MYSQL_PASSWORD=<vaultwarden_pw>"
    - "MYSQL_DATABASE=vaultwarden"
    - "MYSQL_USER=<vaultwarden_user>"
+  healthcheck:
+   test: mariadb-admin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+   start_period: 5s
+   interval: 5s
+   timeout: 5s
+   retries: 55
+
 
  vaultwarden:
   image: "vaultwarden/server:latest"
   container_name: "vaultwarden"
   hostname: "vaultwarden"
+  depends_on:
+   vaultwarden-db:
+    condition: service_healthy
   restart: always
   env_file:
    - ".env"
   volumes:
    - "vaultwarden_vol:/data/"
   environment:
-## Had issues when using single parentheses around the mysql URL as in the plain docker example 
-   - "DATABASE_URL=mysql://<vaultwarden_user>:<vaultwarden_pw>@mariadb/vaultwarden"
-   - "ADMIN_TOKEN=<some_random_token_as_per_above_explanation>"
-   - "RUST_BACKTRACE=1"
+   - DATABASE_URL=mysql://<vaultwarden_user>:${VAULTWARDEN_MYSQL_PASSWORD}@vaultwarden-db/vaultwarden
+   - ADMIN_TOKEN=<some_random_token_as_per_above_explanation> # https://github.com/dani-garcia/vaultwarden/wiki/Enabling-admin-page
+   - RUST_BACKTRACE=1
   ports:
    - "80:80"
 
@@ -108,7 +116,7 @@ volumes:
 CREATE DATABASE vaultwarden CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-2a. Create a new database user and grant rights to database (MariaDB, MySQL):
+2. Create a new database user and grant rights to database (MariaDB, MySQL):
 ```sql
 CREATE USER 'vaultwarden'@'localhost' IDENTIFIED BY 'yourpassword';
 GRANT ALL ON `vaultwarden`.* TO 'vaultwarden'@'localhost';
