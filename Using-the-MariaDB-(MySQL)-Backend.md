@@ -1,7 +1,7 @@
 > [!WARNING]
 > <p align=center>⚠️ 💩 ⚠️</p>
 >
-> <p align=center>Our builds are based upon MariaDB client libraries since that is what Debian provides.<br>Support for the latest Oracle MySQLv8 version needs some extra attention.<br>If you insist to use MySQLv8 instead of MariaDB then create a user using an old password hashing method instead of the default one!</p>
+> <p align=center>Our builds are based upon MariaDB client libraries since that is what Debian provides.</p>
 >
 > <p align=center>⚠️ 💩 ⚠️</p>
 
@@ -108,24 +108,11 @@ volumes:
 CREATE DATABASE vaultwarden CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-2a. Create a new database user and grant rights to database (MariaDB, MySQL versions before v8):
+2a. Create a new database user and grant rights to database (MariaDB, MySQL):
 ```sql
 CREATE USER 'vaultwarden'@'localhost' IDENTIFIED BY 'yourpassword';
 GRANT ALL ON `vaultwarden`.* TO 'vaultwarden'@'localhost';
 FLUSH PRIVILEGES;
-```
-
-2b If you use MySQL v8.x you need to create the user like this:
-```sql
--- Use this on MySQLv8 installations
-CREATE USER 'vaultwarden'@'localhost' IDENTIFIED WITH mysql_native_password BY 'yourpassword';
-GRANT ALL ON `vaultwarden`.* TO 'vaultwarden'@'localhost';
-FLUSH PRIVILEGES;
-```
-If you created the user already and want to change the password type:
-```sql
--- Change password type from caching_sha2_password to native
-ALTER USER 'vaultwarden'@'localhost' IDENTIFIED WITH mysql_native_password BY 'yourpassword';
 ```
 
 You might want to try a restricted set of grants:
