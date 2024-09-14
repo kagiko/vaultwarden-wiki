@@ -73,7 +73,12 @@ By default the machine's hostname is used as the hostname in the HELO command. T
 ### Google/Gmail
 You need to generate a App Password for Vaultwarden to work with Gmail.<br>
 Follow the steps here: https://support.google.com/accounts/answer/185833?hl=en&ref_topic=7189145 (unavailable since 5/30/2022)<br>
-In the end you well be shown a password (with spaces in between which are not there, it is just for easy type-over), us this password.<br>
+In the end you well be shown a password (with spaces in between which are not there, it is just for easy type-over), use this password.<br>
+
+> [!NOTE]
+If that is not possible (because of your security settings), you can see [the section below about OAuth2 support](#oauth2-support) for more information.
+
+
 FullSSL:
 ```ini
   # Domains: gmail.com, googlemail.com
@@ -95,6 +100,10 @@ StartTLS:
 Also see: https://web.archive.org/web/20210925161633/https://webewizard.com/2019/09/17/Using-Lettre-With-Gmail/
 
 ### Hotmail/Outlook/Office365
+
+> [!WARNING]
+Due to Microsoft requiring OAuth2 support this will not work anymore. See [the troubleshooting below](#oauth2-support) for more information.
+
 ```ini
   # Domains: hotmail.com, outlook.com, office365.com
   SMTP_HOST=smtp-mail.outlook.com
@@ -177,6 +186,15 @@ After running the command bellow, run one of the commands above to check access 
 ```bash
 docker exec -it vaultwarden sh
 ```
+
+### OAuth2 support
+
+If you get the following error message 
+> No compatible authentication mechanism was found
+
+That's most likely because Microsoft (and also Google Mail for certain use cases) have switched to OAuth2 (cf. [RFC 6749](https://datatracker.ietf.org/doc/html/rfc6749)) as the only supported authentication method, which we don't support (yet), even if the `lettre` crate already has a non-standard support for it (cf. [#4518](https://github.com/dani-garcia/vaultwarden/discussions/4518#discussioncomment-9196455)).
+
+The recommended way to deal with it (if you don't want to or can use a different SMTP server) is to setup [email-oauth2-proxy](https://github.com/simonrob/email-oauth2-proxy).
 
 ## Using `sendmail` (without docker)
 
