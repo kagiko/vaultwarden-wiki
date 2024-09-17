@@ -56,7 +56,7 @@ load database
 9. Start vaultwarden again.
 
 ## Migrating from MySQL to PostgreSQL
-> Tested with MariaDB 10.3.32, PostgreSQL 14.2 and Vaultwarden 1.24.0
+> Tested with MariaDB 10.11.9, PostgreSQL 15.8-1 and Vaultwarden 1.32.0
 
 
 Please, note that you **are using this at your own risk and you are strongly advised to backup your installation and data!**. This is **unsupported** and has not been robustly tested.
