@@ -522,6 +522,7 @@ On some OS's you can use a2enmod, for example with: `a2enmod proxy_wstunnel` and
         RewriteEngine On
         RewriteCond %{HTTP:Upgrade} =websocket [NC]
         RewriteRule /notifications/hub(.*) ws://<SERVER>:<SERVER_PORT>/$sublocation/notifications/hub/$1 [P,L]
+        RewriteRule /notifications/anonymous-hub(.*) ws://<SERVER>:<SERVER_PORT>/fjbitwarden/notifications/anonymous-hub/$1 [P,L]
         ProxyPass http://<SERVER>:<SERVER_PORT>/$sublocation
 
         ProxyPreserveHost Off
