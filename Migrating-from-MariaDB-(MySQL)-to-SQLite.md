@@ -39,8 +39,7 @@ mysqldump \
   --single-transaction \
   --no-create-db \
   --no-create-info \
-  --hex-blob \
-  --skip-quote-names <database> \
+  --hex-blob <database> \
   | grep -a "^INSERT INTO" | grep -a -v "__diesel_schema_migrations" \
   | sed 's#\\"#"#gm' \
   | sed -sE "s#,0x([^,]*)#,X'\L\1'#gm" \
@@ -51,11 +50,11 @@ You should be prompted to enter a password, enter your password and press enter.
 
 This should generate a file `mysql-to-sqlite.sql` which holds your database.
 Now look for the db.sqlite3 file Vaultwarden created in the previous step when you started Vaultwarden for the first time using SQLite as it's database.
-Copy or move the `mysql-to-sqlite.sql` so that both `db.sqlite3` and the export are in the same directory.
+Copy or move `mysql-to-sqlite.sql` to the same directory as `db.sqlite3`.
 Now you can execute the following
 
 ```bash
-sqlite3 db_new.sqlite3 < mysql-to-sqlite.sql
+sqlite3 db.sqlite3 < mysql-to-sqlite.sql
 ```
 
 This should have filled the SQLite database with the dump, and you can now start Vaultwarden again using SQLite instead of MySQL.
