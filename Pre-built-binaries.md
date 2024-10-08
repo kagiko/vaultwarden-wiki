@@ -52,4 +52,5 @@ To pull and extract an image for another platform:
 * ARMv6: `./docker-image-extract -p linux/arm/v6 vaultwarden/server:latest-alpine`
 * ARMv7: `./docker-image-extract -p linux/arm/v7 vaultwarden/server:latest-alpine`
 * ARMv8 / AArch64: `./docker-image-extract -p linux/arm64 vaultwarden/server:latest-alpine`
- or use auto extracted binary using github actions from [czyt’s repo](https://github.com/czyt/vaultwarden-binary)
+ 
+or use auto extracted binary using github actions from [czyt’s repo](https://github.com/czyt/vaultwarden-binary)
