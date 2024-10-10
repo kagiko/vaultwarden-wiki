@@ -11,7 +11,7 @@ Vaultwarden implements the Bitwarden APIs required for most functionality, inclu
 * Web interface (equivalent to https://vault.bitwarden.com/)
 * Personal vault support
 * [Organization](https://bitwarden.com/help/getting-started-organizations/) vault support
-* [Groups](https://bitwarden.com/help/about-groups/) (unstable ([#3624](https://github.com/dani-garcia/vaultwarden/issues/3624), [#3413](https://github.com/dani-garcia/vaultwarden/issues/3413)), setting an [environment variable](https://github.com/dani-garcia/vaultwarden/blob/bb2412d0339e1da5dee99fc566a2b2aab5d2808c/.env.template#L409-L414) is required in order to enable it)
+* [Groups](https://bitwarden.com/help/about-groups/), setting an [environment variable](https://github.com/dani-garcia/vaultwarden/blob/bb2412d0339e1da5dee99fc566a2b2aab5d2808c/.env.template#L409-L414) is required in order to enable it)
 * [Event Logs](https://bitwarden.com/help/event-logs/)
 * [Password sharing](https://bitwarden.com/help/sharing/) and [access control](https://bitwarden.com/help/user-types-access-control/)
 * [Collections](https://bitwarden.com/help/about-collections/)
