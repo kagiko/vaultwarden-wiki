@@ -161,6 +161,14 @@ Docker uses the `FORWARD` chain instead of the default INPUT chain. If the machi
 chain = FORWARD
 ```
 
+###### Note for Synology DSM Docker Users
+
+Please set the `chain` to `DOCKER-USER` 
+
+```ini
+chain = DOCKER-USER
+```
+
 ###### Note for Docker Users with Fail2Ban v1.1.1.dev1 (and possibly newer)
 
 With Fail2Ban v1.1.1.dev1 the default `banactions` for Debian changed from iptables to nftables (see [here](https://github.com/fail2ban/fail2ban/commit/d0d07285234871bad3dc0c359d0ec03365b6dddc)). Docker (at least version 25.0.3) on the other hand still uses iptables. Hence, the requests to the Docker containers are not blocked with `banaction = %(banaction_allports)s`. In this scenario, use
