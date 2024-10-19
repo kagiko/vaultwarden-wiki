@@ -3,6 +3,12 @@ This page is an index of standalone deployment examples. If adding a new example
 ## Self-hosted
 This section documents different options to host Vaultwarden on your **own hardware** or any infrastructure that is primarily **managed by yourself**.
 
+### Ansible
+
+* https://github.com/guerzon/ansible-role-vaultwarden
+
+  Ansible role that currently supports EL8 and EL9 distributions. Under active development and support and has a working MVP version.
+
 ### Raspberry Pi
 
 * https://github.com/martient/vaultwarden-ansible
@@ -97,11 +103,13 @@ If you have any Questions about this part, feel Free to contact me. I on @litsch
 You can install Vaultwarden into your secure network-attached storage (NAS) with Let's Encrypt.
 Due to the QNAP's built-in HTTP(S) server, you cannot publish Vaultwarden on the standard HTTP(S) port (80 / 443).
 
-### Kubernetes
+### Kubernetes Manifests
 
 * https://github.com/icicimov/kubernetes-bitwarden_rs
 
   Sets up a fully functional and secure `vaultwarden` application in Kubernetes behind [nginx-ingress-controller](https://github.com/kubernetes/ingress-nginx) and AWS [ELBv1](https://aws.amazon.com/elasticloadbalancing/features/#Details_for_Elastic_Load_Balancing_Products). It provides a little bit more than just simple deployment but you can use all or just part of the manifests depending on your needs and setup.
+
+### Helm charts
 
 * https://github.com/Skeen/helm-bitwarden_rs
 
@@ -109,7 +117,9 @@ Due to the QNAP's built-in HTTP(S) server, you cannot publish Vaultwarden on the
 
 * https://github.com/guerzon/vaultwarden
 
-  Deploy `Vaultwarden` to Kubernetes clusters using [Helm](https://helm.sh/docs/). This chart supports important customizations such as providing image tags and custom registry values, using an external MySQL or PostgreSQL database, using ingress controllers such as [nginx-ingress](https://kubernetes.github.io/ingress-nginx/deploy/) and [AWS LB Ingress Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/deploy/installation/), using service accounts, configuring SMTP, and configuring storage options. The chart is well-documented and will continue to introduce more configuration options in the future.
+  Deploy `Vaultwarden` to Kubernetes clusters using [Helm](https://helm.sh/docs/). This chart supports important customizations such as providing image tags and custom registry values, using an external MySQL or PostgreSQL database, using ingress controllers such as [nginx-ingress](https://kubernetes.github.io/ingress-nginx/deploy/) and [AWS LB Ingress Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.4/deploy/installation/), using service accounts, configuring SMTP, and configuring storage options.
+
+  This Helm chart is under active development and support.
 
 ## PaaS Hosting
 This section presents different options to host Vaultwarden **in the cloud** or using Platform as a Service providers. 
@@ -125,10 +135,6 @@ Installs vaultwarden on Sealos using all free addons. Takes about 1 minutes to i
 * https://github.com/dadatuputi/bitwarden_gcloud
 
   Vaultwarden installation optimized for Google Cloud's 'always free' e2-micro compute instance
-
-* https://medium.com/@sreafterhours/terraform-helm-external-dns-cert-manager-nginx-and-vaultwarden-on-gke-5080f3b4909f
-
-  Detailed Vaultwarden installation in Google Kubernetes Engine, which includes infrastructure and cluster configuration.
 
 ### Heroku
 
